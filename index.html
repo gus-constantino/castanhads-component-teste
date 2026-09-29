@@ -264,8 +264,8 @@
 
     <div class="pg-ctrl"><span class="pg-lbl" id="l-type">Type</span>
       <div class="pg-seg" id="c-type" role="group" aria-labelledby="l-type">
-        <button type="button" data-v="numeric" aria-pressed="true">Numérico</button>
-        <button type="button" data-v="alphanumeric" aria-pressed="false">Alfanumérico</button></div></div>
+        <button type="button" data-v="alphanumeric" aria-pressed="true">Alfanumérico</button>
+        <button type="button" data-v="numeric" aria-pressed="false">Numérico</button></div></div>
 
     <div class="pg-ctrl"><span class="pg-lbl" id="l-vp">Viewport</span>
       <div class="pg-seg" id="c-vp" role="group" aria-labelledby="l-vp">
@@ -288,7 +288,7 @@
       <div class="pg-hint">O último dígito nunca tem separador. Ex.: só o 3 agrupa 3 + 3.</div></div>
 
     <div class="pg-ctrl"><label class="pg-lbl" for="c-label">Text Label</label><input class="pg-text" type="text" id="c-label" value="Código"></div>
-    <div class="pg-ctrl"><label class="pg-lbl" for="c-value">Value (prefill)</label><input class="pg-text" type="text" id="c-value" placeholder="ex.: 237766" autocomplete="off"></div>
+    <div class="pg-ctrl"><label class="pg-lbl" for="c-value">Value (prefill)</label><input class="pg-text" type="text" id="c-value" placeholder="ex.: A916GY" autocomplete="off"></div>
     <div class="pg-ctrl"><label class="pg-lbl" for="c-supporting">Supporting Message (Neutral)</label><input class="pg-text" type="text" id="c-supporting" value="Enviamos um código por SMS."></div>
     <div class="pg-ctrl"><label class="pg-lbl" for="c-error">Error Message (Warning)</label><input class="pg-text" type="text" id="c-error" value="Código inválido. Tente de novo."></div>
   </aside>
@@ -303,7 +303,7 @@
 
   /**
    * <cds-code-input>
-   * Atributos: length (3–8) · type (numeric|alphanumeric) · appearance (neutral|warning)
+   * Atributos: length (3–8, padrão 6) · type (alphanumeric|numeric, padrão alphanumeric) · appearance (neutral|warning)
    * masked · disabled · required · label · value · supporting · error
    * separators ("3" | "2,4" | "all" | "none") — posição = separador depois daquele dígito.
    * Eventos: cds-change {value} · cds-complete {value}
@@ -312,7 +312,7 @@
     static get observedAttributes(){ return ["length","type","value","masked","disabled","appearance","label","required","supporting","error","separators"]; }
     constructor(){ super(); this.inputs = []; this.boxes = []; this._id = "cds-ci-" + (++uid); }
     get length(){ return clamp(parseInt(this.getAttribute("length"), 10) || 6, MIN, MAX); }
-    get type(){ return this.getAttribute("type") === "alphanumeric" ? "alphanumeric" : "numeric"; }
+    get type(){ return this.getAttribute("type") === "numeric" ? "numeric" : "alphanumeric"; }
     get appearance(){ return this.getAttribute("appearance") === "warning" ? "warning" : "neutral"; }
     get masked(){ return this.hasAttribute("masked"); }
     get disabled(){ return this.hasAttribute("disabled"); }
@@ -459,7 +459,7 @@
     });
   }
   seg("c-appearance", function(v){ setAttr("appearance", v === "neutral" ? null : v); });
-  seg("c-type", function(v){ setAttr("type", v === "numeric" ? null : v); });
+  seg("c-type", function(v){ setAttr("type", v === "alphanumeric" ? null : v); });
   seg("c-vp", setViewport);
 
   ["masked","disabled","required"].forEach(function(k){

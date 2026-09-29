@@ -39,8 +39,10 @@
     --text-style-label-medium: 500 16px/1 Roboto, system-ui, sans-serif;
     --text-style-subtitle-medium: 500 20px/1.5 Roboto, system-ui, sans-serif;
     --text-style-caption-regular: 400 14px/1.5 Roboto, system-ui, sans-serif;
-    /* Motion — padrão de interação do sistema */
-    --motion-duration:150ms; --motion-easing:cubic-bezier(.7,0,.8,1);
+    /* Motion — reactions da .Value Box (Smart Animate) */
+    --motion-hover-duration:150ms;  --motion-hover-easing:cubic-bezier(.7,0,.5,1);   /* Enabled → Hovered (While hovering) */
+    --motion-press-duration:200ms;  --motion-press-easing:cubic-bezier(.7,0,.8,1);   /* Hovered → Pressed (While pressing) */
+    --motion-active-duration:350ms; --motion-active-easing:cubic-bezier(.4,0,.1,1);  /* Pressed → Enabled + Is Active (On tap) */
   }
   html[data-theme="dark"]{
     --common-colors-surface-default:#1a1a1a;
@@ -87,20 +89,22 @@
     --_stroke-c:var(--common-colors-border-medium);
     --_bg:var(--common-colors-surface-default);
     --_fg:var(--common-colors-text-medium);
+    /* a transição usada é a do estado de destino; volta ao repouso = reverso do hover */
+    --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
     position:relative; flex:0 0 auto;
     width:var(--common-sizes-40); height:var(--common-sizes-56);
     border-radius:var(--common-border-radius-medium);
     background:var(--_bg);
     box-shadow:inset 0 0 0 var(--_stroke-w) var(--_stroke-c);
-    transition:background-color var(--motion-duration) var(--motion-easing),
-               box-shadow var(--motion-duration) var(--motion-easing);
+    transition:background-color var(--_dur) var(--_ease),
+               box-shadow var(--_dur) var(--_ease);
   }
   .cds-ci__input{
     position:absolute; inset:0; width:100%; height:100%;
     margin:0; padding:0; border:0; outline:0; background:transparent; border-radius:inherit;
     text-align:center; font:var(--text-style-subtitle-medium); color:var(--_fg);
     caret-color:var(--common-colors-border-intense); cursor:text;
-    transition:color var(--motion-duration) var(--motion-easing);
+    transition:color var(--_dur) var(--_ease);
   }
   /* Hidden Value: círculo 8px Icons/intense no lugar do caractere */
   .cds-ci__dot{
@@ -112,25 +116,41 @@
   .cds-ci--masked .cds-ci__input{ color:transparent; }
   .cds-ci--masked .cds-ci__box.is-filled .cds-ci__dot{ display:block; }
 
-  /* State=Hovered (Is Active=False) */
-  .cds-ci__box:hover{ --_bg:var(--common-colors-surface-01); --_stroke-w:var(--common-border-width-thin); }
-  /* State=Pressed (Is Active=False) */
+  /* State=Hovered (Is Active=False) — While hovering · 150ms */
+  .cds-ci__box:hover{
+    --_bg:var(--common-colors-surface-01); --_stroke-w:var(--common-border-width-thin);
+    --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+  }
+  /* State=Pressed (Is Active=False) — While pressing · 200ms */
   .cds-ci__box:active{
     --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
     --_stroke-w:var(--common-border-width-thin);
     --_stroke-c:var(--common-colors-border-semi-intense);
+    --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
   }
-  /* Is Active=True (célula em edição) */
+  /* Is Active=True (célula em edição) — On tap · 350ms */
   .cds-ci__box:focus-within{
     --_bg:var(--common-colors-surface-default);
     --_stroke-w:var(--common-border-width-thin);
     --_stroke-c:var(--common-colors-border-intense);
     --_fg:var(--common-colors-text-intense);
+    --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
   }
-  .cds-ci__box:focus-within:hover{ --_bg:var(--common-colors-surface-01); --_stroke-c:var(--common-colors-border-semi-intense); }
+  .cds-ci__box:focus-within:hover{
+    --_bg:var(--common-colors-surface-01); --_stroke-c:var(--common-colors-border-semi-intense);
+    --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+  }
   .cds-ci__box:focus-within:active{
     --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
     --_stroke-c:var(--common-colors-border-intense);
+    --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
+  }
+  /* Logo após o tap o cursor ainda está sobre a célula: segura Enabled + Is Active pela
+     duração do On tap para o hover não sobrescrever a transição de 350ms. */
+  .cds-ci__box.is-tapped:focus-within{
+    --_bg:var(--common-colors-surface-default);
+    --_stroke-c:var(--common-colors-border-intense);
+    --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
   }
   /* Appearance=Warning — stroke warning em todos os estados */
   cds-code-input[appearance="warning"] .cds-ci__box,
@@ -435,6 +455,12 @@
         }
       });
       inp.addEventListener("focus", function(){ inp.select(); });
+      inp.addEventListener("pointerup", function(){
+        var box = self.boxes[index];
+        box.classList.add("is-tapped");
+        clearTimeout(box._tapT);
+        box._tapT = setTimeout(function(){ box.classList.remove("is-tapped"); }, 350);
+      });
       inp.addEventListener("paste", function(e){
         e.preventDefault();
         self.fillFrom(index, (e.clipboardData && e.clipboardData.getData("text")) || "");

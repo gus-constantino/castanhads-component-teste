@@ -67,7 +67,7 @@
   /* Base 320px (6 células); cresce com o conteúdo até o teto de 480px da fileira */
   cds-code-input{
     display:flex; flex-direction:column; align-items:stretch;
-    gap:var(--common-sizes-4);
+    gap:var(--common-sizes-8);
     width:max-content; min-width:min(320px, 100%); max-width:min(480px, 100%);
     opacity:var(--common-opacity-opaque);
   }
@@ -95,9 +95,8 @@
     font:var(--text-style-label-medium); color:var(--common-colors-text-intense); white-space:nowrap;
   }
   .cds-ci__boxes{
-    display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-4);
+    display:flex; align-items:center; justify-content:flex-start; gap:var(--common-sizes-4);
     width:100%; max-width:480px; overflow-x:auto; scrollbar-width:thin;
-    padding-bottom:var(--common-sizes-2);
   }
   /* .Value Box = célula + separator opcional */
   .cds-ci__vb{ display:flex; align-items:center; gap:var(--common-sizes-4); flex:0 0 auto; }

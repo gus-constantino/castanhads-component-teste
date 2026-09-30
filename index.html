@@ -24,6 +24,8 @@
     --common-colors-text-intense:#1a1a1a;
     --common-colors-icons-intense:#1a1a1a;
     --common-colors-neutral-solid-semi-intense:#4d4d4d;
+    --common-colors-neutral-solid-medium:#999999;
+    --common-colors-neutral-solid-semi-soft:#e3e3e3;
     --common-colors-neutral-opacity-intense-semi-transparent:#1a1a1a29;
     --common-colors-feedback-warning-semi-intense:#974602;
     --common-colors-support-system:#0069cc;
@@ -31,7 +33,7 @@
     --common-sizes-0:0px; --common-sizes-2:2px; --common-sizes-4:4px; --common-sizes-8:8px;
     --common-sizes-16:16px; --common-sizes-20:20px; --common-sizes-32:32px; --common-sizes-40:40px; --common-sizes-56:56px;
     /* Common/Border */
-    --common-border-radius-medium:16px; --common-border-radius-large:24px; --common-border-radius-pill:1000px;
+    --common-border-radius-small:12px; --common-border-radius-medium:16px; --common-border-radius-large:24px; --common-border-radius-pill:1000px;
     --common-border-width-hairline:1px; --common-border-width-thin:2px;
     /* Common/Opacity */
     --common-opacity-opaque:1; --common-opacity-medium:.4;
@@ -43,6 +45,7 @@
     --motion-hover-duration:150ms;  --motion-hover-easing:cubic-bezier(.7,0,.5,1);   /* Enabled → Hovered (While hovering) */
     --motion-press-duration:200ms;  --motion-press-easing:cubic-bezier(.7,0,.8,1);   /* Hovered → Pressed (While pressing) */
     --motion-active-duration:350ms; --motion-active-easing:cubic-bezier(.4,0,.1,1);  /* Pressed → Enabled + Is Active (On tap) */
+    --motion-icon-button-duration:300ms; --motion-icon-button-easing:ease-out;       /* Icon Button Enabled → Hovered */
   }
   html[data-theme="dark"]{
     --common-colors-surface-default:#1a1a1a;
@@ -54,25 +57,46 @@
     --common-colors-text-intense:#fcfcfc;
     --common-colors-icons-intense:#fcfcfc;
     --common-colors-neutral-solid-semi-intense:#cccccc;
+    --common-colors-neutral-solid-medium:#808080;
+    --common-colors-neutral-solid-semi-soft:#4d4d4d;
     --common-colors-neutral-opacity-intense-semi-transparent:#fcfcfc29;
     --common-colors-feedback-warning-semi-intense:#fdac68;
   }
 
   /* ===================== Componente Code Input OTP ===================== */
+  /* Base 320px (6 células); cresce com o conteúdo até o teto de 480px da fileira */
   cds-code-input{
-    display:flex; flex-direction:column; align-items:flex-start;
-    gap:var(--common-sizes-4); min-width:128px; max-width:100%;
+    display:flex; flex-direction:column; align-items:stretch;
+    gap:var(--common-sizes-4);
+    width:max-content; min-width:min(320px, 100%); max-width:min(480px, 100%);
     opacity:var(--common-opacity-opaque);
   }
   cds-code-input[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+
+  /* Visibility Action — Icon Button · Ghost · Neutral · Small (40×40) */
+  .cds-ci__action{
+    flex:0 0 auto; width:var(--common-sizes-40); height:var(--common-sizes-40);
+    display:grid; place-items:center; padding:0; margin:0; border:0; cursor:pointer;
+    border-radius:var(--common-border-radius-small); background:transparent;
+    transition:background-color var(--motion-icon-button-duration) var(--motion-icon-button-easing);
+  }
+  .cds-ci__action:hover{ background:var(--common-colors-neutral-solid-semi-soft); }
+  .cds-ci__action:active{ background:var(--common-colors-neutral-solid-medium); }
+  /* Ícone 20px na cor Icons/intense (asset do Figma usado como máscara para herdar o token) */
+  .cds-ci__icon{
+    width:var(--common-sizes-20); height:var(--common-sizes-20); background:var(--common-colors-icons-intense);
+    -webkit-mask:var(--_icon) center / contain no-repeat; mask:var(--_icon) center / contain no-repeat;
+  }
+  .cds-ci__icon--show{ --_icon:url("assets/icons/hide-line.svg"); }
+  .cds-ci__icon--hide{ --_icon:url("assets/icons/hide-off-line.svg"); }
 
   .cds-ci__label{
     display:flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-20);
     font:var(--text-style-label-medium); color:var(--common-colors-text-intense); white-space:nowrap;
   }
   .cds-ci__boxes{
-    display:flex; align-items:center; gap:var(--common-sizes-4);
-    max-width:100%; overflow-x:auto; scrollbar-width:thin;
+    display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-4);
+    width:100%; max-width:480px; overflow-x:auto; scrollbar-width:thin;
     padding-bottom:var(--common-sizes-2);
   }
   /* .Value Box = célula + separator opcional */
@@ -212,6 +236,7 @@
   @media (max-width:860px){ .pg-panel{ box-shadow:inset 0 1px 0 var(--pg-line); } }
   .pg-panel h2{ margin:0 0 16px; font:500 12px/1.5 Roboto, sans-serif; letter-spacing:.06em; text-transform:uppercase; color:var(--common-colors-text-medium); }
   .pg-ctrl{ margin-bottom:16px; }
+  .pg-sub{ margin:24px 0 12px; padding-top:16px; box-shadow:inset 0 1px 0 var(--pg-line); font:500 12px/1.5 Roboto, sans-serif; color:var(--common-colors-text-intense); }
   .pg-ctrl > .pg-lbl{ display:block; margin-bottom:6px; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
   .pg-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
   .pg-row .pg-lbl{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-intense); }
@@ -265,7 +290,7 @@
     <div class="pg-frame" id="frame">
       <div class="pg-frame-meta"><span>Viewport: <code id="vp-readout">1366px</code></span><span>Valor: <code id="rval">—</code> <span id="rdone"></span></span></div>
       <div class="pg-preview">
-        <cds-code-input id="preview" length="6" separators="3" label="Código" required
+        <cds-code-input id="preview" length="6" separators="3" label="Código"
           supporting="Enviamos um código por SMS." error="Código inválido. Tente de novo."></cds-code-input>
       </div>
     </div>
@@ -295,22 +320,33 @@
         <button type="button" data-v="fluid" aria-pressed="false">Fluido</button></div>
       <div class="pg-hint">A célula tem tamanho fixo. Se não couber, a fileira rola na horizontal.</div></div>
 
-    <div class="pg-ctrl pg-row"><label class="pg-lbl" for="c-masked">Hidden Values (masked)</label>
-      <label class="pg-switch"><input type="checkbox" id="c-masked"><span class="pg-track"></span><span class="pg-thumb"></span></label></div>
-    <div class="pg-ctrl pg-row"><label class="pg-lbl" for="c-disabled">Disabled</label>
+    <h3 class="pg-sub">Variants</h3>
+    <div class="pg-ctrl pg-row"><label class="pg-lbl" for="c-disabled">State: Disabled</label>
       <label class="pg-switch"><input type="checkbox" id="c-disabled"><span class="pg-track"></span><span class="pg-thumb"></span></label></div>
-    <div class="pg-ctrl pg-row"><label class="pg-lbl" for="c-required">Required</label>
-      <label class="pg-switch"><input type="checkbox" id="c-required" checked><span class="pg-track"></span><span class="pg-thumb"></span></label></div>
+    <div class="pg-ctrl pg-row"><label class="pg-lbl" for="c-masked">Hidden Values</label>
+      <label class="pg-switch"><input type="checkbox" id="c-masked"><span class="pg-track"></span><span class="pg-thumb"></span></label></div>
+    <h3 class="pg-sub">Booleans</h3>
+    <div class="pg-ctrl pg-row"><label class="pg-lbl" for="c-show-label">Show Label</label>
+      <label class="pg-switch"><input type="checkbox" id="c-show-label" checked><span class="pg-track"></span><span class="pg-thumb"></span></label></div>
+    <div class="pg-ctrl pg-row"><label class="pg-lbl" for="c-show-required">Show Required</label>
+      <label class="pg-switch"><input type="checkbox" id="c-show-required" checked><span class="pg-track"></span><span class="pg-thumb"></span></label></div>
+    <div class="pg-ctrl pg-row"><label class="pg-lbl" for="c-show-supporting-content">Show Supporting Content</label>
+      <label class="pg-switch"><input type="checkbox" id="c-show-supporting-content" checked><span class="pg-track"></span><span class="pg-thumb"></span></label></div>
+    <div class="pg-ctrl pg-row"><label class="pg-lbl" for="c-show-trailing-item">Show Trailing Item</label>
+      <label class="pg-switch"><input type="checkbox" id="c-show-trailing-item" checked><span class="pg-track"></span><span class="pg-thumb"></span></label></div>
 
     <div class="pg-ctrl"><span class="pg-lbl" id="l-sep">Show Separator — depois de qual dígito</span>
       <div class="pg-seg" style="margin-bottom:6px"><button type="button" id="sep-all">Todos</button><button type="button" id="sep-none">Nenhum</button></div>
       <div class="pg-chips" id="c-sep" role="group" aria-labelledby="l-sep"></div>
       <div class="pg-hint">O último dígito nunca tem separador. Ex.: só o 3 agrupa 3 + 3.</div></div>
 
+    <h3 class="pg-sub">Texts</h3>
     <div class="pg-ctrl"><label class="pg-lbl" for="c-label">Text Label</label><input class="pg-text" type="text" id="c-label" value="Código"></div>
-    <div class="pg-ctrl"><label class="pg-lbl" for="c-value">Value (prefill)</label><input class="pg-text" type="text" id="c-value" placeholder="ex.: A916GY" autocomplete="off"></div>
+    <div class="pg-ctrl"><label class="pg-lbl" for="c-required-text">Required Text</label><input class="pg-text" type="text" id="c-required-text" value="(Obrigatório)"></div>
     <div class="pg-ctrl"><label class="pg-lbl" for="c-supporting">Supporting Message (Neutral)</label><input class="pg-text" type="text" id="c-supporting" value="Enviamos um código por SMS."></div>
     <div class="pg-ctrl"><label class="pg-lbl" for="c-error">Error Message (Warning)</label><input class="pg-text" type="text" id="c-error" value="Código inválido. Tente de novo."></div>
+    <div class="pg-ctrl"><label class="pg-lbl" for="c-value">Value (prefill)</label><input class="pg-text" type="text" id="c-value" placeholder="ex.: A916GY" autocomplete="off">
+      <div class="pg-hint"><code>Is Filled</code> deriva do valor real — não é controle.</div></div>
   </aside>
 </div>
 
@@ -324,18 +360,21 @@
   /**
    * <cds-code-input>
    * Atributos: length (3–8, padrão 6) · type (alphanumeric|numeric, padrão alphanumeric) · appearance (neutral|warning)
-   * masked · disabled · required · label · value · supporting · error
-   * separators ("3" | "2,4" | "all" | "none") — posição = separador depois daquele dígito.
-   * Eventos: cds-change {value} · cds-complete {value}
+   * masked (Hidden Values) · disabled · value · separators ("3" | "2,4" | "all" | "none")
+   * Texto: label (Text Label) · required-text (padrão "(Obrigatório)") · supporting · error
+   * Booleans do Figma, ligados por padrão — passar "false" desliga:
+   *   show-label · show-required · show-supporting-content · show-trailing-item
+   * Eventos: cds-change {value} · cds-complete {value} · cds-visibility-change {masked}
    */
   class CdsCodeInput extends HTMLElement {
-    static get observedAttributes(){ return ["length","type","value","masked","disabled","appearance","label","required","supporting","error","separators"]; }
+    static get observedAttributes(){ return ["length","type","value","masked","disabled","appearance","label","required-text","supporting","error","separators","show-label","show-required","show-supporting-content","show-trailing-item"]; }
     constructor(){ super(); this.inputs = []; this.boxes = []; this._id = "cds-ci-" + (++uid); }
     get length(){ return clamp(parseInt(this.getAttribute("length"), 10) || 6, MIN, MAX); }
     get type(){ return this.getAttribute("type") === "numeric" ? "numeric" : "alphanumeric"; }
     get appearance(){ return this.getAttribute("appearance") === "warning" ? "warning" : "neutral"; }
     get masked(){ return this.hasAttribute("masked"); }
     get disabled(){ return this.hasAttribute("disabled"); }
+    flag(name){ return this.getAttribute(name) !== "false"; }
     get separators(){
       var n = this.length, raw = this.getAttribute("separators"), all = [];
       for (var p = 1; p < n; p++) all.push(p);
@@ -356,7 +395,7 @@
       var initial = source.split("").filter(function(c){ return self.charOk(c); }).slice(0, n);
       var label = this.getAttribute("label");
       var warning = this.appearance === "warning";
-      var msg = warning ? this.getAttribute("error") : this.getAttribute("supporting");
+      var msg = this.flag("show-supporting-content") ? (warning ? this.getAttribute("error") : this.getAttribute("supporting")) : null;
       var seps = this.separators;
       var msgId = this._id + "-msg";
 
@@ -366,11 +405,12 @@
       if (this.disabled) this.setAttribute("aria-disabled", "true"); else this.removeAttribute("aria-disabled");
       this.innerHTML = "";
 
-      if (label){
+      if (label && this.flag("show-label")){
         var lab = document.createElement("div");
         lab.className = "cds-ci__label";
         var t = document.createElement("span"); t.textContent = label; lab.appendChild(t);
-        if (this.hasAttribute("required")){ var r = document.createElement("span"); r.textContent = "(Obrigatório)"; lab.appendChild(r); }
+        var reqText = this.hasAttribute("required-text") ? this.getAttribute("required-text") : "(Obrigatório)";
+        if (this.flag("show-required") && reqText){ var r = document.createElement("span"); r.textContent = reqText; lab.appendChild(r); }
         this.appendChild(lab);
       }
 
@@ -402,6 +442,26 @@
         this.wire(inp, i);
         this.inputs.push(inp); this.boxes.push(box);
         row.appendChild(vb);
+      }
+
+      // Visibility Action — alterna Hidden Values; o ícone reflete o estado atual
+      if (this.flag("show-trailing-item")){
+        var act = document.createElement("button");
+        act.type = "button";
+        act.className = "cds-ci__action";
+        act.disabled = this.disabled;
+        act.setAttribute("aria-label", this.masked ? "Mostrar código" : "Ocultar código");
+        act.setAttribute("aria-pressed", this.masked ? "false" : "true");
+        var ic = document.createElement("span");
+        ic.className = "cds-ci__icon " + (this.masked ? "cds-ci__icon--hide" : "cds-ci__icon--show");
+        ic.setAttribute("aria-hidden", "true");
+        act.appendChild(ic);
+        act.addEventListener("click", function(){
+          self.toggleAttribute("masked");
+          var next = self.querySelector(".cds-ci__action"); if (next) next.focus();
+          self.dispatchEvent(new CustomEvent("cds-visibility-change", { detail: { masked: self.masked }, bubbles: true }));
+        });
+        row.appendChild(act);
       }
       this.appendChild(row);
 
@@ -488,9 +548,16 @@
   seg("c-type", function(v){ setAttr("type", v === "alphanumeric" ? null : v); });
   seg("c-vp", setViewport);
 
-  ["masked","disabled","required"].forEach(function(k){
+  ["masked","disabled"].forEach(function(k){
     document.getElementById("c-" + k).addEventListener("change", function(e){ setAttr(k, e.target.checked); });
   });
+  // Booleans do Figma: ligados por padrão → só escreve "false" quando desligados
+  ["show-label","show-required","show-supporting-content","show-trailing-item"].forEach(function(k){
+    document.getElementById("c-" + k).addEventListener("change", function(e){ setAttr(k, e.target.checked ? null : "false"); });
+  });
+  // A Visibility Action alterna Hidden Values dentro do componente → mantém o switch em sincronia
+  preview.addEventListener("cds-visibility-change", function(e){ document.getElementById("c-masked").checked = e.detail.masked; });
+  document.getElementById("c-required-text").addEventListener("input", function(e){ preview.setAttribute("required-text", e.target.value); });
   ["label","supporting","error"].forEach(function(k){
     document.getElementById("c-" + k).addEventListener("input", function(e){ setAttr(k, e.target.value); });
   });

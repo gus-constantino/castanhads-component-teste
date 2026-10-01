@@ -1,7 +1,7 @@
 /* Documentação — Code Input OTP
    Fonte: frame [Documentação] Code Input OTP · branch PfeMbrThCwzwJFFo2GiAbW · node 24764:9893
-   Só dados: o kit (scripts/docs-kit.js) monta as tabs. Frames ocultos no Figma (Acessibilidade,
-   Casos de exceção, Do's extras) ficaram de fora. */
+   Só dados: o kit (scripts/docs-kit.js) monta as tabs. Acessibilidade está oculta no frame: a tab vem das annotations
+   de Accessibility do set e do handoff de dev (Q26). Casos de exceção e Do's extras (ocultos) ficaram de fora. */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 CDS.docs["code-input-otp"] = {
@@ -60,11 +60,46 @@ CDS.docs["code-input-otp"] = {
       ] } },
       { note: "No Figma os estados são do `.Value Box` (uma célula). Aqui o estado forçado vale para todas as células de um campo de 3." },
       { specimens: { title: "Appearance × State", items: [
-        { label: "Neutral · Enabled", attrs: { label: "Label", value: "1A2b3c" } },
-        { label: "Neutral · Disabled", attrs: { label: "Label", value: "1A2b3c", disabled: true } },
-        { label: "Warning · Enabled", attrs: { label: "Label", value: "1A2b3c", appearance: "warning" } },
-        { label: "Warning · Disabled", attrs: { label: "Label", value: "1A2b3c", appearance: "warning", disabled: true } }
+        { label: "Neutral · Enabled", attrs: { label: "Label", value: "1A2b3#" } },
+        { label: "Neutral · Disabled", attrs: { label: "Label", value: "1A2b3#", disabled: true } },
+        { label: "Warning · Enabled", attrs: { label: "Label", value: "1A2b3#", appearance: "warning" } },
+        { label: "Warning · Disabled", attrs: { label: "Label", value: "1A2b3#", appearance: "warning", disabled: true } }
       ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Leitor de tela" },
+      { h3: "Como é anunciado" },
+      { ol: [
+        "As células formam um grupo (`role=\"group\"`) com o rótulo do campo. ex.: Código de verificação.",
+        "Cada célula é um campo de 1 caractere com nome de posição. ex.: dígito 1 de 6.",
+        "No Warning, as células ficam com `aria-invalid` e a `Error Message` é associada por `aria-describedby`.",
+        "A `Error Message` é anunciada por região dinâmica quando aparece.",
+        "A Visibility Action é um toggle (`aria-pressed`): Mostrar código quando mascarado, Ocultar código quando visível.",
+        "O estado desabilitado é anunciado como indisponível (`aria-disabled`) e todas as células saem da tabulação."
+      ] },
+      { h3: "Ordem de leitura" },
+      { ol: ["Label do campo", "Indicador obrigatório, quando presente", "Células, da primeira à última", "Visibility Action, quando presente", "Mensagem de apoio ou de erro"] },
+      { h2: "Teclado e preenchimento" },
+      { ul: [
+        "Digitar avança o foco para a próxima célula; Backspace volta.",
+        "Setas, Home e End navegam entre as células.",
+        "Colar distribui o código entre as células.",
+        "Um único ponto de tabulação entra e sai do conjunto.",
+        "A primeira célula tem `autocomplete=\"one-time-code\"`, para o autofill de SMS.",
+        "No tipo numérico, `inputmode=\"numeric\"` abre o teclado de números.",
+        "Foco visível segue o padrão global do Castanha; não é variant do componente."
+      ] },
+      { h2: "Contraste (WCAG)" },
+      { ol: [
+        "Dígito, Label e mensagem de apoio: 8,24:1 a 16,96:1 — AA e AAA.",
+        "Warning (#974602) sobre o fundo: 6,41:1 — AA.",
+        "Borda ativa (`Border/intense`): 16,96:1.",
+        "Borda em repouso (`Border/semi-soft`) e hover (`Border/medium`): abaixo de 3:1. A célula se distingue pela fileira e pelo dígito.",
+        "Erro comunicado por borda e texto, nunca só por cor (1.4.1).",
+        "Estado desabilitado: isento do critério 1.4.3."
+      ] },
+      { note: "Fonte: annotations de Accessibility do set 24060:7228 e seção Acessibilidade do handoff de dev (`HANDOFF_CodeInputOTP_DEV.md`). A seção está oculta no frame de documentação do Figma." }
     ] },
 
     { id: "diretrizes", title: "Diretrizes", blocks: [

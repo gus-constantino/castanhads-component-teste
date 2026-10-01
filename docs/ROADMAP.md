@@ -199,6 +199,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D28 | **Foco por teclado:** não é prioridade agora; manter o outline 2px `Support/system` como padrão provisório (Q20) | Q20 · 01/10 |
 | D29 | **Switch em 300ms** fica por enquanto; o Gustavo vai ajustar no Figma e atualizamos aqui (Q21) | Q21 · 01/10 |
 | D30 | **Documentação dentro do componente, em tabs** (experimento no Credit Card Input): `components/<id>/<id>.docs.js` só com dados, montado por `scripts/docs-kit.js`. Exemplos são o componente real; estilo do frame `[Documentação]` e tabs no estilo do Scrollable Tab | 01/10 |
+| D31 | **OTP alfanumérico aceita símbolos** (letras, números e símbolos; sem espaço). Numérico segue só 0–9 (Q25) | Q25 · 01/10 |
+| D32 | **Seção de doc oculta no Figma → montar com a skill `castanhads-juntos` (setup documentation) a partir das annotations e do handoff dev** (Q26). Aplicado na Acessibilidade do OTP: 4 annotations de Accessibility + seção Acessibilidade do `HANDOFF_CodeInputOTP_DEV.md`. Gravar no frame do Figma só com aprovação | Q26 · 01/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -217,8 +219,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Q22 | **Specimens da doc do Credit Card com props trocadas:** o card "Is Active" usa `State=Disabled` e o "Warning · Enabled" usa `State=Pressed` (frame 24931:8090) | Renderizei pelo rótulo (Is Active e Enabled) |
 | Q23 | **Motion da doc** usa a ilustração de empty state (caixa) como placeholder | Troquei por um exemplo interativo |
 | Q24 | **Variáveis `Commom/Colors/...`** (com "m") nos Tags do `.Prop-type` da doc — outra coleção ou erro de digitação? | Usei os tokens `Common/*` equivalentes |
-| Q25 | **Doc do OTP: specimen alfanumérico com `#`** (Appearance × State mostra `1A2b3#`), mas `type=alphanumeric` aceita só `[0-9a-zA-Z]` | Mantive o filtro e usei `1A2b3c`; confirmar se símbolo é permitido |
-| Q26 | **Doc do OTP: seção Acessibilidade oculta** no Figma | Sem tab de Acessibilidade até a seção ser publicada |
+| Q27 | **Borda em repouso do OTP (`Border/semi-soft`, ~1,24:1)** ficou mais sutil que o `#999` anterior; o handoff pede confirmar com a11y se as células vazias seguem visíveis | Registrado; fora do corpo da doc |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
 ## 5.1 Débito de export (Gustavo)
@@ -277,5 +278,5 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Exporta
 | 1b | ✅ 01/10 — Image · Avatar · Caju Brand · .Credit Card Flags · Link · Currency · .Text Content · .Currency Content · .Currency Symbol |
 | 2 | ✅ 01/10 — Icon Button (componente; OTP e Credit Card passam a consumi-lo) · Main Button · Drop Button · Filter button · .Icons |
 | 3 | ✅ 01/10 — Checkbox · Radio Button · Switch (+ os 3 Groups) · Input Chips · Filter Chips · Chips Group, todos sobre a base `CDS.SelectionControl` / `.cds-chip` |
-| — | 🧪 01/10 — Experimento: documentação em tabs no Credit Card Input (Uso · Anatomia · Estilos · Acessibilidade · Diretrizes · Motion) e no Code Input OTP (sem Acessibilidade — oculta no Figma) |
+| — | 🧪 01/10 — Experimento: documentação em tabs no Credit Card Input (Uso · Anatomia · Estilos · Acessibilidade · Diretrizes · Motion) e no Code Input OTP (Acessibilidade montada das annotations + handoff, D32) |
 | 4 a 9 | ⏳ |

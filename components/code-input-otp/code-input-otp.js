@@ -2,7 +2,7 @@
  * @deps icon-button
  * <cds-code-input> — Code Input OTP · CDS-1608
  *
- * Atributos: length (3–6, padrão 6) · type (alphanumeric|numeric, padrão alphanumeric) · appearance (neutral|warning)
+ * Atributos: length (3–6, padrão 6) · type (alphanumeric = letras, números e símbolos | numeric, padrão alphanumeric) · appearance (neutral|warning)
  * masked (Hidden Values) · disabled · value · separators ("3" | "2,4" | "all" | "none")
  * Texto: label (Text Label) · required-text (padrão "(Obrigatório)") · supporting · error
  * Booleans do Figma, ligados por padrão — passar "false" desliga:
@@ -35,7 +35,8 @@
 
     attributeChangedCallback(name){ if (this.isConnected) this.render(name === "value" ? null : this.value); }
 
-    charOk(ch){ return this.type === "numeric" ? /^[0-9]$/.test(ch) : /^[0-9a-zA-Z]$/.test(ch); }
+    // alphanumeric aceita letras, números e símbolos (Q25) — qualquer caractere visível, sem espaço
+    charOk(ch){ return this.type === "numeric" ? /^[0-9]$/.test(ch) : /^\S$/u.test(ch); }
 
     render(keep){
       var n = this.length, self = this;

@@ -1,0 +1,20 @@
+/* =====================================================================
+   Currency · Content · set 5301:2173
+   Size: Small Caption/Bold · Medium Body/Bold · Large Title/Small · Largest Title/Medium · gap 4
+   Show Value=False: 5 pontos (6px em Small/Medium, 8px em Large/Largest; gap 4, Largest gap 6)
+   ===================================================================== */
+cds-currency{
+  --_fg:var(--common-colors-text-intense); --_dot:var(--common-colors-neutral-solid-intense);
+  --_dot-size:var(--common-sizes-6); --_dot-gap:var(--common-sizes-4);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-4);
+  font:var(--text-style-caption-bold); color:var(--_fg); white-space:nowrap; font-variant-numeric:tabular-nums;
+}
+cds-currency[appearance="inversed"]{ --_fg:var(--common-colors-text-inversed); --_dot:var(--common-colors-neutral-solid-soft); }
+cds-currency[size="medium"]{ font:var(--text-style-body-bold); }
+cds-currency[size="large"]{ font:var(--text-style-title-small); --_dot-size:var(--common-sizes-8); }
+cds-currency[size="largest"]{ font:var(--text-style-title-medium); --_dot-size:var(--common-sizes-8); --_dot-gap:var(--common-sizes-6); }
+/* Figma: no Largest oculto o símbolo usa Heading/Small (24/1.6) em vez de Title/Medium */
+cds-currency[size="largest"][show-value="false"]{ font:var(--text-style-heading-small); }
+
+.cds-cur__dots{ display:inline-flex; align-items:center; gap:var(--_dot-gap); }
+.cds-cur__dots > i{ display:block; width:var(--_dot-size); height:var(--_dot-size); border-radius:var(--common-border-radius-pill); background:var(--_dot); }

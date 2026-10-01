@@ -15,12 +15,20 @@ CDS.assets = {
       "cls": "cds-icon--hide-off-line"
     },
     {
+      "name": "navigation-right-line",
+      "cls": "cds-icon--navigation-right-line"
+    },
+    {
       "name": "placeholder-line",
       "cls": "cds-icon--placeholder-line"
     },
     {
       "name": "support-line",
       "cls": "cds-icon--support-line"
+    },
+    {
+      "name": "user-line",
+      "cls": "cds-icon--user-line"
     },
     {
       "name": "warning-line",

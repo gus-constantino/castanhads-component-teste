@@ -1,0 +1,6 @@
+/* =====================================================================
+   Caju Brand · Images · set 11271:154 — 69×28 (com tipografia) · 18×28 (só o símbolo)
+   Cores de marca vêm do SVG do Figma (não são tokens)
+   ===================================================================== */
+cds-caju-brand{ display:inline-block; flex:0 0 auto; height:28px; line-height:0; }
+cds-caju-brand > svg{ display:block; height:100%; width:auto; }

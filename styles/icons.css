@@ -1,8 +1,10 @@
-/* GERADO por scripts/build-assets.js · não editar à mão · 6 ícones */
+/* GERADO por scripts/build-assets.js · não editar à mão · 8 ícones */
 /* URL em longhand, sem var(): o Safari falha com var() no shorthand -webkit-mask */
 .cds-icon--credit-card-line{ -webkit-mask-image:url("../assets/icons/credit-card-line.svg"); mask-image:url("../assets/icons/credit-card-line.svg"); }
 .cds-icon--hide-line{ -webkit-mask-image:url("../assets/icons/hide-line.svg"); mask-image:url("../assets/icons/hide-line.svg"); }
 .cds-icon--hide-off-line{ -webkit-mask-image:url("../assets/icons/hide-off-line.svg"); mask-image:url("../assets/icons/hide-off-line.svg"); }
+.cds-icon--navigation-right-line{ -webkit-mask-image:url("../assets/icons/navigation-right-line.svg"); mask-image:url("../assets/icons/navigation-right-line.svg"); }
 .cds-icon--placeholder-line{ -webkit-mask-image:url("../assets/icons/placeholder-line.svg"); mask-image:url("../assets/icons/placeholder-line.svg"); }
 .cds-icon--support-line{ -webkit-mask-image:url("../assets/icons/support-line.svg"); mask-image:url("../assets/icons/support-line.svg"); }
+.cds-icon--user-line{ -webkit-mask-image:url("../assets/icons/user-line.svg"); mask-image:url("../assets/icons/user-line.svg"); }
 .cds-icon--warning-line{ -webkit-mask-image:url("../assets/icons/warning-line.svg"); mask-image:url("../assets/icons/warning-line.svg"); }

@@ -1,0 +1,7 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+<!-- Imagem de exemplo do playground (não faz parte da lib) -->
+<rect width="300" height="300" fill="#fef0f1"/>
+<circle cx="210" cy="90" r="36" fill="#ffba00"/>
+<path d="M0 230 L90 140 L170 220 L220 170 L300 250 V300 H0 Z" fill="#e80537"/>
+<path d="M0 260 L70 200 L150 270 L300 210 V300 H0 Z" fill="#9e0222"/>
+</svg>

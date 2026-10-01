@@ -191,6 +191,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D20 | **Collection Viewport → `data-viewport`** no frame do playground (360 = mobile · 744 = tablet · 1366/Fluido = desktop). Componentes com `Specific/*` leem via CSS e aceitam o atributo `viewport` para forçar o modo (ex.: Badge vira ponto de 8px no Mobile) | Q6 · 01/10 |
 | D21 | **Nested instances reais:** componentes que no Figma instanciam outro (Tag → Icon, Shaped Icon → Icon) usam o custom element de verdade (`<cds-icon>`). Override de cor do Figma vira CSS no pai, com especificidade acima do `[appearance]` do filho | 01/10 |
 | D22 | Sem Jira conhecido, o item do menu sai sem chave; o link do Figma aponta para o node do set na main | 01/10 |
+| D23 | **Assets de marca** (Caju Brand, bandeiras) mantêm as cores do Figma — não são tokens. Caju Brand vira SVG inline (paths do Figma); bandeiras ficam em `assets/flags/` | 01/10 |
+| D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
 
@@ -199,6 +201,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Q5 | **Input Chips aparece em dois sets** (`12365:2728` e `14120:5313`) com as mesmas props. Qual é o canônico? | Perguntar antes do Lote 3 |
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
 | Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
+| Q11 | **Currency Largest com valor oculto** usa Heading/Small (38px de altura) para o "R$", e com valor usa Title/Medium (36px). Intencional? | Implementado como no Figma |
+| Q12 | **Bandeiras do `.Credit Card Flags` não exportam** pelo MCP ("no visible layers"). Reconstruí os SVGs a partir de `vectorPaths` e das regiões; o Elo teve as coordenadas arredondadas. Vale exportar os SVGs oficiais e substituir em `assets/flags/` | Pendente de você |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
 ## 6. Preferências do Gustavo (observadas)
@@ -228,6 +232,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | 01/10 | **Override de cor em nested instance:** o `[appearance]` do filho vence o seletor do pai; o pai precisa de `pai > filho[appearance]` (achado no Tag) |
 | 01/10 | Divider tem annotations de implementação (SVG para Dashed, tokens diferentes por construção, `role=separator` opcional) — annotations também trazem decisão de código, não só de design |
 | 01/10 | Spinner: as 4 "Spinner Position" com AFTER_TIMEOUT ≈ 0 e Smart Animate 200ms ease-out = rotação contínua em passos de 90° |
+| 01/10 | `exportAsync` falha em vetores sem fill no nó (cores nas regiões da vector network): reconstruir via `vectorPaths` + `vectorNetwork.regions[].fills` |
+| 01/10 | Link usa motion próprio (150ms com a curva *accelerate* `.7,0,.8,1` no hover), diferente do Hover In dos inputs |
 
 ---
 
@@ -238,5 +244,5 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | — | ✅ Code Input OTP · ✅ Credit Card Input (branches) |
 | 0 | ✅ 01/10 — 250 tokens `Common/*` (89 com dark) + 34 text styles + 3 elevations + Motion Styles gerados por `scripts/build-tokens.js` · pipeline `scripts/build-assets.js` (ícones como máscara + manifest) · side menu por página do Figma + seção Building blocks · Work Sans carregada |
 | 1a | ✅ 01/10 — Icon · Shaped Icon · Tag · Badge · Status Dot · Divider · Spinner · Progress Line |
-| 1b | ⏳ Image · Avatar · Caju Brand · .Credit Card Flags · Link · Currency · .Text Content · .Currency Content · .Currency Symbol |
+| 1b | ✅ 01/10 — Image · Avatar · Caju Brand · .Credit Card Flags · Link · Currency · .Text Content · .Currency Content · .Currency Symbol |
 | 2 a 9 | ⏳ (Q5 precisa de resposta antes do Lote 3) |

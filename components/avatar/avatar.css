@@ -1,0 +1,19 @@
+/* =====================================================================
+   Avatar · Images · set 2278:92
+   Size: Small 40 · Medium 48 · Large 64 · raio pill
+   Neutral: Surface/01 + stroke Border/soft hairline · Inversed: Neutral/Opacity/Soft/light
+   Initial: Small Label/Medium · Medium e Large Subtitle/Small
+   ===================================================================== */
+cds-avatar{
+  --_size:var(--common-sizes-40);
+  display:inline-grid; place-items:center; flex:0 0 auto; overflow:hidden;
+  width:var(--_size); height:var(--_size); border-radius:var(--common-border-radius-pill);
+  background:var(--common-colors-surface-01);
+  box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-soft);
+  font:var(--text-style-label-medium); color:var(--common-colors-text-intense);
+}
+cds-avatar[size="medium"]{ --_size:var(--common-sizes-48); font:var(--text-style-subtitle-small); }
+cds-avatar[size="large"]{ --_size:var(--common-sizes-64); font:var(--text-style-subtitle-small); }
+cds-avatar[appearance="inversed"]{ background:var(--common-colors-neutral-opacity-soft-light); box-shadow:none; color:var(--common-colors-text-inversed); }
+cds-avatar[kind="image"]{ box-shadow:none; }
+cds-avatar > img{ width:100%; height:100%; object-fit:cover; }

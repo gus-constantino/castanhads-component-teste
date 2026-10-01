@@ -1,0 +1,10 @@
+/* =====================================================================
+   .Text Content · Content · set 5516:10455 (building block) — gap 4
+   Highlight Label:       Label/Regular Text/intense + Caption/Regular Text/medium
+   Highlight Description: Caption/Regular Text/medium + Body/Regular Text/intense
+   ===================================================================== */
+cds-text-content{ display:flex; flex-direction:column; gap:var(--common-sizes-4); min-width:0; }
+cds-text-content > .cds-tc__label{ font:var(--text-style-label-regular); color:var(--common-colors-text-intense); }
+cds-text-content > .cds-tc__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+cds-text-content[kind="highlight-description"] > .cds-tc__label{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+cds-text-content[kind="highlight-description"] > .cds-tc__desc{ font:var(--text-style-body-regular); color:var(--common-colors-text-intense); }

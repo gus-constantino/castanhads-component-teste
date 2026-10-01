@@ -1,0 +1,7 @@
+/* =====================================================================
+   .Currency Content · .Building Blocks · 5488:631 — alinhado à direita · gap 4
+   Linha: [-][R$] valor (Label/Medium Text/intense) · Descrição Caption/Regular Text/medium
+   ===================================================================== */
+cds-currency-content{ display:inline-flex; flex-direction:column; align-items:flex-end; gap:var(--common-sizes-4); text-align:right; }
+cds-currency-content > .cds-cc2__row{ display:inline-flex; align-items:center; gap:var(--common-sizes-4); font:var(--text-style-label-medium); color:var(--common-colors-text-intense); white-space:nowrap; font-variant-numeric:tabular-nums; }
+cds-currency-content > .cds-cc2__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }

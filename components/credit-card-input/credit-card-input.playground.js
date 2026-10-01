@@ -40,6 +40,45 @@ CDS.register({
     kit.text(panel, { label: "Value (prefill)", placeholder: "ex.: 4111111111111111", hint: "Só dígitos, até 16. <code>Is Filled</code> deriva do valor real.",
       onInput: function(v){ set("value", v); readout(); } });
 
+    // Nested instances — props das instâncias aninhadas, derivadas ao vivo do estado real
+    kit.section(panel, "Nested instances");
+    function stateOf(node){ return node.disabled ? "Disabled" : node.matches(":active") ? "Pressed" : node.matches(":hover") ? "Hovered" : "Enabled"; }
+    var refreshers = [
+      kit.nested(panel, {
+        title: ".Text Content Mask", exposed: true,
+        note: "Building block compartilhado da família. Aqui a máscara é fixa em <code>Credit Card</code>.",
+        props: function(){
+          var inp = p.input;
+          return [
+            ["Mask", "Credit Card"],
+            ["Credit Card", inp && inp.value ? inp.value : (inp ? inp.placeholder + " (placeholder)" : "—")],
+            ["Is Filled", String(!!(inp && inp.value))]
+          ];
+        }
+      }),
+      kit.nested(panel, {
+        title: "Lead Icon", exposed: false,
+        note: "Instance swap. Ícone de cartão fixo — não detecta a bandeira.",
+        props: function(){
+          return [["Show Lead Icon", String(!!p.querySelector(".cds-cc__lead"))], ["Lead Icon", "credit-card-line"], ["Tamanho", "24×24"]];
+        }
+      }),
+      kit.nested(panel, {
+        title: "Trailing Item · Icon Button", exposed: false,
+        note: "Configuração fixa no componente. O papel da ação é de quem implementa.",
+        props: function(){
+          var b = p.querySelector(".cds-cc__box .cds-icon-button");
+          if (!b) return [["Show Trailing Item", "false"]];
+          return [
+            ["Kind", "Ghost"], ["Appearance", "Neutral"], ["Size", "Small"],
+            ["State", stateOf(b)], ["Show Notification", "false"], ["Icon", "support-line"],
+            ["aria-label", b.getAttribute("aria-label")]
+          ];
+        }
+      })
+    ];
+    kit.watch(p, function(){ refreshers.forEach(function(f){ f(); }); });
+
     readout();
   }
 });

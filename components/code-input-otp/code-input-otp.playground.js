@@ -77,6 +77,47 @@ CDS.register({
     kit.text(panel, { label: "Value (prefill)", placeholder: "ex.: A916GY", hint: "<code>Is Filled</code> deriva do valor real — não é controle.",
       onInput: function(v){ set("value", v); p.render(); readout(); } });
 
+    // Nested instances — props das instâncias aninhadas, derivadas ao vivo do estado real
+    kit.section(panel, "Nested instances");
+    function stateOf(node){ return node.disabled ? "Disabled" : node.matches(":active") ? "Pressed" : node.matches(":hover") ? "Hovered" : "Enabled"; }
+    var yes = function(b){ return b ? "True" : "False"; };
+    var refreshers = [
+      kit.nested(panel, {
+        title: ".Value Box", exposed: true,
+        note: "Uma por célula. No código as props derivam do container e da interação — escolha a célula para inspecionar.",
+        items: function(){ return p.boxes.map(function(_, i){ return String(i + 1); }); },
+        props: function(i){
+          var box = p.boxes[i], inp = p.inputs[i];
+          if (!box) return [];
+          var active = box.matches(":focus-within"), filled = !!inp.value;
+          return [
+            ["State", box.matches(":active") ? "Pressed" : box.matches(":hover") ? "Hovered" : "Enabled"],
+            ["Appearance", p.appearance === "warning" ? "Warning" : "Neutral"],
+            ["Is Active", yes(active)],
+            ["Hidden Value", yes(p.masked)],
+            ["Is Filled", String(filled)],
+            ["Value", filled ? (p.masked ? "•" : inp.value) : "—"],
+            ["Show Separator", String(!!box.parentNode.querySelector(".cds-ci__sep"))],
+            ["Show Caret", String(active && !filled)]
+          ];
+        }
+      }),
+      kit.nested(panel, {
+        title: "Visibility Action · Icon Button", exposed: false,
+        note: "Configuração fixa no componente; só o ícone e o estado mudam.",
+        props: function(){
+          var b = p.querySelector(".cds-ci__action");
+          if (!b) return [["Show Trailing Item", "false"]];
+          return [
+            ["Kind", "Ghost"], ["Appearance", "Neutral"], ["Size", "Small"],
+            ["State", stateOf(b)], ["Show Notification", "false"],
+            ["Icon", p.masked ? "hide-off-line" : "hide-line"]
+          ];
+        }
+      })
+    ];
+    kit.watch(p, function(){ refreshers.forEach(function(f){ f(); }); });
+
     buildSep(); applySeps(); readout();
   }
 });

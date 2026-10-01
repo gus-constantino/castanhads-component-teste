@@ -90,11 +90,61 @@
     return input;
   }
 
+  /**
+   * Nested instance — mostra as props de uma instância aninhada do Figma, ao vivo.
+   * o.title · o.exposed (bool: exposta no Figma) · o.note · o.items() → rótulos para escolher
+   * (ex.: células) · o.props(i) → [[prop, valor], …]. Retorna refresh().
+   */
+  function nested(panel, o){
+    var box = el("div", { "class": "pg-nested" });
+    var head = el("div", { "class": "pg-nested__head" }, [
+      el("span", { "class": "pg-nested__title", text: o.title }),
+      el("span", { "class": "pg-badge" + (o.exposed ? " is-on" : ""), text: o.exposed ? "exposta" : "fixa" })
+    ]);
+    box.appendChild(head);
+    if (o.note) box.appendChild(el("div", { "class": "pg-hint", html: o.note }));
+    var picker = null, sel = 0;
+    if (o.items){ picker = el("div", { "class": "pg-chips", role: "group", "aria-label": "Instância" }); box.appendChild(picker); }
+    var dl = el("dl", { "class": "pg-props" });
+    box.appendChild(dl);
+    panel.appendChild(box);
+    function refresh(){
+      if (picker){
+        var items = o.items();
+        if (sel >= items.length) sel = 0;
+        if (picker.children.length !== items.length){
+          picker.innerHTML = "";
+          items.forEach(function(lbl, i){
+            var b = el("button", { type: "button", text: lbl, "aria-pressed": String(i === sel) });
+            b.addEventListener("click", function(){ sel = i; refresh(); });
+            picker.appendChild(b);
+          });
+        }
+        Array.prototype.forEach.call(picker.children, function(b, i){ b.setAttribute("aria-pressed", String(i === sel)); });
+      }
+      dl.innerHTML = "";
+      o.props(sel).forEach(function(kv){
+        dl.appendChild(el("dt", { text: kv[0] }));
+        dl.appendChild(el("dd", { text: String(kv[1]) }));
+      });
+    }
+    refresh();
+    return refresh;
+  }
+
+  /** Chama fn sempre que o componente muda: interação, foco, hover, atributos. */
+  function watch(node, fn){
+    var raf = 0, run = function(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(fn); };
+    ["input","focusin","focusout","pointerover","pointerout","pointerdown","pointerup","click","keyup"].forEach(function(t){ node.addEventListener(t, run, true); });
+    document.addEventListener("pointerup", run);
+    new MutationObserver(run).observe(node, { attributes: true, childList: true, subtree: true });
+  }
+
   /** Liga/desliga um atributo no elemento de preview. */
   function attr(node, name, val){
     if (val === null || val === false || val === "") node.removeAttribute(name);
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, attr: attr };
 })();

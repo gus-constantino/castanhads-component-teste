@@ -1,0 +1,3 @@
+/* Text Area Input · set 10110:3028 — Text Box minH 72 · pad 8 16 · conteúdo alinhado no topo */
+cds-text-area .cds-tf__box{ align-items:flex-start; min-height:var(--common-sizes-72); padding:var(--common-sizes-8) var(--common-sizes-16); }
+cds-text-area .cds-tf__control{ resize:none; display:block; min-height:var(--common-sizes-24); line-height:var(--common-sizes-24); }

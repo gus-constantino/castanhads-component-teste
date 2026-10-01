@@ -1,0 +1,14 @@
+/* [Beta] Quantity Input · set 22756:7351 — Decrement 48 · gap 8 · Text Box min 72 (valor centralizado) · Increment 48
+   Is Active não muda o stroke (Figma) · Warning: stroke warning, sem fundo no hover */
+cds-quantity-input.cds-tf{ width:auto; }
+.cds-qty__row{ display:flex; align-items:center; gap:var(--common-sizes-8); }
+.cds-qty__box{ flex:0 0 auto; min-width:var(--common-sizes-72); width:var(--common-sizes-72); padding:0 var(--common-sizes-16); justify-content:center; }
+.cds-qty__control{ text-align:center; width:100%; font-variant-numeric:tabular-nums; }
+/* Is Active=True sem mudança de stroke (matriz do Figma) */
+cds-quantity-input .cds-qty__box:focus-within:not(:hover):not(:active){ --_stroke-c:var(--common-colors-border-semi-soft); }
+cds-quantity-input.is-warning .cds-qty__box,
+cds-quantity-input.is-warning .cds-qty__box:hover,
+cds-quantity-input.is-warning .cds-qty__box:focus-within{ --_bg:var(--common-colors-surface-default); --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
+cds-quantity-input.is-warning .cds-tf__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
+cds-quantity-input[disabled]:not([is-active]) .cds-qty__box{ --_stroke-c:var(--common-colors-border-semi-soft); }
+.cds-qty__live{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }

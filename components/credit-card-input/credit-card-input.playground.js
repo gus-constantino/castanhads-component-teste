@@ -61,14 +61,14 @@ CDS.register({
         title: "Lead Icon", exposed: false,
         note: "Instance swap. Ícone de cartão fixo — não detecta a bandeira.",
         props: function(){
-          return [["Show Lead Icon", String(!!p.querySelector(".cds-cc__lead"))], ["Lead Icon", "credit-card-line"], ["Tamanho", "24×24"]];
+          return [["Show Lead Icon", String(!!p.querySelector(".cds-tf__lead:not([hidden])"))], ["Lead Icon", "credit-card-line"], ["Tamanho", "24×24"]];
         }
       }),
       kit.nested(panel, {
         title: "Trailing Item · Icon Button", exposed: false,
         note: "Configuração fixa no componente. O papel da ação é de quem implementa.",
         props: function(){
-          var host = p.querySelector(".cds-cc__box cds-icon-button"), b = host && host.button;
+          var host = p.querySelector(".cds-tf__box cds-icon-button"), b = host && host.button;
           if (!b) return [["Show Trailing Item", "false"]];
           return [
             ["Kind", "Ghost"], ["Appearance", "Neutral"], ["Size", "Small"],

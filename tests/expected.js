@@ -35,6 +35,11 @@ window.CDS_EXPECTED = {
   "input-chips":       { h: 40, src: "12365:2728" },
   "filter-chips":      { h: 40, src: "12365:2744" },
   "chips-group":       { w: 320, h: 48, src: "12457:3664 · Single Rows" },
+  "text-input":        { w: 320, h: 100, src: "5743:325 · Label 20 + 4 + Text Box 48 + 4 + Trailing 24" },
+  "search-input":      { w: 320, h: 100, src: "14880:3404" },
+  "text-area":         { w: 320, src: "10110:3028 · Text Box ≥ 72 (cresce)" },
+  "password-input":    { w: 320, h: 100, src: "5798:2677" },
+  "quantity-input":    { w: 184, src: "22756:7351 · 48 + 8 + 72 + 8 + 48" },
   "code-input-otp":    { w: 320, src: "24060:7228 · base 320 (6 células)" },
   "credit-card-input": { w: 320, src: "24614:7155" }
 };

@@ -1,5 +1,5 @@
 /**
- * @deps icon-button
+ * @deps text-field
  * <cds-code-input> — Code Input OTP · CDS-1608
  *
  * Atributos: length (3–6, padrão 6) · type (alphanumeric = letras, números e símbolos | numeric, padrão alphanumeric) · appearance (neutral|warning)
@@ -56,7 +56,7 @@
 
       if (label && this.flag("show-label")){
         var lab = document.createElement("div");
-        lab.className = "cds-ci__label";
+        lab.className = "cds-tf__label cds-ci__label";
         var t = document.createElement("span"); t.textContent = label; lab.appendChild(t);
         var reqText = this.hasAttribute("required-text") ? this.getAttribute("required-text") : "(Obrigatório)";
         if (this.flag("show-required") && reqText){ var r = document.createElement("span"); r.textContent = reqText; lab.appendChild(r); }
@@ -115,7 +115,7 @@
 
       if (msg){
         var m = document.createElement("div");
-        m.className = "cds-ci__msg"; m.id = msgId; m.textContent = msg;
+        m.className = "cds-tf__msg cds-ci__msg"; m.id = msgId; m.textContent = msg;
         if (warning) m.setAttribute("role", "alert");
         this.appendChild(m);
       }

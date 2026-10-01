@@ -65,11 +65,11 @@ Coluna *Usa*: instâncias aninhadas na 1ª variante (ícones omitidos).
 ### Text Fields (família)
 | Componente | Node | Var. | Usa |
 |---|---|---:|---|
-| Text Input | `5743:325` | 32 | .Text Content Mask |
-| Search Input | `14880:3404` | 32 | .Text Content Mask |
-| Text Area Input | `10110:3028` | 32 | — |
-| Password Input | `5798:2677` | 64 | Icon Button |
-| [Beta] Quantity Input | `22756:7351` | 32 | Icon Button |
+| Text Input ✅ | `5743:325` | 32 | .Text Content Mask |
+| Search Input ✅ | `14880:3404` | 32 | .Text Content Mask |
+| Text Area Input ✅ | `10110:3028` | 32 | — |
+| Password Input ✅ | `5798:2677` | 64 | Icon Button |
+| [Beta] Quantity Input ✅ | `22756:7351` | 32 | Icon Button |
 | Async Select Input | `11030:7644` | 32 | .Text Content Mask + Icon Button |
 | Radio Select Input | `11143:3056` | 32 | idem |
 | Checkbox Select Input | `11143:4833` | 32 | idem |
@@ -206,6 +206,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D35 | **Ícones organizados por bucket = frame de categoria do [Caju] Icons** (`assets/icons/<categoria>/<nome>.svg`), ordem e palavras-chave em `catalog.json`. Nome de classe continua `.cds-icon--<nome>` (único); deprecated fica em bucket próprio, fora do instance swap. Glifos internos de componentes (checkbox) em `_glyphs` | 01/10 |
 | D36 | **Lib de apoio ≠ componente.** [Caju] Icons, [Caju] Illustrations, Caju Theme e Animações são **Recursos de suporte**: espaço próprio no side menu, pasta `resources/<id>/`, só doc (sem playground). O componente Icon fica só com o playground. A biblioteca de ícones é um accordion por categoria | 01/10 |
 | D37 | **Side menu em accordion por categoria** (página do Figma): abre a categoria da página atual e as que a pessoa abriu (lembrado no navegador); a busca abre todas as que têm resultado. No mobile (faixa horizontal) fica tudo aberto, sem cabeçalho | 01/10 |
+| D38 | **Família Text Fields sobre `CDS.TextField`** (render incremental): Text Input, Search, Text Area, Password e Credit Card estendem a base; o Quantity reaproveita Label/mensagem (é independente da família, pela annotation). O OTP usa as classes de Label e mensagem da família e mantém as células | 01/10 |
+| D39 | **`.Text Content Mask` como `mask`** no Text Input (text, cpf, cnpj, cnpj-new, telefone, celular, cep, date, currency); o valor guardado é só o dado. O Credit Card usa o mesmo motor de máscara | 01/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -228,6 +230,13 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Q29 | **Icon Button dentro do Credit Card** (branch NHkG…) tem hover em 300ms `EASE_OUT`, que não é Motion Style (devia ser `Hover In/01`) | Gustavo corrige no Figma; o código já usa o motion do Icon Button da lib, nada muda aqui |
 | Q30 | **Naming no [Caju] Icons:** `Database`, `Code` e `Mouse` com maiúscula; `login`, `undo`, `redo`, `wallet`, `savings` sem sufixo `-line`; `stop-filled` × `play-fill` (`-filled` × `-fill`); `dark-mode-line` duplicado (ativo e deprecated); frame `Guide & Maintanance` (typo) | Arquivos em minúsculo; o resto como no Figma |
 | Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | Aguardando o Gustavo |
+| Q32 | **CEP no `.Text Content Mask`** mostra `0000-000` (e `0000-00` na instância); CEP tem 8 dígitos | Implementei `00000-000` |
+| Q33 | **Motion dos Text Fields da main:** reactions em 300ms (curva do Pressed em tudo), não os Motion Styles por interação que o Credit Card e o OTP usam | Usei os Motion Styles (`Hover In/01`, `Pressed/01`, `Selected In/01`) na família inteira |
+| Q34 | **Warning Hovered sem fill** no Text Input (Text Box sem preenchimento); o Quantity mantém `Surface/default` | Warning não muda o fundo no hover (exceto o Credit Card, que segue o branch) |
+| Q35 | **Password: `Show Content` padrão `True`** no Figma (senha visível por padrão) | Implementei mascarado por padrão; `show-content="true"` mostra |
+| Q36 | **Label no Warning diverge na família:** main (Text Input, Search, Text Area, Password, Quantity) mantém `Text/intense`; branches do Credit Card e do OTP usam `Feedback/Warning/semi-intense` | Cada um segue a sua fonte (D25); vale alinhar no Figma |
+| Q37 | **CNPJ New** de exemplo `12ABC6780001X5`: sem pontuação e com letra nos dígitos verificadores | Aceito 14 letras/dígitos, sem pontuação, como no Figma |
+| Q38 | **Text Area** tem `Show Trailing Item` sem elemento correspondente; **Quantity** `Is Active` não muda o stroke | Prop sem efeito no Text Area; Quantity como no Figma |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
 ## 5.1 Débito de export (Gustavo)
@@ -288,4 +297,5 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 3 | ✅ 01/10 — Checkbox · Radio Button · Switch (+ os 3 Groups) · Input Chips · Filter Chips · Chips Group, todos sobre a base `CDS.SelectionControl` / `.cds-chip` |
 | — | 🧪 01/10 — Experimento: documentação em tabs no Credit Card Input (Uso · Anatomia · Estilos · Acessibilidade · Diretrizes · Motion) e no Code Input OTP (Acessibilidade montada das annotations + handoff, D32) |
 | — | ✅ 01/10 — 274 ícones do [Caju] Icons em 12 buckets + instance swap agrupado por categoria · biblioteca em Recursos de suporte (accordion por categoria, D36) |
-| 4 a 9 | ⏳ |
+| 4 | ✅ 01/10 — Text Input · Search · Text Area · Password · [Beta] Quantity sobre `CDS.TextField` · Credit Card realinhado (subclasse) · OTP com Label/mensagem da família |
+| 5 a 9 | ⏳ |

@@ -171,6 +171,42 @@
   }
 
   /**
+   * Playground padrão da família Text Fields.
+   * o.tag · o.attrs (iniciais) · o.booleans [[attr, rótulo]] · o.texts [[attr, rótulo, valor]] · o.leadIcon (valor do swap)
+   * o.variants(panel, p) — controles extras em Variants · o.extra(panel, p) — seções extras no fim
+   * o.nested(p) — [{ title, exposed, note, props() }] para o inspetor
+   */
+  function textField(ctx, o){
+    var panel = ctx.panel, p = el(o.tag, o.attrs || {});
+    ctx.preview.appendChild(p);
+    var set = function(n, v){ attr(p, n, v); };
+    var readout = function(){ ctx.readout(String(p.value == null ? "" : p.value), false); };
+    p.addEventListener("cds-change", readout);
+    section(panel, "Variants");
+    seg(panel, { label: "Appearance", value: (o.attrs && o.attrs.appearance) || "neutral", options: [["neutral","Neutral"],["warning","Warning"]], onChange: function(v){ set("appearance", v === "neutral" ? null : v); } });
+    if (o.variants) o.variants(panel, p, set);
+    toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
+    hint(panel, "Hovered, Pressed e <code>Is Active</code> são estados de interação: passe o mouse, pressione e foque o campo. <code>Is Filled</code> deriva do valor real.");
+    if (o.booleans && o.booleans.length){
+      section(panel, "Booleans");
+      o.booleans.forEach(function(b){ toggle(panel, { label: b[1], checked: b[2] !== false, onChange: function(on){ set(b[0], on ? null : "false"); } }); });
+    }
+    if (o.texts && o.texts.length){
+      section(panel, "Texts");
+      o.texts.forEach(function(t){ text(panel, { label: t[1], value: t[2] || "", placeholder: t[3], hint: t[4], onInput: function(v){ set(t[0], v === "" && t[0] !== "required-text" ? null : v); } }); });
+    }
+    if (o.leadIcon){ section(panel, "Instance swap"); iconSwap(panel, { label: "Lead Icon", value: o.leadIcon, onChange: function(v){ set("lead-icon", v); } }); }
+    if (o.extra) o.extra(panel, p, set);
+    if (o.nested){
+      section(panel, "Nested instances");
+      var refs = o.nested(p).map(function(n){ return nested(panel, n); });
+      watch(p, function(){ refs.forEach(function(f){ f(); }); });
+    }
+    readout();
+    return p;
+  }
+
+  /**
    * Playground padrão dos Selection Controls (Checkbox · Radio Button · Switch).
    * o.tag · o.statuses [[valor, rótulo]] · o.extraHint
    */
@@ -201,5 +237,5 @@
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, selectionControl: selectionControl, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, selectionControl: selectionControl, textField: textField, attr: attr };
 })();

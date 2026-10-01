@@ -39,10 +39,10 @@ CDS.docs["credit-card-input"] = {
       { anatomy: {
         attrs: { label: "Número do cartão", "show-required": true },
         markers: [
-          { n: 1, target: ".cds-cc__label", side: "left" },
-          { n: 2, target: ".cds-cc__box", side: "left" },
+          { n: 1, target: ".cds-tf__label", side: "left" },
+          { n: 2, target: ".cds-tf__box", side: "left" },
           { n: 3, target: "cds-icon-button", side: "right" },
-          { n: 4, target: ".cds-cc__msg", side: "bottom" }
+          { n: 4, target: ".cds-tf__msg", side: "bottom" }
         ],
         legend: ["Label", "Text Box — número mascarado e ícone de cartão", "Icon Button", "Supporting / Error message"]
       } },

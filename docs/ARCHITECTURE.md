@@ -77,7 +77,18 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 
 ---
 
-## 5. Análise — rodada 6 (01/10 · recursos de suporte)
+## 5. Análise — rodada 7 (01/10 · Lote 4, Text Fields)
+
+| # | Achado | Detalhe | Status |
+|---|---|---|---|
+| A3 | **Re-render por `innerHTML`** (desde a rodada 1) | `CDS.TextField` faz `build()` uma vez e `update()` por atributo: o `<input>` nunca é recriado (teste: trocar Appearance e Label com o campo focado mantém foco, valor e seleção). Credit Card migrou junto | ✅ resolvido na família de inputs |
+| A19 | **Estados forçados** | Viraram contrato da base (`.cds-tf[state]`, `.cds-tf[is-active]`); todo membro ganha de graça | ✅ |
+| A34 | **Motor de máscara único** (`CDS.TextField.masks` + `patternMask`) | Padrão `0`/`A`, caret reposicionado por contagem de dados, Backspace/Delete atravessam a pontuação. Currency é caso à parte (direita para a esquerda). Credit Card usa `patternMask("0000 0000 0000 0000")` | ✅ |
+| A35 | **Ganchos da base** (`controlTag`, `hasLeadIcon`, `mask`, `configureControl`, `buildTrailing`/`updateTrailing`, `fallbackName`) | Cada membro tem 20–60 linhas. Search, Password e Credit Card só diferem no trailing | ✅ padrão para os Selects (Lote 6) |
+| A36 | **Quantity fora da base** | A annotation diz que é independente da família: reaproveita as classes de Label/Box/mensagem, mas tem a própria lógica (faixa, passo, ajuste no blur, anúncio) | 🟢 consciente |
+| A37 | **Especificidade dos estados** | `[disabled]:not([is-active])` vencia o Warning; corrigido com a regra `[appearance=warning][disabled]`. Teste de cor por Appearance (backlog P2) teria pegado | ✅ / ⏳ teste |
+
+### Rodada 6 (01/10 · recursos de suporte)
 
 | # | Achado | Detalhe | Status |
 |---|---|---|---|
@@ -167,10 +178,10 @@ Medições no código atual:
 | ✅ | ~~Motion por token~~ | A4 | feito | rodada de arquitetura |
 | ✅ | ~~`--cds-icon-color`~~ | A6 | feito | rodada de arquitetura |
 | ✅ | ~~Smoke test~~ | A7 | feito | rodada de arquitetura |
-| **P2** | Migrar OTP e Credit Card para `build()`/`update()` (como a base `CDS.SelectionControl`) ao realinhar a família Text Fields | A3 | por componente | Lote 4 |
+| ✅ | ~~Migrar Credit Card para `build()`/`update()`~~ (feito: subclasse de `CDS.TextField`); OTP segue com re-render (células variam de 3 a 6) | A3 | feito | Lote 4 |
 | **P2** | Smoke: rodar também em dark e em `data-viewport=mobile`, e verificar `aria-*` básicos (botão com nome, ícone decorativo com `aria-hidden`) | A7 | ~1h | Lote 3 |
 | **P2** | Subir `build()`/`update()` de `CDS.SelectionControl` para `CDS.Element` (opcional por componente) quando a 2ª família usar | A3 | ~1h | Lote 4 |
-| **P2** | Estados forçados (`state`, `is-active`) como contrato da família de inputs no Lote 4 (OTP e Credit Card já têm) | A19 | ~30min | Lote 4 |
+| ✅ | ~~Estados forçados como contrato da família de inputs~~ (base `CDS.TextField`) | A19 | feito | Lote 4 |
 | **P2** | Smoke: checar a cor do Label/mensagem por Appearance nos inputs (o bug do Warning passou nos dois) | — | ~20min | Lote 4 |
 | **P3** | Separar `keywords` do manifest (carregar só na galeria) se o manifest passar de ~100 KB | A27 | ~20min | ilustrações |
 | **P3** | Smoke montar as tabs de doc e checar overflow horizontal em 375px | A21 | ~30min | 2ª doc |
@@ -193,6 +204,7 @@ Medições no código atual:
 | Lote 1b | Assets coloridos fora do pipeline de máscara · building blocks com `block: true` | Exportação de vetor pode falhar; reconstrução por `vectorPaths` é confiável |
 | Lote 2 | Icon Button vira componente e substitui o botão desenhado à mão em OTP e Credit Card · base `.cds-btn` compartilhada entre Main e Drop | Componente consumido por outros tem que carregar antes: a ordem no `index.html` virou dependência implícita (→ P1 `build-index.js`) |
 | Lote 3 | Primeiras **bases de família**: `CDS.SelectionControl` (JS + CSS) e `.cds-chip` (CSS + `CDS.chipIcon`) · primeiro render incremental · um arquivo definindo 3 tags (Groups) · `kit.selectionControl` (um playground parametrizado para 3 componentes) · evento cancelável `cds-remove` | Manter o `<input>` nativo e só atualizar atributos dá teclado, foco e leitor de tela de graça. A base de família reduz cada variante a poucas linhas. Props com nome de atributo global de HTML precisam de prefixo (`role` → `role-kind`) |
+| Lote 4 | `CDS.TextField` (build/update) + `text-field.css` · 5 componentes novos · Credit Card vira subclasse · OTP usa Label/mensagem da família · `kit.textField` · máscaras do `.Text Content Mask` | Base com ganchos pequenos > herança profunda: cada membro sobrescreve 2–3 métodos. Testar comportamento (máscara, foco, clamp) por script no navegador pega o que a medida do smoke não pega |
 | Recursos de suporte | `resources/<id>/` · `CDS.register({ resource:true })` · seção própria no side menu · `iconGallery` em accordion (`<details>`) · Icon sem doc da lib | Separar *quem desenha* (lib de apoio) de *quem aplica* (componente) deixa claro onde atualizar cada coisa. `<details>` resolve accordion sem JS de acessibilidade |
 | Ícones | 274 SVGs em 12 buckets + `catalog.json` · `build-assets` com buckets, deprecated e `_glyphs` · `kit.iconSwap` com `<optgroup>` · bloco `iconGallery` + `icon.docs.js` | Edição de arquivo por fatia (`s[a:b]`) precisa checar `a < b`: com a ordem invertida a fatia sai vazia e `replace("", novo)` insere o texto entre todos os caracteres (aconteceu no kit; restaurado do git). Sempre `assert` na âncora |
 | Motion Styles | `--motion-*-01-*` com alias para o primitivo; bloco `specs` (fichas) no kit; `<wbr>` em `código` longo | Tabela larga não funciona em doc responsiva: ficha por item escala melhor. Servidor local cacheia JS (sem headers): forçar `fetch(..., {cache:'reload'})` antes de recarregar |
@@ -208,6 +220,7 @@ Medições no código atual:
 - **Exportar ícone:** `getMainComponentAsync()` da instância → `exportAsync({format:'SVG_STRING'})`; se falhar, exportar a instância.
 - **Adicionar componente:** criar a pasta com `@deps` no JSDoc → `node scripts/build-index.js` → registrar o tamanho em `tests/expected.js` → abrir `tests/smoke.html`.
 - **Nova família de componentes:** base em `components/<familia>/` (sem playground) com `@deps —`; cada membro declara `@deps <familia>` e sobrescreve só o que muda. No playground, um helper no kit (ex.: `kit.selectionControl`) evita repetir os controles.
+- **Novo membro da família Text Fields:** `@deps text-field`; `class X extends CDS.TextField` e sobrescrever só os ganchos (`controlTag`, `mask`, `configureControl`, `buildTrailing`/`updateTrailing`, `defaultLeadIcon`). Observar atributos extras com `CDS.TextField.observedAttributes.concat([...])`. No playground, `kit.textField(ctx, { tag, attrs, booleans, texts, leadIcon, variants, nested })`.
 - **Adicionar um recurso de suporte:** criar `resources/<id>/<id>.js` com `CDS.register({ id, name, resource:true, order, status, figma })` e `CDS.docs[id] = { source, sourceLabel, tabs }` (começar com `window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};`) → `node scripts/build-index.js`.
 - **Documentar um componente:** criar `components/<id>/<id>.docs.js` com `CDS.docs[id] = { tag, base, source, tabs }` → `node scripts/build-index.js`. Os blocos estão descritos no topo de `scripts/docs-kit.js`. Para specimens de Hovered/Pressed/Is Active, o componente precisa aceitar `state` / `is-active`.
 - **Reimportar ícones do [Caju] Icons:** `use_figma` na página `UI & Caju` (0:1), listando os componentes dos frames de categoria em ordem e devolvendo linhas `@@ICON\t<categoria>\t<nome>\t<description>\t<svg interno>` em pedaços de até 19 KB (parâmetro `START`, a resposta termina com `@@NEXT\t<i>\t<total>`). Depois: `python3 scripts/dev/extract-icons.py <transcript.jsonl> --write` → `node scripts/build-assets.js`. O transcript fica em `~/.claude/projects/<projeto>/<sessão>.jsonl`.

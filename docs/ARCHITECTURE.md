@@ -84,6 +84,7 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 | A29 | **Dois tipos de entrada no registro:** componente (playground + doc opcional) e recurso (só doc) | Mesmo `CDS.register` com `resource:true`; o shell decide tabs, modo doc e menu. Evita um segundo roteador | ✅ |
 | A30 | **`resources/` fora de `components/`** e sem `@deps` | O `build-index` inclui depois dos componentes; um recurso nunca é dependência de componente (o componente consome os *arquivos*, não a página) | ✅ |
 | A31 | **Accordion nativo (`<details>`)** na biblioteca | Teclado e leitor de tela de graça; a busca abre só os painéis com resultado e limpar volta ao estado inicial | ✅ reutilizável quando o Accordion do DS existir |
+| A33 | **Side menu com o mesmo accordion (`<details>`)** da biblioteca de ícones; estado aberto por categoria em `localStorage` (conveniência por pessoa, com `try/catch`) | Em telas ≤1100px o menu é uma faixa horizontal: tudo aberto e cabeçalhos escondidos, senão os itens de uma categoria fechada ficariam inacessíveis (aconteceu com Building blocks no 1º teste) | ✅ |
 | A32 | **Página reservada sem fonte** (Animações) | Fica marcada "a definir" e sem conteúdo inventado até o link chegar | 🟡 Q31 |
 
 ### Rodada 5 (01/10 · importação dos ícones)

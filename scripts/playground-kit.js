@@ -159,7 +159,7 @@
   function iconSwap(panel, o){
     var A = window.CDS.assets || {}, icons = A.icons || [], buckets = (A.iconBuckets || []).filter(function(b){ return !b.deprecated && !b.glyphs; });
     var sel = select(panel, { label: o.label || "Icon (instance swap)", value: o.value, options: [],
-      hint: icons.length + " ícones do [Caju] Icons em " + buckets.length + " categorias · <a href=\"#/caju-icons\">ver biblioteca</a>",
+      hint: buckets.reduce(function(t, b){ return t + b.icons.length; }, 0) + " ícones do [Caju] Icons em " + buckets.length + " categorias · <a href=\"#/caju-icons\">ver biblioteca</a>",
       onChange: o.onChange });
     var has = {}; icons.forEach(function(i){ has[i.name] = true; });
     buckets.forEach(function(b){

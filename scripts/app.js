@@ -21,6 +21,23 @@
   function link(c){
     return kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.task || "" })])]);
   }
+  // Accordion de categoria: <details> nativo (teclado e leitor de tela de graça)
+  var narrow = window.matchMedia("(max-width:1100px)"); // menu vira faixa horizontal: tudo aberto, sem cabeçalho
+  var openCats = {};
+  try { openCats = JSON.parse(localStorage.getItem("cds-pg-nav-open") || "{}") || {}; } catch (e) { openCats = {}; }
+  function saveOpen(){ try { localStorage.setItem("cds-pg-nav-open", JSON.stringify(openCats)); } catch (e) {} }
+  function navGroup(label, items, open, onToggle){
+    var det = kit.el("details", { "class": "pg-nav-cat" });
+    det.open = !!open;
+    var chev = kit.el("span", { "class": "cds-icon cds-icon--dropdown-open-line pg-nav-cat__chev", "aria-hidden": "true" });
+    det.appendChild(kit.el("summary", { "class": "pg-nav-cat__head" }, [kit.el("span", { text: label }), kit.el("small", { text: String(items.length) }), chev]));
+    var ul = kit.el("ul", { "class": "pg-nav" });
+    items.forEach(function(c){ ul.appendChild(link(c)); });
+    det.appendChild(ul);
+    det.addEventListener("toggle", function(){ if (!narrow.matches && !search.value.trim()) onToggle(det.open); });
+    return det;
+  }
+  narrow.addEventListener("change", function(){ buildNav(search.value); });
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
@@ -31,21 +48,17 @@
     navRes.innerHTML = ""; navResTitle.hidden = navRes.hidden = !res.length;
     res.forEach(function(c){ navRes.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.status || "" })])])); });
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
+    // Categorias em accordion: abre a da página atual, as que a pessoa abriu (lembrado no navegador) e todas durante a busca
+    var cur = currentId();
     cats.forEach(function(cat){
       var items = comps.filter(function(c){ return (c.category || "Outros") === cat; });
       if (!items.length) return;
-      nav.appendChild(kit.el("li", { "class": "pg-nav-group", text: cat }));
-      items.forEach(function(c){ nav.appendChild(link(c)); });
+      nav.appendChild(kit.el("li", null, [navGroup(cat, items, q || narrow.matches || openCats[cat] || items.some(function(c){ return c.id === cur; }), function(open){ openCats[cat] = open; saveOpen(); })]));
     });
     if (blocks.length){
-      var det = kit.el("details", { "class": "pg-nav-blocks" });
-      if (blocksOpen || q || blocks.some(function(c){ return c.id === currentId(); })) det.open = true;
-      det.addEventListener("toggle", function(){ blocksOpen = det.open; });
-      det.appendChild(kit.el("summary", { text: "Building blocks (" + blocks.length + ")" }));
-      var ul = kit.el("ul", { "class": "pg-nav" });
-      blocks.forEach(function(c){ ul.appendChild(link(c)); });
-      det.appendChild(ul);
-      nav.appendChild(kit.el("li", null, [det]));
+      var bd = navGroup("Building blocks", blocks, blocksOpen || q || narrow.matches || blocks.some(function(c){ return c.id === cur; }), function(open){ blocksOpen = open; });
+      bd.classList.add("pg-nav-blocks");
+      nav.appendChild(kit.el("li", null, [bd]));
     }
     if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
     markCurrent();
@@ -53,7 +66,8 @@
   function markCurrent(){
     var cur = currentId();
     [].slice.call(nav.querySelectorAll("a")).concat([].slice.call(navRes.querySelectorAll("a"))).forEach(function(a){
-      if (a.getAttribute("href") === "#/" + cur) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+      if (a.getAttribute("href") === "#/" + cur){ a.setAttribute("aria-current", "page"); var d = a.closest("details"); if (d) d.open = true; }
+      else a.removeAttribute("aria-current");
     });
   }
   search.addEventListener("input", function(){ buildNav(search.value); });

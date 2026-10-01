@@ -55,12 +55,24 @@ code{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:.92em; }
 .pg-nav a small{ font:400 11px/1.4 ui-monospace, Menlo, monospace; color:var(--common-colors-text-soft); }
 .pg-nav a:hover{ background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); }
 .pg-nav a[aria-current="page"]{ background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); font-weight:500; }
-.pg-nav-group{ margin:12px 8px 4px; font:500 11px/1.4 Roboto, sans-serif; letter-spacing:.04em; text-transform:uppercase; color:var(--common-colors-text-soft); }
-.pg-nav-group:first-child{ margin-top:0; }
-.pg-nav-blocks{ margin-top:16px; padding-top:8px; box-shadow:inset 0 1px 0 var(--pg-line); }
-.pg-nav-blocks summary{ cursor:pointer; padding:8px; border-radius:8px; font:500 12px/1.4 Roboto, sans-serif; color:var(--common-colors-text-medium); }
-.pg-nav-blocks summary:hover{ background:var(--common-colors-surface-01); }
+.pg-nav-blocks{ margin-top:12px; padding-top:8px; box-shadow:inset 0 1px 0 var(--pg-line); }
 .pg-nav-empty{ padding:8px; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+
+/* Categorias do side menu em accordion */
+.pg-nav-cat__head{
+  list-style:none; display:flex; align-items:center; gap:8px; cursor:pointer;
+  padding:8px; border-radius:8px; font:500 11px/1.4 Roboto, sans-serif; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--common-colors-text-soft); transition:background-color var(--motion-hover-duration) var(--motion-hover-easing);
+}
+.pg-nav-cat__head::-webkit-details-marker{ display:none; }
+.pg-nav-cat__head > span:first-child{ flex:1 1 auto; }
+.pg-nav-cat__head small{ font:400 11px/1.4 ui-monospace, Menlo, monospace; letter-spacing:0; }
+.pg-nav-cat__head:hover{ background:var(--common-colors-surface-01); color:var(--common-colors-text-medium); }
+.pg-nav-cat__head:focus-visible{ outline:2px solid var(--common-colors-border-intense); outline-offset:-2px; }
+.pg-nav-cat__chev{ --cds-icon-color:currentColor; width:16px; height:16px; transition:transform var(--motion-active-duration) var(--motion-active-easing); }
+.pg-nav-cat[open] > .pg-nav-cat__head .pg-nav-cat__chev{ transform:rotate(180deg); }
+.pg-nav-cat > .pg-nav{ padding-bottom:4px; }
+@media (prefers-reduced-motion:reduce){ .pg-nav-cat__head, .pg-nav-cat__chev{ transition:none; } }
 
 /* Canvas */
 .pg-canvas{ min-width:0; display:flex; flex-direction:column; }
@@ -163,9 +175,9 @@ label.pg-switch{ position:relative; display:inline-block; width:40px; height:24p
   .pg-nav{ flex-direction:row; gap:4px; }
   .pg-nav a{ white-space:nowrap; }
   .pg-nav a small{ display:none; }
-  .pg-nav-group{ display:none; }
   .pg-nav-blocks{ margin:0; padding:0; box-shadow:none; }
-  .pg-nav-blocks summary{ white-space:nowrap; }
+  #nav{ flex-direction:row; }
+  .pg-nav-cat__head{ display:none; }
   .pg-panel{ top:var(--pg-header-h); }
 }
 @media (max-width:760px){

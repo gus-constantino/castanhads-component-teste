@@ -205,6 +205,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D34 | **Nome dos Motion Styles segue a main** (`Hover In/01/Timing`). Se a main renomear, atualizar o snapshot e rodar `build-tokens` (Q28) | Q28 · 01/10 |
 | D35 | **Ícones organizados por bucket = frame de categoria do [Caju] Icons** (`assets/icons/<categoria>/<nome>.svg`), ordem e palavras-chave em `catalog.json`. Nome de classe continua `.cds-icon--<nome>` (único); deprecated fica em bucket próprio, fora do instance swap. Glifos internos de componentes (checkbox) em `_glyphs` | 01/10 |
 | D36 | **Lib de apoio ≠ componente.** [Caju] Icons, [Caju] Illustrations, Caju Theme e Animações são **Recursos de suporte**: espaço próprio no side menu, pasta `resources/<id>/`, só doc (sem playground). O componente Icon fica só com o playground. A biblioteca de ícones é um accordion por categoria | 01/10 |
+| D37 | **Side menu em accordion por categoria** (página do Figma): abre a categoria da página atual e as que a pessoa abriu (lembrado no navegador); a busca abre todas as que têm resultado. No mobile (faixa horizontal) fica tudo aberto, sem cabeçalho | 01/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas

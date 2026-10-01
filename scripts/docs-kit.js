@@ -21,6 +21,7 @@
  *   guides: [{ attrs, title, text }]
  *   dodont: [{ kind: "do"|"dont", attrs, text, style }]
  *   table: { head: [...], rows: [[...]] }
+ *   specs: [{ title, rows: [[rótulo, valor], …] }]   cards de ficha técnica (ex.: Motion Style por interação)
  *
  * Exemplos estáticos ficam com `inert` (sem hover, foco ou tab); `live: true` os deixa interativos.
  */
@@ -41,7 +42,12 @@
   /** Texto com `código` → <code>; o resto é escapado. */
   function rich(n, s){
     String(s).split(/(`[^`]+`)/).forEach(function(part){
-      if (/^`[^`]+`$/.test(part)) n.appendChild(el("code", null, part.slice(1, -1)));
+      if (/^`[^`]+`$/.test(part)){
+        // <wbr> depois de / e - : tokens longos quebram nos separadores, não no meio da palavra
+        var c = el("code");
+        part.slice(1, -1).split(/(?<=[^\/-][\/-])/).forEach(function(seg, i){ if (i) c.appendChild(document.createElement("wbr")); c.appendChild(document.createTextNode(seg)); });
+        n.appendChild(c);
+      }
       else if (part) n.appendChild(document.createTextNode(part));
     });
     return n;
@@ -206,6 +212,18 @@
         cap.appendChild(el("strong", null, it.kind === "do" ? "Use" : it.kind === "caution" ? "Use com cautela" : "Não use"));
         cap.appendChild(rich(el("span"), it.text));
         card.appendChild(cap);
+        g.appendChild(card);
+      });
+      return g;
+    },
+    specs: function(d, v){
+      var g = el("div", "pg-doc-specs");
+      v.forEach(function(c){
+        var card = el("section", "pg-doc-spec");
+        card.appendChild(el("h3", "pg-doc-h4", c.title));
+        var dl = el("dl");
+        c.rows.forEach(function(r){ dl.appendChild(el("dt", null, r[0])); dl.appendChild(rich(el("dd"), r[1])); });
+        card.appendChild(dl);
         g.appendChild(card);
       });
       return g;

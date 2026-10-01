@@ -131,14 +131,12 @@ CDS.docs["code-input-otp"] = {
       { p: "As transições de estado da célula usam os Motion Styles do Castanha (modo Normal)." },
       { display: { attrs: { label: "Código", "show-required": false }, live: true } },
       { note: "Exemplo interativo: passe o mouse, pressione e foque uma célula para ver cada transição." },
-      { table: {
-        head: ["Motion token", "Easing", "Duration", "Estado", "No código"],
-        rows: [
-          ["Hover In", "0.7, 0, 0.5, 1", "150ms", "Hovered", "`--motion-hover-*`"],
-          ["Pressed", "0.7, 0, 0.8, 1", "200ms", "Pressed", "`--motion-press-*`"],
-          ["Selected In", "0.4, 0, 0.1, 1", "350ms", "Is Active", "`--motion-active-*`"]
-        ]
-      } },
+      { specs: [
+        { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"], ["Timing", "150ms · `Common/Motion/Duration/Short/03`"], ["Easing", "0.7, 0, 0.5, 1 · `Common/Motion/Easing/Systemic/default`"], ["No código", "`--motion-hover-in-01-timing` · `--motion-hover-in-01-easing`"]] },
+        { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"], ["Timing", "200ms · `Common/Motion/Duration/Short/04`"], ["Easing", "0.7, 0, 0.8, 1 · `Common/Motion/Easing/Systemic/accelerate`"], ["No código", "`--motion-pressed-01-timing` · `--motion-pressed-01-easing`"]] },
+        { title: "Pressed → Is Active", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"], ["Timing", "350ms · `Common/Motion/Duration/Medium/03`"], ["Easing", "0.4, 0, 0.1, 1 · `Common/Motion/Easing/Expressive/decelerate`"], ["No código", "`--motion-selected-in-01-timing` · `--motion-selected-in-01-easing`"]] }
+      ] },
+      { note: "Motion Styles da coleção `.Motion Styles` (modo Normal), cada um apontando para um primitivo `Common/Motion/*`. O índice `/01` faz parte do nome: virão outros estilos por interação. While hovering e While pressing revertem sozinhos ao fim do gesto, sem estilo de volta." },
       { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (a `.Motion Styles` não tem modo Reduced tokenizado — tratamento no código)." },
       { note: "No playground, `prefers-reduced-motion: reduce` remove as transições das células e o piscar do caret." }
     ] }

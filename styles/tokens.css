@@ -238,21 +238,21 @@
   --common-colors-charts-07-semi-soft:#d3d3d3;
   --common-colors-charts-07-medium:#a3a3a3;
   --common-colors-charts-07-intense:#727272;
-  --motion-hover-in-timing:150ms;
-  --motion-hover-in-easing:cubic-bezier(0.7, 0, 0.5, 1);
-  --motion-hover-out-timing:150ms;
-  --motion-hover-out-easing:cubic-bezier(0.7, 0, 0.5, 1);
-  --motion-hover-out-delay:56ms;
-  --motion-pressed-timing:200ms;
-  --motion-pressed-easing:cubic-bezier(0.7, 0, 0.8, 1);
-  --motion-released-timing:50ms;
-  --motion-released-easing:cubic-bezier(0.2, 0, 0.3, 1);
-  --motion-selected-in-timing:350ms;
-  --motion-selected-in-easing:cubic-bezier(0.4, 0, 0.1, 1);
-  --motion-selected-out-timing:200ms;
-  --motion-selected-out-easing:cubic-bezier(0.4, 0, 0.1, 1);
-  --motion-disabled-timing:150ms;
-  --motion-disabled-easing:cubic-bezier(0.7, 0, 0.5, 1);
+  --motion-hover-in-01-timing:var(--common-motion-duration-short-03); /* Hover In/01/Timing → Common/Motion/Duration/Short/03 */
+  --motion-hover-in-01-easing:var(--common-motion-easing-systemic-default); /* Hover In/01/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-hover-out-01-timing:var(--common-motion-duration-short-03); /* Hover Out/01/Timing → Common/Motion/Duration/Short/03 */
+  --motion-hover-out-01-easing:var(--common-motion-easing-systemic-default); /* Hover Out/01/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-hover-out-01-delay:var(--common-motion-delay-short-02); /* Hover Out/01/Delay → Common/Motion/Delay/Short/02 */
+  --motion-pressed-01-timing:var(--common-motion-duration-short-04); /* Pressed/01/Timing → Common/Motion/Duration/Short/04 */
+  --motion-pressed-01-easing:var(--common-motion-easing-systemic-accelerate); /* Pressed/01/Easing → Common/Motion/Easing/Systemic/accelerate */
+  --motion-released-01-timing:var(--common-motion-duration-short-01); /* Released/01/Timing → Common/Motion/Duration/Short/01 */
+  --motion-released-01-easing:var(--common-motion-easing-systemic-decelerate); /* Released/01/Easing → Common/Motion/Easing/Systemic/decelerate */
+  --motion-selected-in-01-timing:var(--common-motion-duration-medium-03); /* Selected In/01/Timing → Common/Motion/Duration/Medium/03 */
+  --motion-selected-in-01-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/01/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-out-01-timing:var(--common-motion-duration-short-04); /* Selected Out/01/Timing → Common/Motion/Duration/Short/04 */
+  --motion-selected-out-01-easing:var(--common-motion-easing-expressive-decelerate); /* Selected Out/01/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-disabled-01-timing:var(--common-motion-duration-short-03); /* Disabled/01/Timing → Common/Motion/Duration/Short/03 */
+  --motion-disabled-01-easing:var(--common-motion-easing-systemic-default); /* Disabled/01/Easing → Common/Motion/Easing/Systemic/default */
 
   /* Elevations (effect styles Elevation/level 1–3) */
   --common-elevation-level-1:var(--common-elevations-level-1-x) var(--common-elevations-level-1-y) var(--common-elevations-level-1-blur) var(--common-elevations-level-1-spread) var(--common-elevations-level-1-color);
@@ -299,9 +299,9 @@
   --text-style-decorative-display:700 80px/1.5 "Work Sans", Roboto, Arial, sans-serif;
 
   /* Aliases usados pelos componentes (Motion Styles por interação) */
-  --motion-hover-duration:var(--motion-hover-in-timing);     --motion-hover-easing:var(--motion-hover-in-easing);
-  --motion-press-duration:var(--motion-pressed-timing);      --motion-press-easing:var(--motion-pressed-easing);
-  --motion-active-duration:var(--motion-selected-in-timing); --motion-active-easing:var(--motion-selected-in-easing);
+  --motion-hover-duration:var(--motion-hover-in-01-timing);     --motion-hover-easing:var(--motion-hover-in-01-easing);
+  --motion-press-duration:var(--motion-pressed-01-timing);      --motion-press-easing:var(--motion-pressed-01-easing);
+  --motion-active-duration:var(--motion-selected-in-01-timing); --motion-active-easing:var(--motion-selected-in-01-easing);
 }
 html[data-theme="dark"]{
   --common-colors-surface-default:#1a1a1a;

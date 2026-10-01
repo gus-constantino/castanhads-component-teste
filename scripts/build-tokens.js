@@ -6,7 +6,8 @@
  * Nomenclatura: Common/Colors/Text/intense → --common-colors-text-intense (1:1 com o Figma).
  * Text styles:  Label/Medium Label        → --text-style-label-medium (shorthand `font`)
  * Elevations:   Common/Elevations/Level 1 → --common-elevation-level-1 (box-shadow pronto)
- * Motion Styles: Hover In/01/Timing       → --motion-hover-in-timing
+ * Motion Styles: Hover In/01/Timing       → --motion-hover-in-01-timing (o índice fica: vão existir outros estilos)
+ *                aponta para o primitivo do Figma (motionAlias), ex.: var(--common-motion-duration-short-03)
  *
  * Ferramenta de desenvolvimento: o site não depende de build, só do CSS gerado.
  */
@@ -42,7 +43,12 @@ function push(name, type, l, d){
 }
 
 snap.brand.forEach((r) => push(r[0], r[1], r[2], r[3]));
-snap.motion.forEach((r) => push("Motion/" + r[0].replace("/01/", "/"), r[1], r[2], r[3]));
+const motionAlias = snap.motionAlias || {};
+snap.motion.forEach((r) => {
+  const a = motionAlias[r[0]];
+  if (a) light.push(`  --${slug("Motion/" + r[0])}:var(--${slug(a)}); /* ${r[0]} → ${a} */`);
+  else push("Motion/" + r[0], r[1], r[2], r[3]);
+});
 
 // Elevations prontas para box-shadow
 const elevations = snap.elevations.map(([, lvl]) => {
@@ -76,9 +82,9 @@ ${elevations.join("\n")}
 ${texts.join("\n")}
 
   /* Aliases usados pelos componentes (Motion Styles por interação) */
-  --motion-hover-duration:var(--motion-hover-in-timing);     --motion-hover-easing:var(--motion-hover-in-easing);
-  --motion-press-duration:var(--motion-pressed-timing);      --motion-press-easing:var(--motion-pressed-easing);
-  --motion-active-duration:var(--motion-selected-in-timing); --motion-active-easing:var(--motion-selected-in-easing);
+  --motion-hover-duration:var(--motion-hover-in-01-timing);     --motion-hover-easing:var(--motion-hover-in-01-easing);
+  --motion-press-duration:var(--motion-pressed-01-timing);      --motion-press-easing:var(--motion-pressed-01-easing);
+  --motion-active-duration:var(--motion-selected-in-01-timing); --motion-active-easing:var(--motion-selected-in-01-easing);
 }
 html[data-theme="dark"]{
 ${dark.join("\n")}

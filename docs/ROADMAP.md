@@ -185,7 +185,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D13 | O papel de trailing actions (ex.: `support-line`) é de quem implementa: o componente só emite evento e aceita `trailing-label` | 01/10 |
 | D14 | Credit Card fixo em 16 dígitos (4×4); OTP de 3 a 6 células | 01/10 |
 | D15 | Viewport padrão do playground = Fluido | 01/10 |
-| D16 | **Fonte de verdade: sempre perguntar** antes de cada lote se há branch ativa para algum componente (default = main) | Q1 · 01/10 |
+| D16 | ~~Fonte de verdade: sempre perguntar~~ → substituída pela D25 | Q1 · 01/10 |
 | D17 | Building blocks ficam numa **seção recolhida "Building blocks" no fim do side menu**, além de aparecerem em Nested instances | Q2 · 01/10 |
 | D18 | **Ilustrações e ícones sob demanda** via MCP; o Gustavo exporta tudo depois. Pipeline: soltar os SVGs em `assets/icons/` e `assets/illustrations/` e rodar `node scripts/build-assets.js`, que gera `styles/icons.css` e `scripts/assets-manifest.js` | Q3/Q4 · 01/10 |
 | D19 | Complexos: **visual fiel + interação essencial** (estados, teclado e a11y do Figma e das annotations); regras de negócio simuladas | Q8 · 01/10 |
@@ -193,13 +193,14 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D21 | **Nested instances reais:** componentes que no Figma instanciam outro (Tag → Icon, Shaped Icon → Icon) usam o custom element de verdade (`<cds-icon>`). Override de cor do Figma vira CSS no pai, com especificidade acima do `[appearance]` do filho | 01/10 |
 | D22 | Sem Jira conhecido, o item do menu sai sem chave; o link do Figma aponta para o node do set na main | 01/10 |
 | D23 | **Assets de marca** (Caju Brand, bandeiras) mantêm as cores do Figma — não são tokens. Caju Brand vira SVG inline (paths do Figma); bandeiras ficam em `assets/flags/` | 01/10 |
+| D25 | **Fonte de verdade = main da lib.** Exceções: as branches já puxadas (Code Input OTP `PfeMbrThCwzwJFFo2GiAbW` e Credit Card Input `NHkGUvBfNMNTLnsxKtAmWa`). Novas branches entram depois, quando o Gustavo indicar, como atualização do componente | 01/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
 
 | # | Dúvida | Proposta |
 |---|---|---|
-| Q5 | **Input Chips aparece em dois sets** (`12365:2728` e `14120:5313`) com as mesmas props. Qual é o canônico? | Perguntar antes do Lote 3 |
+| Q5 | **Input Chips aparece em dois sets** com as mesmas props e variantes, na mesma posição do frame `Chips` (um sobre o outro). Diferença: `12365:2728` tem stroke `Border/semi-soft`; `14120:5313` não tem stroke. O **Chips Group usa o `12365:2728`** | Aguardando o Gustavo — proposta: `12365:2728` (é o consumido) |
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
 | Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
 | Q11 | **Currency Largest com valor oculto** usa Heading/Small (38px de altura) para o "R$", e com valor usa Title/Medium (36px). Intencional? | Implementado como no Figma |

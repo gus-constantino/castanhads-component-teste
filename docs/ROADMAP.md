@@ -202,6 +202,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D31 | **OTP alfanumérico aceita símbolos** (letras, números e símbolos; sem espaço). Numérico segue só 0–9 (Q25) | Q25 · 01/10 |
 | D32 | **Seção de doc oculta no Figma → montar com a skill `castanhads-juntos` (setup documentation) a partir das annotations e do handoff dev** (Q26). Aplicado na Acessibilidade do OTP: 4 annotations de Accessibility + seção Acessibilidade do `HANDOFF_CodeInputOTP_DEV.md`. Gravar no frame do Figma só com aprovação | Q26 · 01/10 |
 | D33 | **Motion Styles com o índice no nome** (`Hover In/01`), como estão na main; no código `--motion-hover-in-01-timing`, apontando para o primitivo `Common/Motion/*`. A aba Motion lista interação → gatilho → Motion Style → primitivos → variável CSS | 01/10 |
+| D34 | **Nome dos Motion Styles segue a main** (`Hover In/01/Timing`). Se a main renomear, atualizar o snapshot e rodar `build-tokens` (Q28) | Q28 · 01/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -221,8 +222,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Q23 | **Motion da doc** usa a ilustração de empty state (caixa) como placeholder | Troquei por um exemplo interativo |
 | Q24 | **Variáveis `Commom/Colors/...`** (com "m") nos Tags do `.Prop-type` da doc — outra coleção ou erro de digitação? | Usei os tokens `Common/*` equivalentes |
 | Q27 | **Borda em repouso do OTP (`Border/semi-soft`, ~1,24:1)** ficou mais sutil que o `#999` anterior; o handoff pede confirmar com a11y se as células vazias seguem visíveis | Registrado; fora do corpo da doc |
-| Q28 | **Motion Styles: posição do índice.** A skill registra a decisão de levar o índice para o fim (`Hover In/Timing/01`), mas a main ainda tem `Hover In/01/Timing` | Segui a main (D25); quando renomear, refazer o snapshot e rodar `build-tokens` |
-| Q29 | **Icon Button dentro do Credit Card** (branch NHkG…) tem hover em 300ms `EASE_OUT`, que não é Motion Style (devia ser `Hover In/01`) | Implementação usa o motion do Icon Button da lib |
+| Q29 | **Icon Button dentro do Credit Card** (branch NHkG…) tem hover em 300ms `EASE_OUT`, que não é Motion Style (devia ser `Hover In/01`) | Gustavo corrige no Figma; o código já usa o motion do Icon Button da lib, nada muda aqui |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
 ## 5.1 Débito de export (Gustavo)

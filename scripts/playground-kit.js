@@ -155,13 +155,19 @@
     return sel;
   }
 
-  /** Instance swap de ícone — lista os ícones de CDS.assets (assets/icons). */
+  /** Instance swap de ícone — agrupado por bucket (categoria do [Caju] Icons); deprecated e glifos ficam de fora. */
   function iconSwap(panel, o){
-    var icons = (window.CDS.assets && CDS.assets.icons) || [];
-    return select(panel, { label: o.label || "Icon (instance swap)", value: o.value,
-      options: icons.map(function(i){ return [i.name, i.name]; }),
-      hint: icons.length + " ícones em <code>assets/icons</code>. Exporte mais do [Caju] Icons e rode <code>node scripts/build-assets.js</code>.",
+    var A = window.CDS.assets || {}, icons = A.icons || [], buckets = (A.iconBuckets || []).filter(function(b){ return !b.deprecated && !b.glyphs; });
+    var sel = select(panel, { label: o.label || "Icon (instance swap)", value: o.value, options: [],
+      hint: icons.length + " ícones do [Caju] Icons em " + buckets.length + " categorias (<code>assets/icons/&lt;categoria&gt;/</code>).",
       onChange: o.onChange });
+    var has = {}; icons.forEach(function(i){ has[i.name] = true; });
+    buckets.forEach(function(b){
+      var g = el("optgroup", { label: b.name });
+      b.icons.forEach(function(n){ if (!has[n]) return; var op = el("option", { value: n, text: n }); if (n === o.value) op.selected = true; g.appendChild(op); });
+      if (g.children.length) sel.appendChild(g);
+    });
+    return sel;
   }
 
   /**

@@ -13,7 +13,7 @@ Figma (fonte da verdade)
   │  Figma MCP: use_figma (leitura JS) · get_design_context · get_variable_defs · exportAsync
   ▼
 tokens/figma-snapshot.json ──node scripts/build-tokens.js──▶ styles/tokens.css
-assets/{icons,illustrations}/*.svg ──node scripts/build-assets.js──▶ styles/icons.css + scripts/assets-manifest.js
+assets/icons/<bucket>/*.svg + catalog.json, assets/illustrations/*.svg ──node scripts/build-assets.js──▶ styles/icons.css + scripts/assets-manifest.js
   │
   ▼
 components/<id>/{<id>.css, <id>.js, <id>.playground.js}   ← custom elements em light DOM (extends CDS.Element)
@@ -36,7 +36,7 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 | Camada | Arquivos | Responsabilidade | Regras |
 |---|---|---|---|
 | **Tokens** | `tokens/figma-snapshot.json` → `styles/tokens.css` | 250 `--common-*` (light e dark por `html[data-theme]`), 34 text styles (`--text-style-*`, shorthand `font`), 3 elevations, Motion Styles | 1:1 com o nome do Figma (`Common/Colors/Text/intense` → `--common-colors-text-intense`). Nunca hex em componente |
-| **Assets** | `assets/icons` · `assets/illustrations` · `assets/flags` · `assets/brand` | SVGs do Figma | Ícone monocromático = máscara (`.cds-icon--<nome>`, gerado). Colorido (bandeira, marca) = `<img>` ou SVG inline |
+| **Assets** | `assets/icons` · `assets/illustrations` · `assets/flags` · `assets/brand` | SVGs do Figma | Ícone monocromático = máscara (`.cds-icon--<nome>`, gerado), organizado em buckets = categorias do [Caju] Icons (`catalog.json` guarda ordem e palavras-chave). Colorido (bandeira, marca) = `<img>` ou SVG inline |
 | **Base da lib** | `styles/shared.css` · `scripts/cds-element.js` | reset `box-sizing:border-box`, `.cds-icon` (máscara; cor = `--cds-icon-color` > `--_icon-color`), classe base `CDS.Element`, `CDS.create()` | Carregar antes de qualquer componente |
 | **Componentes** | `components/<id>/` | Custom element `<cds-…>` + CSS + playground | Ver §3 |
 | **Kit do playground** | `scripts/playground-kit.js` | `CDS.register`, helpers de controle (`seg`, `toggle`, `text`, `range`, `select`, `iconSwap`, `nested`, `watch`) | Não importa nada de componente |
@@ -76,7 +76,16 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 
 ---
 
-## 5. Análise — rodada 4 (01/10 · experimento de documentação)
+## 5. Análise — rodada 5 (01/10 · importação dos ícones)
+
+| # | Achado | Detalhe | Status |
+|---|---|---|---|
+| A25 | **Ícones por bucket sem mudar o contrato:** a classe continua `.cds-icon--<nome>`; só o caminho do arquivo ganhou a pasta | Nenhum componente mudou; os 48 ícones usados nos componentes renderizam | ✅ |
+| A26 | **`catalog.json` como fonte de ordem e metadados** (categoria, palavras-chave da description do Figma) | Alimenta a galeria (busca), o instance swap agrupado e o manifest | ✅ |
+| A27 | **Manifest cresceu para ~45 KB** (palavras-chave de 262 ícones), carregado em toda página | Aceitável hoje; se crescer com ilustrações, separar `keywords` num arquivo carregado só pela galeria | 🟢 monitorar |
+| A28 | **Exportação sem `curl`:** o `use_figma` devolve no máximo 20 KB por chamada; as linhas `@@ICON` são extraídas do transcript da sessão por script (`scripts/dev/extract-icons.py`), sem redigitar SVG | 14 chamadas para 274 ícones; coordenadas com 2 casas | ✅ receita registrada |
+
+### Rodada 4 (01/10 · experimento de documentação)
 
 | # | Achado | Detalhe | Status |
 |---|---|---|---|
@@ -152,6 +161,7 @@ Medições no código atual:
 | **P2** | Subir `build()`/`update()` de `CDS.SelectionControl` para `CDS.Element` (opcional por componente) quando a 2ª família usar | A3 | ~1h | Lote 4 |
 | **P2** | Estados forçados (`state`, `is-active`) como contrato da família de inputs no Lote 4 (OTP e Credit Card já têm) | A19 | ~30min | Lote 4 |
 | **P2** | Smoke: checar a cor do Label/mensagem por Appearance nos inputs (o bug do Warning passou nos dois) | — | ~20min | Lote 4 |
+| **P3** | Separar `keywords` do manifest (carregar só na galeria) se o manifest passar de ~100 KB | A27 | ~20min | ilustrações |
 | **P3** | Smoke montar as tabs de doc e checar overflow horizontal em 375px | A21 | ~30min | 2ª doc |
 | **P3** | Extrator do frame `[Documentação]` → `.docs.js` (estrutura estável: seções por nome) | A17 | ~1h | se a doc virar padrão |
 | **P3** | `tools/figma/extract.js`: versionar os extratores (matriz de variantes, tree+diff, export SVG) para colar sem reescrever | A8 | ~30min | quando houver folga |
@@ -172,6 +182,7 @@ Medições no código atual:
 | Lote 1b | Assets coloridos fora do pipeline de máscara · building blocks com `block: true` | Exportação de vetor pode falhar; reconstrução por `vectorPaths` é confiável |
 | Lote 2 | Icon Button vira componente e substitui o botão desenhado à mão em OTP e Credit Card · base `.cds-btn` compartilhada entre Main e Drop | Componente consumido por outros tem que carregar antes: a ordem no `index.html` virou dependência implícita (→ P1 `build-index.js`) |
 | Lote 3 | Primeiras **bases de família**: `CDS.SelectionControl` (JS + CSS) e `.cds-chip` (CSS + `CDS.chipIcon`) · primeiro render incremental · um arquivo definindo 3 tags (Groups) · `kit.selectionControl` (um playground parametrizado para 3 componentes) · evento cancelável `cds-remove` | Manter o `<input>` nativo e só atualizar atributos dá teclado, foco e leitor de tela de graça. A base de família reduz cada variante a poucas linhas. Props com nome de atributo global de HTML precisam de prefixo (`role` → `role-kind`) |
+| Ícones | 274 SVGs em 12 buckets + `catalog.json` · `build-assets` com buckets, deprecated e `_glyphs` · `kit.iconSwap` com `<optgroup>` · bloco `iconGallery` + `icon.docs.js` | Edição de arquivo por fatia (`s[a:b]`) precisa checar `a < b`: com a ordem invertida a fatia sai vazia e `replace("", novo)` insere o texto entre todos os caracteres (aconteceu no kit; restaurado do git). Sempre `assert` na âncora |
 | Motion Styles | `--motion-*-01-*` com alias para o primitivo; bloco `specs` (fichas) no kit; `<wbr>` em `código` longo | Tabela larga não funciona em doc responsiva: ficha por item escala melhor. Servidor local cacheia JS (sem headers): forçar `fetch(..., {cache:'reload'})` antes de recarregar |
 | Doc (experimento) | `*.docs.js` (dados) + `scripts/docs-kit.js` (render) + `styles/docs.css` · tabs no shell com rota `#/<id>/<tab>` e teclado WAI-ARIA · `build-index` inclui `.docs.js` · estados forçados no Credit Card | Separar dados de render deixa a doc barata de escrever e consistente. Exemplos com `inert` ficam estáticos sem hacks de CSS. Decidir a anatomia compacta pela largura total, não pelo padding (que muda com a classe), evita oscilação no `ResizeObserver` |
 | Arquitetura | `CDS.Element` · `@deps` + `build-index.js` · `--cds-icon-color` · motion por token · reset na base da lib · smoke test | Teste automatizado barato (mount + medida vs Figma) já paga na 1ª execução. Variável de override é mais robusta que especificidade. Reset de box-sizing é parte da lib, não do app |
@@ -186,4 +197,5 @@ Medições no código atual:
 - **Adicionar componente:** criar a pasta com `@deps` no JSDoc → `node scripts/build-index.js` → registrar o tamanho em `tests/expected.js` → abrir `tests/smoke.html`.
 - **Nova família de componentes:** base em `components/<familia>/` (sem playground) com `@deps —`; cada membro declara `@deps <familia>` e sobrescreve só o que muda. No playground, um helper no kit (ex.: `kit.selectionControl`) evita repetir os controles.
 - **Documentar um componente:** criar `components/<id>/<id>.docs.js` com `CDS.docs[id] = { tag, base, source, tabs }` → `node scripts/build-index.js`. Os blocos estão descritos no topo de `scripts/docs-kit.js`. Para specimens de Hovered/Pressed/Is Active, o componente precisa aceitar `state` / `is-active`.
+- **Reimportar ícones do [Caju] Icons:** `use_figma` na página `UI & Caju` (0:1), listando os componentes dos frames de categoria em ordem e devolvendo linhas `@@ICON\t<categoria>\t<nome>\t<description>\t<svg interno>` em pedaços de até 19 KB (parâmetro `START`, a resposta termina com `@@NEXT\t<i>\t<total>`). Depois: `python3 scripts/dev/extract-icons.py <transcript.jsonl> --write` → `node scripts/build-assets.js`. O transcript fica em `~/.claude/projects/<projeto>/<sessão>.jsonl`.
 - **Testar no navegador:** abrir via servidor, checar `document.styleSheets` (todos com `cssRules`) e `customElements.get(...)`, recarregar se algo falhou, depois passar por todas as rotas medindo `getBoundingClientRect` e `getComputedStyle`.

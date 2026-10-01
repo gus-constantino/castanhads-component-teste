@@ -25,7 +25,7 @@ components/<nome>/
   <nome>.css                  estilos do componente
   <nome>.js                   custom element <cds-…>
   <nome>.playground.js        controles do playground
-assets/icons/*.svg            [Caju] Icons (24×24, monocromático)
+assets/icons/<categoria>/*.svg [Caju] Icons (24×24, monocromático) · catalog.json = ordem e palavras-chave
 assets/illustrations/*.svg    [Caju] Illustrations (200×200, colorido)
 ```
 

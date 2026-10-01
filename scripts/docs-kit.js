@@ -22,6 +22,7 @@
  *   dodont: [{ kind: "do"|"dont", attrs, text, style }]
  *   table: { head: [...], rows: [[...]] }
  *   specs: [{ title, rows: [[rótulo, valor], …] }]   cards de ficha técnica (ex.: Motion Style por interação)
+ *   iconGallery: { only }              galeria do [Caju] Icons por categoria, com busca por nome e palavra-chave; only: "deprecated" mostra só os deprecated
  *
  * Exemplos estáticos ficam com `inert` (sem hover, foco ou tab); `live: true` os deixa interativos.
  */
@@ -227,6 +228,49 @@
         g.appendChild(card);
       });
       return g;
+    },
+    iconGallery: function(d, v){
+      var A = window.CDS.assets || {}, meta = {};
+      (A.icons || []).forEach(function(i){ meta[i.name] = i; });
+      var wrap = el("div", "pg-doc-icons");
+      var search = el("input", "pg-text pg-doc-icons__search");
+      search.type = "search"; search.placeholder = "Buscar por nome ou palavra-chave (ex.: cartão, seta, pix)"; search.setAttribute("aria-label", "Buscar ícone");
+      var count = el("p", "pg-doc-note"); count.setAttribute("aria-live", "polite");
+      wrap.appendChild(search); wrap.appendChild(count);
+      var sections = [];
+      (A.iconBuckets || []).filter(function(b){ return !b.glyphs && (v.only === "deprecated" ? b.deprecated : !b.deprecated); }).forEach(function(b){
+        var sec = el("section", "pg-doc-icons__bucket");
+        var h = el("h3", "pg-doc-h3"); h.textContent = b.name + (b.deprecated ? " (deprecated)" : ""); sec.appendChild(h);
+        var grid = el("ul", "pg-doc-icons__grid"), tiles = [];
+        b.icons.forEach(function(n){
+          var m = meta[n] || {}, li = el("li"), btn = el("button", "pg-doc-icons__tile");
+          btn.type = "button"; btn.title = (m.keywords || []).join(", ");
+          btn.setAttribute("aria-label", n + " — copiar nome");
+          var ic = el("span", "cds-icon " + (b.deprecated ? "" : m.cls || "")); ic.setAttribute("aria-hidden", "true");
+          // deprecated pode repetir nome de um ativo (sem classe própria): aponta direto para o arquivo
+          if (b.deprecated){ var u = 'url("assets/icons/' + b.id + "/" + encodeURIComponent(n) + '.svg")'; ic.style.webkitMaskImage = u; ic.style.maskImage = u; }
+          btn.appendChild(ic); btn.appendChild(el("span", "pg-doc-icons__name", n));
+          btn.addEventListener("click", function(){
+            try { navigator.clipboard.writeText(n); } catch (e) {}
+            count.textContent = "Copiado: " + n;
+          });
+          li.appendChild(btn); grid.appendChild(li);
+          tiles.push({ li: li, text: (n + " " + (m.keywords || []).join(" ")).toLowerCase() });
+        });
+        sec.appendChild(grid); wrap.appendChild(sec);
+        sections.push({ sec: sec, tiles: tiles });
+      });
+      function filter(){
+        var q = search.value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""), shown = 0;
+        sections.forEach(function(s){
+          var any = 0;
+          s.tiles.forEach(function(t){ var ok = !q || t.text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(q) !== -1; t.li.hidden = !ok; if (ok) any++; });
+          s.sec.hidden = !any; shown += any;
+        });
+        count.textContent = shown + " ícone" + (shown === 1 ? "" : "s") + (q ? " para “" + search.value.trim() + "”" : "") + ". Clique para copiar o nome.";
+      }
+      search.addEventListener("input", filter); filter();
+      return wrap;
     },
     table: function(d, v){
       var wrap = el("div", "pg-doc-table-wrap"), t = el("table", "pg-doc-table");

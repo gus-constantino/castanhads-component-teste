@@ -1,0 +1,3086 @@
+{
+ "_source": "[Caju] Icons · vi4CKuAe98zydoLAQXoibU · página UI & Caju (0:1)",
+ "buckets": [
+  {
+   "id": "deprecated",
+   "name": "Deprecated",
+   "deprecated": true,
+   "icons": [
+    {
+     "name": "phone-line",
+     "figma": "phone-line",
+     "keywords": [
+      "phone",
+      "telefone"
+     ]
+    },
+    {
+     "name": "megaphone-line",
+     "figma": "megaphone-line",
+     "keywords": [
+      "megafone"
+     ]
+    },
+    {
+     "name": "delivery-line",
+     "figma": "delivery-line",
+     "keywords": [
+      "Transport",
+      "delivery"
+     ]
+    },
+    {
+     "name": "conversation-line",
+     "figma": "conversation-line",
+     "keywords": []
+    },
+    {
+     "name": "airplane-line",
+     "figma": "airplane-line",
+     "keywords": [
+      "Viagens",
+      "avião"
+     ]
+    },
+    {
+     "name": "several-line",
+     "figma": "several-line",
+     "keywords": [
+      "diversos"
+     ]
+    },
+    {
+     "name": "file-text-error-line",
+     "figma": "file-text-error-line",
+     "keywords": []
+    },
+    {
+     "name": "benefit-line",
+     "figma": "benefit-line",
+     "keywords": [
+      "benefícios"
+     ]
+    },
+    {
+     "name": "dark-mode-line",
+     "figma": "dark-mode-line",
+     "keywords": [
+      "Moon",
+      "Lua",
+      "Night",
+      "Noite",
+      "dark mode",
+      "escuro",
+      "circle",
+      "circulo"
+     ]
+    },
+    {
+     "name": "pause-line",
+     "figma": "pause-line",
+     "keywords": [
+      "pausar",
+      "parar",
+      "pause"
+     ]
+    },
+    {
+     "name": "caju-ciclos",
+     "figma": "caju-ciclos",
+     "keywords": []
+    },
+    {
+     "name": "bus-sideview",
+     "figma": "bus-sideview",
+     "keywords": []
+    }
+   ]
+  },
+  {
+   "id": "ui-symbols",
+   "name": "UI Symbols",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "back-line",
+     "figma": "back-line",
+     "keywords": [
+      "arrow left",
+      "voltar",
+      "back",
+      "seta"
+     ]
+    },
+    {
+     "name": "go-line",
+     "figma": "go-line",
+     "keywords": [
+      "arrow right",
+      "next",
+      "ir",
+      "avançar",
+      "próximo seta"
+     ]
+    },
+    {
+     "name": "up-line",
+     "figma": "up-line",
+     "keywords": [
+      "arrow up",
+      "acima",
+      "cima",
+      "seta"
+     ]
+    },
+    {
+     "name": "down-line",
+     "figma": "down-line",
+     "keywords": [
+      "arrow down",
+      "abaixo",
+      "baixo",
+      "seta"
+     ]
+    },
+    {
+     "name": "navigation-left-line",
+     "figma": "navigation-left-line",
+     "keywords": [
+      "arrow",
+      "chevron",
+      "left",
+      "navegação",
+      "esquerda",
+      "seta"
+     ]
+    },
+    {
+     "name": "navigation-right-line",
+     "figma": "navigation-right-line",
+     "keywords": [
+      "arrow",
+      "chevron",
+      "right",
+      "navegação",
+      "direita",
+      "seta"
+     ]
+    },
+    {
+     "name": "dropdown-open-line",
+     "figma": "dropdown-open-line",
+     "keywords": [
+      "arrow",
+      "chevron",
+      "down",
+      "drop",
+      "baixo",
+      "seta"
+     ]
+    },
+    {
+     "name": "dropdown-close-line",
+     "figma": "dropdown-close-line",
+     "keywords": [
+      "arrow",
+      "chevron",
+      "up",
+      "drop",
+      "cima",
+      "seta"
+     ]
+    },
+    {
+     "name": "up-down-line",
+     "figma": "up-down-line",
+     "keywords": [
+      "arrow",
+      "sort",
+      "order",
+      "sortido",
+      "organizar",
+      "arranjar",
+      "ordenar"
+     ]
+    },
+    {
+     "name": "logout-line",
+     "figma": "logout-line",
+     "keywords": [
+      "sair",
+      "deslogar",
+      "exit",
+      "logout",
+      "logoff"
+     ]
+    },
+    {
+     "name": "hamburguer-line",
+     "figma": "hamburguer-line",
+     "keywords": [
+      "menu",
+      "hamburger",
+      "opções",
+      "option",
+      "hambúrguer"
+     ]
+    },
+    {
+     "name": "menu-line",
+     "figma": "menu-line",
+     "keywords": [
+      "Kebab menu",
+      "option",
+      "opções",
+      "informações"
+     ]
+    },
+    {
+     "name": "more-line",
+     "figma": "more-line",
+     "keywords": []
+    },
+    {
+     "name": "plus-line",
+     "figma": "plus-line",
+     "keywords": [
+      "add",
+      "mais",
+      "plus",
+      "sum",
+      "soma",
+      "adicionar",
+      "incluir"
+     ]
+    },
+    {
+     "name": "minus-line",
+     "figma": "minus-line",
+     "keywords": [
+      "subtract",
+      "menos",
+      "minus",
+      "remove",
+      "dash",
+      "traço",
+      "remover"
+     ]
+    },
+    {
+     "name": "check-line",
+     "figma": "check-line",
+     "keywords": [
+      "confirmação",
+      "ok",
+      "confirm",
+      "checked",
+      "finished",
+      "selecionado",
+      "marcado",
+      "concluído"
+     ]
+    },
+    {
+     "name": "close-line",
+     "figma": "close-line",
+     "keywords": [
+      "fechar",
+      "close",
+      "x",
+      "finished"
+     ]
+    },
+    {
+     "name": "diagonal-up-right-line",
+     "figma": "diagonal-up-right-line",
+     "keywords": [
+      "arrow",
+      "diagonal",
+      "up",
+      "right"
+     ]
+    },
+    {
+     "name": "link-line",
+     "figma": "link-line",
+     "keywords": [
+      "Link",
+      "Compartilhar",
+      "share",
+      "export",
+      "exportar",
+      "seta"
+     ]
+    },
+    {
+     "name": "positive-line",
+     "figma": "positive-line",
+     "keywords": [
+      "positivo",
+      "confirmação",
+      "ok",
+      "confirm",
+      "checked",
+      "finished",
+      "selecionado",
+      "marcado",
+      "concluído",
+      "circle",
+      "circulo"
+     ]
+    },
+    {
+     "name": "information-line",
+     "figma": "information-line",
+     "keywords": [
+      "informação",
+      "information",
+      "info",
+      "circle"
+     ]
+    },
+    {
+     "name": "warning-line",
+     "figma": "warning-line",
+     "keywords": [
+      "atenção",
+      "alerta",
+      "aviso",
+      "warning",
+      "alert"
+     ]
+    },
+    {
+     "name": "timer-line",
+     "figma": "timer-line",
+     "keywords": [
+      "clock",
+      "tempo",
+      "temporizador",
+      "timer",
+      "relógio"
+     ]
+    },
+    {
+     "name": "dark-mode-line",
+     "figma": "dark-mode-line",
+     "keywords": [
+      "Moon",
+      "Lua",
+      "Night",
+      "Noite",
+      "dark mode",
+      "escuro"
+     ]
+    },
+    {
+     "name": "stop-filled",
+     "figma": "stop-filled",
+     "keywords": []
+    },
+    {
+     "name": "play-fill",
+     "figma": "play-fill",
+     "keywords": [
+      "iniciar",
+      "play",
+      "tocar",
+      "ir",
+      "go"
+     ]
+    },
+    {
+     "name": "search-line",
+     "figma": "search-line",
+     "keywords": [
+      "buscar",
+      "magnifying glass",
+      "lupa",
+      "procurar",
+      "pesquisa",
+      "search"
+     ]
+    },
+    {
+     "name": "share-line",
+     "figma": "share-line",
+     "keywords": [
+      "compartilhar",
+      "share"
+     ]
+    },
+    {
+     "name": "settings-line",
+     "figma": "settings-line",
+     "keywords": [
+      "Setting",
+      "Configuração",
+      "setup",
+      "ajustes",
+      "ajustments",
+      "gear",
+      "engrenagens"
+     ]
+    },
+    {
+     "name": "rate-line",
+     "figma": "rate-line",
+     "keywords": [
+      "star",
+      "estrela",
+      "favorite",
+      "favorito",
+      "salvar",
+      "indicar",
+      "prioridade",
+      "save",
+      "indicate",
+      "vip",
+      "priority",
+      "destaque",
+      "highlight"
+     ]
+    },
+    {
+     "name": "rate-filled",
+     "figma": "rate-filled",
+     "keywords": [
+      "star",
+      "estrela",
+      "favorite",
+      "favorito",
+      "salvar",
+      "indicar",
+      "prioridade",
+      "save",
+      "indicate",
+      "vip",
+      "priority",
+      "destaque",
+      "highlight"
+     ]
+    },
+    {
+     "name": "copy-line",
+     "figma": "copy-line",
+     "keywords": [
+      "copiar",
+      "copy",
+      "duplicate",
+      "duplicar"
+     ]
+    },
+    {
+     "name": "delete-line",
+     "figma": "delete-line",
+     "keywords": [
+      "deletar",
+      "trash",
+      "lixo",
+      "garbage",
+      "apagar",
+      "excluir",
+      "remover",
+      "remove"
+     ]
+    },
+    {
+     "name": "refresh-line",
+     "figma": "refresh-line",
+     "keywords": [
+      "Refresh",
+      "reload",
+      "redo",
+      "refund",
+      "try again",
+      "recharge",
+      "Estorno",
+      "tentar novamente",
+      "recarregar"
+     ]
+    },
+    {
+     "name": "reload-clock-line",
+     "figma": "reload-clock-line",
+     "keywords": [
+      "Aguardando",
+      "em espera",
+      "em análise",
+      "Waiting",
+      "on hold",
+      "under review",
+      "reload",
+      "clock",
+      "relógio"
+     ]
+    },
+    {
+     "name": "login",
+     "figma": "login",
+     "keywords": [
+      "Acessar",
+      "Acess",
+      "Enter",
+      "entrar",
+      "Login",
+      "Logon"
+     ]
+    },
+    {
+     "name": "qr-code-scan-line",
+     "figma": "qr-code-scan-line",
+     "keywords": []
+    },
+    {
+     "name": "qr-code-line",
+     "figma": "qr-code-line",
+     "keywords": [
+      "criar qr code",
+      "create qr code",
+      "generate"
+     ]
+    },
+    {
+     "name": "slash-line",
+     "figma": "slash-line",
+     "keywords": [
+      "Cancel",
+      "cancelado",
+      "reproved",
+      "reprovado",
+      "denied",
+      "negado",
+      "fail",
+      "unauthorized",
+      "não autorizado",
+      "negative"
+     ]
+    },
+    {
+     "name": "smartphone-line",
+     "figma": "smartphone-line",
+     "keywords": [
+      "Celular",
+      "telefone",
+      "app",
+      "Cell phone",
+      "telephone",
+      "application",
+      "smart phone",
+      "android",
+      "ios",
+      "iphone"
+     ]
+    },
+    {
+     "name": "sms-message-line",
+     "figma": "sms-message-line",
+     "keywords": [
+      "SMS message",
+      "mensagem"
+     ]
+    },
+    {
+     "name": "smartphone-contactless-line",
+     "figma": "smartphone-contactless-line",
+     "keywords": [
+      "Pagemento",
+      "aproximação",
+      "tap to pay",
+      "contactless payment"
+     ]
+    },
+    {
+     "name": "smartwatch-line",
+     "figma": "smartwatch-line",
+     "keywords": [
+      "smartwatch",
+      "relógio inteligente",
+      "apple watch",
+      "galaxy watch",
+      "mi fit"
+     ]
+    },
+    {
+     "name": "accessibility-line",
+     "figma": "accessibility-line",
+     "keywords": [
+      "Acessibilidade",
+      "Ferramentas",
+      "Accessibility",
+      "Tools"
+     ]
+    },
+    {
+     "name": "accessibility-sign-language-line",
+     "figma": "accessibility-sign-language-line",
+     "keywords": [
+      "accessibility",
+      "sign",
+      "language",
+      "hands",
+      "acessibilidade",
+      "linguagem de sinais",
+      "mãos",
+      "Libras"
+     ]
+    },
+    {
+     "name": "undo",
+     "figma": "undo",
+     "keywords": [
+      "Undo",
+      "desfazer"
+     ]
+    },
+    {
+     "name": "redo",
+     "figma": "redo",
+     "keywords": [
+      "Redo",
+      "Refazer"
+     ]
+    },
+    {
+     "name": "drag-line",
+     "figma": "drag-line",
+     "keywords": [
+      "Drag",
+      "drop",
+      "hold",
+      "segurar e arrastar"
+     ]
+    },
+    {
+     "name": "bug-line",
+     "figma": "bug-line",
+     "keywords": [
+      "Bug",
+      "correção",
+      "fix",
+      "falha",
+      "defeito"
+     ]
+    },
+    {
+     "name": "wifi-signal-line",
+     "figma": "wifi-signal-line",
+     "keywords": [
+      "Wi-fi",
+      "Internet",
+      "Wireless"
+     ]
+    },
+    {
+     "name": "linked-line",
+     "figma": "linked-line",
+     "keywords": [
+      "Linked",
+      "embed",
+      "chain",
+      "vincular",
+      "relacionar",
+      "corrente"
+     ]
+    },
+    {
+     "name": "unlinked-line",
+     "figma": "unlinked-line",
+     "keywords": [
+      "Unlinked",
+      "chain",
+      "desvincular",
+      "corrente"
+     ]
+    },
+    {
+     "name": "browsing-line",
+     "figma": "browsing-line",
+     "keywords": [
+      "Internet",
+      "world",
+      "connection",
+      "global",
+      "mundo",
+      "conexão",
+      "globo",
+      "globe"
+     ]
+    },
+    {
+     "name": "minus-circle-line",
+     "figma": "minus-circle-line",
+     "keywords": [
+      "blocked",
+      "bloqueado",
+      "denied",
+      "negado",
+      "fail",
+      "unauthorized",
+      "não autorizado",
+      "negative"
+     ]
+    },
+    {
+     "name": "package-line",
+     "figma": "package-line",
+     "keywords": [
+      "Pacote",
+      "Caixa",
+      "Estoque",
+      "Package",
+      "Box",
+      "Stock"
+     ]
+    },
+    {
+     "name": "glasses-line",
+     "figma": "glasses-line",
+     "keywords": [
+      "Óculos",
+      "Glasses"
+     ]
+    },
+    {
+     "name": "selfie-line",
+     "figma": "selfie-line",
+     "keywords": [
+      "Identidade",
+      "Documento",
+      "Pessoal",
+      "Individual",
+      "Cidadão",
+      "Celular",
+      "Câmera",
+      "Verificação",
+      "Identity",
+      "Document",
+      "Personal",
+      "Individual",
+      "Citizen",
+      "Cellphone",
+      "Camera",
+      "Verification"
+     ]
+    },
+    {
+     "name": "contactless-payment-line",
+     "figma": "contactless-payment-line",
+     "keywords": [
+      "apromixação",
+      "pagamento",
+      "Sem Contato",
+      "Aproximação",
+      "Pagamento",
+      "Sem Fio",
+      "Cartão",
+      "Crédito",
+      "Contactless",
+      "Proximity",
+      "Payment",
+      "Wireless",
+      "Card",
+      "Credit"
+     ]
+    },
+    {
+     "name": "voucher-line",
+     "figma": "voucher-line",
+     "keywords": [
+      "Ingresso",
+      "Entradas",
+      "Cupom",
+      "Voucher",
+      "Ticket",
+      "Entries",
+      "Coupon"
+     ]
+    },
+    {
+     "name": "requests-line",
+     "figma": "requests-line",
+     "keywords": [
+      "Request",
+      "Application",
+      "Request",
+      "Notes"
+     ]
+    },
+    {
+     "name": "change-wallet-line",
+     "figma": "change-wallet-line",
+     "keywords": [
+      "Trocar",
+      "Transferir",
+      "Objeto",
+      "Exchange",
+      "Transfer",
+      "Object"
+     ]
+    },
+    {
+     "name": "id-card-line",
+     "figma": "id-card-line",
+     "keywords": [
+      "Identidade",
+      "RG",
+      "CPF",
+      "Crachá",
+      "Documento",
+      "Pessoal",
+      "Individual",
+      "Cidadão",
+      "Verificação",
+      "Identity",
+      "Document",
+      "Personal",
+      "Individual",
+      "Citizen",
+      "Verification",
+      "Badge"
+     ]
+    },
+    {
+     "name": "pay-line",
+     "figma": "pay-line",
+     "keywords": [
+      "Pagamento",
+      "Pagar",
+      "Redondo",
+      "Moeda",
+      "Um",
+      "Payment",
+      "Pay",
+      "Round",
+      "Coin",
+      "One"
+     ]
+    },
+    {
+     "name": "tag-line",
+     "figma": "tag-line",
+     "keywords": [
+      "Oferta",
+      "Preço",
+      "Valor",
+      "Liquidação",
+      "Promoção",
+      "Cifrão",
+      "Desconto",
+      "Saldão",
+      "Offer",
+      "Price",
+      "Value",
+      "Clearance",
+      "Promotion",
+      "Dollar Sign",
+      "Discount",
+      "Sale"
+     ]
+    },
+    {
+     "name": "notification-line",
+     "figma": "notification-line",
+     "keywords": [
+      "Notificação",
+      "Sino",
+      "Alerta",
+      "Notification",
+      "Bell",
+      "Alert"
+     ]
+    },
+    {
+     "name": "light-mode-line",
+     "figma": "light-mode-line",
+     "keywords": [
+      "Sol",
+      "Luz",
+      "Claro",
+      "Modo",
+      "Dia",
+      "Verão",
+      "Sol",
+      "Luz",
+      "Claro",
+      "Modo",
+      "Dia",
+      "Verão"
+     ]
+    },
+    {
+     "name": "hide-line",
+     "figma": "hide-line",
+     "keywords": [
+      "Olho",
+      "Exibir",
+      "Mostrar",
+      "Eye",
+      "Display",
+      "Show"
+     ]
+    },
+    {
+     "name": "hide-off-line",
+     "figma": "hide-off-line",
+     "keywords": [
+      "Olho",
+      "Ocultar",
+      "Esconder",
+      "Eye",
+      "Hide",
+      "Conceal"
+     ]
+    },
+    {
+     "name": "barcode-line",
+     "figma": "barcode-line",
+     "keywords": [
+      "Boletos",
+      "Bills"
+     ]
+    },
+    {
+     "name": "support-line",
+     "figma": "support-line",
+     "keywords": [
+      "Suporte",
+      "FAQ",
+      "Ajuda",
+      "Centro",
+      "Cliente",
+      "Dúvidas",
+      "Support",
+      "FAQ",
+      "Help",
+      "Center",
+      "Customer",
+      "Questions"
+     ]
+    },
+    {
+     "name": "swap-left-right-line",
+     "figma": "swap-left-right-line",
+     "keywords": [
+      "Transfer",
+      "Exchange",
+      "Swap",
+      "Setas",
+      "Transfer",
+      "Exchange",
+      "Arrows"
+     ]
+    },
+    {
+     "name": "calendar-timer-line",
+     "figma": "calendar-timer-line",
+     "keywords": [
+      "Calendario",
+      "agendamento",
+      "agendar",
+      "Pagamento",
+      "Dinheiro",
+      "Cifrão",
+      "Calendar",
+      "scheduling",
+      "schedule",
+      "Payment",
+      "Money",
+      "Dollar sign"
+     ]
+    },
+    {
+     "name": "calendar-line",
+     "figma": "calendar-line",
+     "keywords": [
+      "Calendário",
+      "agenda",
+      "Data",
+      "Filtro",
+      "Calendar",
+      "agenda",
+      "Date",
+      "Filter"
+     ]
+    },
+    {
+     "name": "calendar-check-line",
+     "figma": "calendar-check-line",
+     "keywords": [
+      "Calendário",
+      "Data",
+      "Check",
+      "Calendar",
+      "Date"
+     ]
+    },
+    {
+     "name": "calendar-error-line",
+     "figma": "calendar-error-line",
+     "keywords": [
+      "Calendário",
+      "Data",
+      "Error",
+      "Calendar",
+      "Date",
+      "Erro"
+     ]
+    },
+    {
+     "name": "calendar-add-line",
+     "figma": "calendar-add-line",
+     "keywords": [
+      "Calendário",
+      "Data",
+      "Adicionar",
+      "Calendar",
+      "Date",
+      "Add"
+     ]
+    },
+    {
+     "name": "calendar-update-line",
+     "figma": "calendar-update-line",
+     "keywords": [
+      "Calendário",
+      "Data",
+      "Atualizar",
+      "Calendar",
+      "Date",
+      "Update",
+      "Reload",
+      "Reagendar"
+     ]
+    },
+    {
+     "name": "calendar-reload-line",
+     "figma": "calendar-reload-line",
+     "keywords": [
+      "Recurrence",
+      "Recorrência"
+     ]
+    },
+    {
+     "name": "calendar-notification-line",
+     "figma": "calendar-notification-line",
+     "keywords": [
+      "Agenda",
+      "Calendário",
+      "Data",
+      "Check",
+      "Calendar",
+      "Date",
+      "Notificação",
+      "Notification",
+      "Alert",
+      "Alerta"
+     ]
+    },
+    {
+     "name": "filter-line",
+     "figma": "filter-line",
+     "keywords": [
+      "Filtro",
+      "Funil",
+      "Filter",
+      "Funnel"
+     ]
+    },
+    {
+     "name": "home-line",
+     "figma": "home-line",
+     "keywords": [
+      "Casa",
+      "Inicio",
+      "Começo",
+      "Home",
+      "Beginning",
+      "Start"
+     ]
+    },
+    {
+     "name": "admin-line",
+     "figma": "admin-line",
+     "keywords": [
+      "Coroa",
+      "Premium",
+      "Administrador",
+      "Nível",
+      "Especial",
+      "Importante",
+      "Crown",
+      "Premium",
+      "Administrator",
+      "Level",
+      "Special",
+      "Important"
+     ]
+    },
+    {
+     "name": "furniture-line",
+     "figma": "furniture-line",
+     "keywords": [
+      "Mobília",
+      "Móveis",
+      "Furniture"
+     ]
+    },
+    {
+     "name": "odonto-line",
+     "figma": "odonto-line",
+     "keywords": [
+      "Plano odontológico",
+      "Dentista",
+      "Dental plan",
+      "Dentist"
+     ]
+    },
+    {
+     "name": "plano-saude-line",
+     "figma": "plano-saude-line",
+     "keywords": [
+      "Plano de saúde",
+      "Health plan"
+     ]
+    },
+    {
+     "name": "favorite-line",
+     "figma": "favorite-line",
+     "keywords": [
+      "Multibenefícios",
+      "Favorito",
+      "Coração",
+      "Multi-benefits",
+      "Favorite",
+      "Heart"
+     ]
+    },
+    {
+     "name": "pet-line",
+     "figma": "pet-line",
+     "keywords": [
+      "Pata",
+      "Animal",
+      "Estimação",
+      "Cachorro",
+      "Gato",
+      "Paw",
+      "Animal",
+      "Pet",
+      "Dog",
+      "Cat"
+     ]
+    },
+    {
+     "name": "clothing-accessories-line",
+     "figma": "clothing-accessories-line",
+     "keywords": [
+      "Vestuário",
+      "Roupa",
+      "Acessórios",
+      "Camiseta",
+      "Clothing",
+      "Clothes",
+      "Accessories",
+      "T-shirts"
+     ]
+    },
+    {
+     "name": "awards-line",
+     "figma": "awards-line",
+     "keywords": [
+      "Premiações",
+      "Engajamento",
+      "Presente",
+      "prêmio",
+      "Awards",
+      "Engagement",
+      "Gift",
+      "prize"
+     ]
+    },
+    {
+     "name": "placeholder-line",
+     "figma": "placeholder-line",
+     "keywords": []
+    },
+    {
+     "name": "sparkles-ai-fill",
+     "figma": "sparkles-ai-fill",
+     "keywords": [
+      "star",
+      "estrela"
+     ]
+    },
+    {
+     "name": "bookmark-line",
+     "figma": "bookmark-line",
+     "keywords": [
+      "bookmark",
+      "favorite",
+      "save",
+      "favoritos",
+      "flag",
+      "tag",
+      "marcar",
+      "taguear"
+     ]
+    },
+    {
+     "name": "fullscreen-line",
+     "figma": "fullscreen-line",
+     "keywords": [
+      "full screen",
+      "tela cheia",
+      "ampliar"
+     ]
+    },
+    {
+     "name": "tests-line",
+     "figma": "tests-line",
+     "keywords": [
+      "test",
+      "playground",
+      "testar",
+      "tubo de ensaio",
+      "tube"
+     ]
+    },
+    {
+     "name": "bandage-line",
+     "figma": "bandage-line",
+     "keywords": []
+    },
+    {
+     "name": "lamp-line",
+     "figma": "lamp-line",
+     "keywords": [
+      "star",
+      "estrela"
+     ]
+    },
+    {
+     "name": "bright-lamp-line",
+     "figma": "bright-lamp-line",
+     "keywords": [
+      "star",
+      "estrela"
+     ]
+    },
+    {
+     "name": "bright-star-line",
+     "figma": "bright-star-line",
+     "keywords": [
+      "star",
+      "estrela"
+     ]
+    },
+    {
+     "name": "customize-line",
+     "figma": "customize-line",
+     "keywords": [
+      "Customizar",
+      "Customize",
+      "Settings",
+      "Configurações"
+     ]
+    },
+    {
+     "name": "dumbell-line",
+     "figma": "dumbell-line",
+     "keywords": []
+    },
+    {
+     "name": "emoji-baby-line",
+     "figma": "emoji-baby-line",
+     "keywords": []
+    },
+    {
+     "name": "medal-line",
+     "figma": "medal-line",
+     "keywords": []
+    },
+    {
+     "name": "pill-line",
+     "figma": "pill-line",
+     "keywords": []
+    },
+    {
+     "name": "stopwatch-line",
+     "figma": "stopwatch-line",
+     "keywords": []
+    },
+    {
+     "name": "stopwatch-negative-line",
+     "figma": "stopwatch-negative-line",
+     "keywords": []
+    },
+    {
+     "name": "timesheet-line",
+     "figma": "timesheet-line",
+     "keywords": []
+    },
+    {
+     "name": "turn-on-category-line",
+     "figma": "turn-on-category-line",
+     "keywords": []
+    },
+    {
+     "name": "branch-line",
+     "figma": "branch-line",
+     "keywords": []
+    },
+    {
+     "name": "database",
+     "figma": "Database",
+     "keywords": []
+    },
+    {
+     "name": "code",
+     "figma": "Code",
+     "keywords": []
+    },
+    {
+     "name": "mouse",
+     "figma": "Mouse",
+     "keywords": []
+    },
+    {
+     "name": "favorite-filled",
+     "figma": "favorite-filled",
+     "keywords": []
+    }
+   ]
+  },
+  {
+   "id": "security",
+   "name": "Security",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "safety-key-line",
+     "figma": "safety-key-line",
+     "keywords": [
+      "Check",
+      "Ativo",
+      "Segurança",
+      "Token",
+      "Escudo",
+      "Sucesso",
+      "Check",
+      "Active",
+      "Security",
+      "Token",
+      "Shield",
+      "Success"
+     ]
+    },
+    {
+     "name": "money-safety-line",
+     "figma": "money-safety-line",
+     "keywords": [
+      "Segurança",
+      "Token",
+      "Escudo",
+      "Dinheiro",
+      "Cifrão",
+      "Security",
+      "Token",
+      "Shield",
+      "Money",
+      "Dollar Sign"
+     ]
+    },
+    {
+     "name": "safety-check-line",
+     "figma": "safety-check-line",
+     "keywords": []
+    },
+    {
+     "name": "lock-line",
+     "figma": "lock-line",
+     "keywords": [
+      "Cadeado",
+      "Bloqueio",
+      "Fechadura",
+      "Padlock",
+      "Lock",
+      "Lock"
+     ]
+    },
+    {
+     "name": "unlock-line",
+     "figma": "unlock-line",
+     "keywords": [
+      "Cadeado",
+      "desbloqueio",
+      "Fechadura",
+      "Aberto",
+      "Padlock",
+      "unlock",
+      "Open"
+     ]
+    },
+    {
+     "name": "key-line",
+     "figma": "key-line",
+     "keywords": [
+      "Chave",
+      "Pix",
+      "Senha",
+      "Segurança",
+      "Acesso",
+      "Key",
+      "Pix",
+      "Password",
+      "Security",
+      "Access"
+     ]
+    },
+    {
+     "name": "finger-print-line",
+     "figma": "finger-print-line",
+     "keywords": [
+      "Impressão Digital",
+      "Biometria",
+      "Identificação",
+      "Individual",
+      "Polegar",
+      "Fingerprint",
+      "Biometrics",
+      "Identification",
+      "Individual",
+      "Thumb"
+     ]
+    },
+    {
+     "name": "facial-scan-line",
+     "figma": "facial-scan-line",
+     "keywords": [
+      "Recognition",
+      "Facial"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "social",
+   "name": "Social",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "user-error-line",
+     "figma": "user-error-line",
+     "keywords": [
+      "User person",
+      "removed",
+      "Collaborator",
+      "employee"
+     ]
+    },
+    {
+     "name": "user-settings-line",
+     "figma": "user-settings-line",
+     "keywords": [
+      "User person",
+      "settings",
+      "Collaborator",
+      "employee",
+      "Usuário",
+      "pessoa",
+      "configurações",
+      "Colaborador",
+      "funcionário"
+     ]
+    },
+    {
+     "name": "user-id-line",
+     "figma": "user-id-line",
+     "keywords": [
+      "User person",
+      "settings",
+      "Collaborator",
+      "employee",
+      "Individual contributor"
+     ]
+    },
+    {
+     "name": "usercheck-line",
+     "figma": "usercheck-line",
+     "keywords": [
+      "Pessoa usuária",
+      "confirmar",
+      "aprovado",
+      "Colaborador ativo",
+      "User person",
+      "confirm",
+      "approved",
+      "Active collaborator",
+      "Employee"
+     ]
+    },
+    {
+     "name": "user-line",
+     "figma": "user-line",
+     "keywords": [
+      "Usuária",
+      "Usuário",
+      "Pessoa",
+      "Perfil",
+      "Pessoal",
+      "User",
+      "Person",
+      "Profile",
+      "Personal"
+     ]
+    },
+    {
+     "name": "team-line",
+     "figma": "team-line",
+     "keywords": [
+      "Grupo",
+      "Pessoas",
+      "Comunidade",
+      "Dependentes",
+      "Times",
+      "Colaboradores",
+      "Gestão",
+      "Group",
+      "People",
+      "Community",
+      "Dependents",
+      "Teams",
+      "Employees",
+      "Management"
+     ]
+    },
+    {
+     "name": "user-add-line",
+     "figma": "user-add-line",
+     "keywords": [
+      "Pessoa usuária",
+      "adicionar",
+      "aprovado",
+      "Colaborador",
+      "funcionário",
+      "User person",
+      "add",
+      "approved",
+      "Collaborator",
+      "employee"
+     ]
+    },
+    {
+     "name": "document-line",
+     "figma": "document-line",
+     "keywords": [
+      "Document",
+      "personal",
+      "ID",
+      "Documentos",
+      "pessoais",
+      "RG",
+      "CPF",
+      "Passaport"
+     ]
+    },
+    {
+     "name": "unarchive-collab-line",
+     "figma": "unarchive-collab-line",
+     "keywords": []
+    },
+    {
+     "name": "archive-collab-line",
+     "figma": "archive-collab-line",
+     "keywords": []
+    }
+   ]
+  },
+  {
+   "id": "mobility-transit",
+   "name": "Mobility & Transit",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "car-line",
+     "figma": "car-line",
+     "keywords": [
+      "Carro",
+      "Transporte",
+      "locomoção",
+      "Mobilidade",
+      "Viagens",
+      "Turismo",
+      "Car",
+      "Transportation",
+      "Locomotion",
+      "Mobility",
+      "Travel",
+      "Tourism"
+     ]
+    },
+    {
+     "name": "fast-delivery-line",
+     "figma": "fast-delivery-line",
+     "keywords": [
+      "Delivery",
+      "Fast",
+      "send",
+      "truck",
+      "caminhão",
+      "entrega",
+      "envio",
+      "estoque"
+     ]
+    },
+    {
+     "name": "travel-line",
+     "figma": "travel-line",
+     "keywords": [
+      "Avião",
+      "voo",
+      "viagens",
+      "corporativas",
+      "decolagem",
+      "aeroporto",
+      "Airplane",
+      "flight",
+      "travel",
+      "corporate",
+      "takeoff",
+      "airport"
+     ]
+    },
+    {
+     "name": "delivery-stroller-line",
+     "figma": "delivery-stroller-line",
+     "keywords": [
+      "Delivery",
+      "envio de cartão",
+      "envio",
+      "malas",
+      "transporte",
+      "pedido"
+     ]
+    },
+    {
+     "name": "location-pin",
+     "figma": "location-pin",
+     "keywords": [
+      "Locate",
+      "Location",
+      "Localização",
+      "endereço",
+      "pin",
+      "current place"
+     ]
+    },
+    {
+     "name": "bus-sideview-line",
+     "figma": "bus-sideview-line",
+     "keywords": []
+    },
+    {
+     "name": "train-line",
+     "figma": "train-line",
+     "keywords": []
+    },
+    {
+     "name": "fuel-pump-line",
+     "figma": "fuel-pump-line",
+     "keywords": []
+    },
+    {
+     "name": "walking-line",
+     "figma": "walking-line",
+     "keywords": []
+    },
+    {
+     "name": "ship-line",
+     "figma": "ship-line",
+     "keywords": []
+    }
+   ]
+  },
+  {
+   "id": "images",
+   "name": "Images",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "camera-line",
+     "figma": "camera-line",
+     "keywords": [
+      "Câmera",
+      "foto",
+      "photo"
+     ]
+    },
+    {
+     "name": "camera-add-line",
+     "figma": "camera-add-line",
+     "keywords": [
+      "Câmera",
+      "foto",
+      "photo",
+      "adicionar",
+      "add"
+     ]
+    },
+    {
+     "name": "camera-check-line",
+     "figma": "camera-check-line",
+     "keywords": [
+      "photo approved",
+      "foto aprovada",
+      "reconhecimento facial",
+      "facial recognition"
+     ]
+    },
+    {
+     "name": "camera-rotate-line",
+     "figma": "camera-rotate-line",
+     "keywords": [
+      "Rotate Camera",
+      "Rotação da Camera",
+      "Girar Camera",
+      "Change",
+      "Trocar"
+     ]
+    },
+    {
+     "name": "image-file",
+     "figma": "image-file",
+     "keywords": [
+      "Imagem",
+      "Image",
+      "picture",
+      "gravura",
+      "file",
+      "arquivo"
+     ]
+    },
+    {
+     "name": "accessibility-contrast-line",
+     "figma": "accessibility-contrast-line",
+     "keywords": [
+      "Contraste",
+      "Constrast"
+     ]
+    },
+    {
+     "name": "flash-line",
+     "figma": "flash-line",
+     "keywords": []
+    }
+   ]
+  },
+  {
+   "id": "documents",
+   "name": "Documents",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "open-folder-line",
+     "figma": "open-folder-line",
+     "keywords": [
+      "Documentos",
+      "arquivos",
+      "pasta",
+      "Documents",
+      "folder",
+      "finder",
+      "explorer",
+      "files",
+      "opened",
+      "aberto",
+      "Conteúdo que foi arquivado"
+     ]
+    },
+    {
+     "name": "folder-line",
+     "figma": "folder-line",
+     "keywords": [
+      "Documentos",
+      "arquivos",
+      "pasta",
+      "Documents",
+      "folder",
+      "finder",
+      "explorer",
+      "files"
+     ]
+    },
+    {
+     "name": "file-blank-line",
+     "figma": "file-blank-line",
+     "keywords": [
+      "Documentos",
+      "Arquivos",
+      "Documents",
+      "files",
+      "doc",
+      "pdf",
+      "paper"
+     ]
+    },
+    {
+     "name": "printer-line",
+     "figma": "printer-line",
+     "keywords": [
+      "Impressora",
+      "Imprimir",
+      "print",
+      "printer"
+     ]
+    },
+    {
+     "name": "file-line",
+     "figma": "file-line",
+     "keywords": [
+      "Documentos",
+      "Arquivos",
+      "Documents",
+      "files",
+      "doc",
+      "pdf",
+      "paper",
+      "filled",
+      "preenchido",
+      "text",
+      "texto"
+     ]
+    },
+    {
+     "name": "accessibility-text-size-line",
+     "figma": "accessibility-text-size-line",
+     "keywords": [
+      "accessibility",
+      "text",
+      "size",
+      "acessibilidade",
+      "texto",
+      "tamanho",
+      "Increase or decrease the font",
+      "Aumentar ou diminuir a fonte"
+     ]
+    },
+    {
+     "name": "quotation-marks-line",
+     "figma": "quotation-marks-line",
+     "keywords": [
+      "star",
+      "estrela"
+     ]
+    },
+    {
+     "name": "table-line",
+     "figma": "table-line",
+     "keywords": [
+      "Spreadsheet",
+      "Planilha",
+      "table",
+      "tabela",
+      "excel",
+      "sheets"
+     ]
+    },
+    {
+     "name": "view-list-line",
+     "figma": "view-list-line",
+     "keywords": [
+      "lista",
+      "list",
+      "visualização"
+     ]
+    },
+    {
+     "name": "view-module-line",
+     "figma": "view-module-line",
+     "keywords": [
+      "grid",
+      "grade",
+      "visualização",
+      "kanban"
+     ]
+    },
+    {
+     "name": "edit-column-line",
+     "figma": "edit-column-line",
+     "keywords": [
+      "Tabela",
+      "Colunas",
+      "Editável",
+      "Table",
+      "Columns",
+      "Editable"
+     ]
+    },
+    {
+     "name": "file-broken-line",
+     "figma": "file-broken-line",
+     "keywords": [
+      "file",
+      "broken",
+      "error",
+      "corrupted",
+      "corrompido"
+     ]
+    },
+    {
+     "name": "upload-line",
+     "figma": "upload-line",
+     "keywords": [
+      "upload",
+      "subir",
+      "enviar",
+      "arrow up",
+      "seta",
+      "cima",
+      "send"
+     ]
+    },
+    {
+     "name": "download-line",
+     "figma": "download-line",
+     "keywords": [
+      "baixar"
+     ]
+    },
+    {
+     "name": "attachment",
+     "figma": "attachment",
+     "keywords": [
+      "Anexo",
+      "attachment",
+      "annex",
+      "appendix",
+      "paper clip"
+     ]
+    },
+    {
+     "name": "edit-line",
+     "figma": "edit-line",
+     "keywords": [
+      "editar",
+      "edição",
+      "pen",
+      "Edit"
+     ]
+    },
+    {
+     "name": "clipboard-line",
+     "figma": "clipboard-line",
+     "keywords": [
+      "Holerites",
+      "Pay slips"
+     ]
+    },
+    {
+     "name": "file-text-check-line",
+     "figma": "file-text-check-line",
+     "keywords": [
+      "Comprovante",
+      "Proof"
+     ]
+    },
+    {
+     "name": "unarchive-line",
+     "figma": "unarchive-line",
+     "keywords": []
+    },
+    {
+     "name": "archive-line",
+     "figma": "archive-line",
+     "keywords": []
+    },
+    {
+     "name": "pin-line",
+     "figma": "pin-line",
+     "keywords": []
+    },
+    {
+     "name": "rename-chat-line",
+     "figma": "rename-chat-line",
+     "keywords": []
+    }
+   ]
+  },
+  {
+   "id": "communicate",
+   "name": "Communicate",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "accessibility-sound-line",
+     "figma": "accessibility-sound-line",
+     "keywords": [
+      "Headphone",
+      "Fone de ouvido",
+      "audio",
+      "descrição",
+      "description"
+     ]
+    },
+    {
+     "name": "call-center-line",
+     "figma": "call-center-line",
+     "keywords": [
+      "Headset",
+      "atendimento",
+      "telemarketing",
+      "telefone",
+      "support",
+      "voice"
+     ]
+    },
+    {
+     "name": "message-line",
+     "figma": "message-line",
+     "keywords": [
+      "bubble",
+      "chat",
+      "message",
+      "mensagem",
+      "bolha",
+      "conversation",
+      "bate papo"
+     ]
+    },
+    {
+     "name": "chat-line",
+     "figma": "chat-line",
+     "keywords": [
+      "bubble",
+      "chat",
+      "message",
+      "mensagem",
+      "bolha",
+      "conversation",
+      "bate papo",
+      "conversa",
+      "FAQ",
+      "Perguntas frequentes"
+     ]
+    },
+    {
+     "name": "indicate-caju-line",
+     "figma": "indicate-caju-line",
+     "keywords": [
+      "indicar",
+      "Indication",
+      "avaliar",
+      "assessment",
+      "rating"
+     ]
+    },
+    {
+     "name": "email-line",
+     "figma": "email-line",
+     "keywords": [
+      "E-mail"
+     ]
+    },
+    {
+     "name": "send-suggestion-line",
+     "figma": "send-suggestion-line",
+     "keywords": [
+      "Enviar",
+      "Sugestão",
+      "Mensagem",
+      "Carta",
+      "E-mail",
+      "Send",
+      "Suggestion",
+      "Message",
+      "Letter",
+      "Email"
+     ]
+    },
+    {
+     "name": "send-line",
+     "figma": "send-line",
+     "keywords": [
+      "enviar",
+      "send",
+      "arrow"
+     ]
+    },
+    {
+     "name": "microphone-line",
+     "figma": "microphone-line",
+     "keywords": []
+    },
+    {
+     "name": "start-chat",
+     "figma": "start-chat",
+     "keywords": []
+    }
+   ]
+  },
+  {
+   "id": "charts",
+   "name": "Charts",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "chart-line",
+     "figma": "chart-line",
+     "keywords": [
+      "gráfico",
+      "chart"
+     ]
+    },
+    {
+     "name": "chart-pie-line",
+     "figma": "chart-pie-line",
+     "keywords": [
+      "gráfico",
+      "diagrama",
+      "planilha",
+      "circulo",
+      "chart",
+      "diagram",
+      "spread sheet",
+      "pizza",
+      "rounded",
+      "circle",
+      "fractions"
+     ]
+    },
+    {
+     "name": "trending-up-line",
+     "figma": "trending-up-line",
+     "keywords": [
+      "gráfico",
+      "seta",
+      "subindo",
+      "chart",
+      "arrow",
+      "rising",
+      "tendencia"
+     ]
+    },
+    {
+     "name": "trending-down-line",
+     "figma": "trending-down-line",
+     "keywords": [
+      "gráfico",
+      "seta",
+      "descendo",
+      "chart",
+      "arrow",
+      "falling",
+      "tendencia"
+     ]
+    },
+    {
+     "name": "chart-up-line",
+     "figma": "chart-up-line",
+     "keywords": [
+      "gráfico",
+      "chart"
+     ]
+    },
+    {
+     "name": "analysis-line",
+     "figma": "analysis-line",
+     "keywords": [
+      "gráfico",
+      "chart",
+      "analysis",
+      "análise",
+      "data"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "caju-beneficios",
+   "name": "Caju Benefícios",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "food-assistance-line",
+     "figma": "food-assistance-line",
+     "keywords": [
+      "Auxilio",
+      "Alimentação",
+      "Panela",
+      "Food",
+      "Pan"
+     ]
+    },
+    {
+     "name": "meal-line",
+     "figma": "meal-line",
+     "keywords": [
+      "Refeição",
+      "Almoço",
+      "Jantar",
+      "Meal",
+      "Lunch",
+      "Dinner"
+     ]
+    },
+    {
+     "name": "mobility-line",
+     "figma": "mobility-line",
+     "keywords": [
+      "Mobilidade",
+      "Mobility"
+     ]
+    },
+    {
+     "name": "transport-line",
+     "figma": "transport-line",
+     "keywords": [
+      "Vale-transporte",
+      "Voucher"
+     ]
+    },
+    {
+     "name": "health-line",
+     "figma": "health-line",
+     "keywords": [
+      "Saúde",
+      "Bem-estar",
+      "Coração",
+      "Health",
+      "well-being",
+      "Heart"
+     ]
+    },
+    {
+     "name": "culture-line",
+     "figma": "culture-line",
+     "keywords": [
+      "Cultura",
+      "Máscara",
+      "Culture",
+      "Mask"
+     ]
+    },
+    {
+     "name": "home-office-line",
+     "figma": "home-office-line",
+     "keywords": [
+      "Trabalho Temoto",
+      "Home office"
+     ]
+    },
+    {
+     "name": "education-line",
+     "figma": "education-line",
+     "keywords": [
+      "Educação",
+      "Capelo",
+      "Chapéu",
+      "Education",
+      "Cap",
+      "Hat"
+     ]
+    },
+    {
+     "name": "saldo-multi",
+     "figma": "saldo-multi",
+     "keywords": [
+      "Saldo Multi",
+      "Multibenefícios"
+     ]
+    },
+    {
+     "name": "cat-personalizadas",
+     "figma": "cat-personalizadas",
+     "keywords": [
+      "Categorias",
+      "Customizadas",
+      "Personalizadas",
+      "Categories",
+      "Customized",
+      "Personalized"
+     ]
+    },
+    {
+     "name": "free-balance-line",
+     "figma": "free-balance-line",
+     "keywords": [
+      "Saldo",
+      "Livre",
+      "Balance",
+      "Free"
+     ]
+    },
+    {
+     "name": "food-delivery-line",
+     "figma": "food-delivery-line",
+     "keywords": [
+      "Alimentação",
+      "Comida",
+      "Hambúrguer",
+      "Entrega",
+      "Food",
+      "Food",
+      "Burger",
+      "Delivery"
+     ]
+    },
+    {
+     "name": "shop-line",
+     "figma": "shop-line",
+     "keywords": [
+      "Loja",
+      "Comercial",
+      "Venda",
+      "Comprar",
+      "Estabelecimento",
+      "Negocio",
+      "Store",
+      "Commercial",
+      "Sale",
+      "Purchase",
+      "Establishment",
+      "Business"
+     ]
+    },
+    {
+     "name": "entertainment-line",
+     "figma": "entertainment-line",
+     "keywords": [
+      "Lazer",
+      "Entretenimento",
+      "Filme",
+      "Leisure",
+      "Entertainment",
+      "Film"
+     ]
+    },
+    {
+     "name": "games-line",
+     "figma": "games-line",
+     "keywords": [
+      "Jogos",
+      "Eletrônicos",
+      "Videogame",
+      "Diversão",
+      "Games",
+      "Electronics",
+      "Video",
+      "Entertainment"
+     ]
+    },
+    {
+     "name": "chart-bar-line",
+     "figma": "chart-bar-line",
+     "keywords": [
+      "gráfico",
+      "seta",
+      "subindo",
+      "chart",
+      "arrow",
+      "rising",
+      "tendencia"
+     ]
+    },
+    {
+     "name": "vacation-line",
+     "figma": "vacation-line",
+     "keywords": [
+      "Férias",
+      "Caju"
+     ]
+    },
+    {
+     "name": "coins-line",
+     "figma": "coins-line",
+     "keywords": [
+      "Moedas"
+     ]
+    },
+    {
+     "name": "services-line",
+     "figma": "services-line",
+     "keywords": [
+      "Soluções",
+      "Caju",
+      "Menu",
+      "Produtos",
+      "More",
+      "Home",
+      "Products",
+      "Solutions"
+     ]
+    },
+    {
+     "name": "caiu-caju",
+     "figma": "caiu-caju",
+     "keywords": [
+      "Caiu Caju",
+      "Castanha"
+     ]
+    },
+    {
+     "name": "castanha-filled",
+     "figma": "castanha-filled",
+     "keywords": [
+      "Castanha Preenchido"
+     ]
+    },
+    {
+     "name": "castanha-line",
+     "figma": "castanha-line",
+     "keywords": [
+      "Castanha"
+     ]
+    },
+    {
+     "name": "despesas-line",
+     "figma": "despesas-line",
+     "keywords": [
+      "Despesas",
+      "Home",
+      "Expenses"
+     ]
+    },
+    {
+     "name": "user-money-line",
+     "figma": "user-money-line",
+     "keywords": [
+      "Saldo Caju",
+      "Home",
+      "Cashew Balance",
+      "Home"
+     ]
+    },
+    {
+     "name": "feirinha-caju-line",
+     "figma": "feirinha-caju-line",
+     "keywords": [
+      "Feirinha",
+      "Clube de descontos",
+      "Basket",
+      "Fair"
+     ]
+    },
+    {
+     "name": "cards-line",
+     "figma": "cards-line",
+     "keywords": [
+      "Cartões"
+     ]
+    },
+    {
+     "name": "business-line",
+     "figma": "business-line",
+     "keywords": [
+      "Gestão",
+      "Mala",
+      "Maleta",
+      "Pasta",
+      "Management",
+      "Suitcase",
+      "Briefcase",
+      "Folder"
+     ]
+    },
+    {
+     "name": "multibeneficios-line",
+     "figma": "multibeneficios-line",
+     "keywords": [
+      "Meus Benefícios"
+     ]
+    },
+    {
+     "name": "custom-cat-line",
+     "figma": "custom-cat-line",
+     "keywords": []
+    },
+    {
+     "name": "general-benefit-line",
+     "figma": "general-benefit-line",
+     "keywords": []
+    },
+    {
+     "name": "hub-beneficios",
+     "figma": "hub-beneficios",
+     "keywords": []
+    },
+    {
+     "name": "ai-caju-line",
+     "figma": "ai-caju-line",
+     "keywords": []
+    }
+   ]
+  },
+  {
+   "id": "business-payments",
+   "name": "Business & Payments",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "card-machine-line",
+     "figma": "card-machine-line",
+     "keywords": [
+      "Maquina",
+      "Cartão",
+      "Crédito",
+      "Digital",
+      "Pagamento",
+      "Sem contato",
+      "Aproximação",
+      "Machine",
+      "Card",
+      "Credit",
+      "Digital",
+      "Payment",
+      "Contactless",
+      "Approximation"
+     ]
+    },
+    {
+     "name": "expenses-line",
+     "figma": "expenses-line",
+     "keywords": [
+      "Gastos",
+      "Despesas",
+      "Pagamento",
+      "Expenses",
+      "Expenses",
+      "Payment"
+     ]
+    },
+    {
+     "name": "wallet",
+     "figma": "wallet",
+     "keywords": [
+      "Carteira",
+      "Pagamento",
+      "Wallet",
+      "Payment"
+     ]
+    },
+    {
+     "name": "balance-line",
+     "figma": "balance-line",
+     "keywords": [
+      "Bloqueado",
+      "Dinheiro",
+      "Nota",
+      "Saldo",
+      "Moeda",
+      "Blocked",
+      "Money",
+      "Note",
+      "Balance",
+      "Currency"
+     ]
+    },
+    {
+     "name": "balance-canceled-line",
+     "figma": "balance-canceled-line",
+     "keywords": []
+    },
+    {
+     "name": "money-note",
+     "figma": "money-note",
+     "keywords": [
+      "Bloqueado",
+      "Dinheiro",
+      "Nota",
+      "Saldo",
+      "Moeda",
+      "Blocked",
+      "Money",
+      "Note",
+      "Balance",
+      "Currency"
+     ]
+    },
+    {
+     "name": "credit-card-line",
+     "figma": "credit-card-line",
+     "keywords": [
+      "Cartão",
+      "Crédito",
+      "Pagamento",
+      "Card",
+      "Credit",
+      "Payment"
+     ]
+    },
+    {
+     "name": "virtual-card-line",
+     "figma": "virtual-card-line",
+     "keywords": [
+      "Cartão",
+      "Crédito",
+      "Digital",
+      "Pagamento",
+      "Card",
+      "Credit",
+      "Digital",
+      "Payment"
+     ]
+    },
+    {
+     "name": "card-contactless-line",
+     "figma": "card-contactless-line",
+     "keywords": [
+      "Cartão",
+      "Crédito",
+      "Digital",
+      "Pagamento",
+      "Sem contato",
+      "Aproximação",
+      "Card",
+      "Credit",
+      "Digital",
+      "Payment",
+      "Contactless"
+     ]
+    },
+    {
+     "name": "card-warning-line",
+     "figma": "card-warning-line",
+     "keywords": [
+      "Falha",
+      "Problema",
+      "Cartão",
+      "Crédito",
+      "Digital",
+      "Pagamento",
+      "Failure",
+      "Problem",
+      "Card",
+      "Credit",
+      "Digital",
+      "Payment"
+     ]
+    },
+    {
+     "name": "request-balance-line",
+     "figma": "request-balance-line",
+     "keywords": [
+      "Mão",
+      "Dinheiro",
+      "Balanço Pagamento",
+      "Nota",
+      "Solicitação",
+      "Recebido",
+      "Recarga",
+      "Requisição",
+      "Positivo",
+      "Hand",
+      "Money",
+      "Balance Payment",
+      "Note",
+      "Request",
+      "Received",
+      "Recharge",
+      "Requisition",
+      "Positive"
+     ]
+    },
+    {
+     "name": "add-card-line",
+     "figma": "add-card-line",
+     "keywords": [
+      "Adicionar",
+      "Criar",
+      "Cartão",
+      "Crédito",
+      "Pagamento",
+      "Add",
+      "Create",
+      "Card",
+      "Credit",
+      "Payment"
+     ]
+    },
+    {
+     "name": "card-check-line",
+     "figma": "card-check-line",
+     "keywords": [
+      "Ativo",
+      "Funcionando",
+      "Cartão",
+      "Crédito",
+      "Pagamento",
+      "Active",
+      "Working",
+      "Card",
+      "Credit",
+      "Payment"
+     ]
+    },
+    {
+     "name": "card-error-line",
+     "figma": "card-error-line",
+     "keywords": [
+      "Erro",
+      "Falha",
+      "Recusado",
+      "Cartão",
+      "Crédito",
+      "Pagamento",
+      "Error",
+      "Failure",
+      "Refused",
+      "Card",
+      "Credit",
+      "Payment"
+     ]
+    },
+    {
+     "name": "card-detach-line",
+     "figma": "card-detach-line",
+     "keywords": []
+    },
+    {
+     "name": "swipe-card-line",
+     "figma": "swipe-card-line",
+     "keywords": [
+      "Assinatura",
+      "Serviços",
+      "Mão",
+      "Cartão"
+     ]
+    },
+    {
+     "name": "coin-pay",
+     "figma": "coin-pay",
+     "keywords": [
+      "Mão",
+      "Moeda",
+      "Pagamento",
+      "Hand",
+      "Coin",
+      "Payment"
+     ]
+    },
+    {
+     "name": "savings",
+     "figma": "savings",
+     "keywords": [
+      "Poupança",
+      "Poupar",
+      "Dinheiro",
+      "Economia",
+      "Porquinho",
+      "Finanças",
+      "Savings",
+      "Saving",
+      "Money",
+      "Economy",
+      "Piggy Bank",
+      "Finance"
+     ]
+    },
+    {
+     "name": "fresh-offer-line",
+     "figma": "fresh-offer-line",
+     "keywords": [
+      "Oferta",
+      "Selo",
+      "Liquidação",
+      "Promoção",
+      "Cifrão",
+      "Desconto",
+      "Saldão",
+      "Offer",
+      "Stamp",
+      "Clearance",
+      "Promotion",
+      "Dollar Sign",
+      "Discount",
+      "Sale"
+     ]
+    },
+    {
+     "name": "barcode-scan-line",
+     "figma": "barcode-scan-line",
+     "keywords": [
+      "Financeiro",
+      "Pagamentos",
+      "Pagar",
+      "Boletos",
+      "Financial",
+      "Payments",
+      "Pay",
+      "Bills",
+      "Invoices"
+     ]
+    },
+    {
+     "name": "shopping-bag-line",
+     "figma": "shopping-bag-line",
+     "keywords": [
+      "Compras",
+      "Produtos",
+      "Sacola",
+      "Bolsa",
+      "Loja",
+      "Venda",
+      "Embalagem",
+      "Shopping",
+      "Products",
+      "Bag",
+      "Purse",
+      "Store",
+      "Sale",
+      "Packaging"
+     ]
+    },
+    {
+     "name": "food-line",
+     "figma": "food-line",
+     "keywords": [
+      "Comida",
+      "Alimentação",
+      "Carrinho",
+      "Supermercado",
+      "Food",
+      "Feeding",
+      "Cart",
+      "Supermarket"
+     ]
+    },
+    {
+     "name": "market-offer-line",
+     "figma": "market-offer-line",
+     "keywords": [
+      "Desconto",
+      "Porcentagem",
+      "Oferta",
+      "Selo",
+      "Liquidação",
+      "Promoção",
+      "Cifrão",
+      "Saldão",
+      "Discount",
+      "Percentage",
+      "Offer",
+      "Stamp",
+      "Clearance",
+      "Promotion",
+      "Dollar Sign",
+      "Sale"
+     ]
+    },
+    {
+     "name": "percent-line",
+     "figma": "percent-line",
+     "keywords": [
+      "Percentual",
+      "Porcentagem",
+      "Desconto",
+      "Percentage",
+      "Discount",
+      "Sale"
+     ]
+    },
+    {
+     "name": "building-line",
+     "figma": "building-line",
+     "keywords": [
+      "Prédio",
+      "Empresa",
+      "Negócio",
+      "Local",
+      "Construção",
+      "Comercial",
+      "Building",
+      "Company",
+      "Business",
+      "Location",
+      "Construction",
+      "Commercial"
+     ]
+    },
+    {
+     "name": "payment-date-caju-line",
+     "figma": "payment-date-caju-line",
+     "keywords": [
+      "dia de pagamento",
+      "pagamento",
+      "data",
+      "payday",
+      "payment",
+      "date"
+     ]
+    },
+    {
+     "name": "advance-balance-line",
+     "figma": "advance-balance-line",
+     "keywords": [
+      "Relógio",
+      "agendamento",
+      "agendar",
+      "Pagamento",
+      "Dinheiro",
+      "Cifrão",
+      "Clock",
+      "scheduling",
+      "schedule",
+      "Payment",
+      "Money",
+      "Dollar sign"
+     ]
+    },
+    {
+     "name": "value-line",
+     "figma": "value-line",
+     "keywords": [
+      "Moeda",
+      "Dinheiro",
+      "Cifrão",
+      "Currency",
+      "Money",
+      "Dollar Sign"
+     ]
+    },
+    {
+     "name": "receipt-line",
+     "figma": "receipt-line",
+     "keywords": [
+      "Extrato",
+      "Pagamentos",
+      "Fatura",
+      "Recibo",
+      "Nota",
+      "Statement",
+      "Payments",
+      "Invoice",
+      "Receipt",
+      "Note"
+     ]
+    },
+    {
+     "name": "double-virtual-card-line",
+     "figma": "double-virtual-card-line",
+     "keywords": []
+    },
+    {
+     "name": "bank-line",
+     "figma": "bank-line",
+     "keywords": []
+    }
+   ]
+  },
+  {
+   "id": "brands",
+   "name": "Brands",
+   "deprecated": false,
+   "icons": [
+    {
+     "name": "instagram-line",
+     "figma": "instagram-line",
+     "keywords": [
+      "Instagram",
+      "Meta"
+     ]
+    },
+    {
+     "name": "whatsapp-line",
+     "figma": "whatsapp-line",
+     "keywords": [
+      "Whatsapp",
+      "Meta"
+     ]
+    },
+    {
+     "name": "youtube-line",
+     "figma": "youtube-line",
+     "keywords": [
+      "YouTube",
+      "Google"
+     ]
+    },
+    {
+     "name": "pix-line",
+     "figma": "pix-line",
+     "keywords": [
+      "Pix"
+     ]
+    },
+    {
+     "name": "facebook-line",
+     "figma": "facebook-line",
+     "keywords": [
+      "Facebook",
+      "Meta"
+     ]
+    },
+    {
+     "name": "linkedin-line",
+     "figma": "linkedin-line",
+     "keywords": [
+      "Linkedin",
+      "Microsoft"
+     ]
+    },
+    {
+     "name": "figma-line",
+     "figma": "figma-line",
+     "keywords": [
+      "Figma"
+     ]
+    },
+    {
+     "name": "slack-line",
+     "figma": "slack-line",
+     "keywords": [
+      "Slack"
+     ]
+    },
+    {
+     "name": "google-drive-line",
+     "figma": "google-drive-line",
+     "keywords": [
+      "Drive",
+      "Google"
+     ]
+    },
+    {
+     "name": "android-fill",
+     "figma": "android-fill",
+     "keywords": [
+      "Android",
+      "Google"
+     ]
+    },
+    {
+     "name": "apple-fill",
+     "figma": "apple-fill",
+     "keywords": [
+      "Apple",
+      "Maça",
+      "iOS",
+      "MacOS"
+     ]
+    },
+    {
+     "name": "github-line",
+     "figma": "github-line",
+     "keywords": [
+      "github"
+     ]
+    },
+    {
+     "name": "flutter-fill",
+     "figma": "flutter-fill",
+     "keywords": [
+      "flutter"
+     ]
+    },
+    {
+     "name": "react-line",
+     "figma": "react-line",
+     "keywords": [
+      "react"
+     ]
+    }
+   ]
+  }
+ ]
+}

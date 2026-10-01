@@ -64,7 +64,7 @@
     title.textContent = def.name;
     document.title = def.name + " — Castanha DS";
     links.innerHTML = "";
-    links.appendChild(kit.el("a", { href: JIRA + def.task, target: "_blank", rel: "noopener", text: def.task }));
+    if (def.task) links.appendChild(kit.el("a", { href: JIRA + def.task, target: "_blank", rel: "noopener", text: def.task }));
     if (def.figma) links.appendChild(kit.el("a", { href: def.figma, target: "_blank", rel: "noopener", text: "Figma" }));
     if (def.zeroheight) links.appendChild(kit.el("a", { href: def.zeroheight, target: "_blank", rel: "noopener", text: "Zeroheight" }));
     readout("", false);
@@ -76,7 +76,9 @@
   function readout(value, done){ rval.textContent = value || "—"; rdone.textContent = done ? "✓ completo" : ""; }
 
   // ---------- Viewport (global) ----------
+  // data-viewport espelha a collection Viewport do Figma (Desktop/Tablet/Mobile); componentes leem via CSS
   function setViewport(w){
+    frame.dataset.viewport = w === "360" ? "mobile" : w === "744" ? "tablet" : "desktop";
     if (w === "fluid"){ frame.style.width = "100%"; frame.style.maxWidth = "600px"; vpOut.textContent = "fluido"; }
     else { frame.style.width = w + "px"; frame.style.maxWidth = "none"; vpOut.textContent = w + "px"; }
   }

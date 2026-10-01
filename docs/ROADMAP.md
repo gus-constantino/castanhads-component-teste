@@ -188,13 +188,15 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D17 | Building blocks ficam numa **seção recolhida "Building blocks" no fim do side menu**, além de aparecerem em Nested instances | Q2 · 01/10 |
 | D18 | **Ilustrações e ícones sob demanda** via MCP; o Gustavo exporta tudo depois. Pipeline: soltar os SVGs em `assets/icons/` e `assets/illustrations/` e rodar `node scripts/build-assets.js`, que gera `styles/icons.css` e `scripts/assets-manifest.js` | Q3/Q4 · 01/10 |
 | D19 | Complexos: **visual fiel + interação essencial** (estados, teclado e a11y do Figma e das annotations); regras de negócio simuladas | Q8 · 01/10 |
+| D20 | **Collection Viewport → `data-viewport`** no frame do playground (360 = mobile · 744 = tablet · 1366/Fluido = desktop). Componentes com `Specific/*` leem via CSS e aceitam o atributo `viewport` para forçar o modo (ex.: Badge vira ponto de 8px no Mobile) | Q6 · 01/10 |
+| D21 | **Nested instances reais:** componentes que no Figma instanciam outro (Tag → Icon, Shaped Icon → Icon) usam o custom element de verdade (`<cds-icon>`). Override de cor do Figma vira CSS no pai, com especificidade acima do `[appearance]` do filho | 01/10 |
+| D22 | Sem Jira conhecido, o item do menu sai sem chave; o link do Figma aponta para o node do set na main | 01/10 |
 
 ## 5. Dúvidas abertas
 
 | # | Dúvida | Proposta |
 |---|---|---|
 | Q5 | **Input Chips aparece em dois sets** (`12365:2728` e `14120:5313`) com as mesmas props. Qual é o canônico? | Perguntar antes do Lote 3 |
-| Q6 | **Collection Viewport** (Desktop/Tablet/Mobile, 31 variáveis `Specific/*`): usar no seletor de viewport? | Sim: o seletor passa a trocar o modo e os componentes leem `data-viewport` |
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
 | Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
@@ -222,6 +224,10 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | 01/10 | A lib tem 34 text styles, incluindo a família **Decorative em Work Sans**; o Label usa line-height 100% (não 150%) |
 | 01/10 | Motion Styles completos: além de Hover In/Pressed/Selected In existem **Hover Out (150ms + delay 56ms), Released (50ms), Selected Out (200ms) e Disabled (150ms)** — usar a partir do Lote 1 |
 | 01/10 | Exportar 274 ícones por MCP sairia caro (cada SVG passa pelo contexto); a exportação em massa do Figma + `build-assets.js` é o caminho |
+| 01/10 | Extrator compacto (árvore da 1ª variante + diff das outras) lê sets de 36 variantes sem estourar contexto — reusar nos próximos lotes |
+| 01/10 | **Override de cor em nested instance:** o `[appearance]` do filho vence o seletor do pai; o pai precisa de `pai > filho[appearance]` (achado no Tag) |
+| 01/10 | Divider tem annotations de implementação (SVG para Dashed, tokens diferentes por construção, `role=separator` opcional) — annotations também trazem decisão de código, não só de design |
+| 01/10 | Spinner: as 4 "Spinner Position" com AFTER_TIMEOUT ≈ 0 e Smart Animate 200ms ease-out = rotação contínua em passos de 90° |
 
 ---
 
@@ -231,4 +237,6 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 |---|---|
 | — | ✅ Code Input OTP · ✅ Credit Card Input (branches) |
 | 0 | ✅ 01/10 — 250 tokens `Common/*` (89 com dark) + 34 text styles + 3 elevations + Motion Styles gerados por `scripts/build-tokens.js` · pipeline `scripts/build-assets.js` (ícones como máscara + manifest) · side menu por página do Figma + seção Building blocks · Work Sans carregada |
-| 1 a 9 | ⏳ (Q5 precisa de resposta antes do Lote 3) |
+| 1a | ✅ 01/10 — Icon · Shaped Icon · Tag · Badge · Status Dot · Divider · Spinner · Progress Line |
+| 1b | ⏳ Image · Avatar · Caju Brand · .Credit Card Flags · Link · Currency · .Text Content · .Currency Content · .Currency Symbol |
+| 2 a 9 | ⏳ (Q5 precisa de resposta antes do Lote 3) |

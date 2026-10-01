@@ -1,0 +1,12 @@
+/* =====================================================================
+   Progress Line · Progress Indicators · set 2322:4006
+   Trilho 6px Surface/01 pill · barra Surface/accent pill · largura fluida
+   ===================================================================== */
+cds-progress-line{
+  display:block; width:100%; min-width:var(--common-sizes-40); height:var(--common-sizes-6);
+  border-radius:var(--common-border-radius-pill); background:var(--common-colors-surface-01); overflow:hidden;
+}
+cds-progress-line > .cds-pl__bar{
+  display:block; height:100%; width:var(--_pct, 0%);
+  border-radius:var(--common-border-radius-pill); background:var(--common-colors-surface-accent);
+}

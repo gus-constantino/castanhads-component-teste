@@ -1,0 +1,20 @@
+/* =====================================================================
+   Badge · Status · set 4835:1472
+   Web: pílula 16px · padding 4 · Disclaimer/Medium · Mobile: ponto 8px (Viewport Specific/Badge)
+   ===================================================================== */
+cds-badge{
+  --_bg:var(--common-colors-decorative-01); --_fg:var(--common-colors-support-darker);
+  position:relative; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
+  min-width:var(--common-sizes-16); height:var(--common-sizes-16); padding:0 var(--common-sizes-4);
+  border-radius:var(--common-border-radius-pill); background:var(--_bg); color:var(--_fg);
+  font:var(--text-style-disclaimer-medium); line-height:var(--common-sizes-16); white-space:nowrap;
+}
+cds-badge[appearance="neutral"]{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-text-inversed); }
+
+/* Mobile — ponto de 8px; o número continua disponível para leitor de tela */
+[data-viewport="mobile"] cds-badge:not([viewport]), cds-badge[viewport="mobile"]{
+  min-width:var(--common-sizes-8); width:var(--common-sizes-8); height:var(--common-sizes-8); padding:0;
+}
+[data-viewport="mobile"] cds-badge:not([viewport]) > span, cds-badge[viewport="mobile"] > span{
+  position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;
+}

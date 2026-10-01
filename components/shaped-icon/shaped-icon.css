@@ -1,0 +1,20 @@
+/* =====================================================================
+   Shaped Icon · Images · set 2272:146
+   Size: Smallest 32/r8/ícone16 · Small 40/r12/16 · Medium 48/r16/20 · Large 56/r16/24
+   ===================================================================== */
+cds-shaped-icon{
+  --_size:var(--common-sizes-32); --_radius:var(--common-border-radius-extra-small);
+  --_bg:var(--common-colors-surface-01);
+  display:inline-grid; place-items:center; flex:0 0 auto;
+  width:var(--_size); height:var(--_size); border-radius:var(--_radius); background:var(--_bg);
+}
+cds-shaped-icon[size="small"]{ --_size:var(--common-sizes-40); --_radius:var(--common-border-radius-small); }
+cds-shaped-icon[size="medium"]{ --_size:var(--common-sizes-48); --_radius:var(--common-border-radius-medium); }
+cds-shaped-icon[size="large"]{ --_size:var(--common-sizes-56); --_radius:var(--common-border-radius-medium); }
+
+cds-shaped-icon[appearance="inversed"]{ --_bg:var(--common-colors-surface-default); }
+cds-shaped-icon[appearance="accent"]{ --_bg:var(--common-colors-accent-solid-soft); }
+cds-shaped-icon[appearance="positive"]{ --_bg:var(--common-colors-feedback-positive-soft); }
+cds-shaped-icon[appearance="warning"]{ --_bg:var(--common-colors-feedback-warning-soft); }
+cds-shaped-icon[appearance="negative"]{ --_bg:var(--common-colors-feedback-negative-soft); }
+cds-shaped-icon[appearance="informative"]{ --_bg:var(--common-colors-feedback-informative-soft); }

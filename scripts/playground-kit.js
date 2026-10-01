@@ -142,11 +142,33 @@
     new MutationObserver(run).observe(node, { attributes: true, childList: true, subtree: true });
   }
 
+  /** Select. options: [[valor, rótulo], …]. Retorna o <select>. */
+  function select(panel, o){
+    var iid = id("c"), wrap = el("div", { "class": "pg-ctrl" });
+    wrap.appendChild(el("label", { "class": "pg-lbl", "for": iid, text: o.label }));
+    var sel = el("select", { "class": "pg-text", id: iid });
+    o.options.forEach(function(opt){ var op = el("option", { value: opt[0], text: opt[1] }); if (opt[0] === o.value) op.selected = true; sel.appendChild(op); });
+    sel.addEventListener("change", function(){ o.onChange(sel.value); });
+    wrap.appendChild(sel);
+    if (o.hint) hint(wrap, o.hint);
+    panel.appendChild(wrap);
+    return sel;
+  }
+
+  /** Instance swap de ícone — lista os ícones de CDS.assets (assets/icons). */
+  function iconSwap(panel, o){
+    var icons = (window.CDS.assets && CDS.assets.icons) || [];
+    return select(panel, { label: o.label || "Icon (instance swap)", value: o.value,
+      options: icons.map(function(i){ return [i.name, i.name]; }),
+      hint: icons.length + " ícones em <code>assets/icons</code>. Exporte mais do [Caju] Icons e rode <code>node scripts/build-assets.js</code>.",
+      onChange: o.onChange });
+  }
+
   /** Liga/desliga um atributo no elemento de preview. */
   function attr(node, name, val){
     if (val === null || val === false || val === "") node.removeAttribute(name);
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, attr: attr };
 })();

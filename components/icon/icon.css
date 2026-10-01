@@ -1,0 +1,21 @@
+/* =====================================================================
+   Icon · Images · set 2261:1126
+   Size: Small 16 · Medium 20 · Large 24 — cor por Appearance
+   ===================================================================== */
+cds-icon{
+  --_icon-size:var(--common-sizes-16);
+  --_icon-color:var(--common-colors-icons-accent);
+  display:inline-flex; flex:0 0 auto; width:var(--_icon-size); height:var(--_icon-size);
+  vertical-align:middle;
+}
+cds-icon > .cds-icon{ width:100%; height:100%; }
+
+cds-icon[size="medium"]{ --_icon-size:var(--common-sizes-20); }
+cds-icon[size="large"]{ --_icon-size:var(--common-sizes-24); }
+
+cds-icon[appearance="neutral"]{ --_icon-color:var(--common-colors-icons-intense); }
+cds-icon[appearance="positive"]{ --_icon-color:var(--common-colors-feedback-positive-intense); }
+cds-icon[appearance="warning"]{ --_icon-color:var(--common-colors-feedback-warning-intense); }
+cds-icon[appearance="negative"]{ --_icon-color:var(--common-colors-feedback-negative-intense); }
+cds-icon[appearance="informative"]{ --_icon-color:var(--common-colors-feedback-informative-intense); }
+cds-icon[appearance="inversed"]{ --_icon-color:var(--common-colors-icons-inversed); }

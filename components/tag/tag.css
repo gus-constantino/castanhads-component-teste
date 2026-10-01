@@ -1,0 +1,21 @@
+/* =====================================================================
+   Tag · Status · set 4475:114
+   24px · padding 0 8 · gap 4 · raio extra-small · Caption/Medium · Icon Small 16
+   ===================================================================== */
+cds-tag{
+  --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense);
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--common-sizes-4);
+  height:var(--common-sizes-24); padding:0 var(--common-sizes-8);
+  border-radius:var(--common-border-radius-extra-small);
+  background:var(--_bg); color:var(--_fg);
+  font:var(--text-style-caption-medium); white-space:nowrap;
+}
+/* Override do Icon aninhado: a cor acompanha o texto em todas as Appearances (como no Figma) */
+cds-tag > cds-icon, cds-tag > cds-icon[appearance]{ --_icon-color:var(--_fg); } /* vence o [appearance] do Icon */
+
+cds-tag[appearance="positive"]{ --_bg:var(--common-colors-feedback-positive-soft); --_fg:var(--common-colors-feedback-positive-intense); }
+cds-tag[appearance="warning"]{ --_bg:var(--common-colors-feedback-warning-soft); --_fg:var(--common-colors-feedback-warning-intense); }
+cds-tag[appearance="negative"]{ --_bg:var(--common-colors-feedback-negative-soft); --_fg:var(--common-colors-feedback-negative-intense); }
+cds-tag[appearance="informative"]{ --_bg:var(--common-colors-feedback-informative-soft); --_fg:var(--common-colors-feedback-informative-intense); }
+cds-tag[appearance="accent"]{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+cds-tag[appearance="inversed"]{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-icons-inversed); }

@@ -1,0 +1,18 @@
+/* =====================================================================
+   Divider · Dividers · set 4931:207 — ver annotations
+   Solid  = barra preenchida 1px · fill Neutral/Solid/{intensity} · raio pill
+   Dashed = linha SVG · stroke Border/{intensity} · hairline · dash 4 4 · cap round · raio none
+   ===================================================================== */
+cds-divider{
+  --_solid:var(--common-colors-neutral-solid-semi-soft);
+  --_dash:var(--common-colors-border-semi-soft);
+  display:block; flex:0 0 auto; width:100%; height:var(--common-border-width-hairline);
+}
+cds-divider[orientation="vertical"]{ width:var(--common-border-width-hairline); height:auto; min-height:var(--common-sizes-24); align-self:stretch; }
+
+cds-divider[intensity="medium"]{ --_solid:var(--common-colors-neutral-solid-medium); --_dash:var(--common-colors-border-medium); }
+cds-divider[intensity="intense"]{ --_solid:var(--common-colors-neutral-solid-semi-intense); --_dash:var(--common-colors-border-semi-intense); }
+
+cds-divider:not([kind="dashed"]){ background:var(--_solid); border-radius:var(--common-border-radius-pill); }
+cds-divider[kind="dashed"]{ border-radius:var(--common-border-radius-none); }
+cds-divider > svg{ display:block; width:100%; height:100%; overflow:visible; color:var(--_dash); }

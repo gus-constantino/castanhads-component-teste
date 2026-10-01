@@ -1,0 +1,26 @@
+/* =====================================================================
+   Spinner · Loaders · set 4333:3181
+   Anel (track) + arco de 90° com cap round; espessura = tamanho/9
+   Motion: 4 posições (0→90→180→270), cada uma 200ms ease-out (AFTER_TIMEOUT ~0)
+   ===================================================================== */
+cds-spinner{
+  --_size:var(--common-sizes-16);
+  --_track:var(--common-colors-surface-02); --_arc:var(--common-colors-icons-medium);
+  display:inline-block; flex:0 0 auto; width:var(--_size); height:var(--_size);
+}
+cds-spinner[size="medium"]{ --_size:var(--common-sizes-24); }
+cds-spinner[size="large"]{ --_size:var(--common-sizes-32); }
+cds-spinner[appearance="accent"]{ --_track:var(--common-colors-accent-solid-soft); --_arc:var(--common-colors-icons-accent); }
+cds-spinner[appearance="inversed"]{ --_track:var(--common-colors-surface-inversed); --_arc:var(--common-colors-icons-inversed); }
+
+cds-spinner > svg{ display:block; width:100%; height:100%; animation:cds-spin 800ms infinite; }
+cds-spinner .cds-spin__track{ stroke:var(--_track); }
+cds-spinner .cds-spin__arc{ stroke:var(--_arc); }
+@keyframes cds-spin{
+  0%  { transform:rotate(0deg);   animation-timing-function:ease-out; }
+  25% { transform:rotate(90deg);  animation-timing-function:ease-out; }
+  50% { transform:rotate(180deg); animation-timing-function:ease-out; }
+  75% { transform:rotate(270deg); animation-timing-function:ease-out; }
+  100%{ transform:rotate(360deg); }
+}
+@media (prefers-reduced-motion:reduce){ cds-spinner > svg{ animation-duration:2400ms; } }

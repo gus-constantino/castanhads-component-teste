@@ -201,7 +201,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D30 | **Documentação dentro do componente, em tabs** (experimento no Credit Card Input): `components/<id>/<id>.docs.js` só com dados, montado por `scripts/docs-kit.js`. Exemplos são o componente real; estilo do frame `[Documentação]` e tabs no estilo do Scrollable Tab | 01/10 |
 | D31 | **OTP alfanumérico aceita símbolos** (letras, números e símbolos; sem espaço). Numérico segue só 0–9 (Q25) | Q25 · 01/10 |
 | D32 | **Seção de doc oculta no Figma → montar com a skill `castanhads-juntos` (setup documentation) a partir das annotations e do handoff dev** (Q26). Aplicado na Acessibilidade do OTP: 4 annotations de Accessibility + seção Acessibilidade do `HANDOFF_CodeInputOTP_DEV.md`. Gravar no frame do Figma só com aprovação | Q26 · 01/10 |
-| D33 | **Motion Styles com o índice no nome** (`Hover In/01`), como estão na main; no código `--motion-hover-in-01-timing`, apontando para o primitivo `Common/Motion/*`. A aba Motion lista interação → gatilho → Motion Style → primitivos → variável CSS | 01/10 |
+| D33 | **Motion Styles com o índice no nome** (`Hover In/01`), como estão na main; no código `--motion-hover-in-01-timing`, apontando para o primitivo `Common/Motion/*`. A aba Motion mostra só interação → gatilho → Motion Style (primitivos e variáveis CSS ficam fora da doc) | 01/10 |
 | D34 | **Nome dos Motion Styles segue a main** (`Hover In/01/Timing`). Se a main renomear, atualizar o snapshot e rodar `build-tokens` (Q28) | Q28 · 01/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 

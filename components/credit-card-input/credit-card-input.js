@@ -5,6 +5,7 @@
  * blocos de 4 (#### #### #### ####), conforme o .Text Content Mask "Credit Card" do Figma.
  *
  * Atributos: appearance (neutral|warning) · disabled · value (dígitos) · placeholder
+ * trailing-label — nome acessível do Icon Button; o papel da ação (tooltip, navegação…) é de quem implementa
  * Texto: label (Text Label) · required-text (padrão "(Obrigatório)") · supporting · error
  * Booleans do Figma, ligados por padrão — passar "false" desliga:
  *   show-label · show-required · show-lead-icon · show-trailing-item · show-supporting-content
@@ -25,7 +26,7 @@
   }
 
   class CdsCreditCardInput extends HTMLElement {
-    static get observedAttributes(){ return ["appearance","disabled","value","placeholder","label","required-text","supporting","error","show-label","show-required","show-lead-icon","show-trailing-item","show-supporting-content"]; }
+    static get observedAttributes(){ return ["appearance","disabled","value","placeholder","trailing-label","label","required-text","supporting","error","show-label","show-required","show-lead-icon","show-trailing-item","show-supporting-content"]; }
     constructor(){ super(); this._id = "cds-cc-" + (++uid); this._digits = null; }
     get appearance(){ return this.getAttribute("appearance") === "warning" ? "warning" : "neutral"; }
     get disabled(){ return this.hasAttribute("disabled"); }
@@ -86,7 +87,7 @@
       if (this.flag("show-trailing-item")){
         var act = kitEl("button", "cds-icon-button");
         act.type = "button"; act.disabled = this.disabled;
-        act.setAttribute("aria-label", "Ajuda sobre o número do cartão");
+        act.setAttribute("aria-label", this.getAttribute("trailing-label") || "Ajuda sobre o número do cartão");
         var ic = kitEl("span", "cds-icon cds-icon--support-line"); ic.setAttribute("aria-hidden", "true");
         act.appendChild(ic);
         act.addEventListener("click", function(){ self.dispatchEvent(new CustomEvent("cds-trailing-action", { bubbles: true })); });

@@ -1,0 +1,43 @@
+/* =====================================================================
+   Filter button · Buttons · set 5099:5389
+   Desktop: 48 de altura · padding 0 20 · gap 8 · raio 16 · .Icons (filter-line) + "Filtros" Label/Medium
+   Mobile/Tablet (Specific/Buttons/Filter button/Is Mobile): 48×48 só o ícone
+   Is Active: fundo Accent/Solid/soft · Badge Neutral no lugar do ícone (contagem de filtros)
+   Motion: Hover e Press 150ms cubic-bezier(.7,0,.8,1) · Disabled Opacity/light
+   ===================================================================== */
+cds-filter-button{ display:inline-flex; flex:0 0 auto; }
+cds-filter-button > .cds-fb{
+  --_bg:var(--common-colors-surface-default); --_fg:var(--common-colors-text-accent); --_ic:var(--common-colors-surface-accent); --_bd:transparent;
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:var(--common-sizes-8);
+  height:var(--common-sizes-48); padding:0 var(--common-sizes-20); margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-medium);
+  background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
+  font:var(--text-style-label-medium); white-space:nowrap;
+  transition:background-color 150ms cubic-bezier(.7,0,.8,1), color 150ms cubic-bezier(.7,0,.8,1), box-shadow 150ms cubic-bezier(.7,0,.8,1);
+}
+cds-filter-button > .cds-fb cds-icon, cds-filter-button > .cds-fb cds-icon[appearance]{ --_icon-color:var(--_ic); }
+cds-filter-button > .cds-fb:hover{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); --_ic:var(--common-colors-accent-solid-semi-intense); font:var(--text-style-label-bold); }
+cds-filter-button > .cds-fb:active{ --_bg:transparent; --_bd:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-accent-solid-medium); --_ic:var(--common-colors-accent-solid-medium); font:var(--text-style-label-medium); }
+
+/* Is Active */
+cds-filter-button[active] > .cds-fb{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+cds-filter-button[active] > .cds-fb:active{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
+
+/* Mobile e Tablet — só o ícone, 48×48; o Badge vai para o canto */
+[data-viewport="mobile"] cds-filter-button:not([viewport]) > .cds-fb,
+[data-viewport="tablet"] cds-filter-button:not([viewport]) > .cds-fb,
+cds-filter-button[viewport="mobile"] > .cds-fb{ width:var(--common-sizes-48); padding:0; }
+[data-viewport="mobile"] cds-filter-button:not([viewport]) .cds-fb__label,
+[data-viewport="tablet"] cds-filter-button:not([viewport]) .cds-fb__label,
+cds-filter-button[viewport="mobile"] .cds-fb__label{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+[data-viewport="mobile"] cds-filter-button:not([viewport]) .cds-fb > cds-badge,
+[data-viewport="tablet"] cds-filter-button:not([viewport]) .cds-fb > cds-badge,
+cds-filter-button[viewport="mobile"] .cds-fb > cds-badge{ position:absolute; top:6px; right:5px; }
+/* No Mobile ativo o ícone continua visível (Figma: .Icons + Badge) */
+cds-filter-button .cds-fb > cds-icons.is-mobile-only{ display:none; }
+[data-viewport="mobile"] cds-filter-button:not([viewport])[active] .cds-fb > cds-icons.is-mobile-only,
+[data-viewport="tablet"] cds-filter-button:not([viewport])[active] .cds-fb > cds-icons.is-mobile-only,
+cds-filter-button[viewport="mobile"][active] .cds-fb > cds-icons.is-mobile-only{ display:inline-flex; }
+
+cds-filter-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ cds-filter-button > .cds-fb{ transition:none; } }

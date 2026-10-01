@@ -107,7 +107,7 @@ CDS.register({
         title: "Visibility Action · Icon Button", exposed: false,
         note: "Configuração fixa no componente; só o ícone e o estado mudam.",
         props: function(){
-          var b = p.querySelector(".cds-ci__action");
+          var host = p.querySelector(".cds-ci__action"), b = host && host.button;
           if (!b) return [["Show Trailing Item", "false"]];
           return [
             ["Kind", "Ghost"], ["Appearance", "Neutral"], ["Size", "Small"],

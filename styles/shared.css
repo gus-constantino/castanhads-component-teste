@@ -2,16 +2,7 @@
    Building blocks compartilhados entre componentes
    ===================================================================== */
 
-/* Icon Button · Ghost · Neutral · Small (40×40) */
-.cds-icon-button{
-  flex:0 0 auto; width:var(--common-sizes-40); height:var(--common-sizes-40);
-  display:grid; place-items:center; padding:0; margin:0; border:0; cursor:pointer;
-  border-radius:var(--common-border-radius-small); background:transparent;
-  transition:background-color var(--motion-icon-button-duration) var(--motion-icon-button-easing);
-}
-.cds-icon-button:hover{ background:var(--common-colors-neutral-solid-semi-soft); }
-.cds-icon-button:active{ background:var(--common-colors-neutral-solid-medium); }
-.cds-icon-button .cds-icon{ width:var(--common-sizes-20); height:var(--common-sizes-20); }
+/* Icon Button agora é componente: components/icon-button (<cds-icon-button>) */
 
 /* Ícone — asset do Figma (assets/icons) usado como máscara para herdar a cor do token.
    As classes .cds-icon--<nome> ficam em styles/icons.css (gerado por scripts/build-assets.js). */

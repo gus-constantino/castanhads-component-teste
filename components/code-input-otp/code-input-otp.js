@@ -95,16 +95,14 @@
 
       // Visibility Action — alterna Hidden Values; o ícone reflete o estado atual
       if (this.flag("show-trailing-item")){
-        var act = document.createElement("button");
-        act.type = "button";
-        act.className = "cds-icon-button cds-ci__action";
-        act.disabled = this.disabled;
-        act.setAttribute("aria-label", this.masked ? "Mostrar código" : "Ocultar código");
-        act.setAttribute("aria-pressed", this.masked ? "false" : "true");
-        var ic = document.createElement("span");
-        ic.className = "cds-icon " + (this.masked ? "cds-icon--hide-off-line" : "cds-icon--hide-line");
-        ic.setAttribute("aria-hidden", "true");
-        act.appendChild(ic);
+        // Nested instance: Icon Button · Ghost · Neutral · Small
+        var act = document.createElement("cds-icon-button");
+        act.className = "cds-ci__action";
+        act.setAttribute("kind", "ghost"); act.setAttribute("appearance", "neutral"); act.setAttribute("size", "small");
+        act.setAttribute("icon", this.masked ? "hide-off-line" : "hide-line");
+        act.setAttribute("label", this.masked ? "Mostrar código" : "Ocultar código");
+        act.setAttribute("pressed", this.masked ? "false" : "true");
+        if (this.disabled) act.setAttribute("disabled", "");
         act.addEventListener("click", function(){
           self.toggleAttribute("masked");
           var next = self.querySelector(".cds-ci__action"); if (next) next.focus();

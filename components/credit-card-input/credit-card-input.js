@@ -85,11 +85,12 @@
         box.appendChild(warn);
       }
       if (this.flag("show-trailing-item")){
-        var act = kitEl("button", "cds-icon-button");
-        act.type = "button"; act.disabled = this.disabled;
-        act.setAttribute("aria-label", this.getAttribute("trailing-label") || "Ajuda sobre o número do cartão");
-        var ic = kitEl("span", "cds-icon cds-icon--support-line"); ic.setAttribute("aria-hidden", "true");
-        act.appendChild(ic);
+        // Nested instance: Icon Button · Ghost · Neutral · Small · support-line
+        var act = document.createElement("cds-icon-button");
+        act.setAttribute("kind", "ghost"); act.setAttribute("appearance", "neutral"); act.setAttribute("size", "small");
+        act.setAttribute("icon", "support-line");
+        act.setAttribute("label", this.getAttribute("trailing-label") || "Ajuda sobre o número do cartão");
+        if (this.disabled) act.setAttribute("disabled", "");
         act.addEventListener("click", function(){ self.dispatchEvent(new CustomEvent("cds-trailing-action", { bubbles: true })); });
         box.appendChild(act);
       }
@@ -119,11 +120,11 @@
       var self = this;
       // Clicar em qualquer ponto do Text Box foca o campo (exceto no Icon Button)
       box.addEventListener("mousedown", function(e){
-        if (e.target === inp || e.target.closest(".cds-icon-button")) return;
+        if (e.target === inp || e.target.closest("cds-icon-button")) return;
         e.preventDefault(); inp.focus();
       });
       box.addEventListener("pointerup", function(e){
-        if (e.target.closest(".cds-icon-button")) return;
+        if (e.target.closest("cds-icon-button")) return;
         box.classList.add("is-tapped");
         clearTimeout(box._tapT);
         box._tapT = setTimeout(function(){ box.classList.remove("is-tapped"); }, 350);

@@ -1,0 +1,56 @@
+/* =====================================================================
+   Main Button · Buttons · set 4464:427   (base .cds-btn também usada pelo Drop Button)
+   Medium: 48 · raio medium · Label/Medium (Pressed: Label/Bold)
+   Small:  40 · raio small  · Caption/Medium (Pressed: Caption/Bold)
+   padding 0 20 · gap 8 · ícones 20 · Disabled Opacity/light
+   Motion (reactions): Hover e Press 150ms cubic-bezier(.7,0,.8,1)
+   Viewport (Specific/Buttons/Main Button/Width/min-width): Desktop 136 · Tablet 220 · Mobile 328
+   ===================================================================== */
+cds-main-button, cds-drop-button{ display:inline-flex; flex:0 0 auto; max-width:100%; }
+cds-main-button > .cds-btn{ --_min-w:136px; }
+.cds-btn{
+  --_bg:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-support-lighter); --_bd:transparent;
+  --_font:var(--text-style-label-medium); --_font-pressed:var(--text-style-label-bold);
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--common-sizes-8);
+  height:var(--common-sizes-48); min-width:var(--_min-w, 0px); max-width:100%; padding:0 var(--common-sizes-20); margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-medium);
+  background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
+  font:var(--_font); white-space:nowrap;
+  transition:background-color 150ms cubic-bezier(.7,0,.8,1), color 150ms cubic-bezier(.7,0,.8,1), box-shadow 150ms cubic-bezier(.7,0,.8,1);
+}
+.cds-btn > cds-icon, .cds-btn > cds-icon[appearance]{ --_icon-color:var(--_fg); }
+.cds-btn:active{ font:var(--_font-pressed); }
+[size="small"] > .cds-btn{ height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); --_font:var(--text-style-caption-medium); --_font-pressed:var(--text-style-caption-bold); }
+
+/* Viewport → largura mínima */
+[data-viewport="tablet"] cds-main-button > .cds-btn{ --_min-w:220px; }
+[data-viewport="mobile"] cds-main-button > .cds-btn{ --_min-w:328px; }
+
+/* Default · Accent */
+.cds-btn:hover{ --_bg:var(--common-colors-accent-solid-semi-intense); }
+.cds-btn:active{ --_bg:var(--common-colors-accent-solid-medium); }
+/* Ghost · Accent */
+[kind="ghost"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
+[kind="ghost"] > .cds-btn:hover{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+[kind="ghost"] > .cds-btn:active{ --_bg:transparent; --_fg:var(--common-colors-text-accent); --_bd:var(--common-colors-accent-solid-medium); }
+/* Default · Neutral */
+[appearance="neutral"] > .cds-btn{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense); }
+[appearance="neutral"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-solid-medium); }
+[appearance="neutral"] > .cds-btn:active{ --_bg:var(--common-colors-surface-01); }
+/* Default · Inversed */
+[appearance="inversed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
+[appearance="inversed"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-solid-intense); --_fg:var(--common-colors-support-lighter); }
+[appearance="inversed"] > .cds-btn:active{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
+/* Ghost · Neutral */
+[kind="ghost"][appearance="neutral"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-intense); --_bd:transparent; }
+[kind="ghost"][appearance="neutral"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+[kind="ghost"][appearance="neutral"] > .cds-btn:active{ --_bg:var(--common-colors-surface-01); }
+/* Ghost · Inversed */
+[kind="ghost"][appearance="inversed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-support-lighter); --_bd:transparent; }
+[kind="ghost"][appearance="inversed"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
+[kind="ghost"][appearance="inversed"] > .cds-btn:active{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
+
+/* Disabled — Opacity/light; Ghost Inversed troca o texto para Text/intense (🟡 ver roadmap) */
+cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
+[disabled][kind="ghost"][appearance="inversed"] > .cds-btn{ --_fg:var(--common-colors-text-intense); }
+@media (prefers-reduced-motion:reduce){ .cds-btn{ transition:none; } }

@@ -3,8 +3,24 @@ window.CDS = window.CDS || {};
 CDS.assets = {
   "icons": [
     {
+      "name": "calendar-line",
+      "cls": "cds-icon--calendar-line"
+    },
+    {
       "name": "credit-card-line",
       "cls": "cds-icon--credit-card-line"
+    },
+    {
+      "name": "dropdown-close-line",
+      "cls": "cds-icon--dropdown-close-line"
+    },
+    {
+      "name": "dropdown-open-line",
+      "cls": "cds-icon--dropdown-open-line"
+    },
+    {
+      "name": "filter-line",
+      "cls": "cds-icon--filter-line"
     },
     {
       "name": "hide-line",

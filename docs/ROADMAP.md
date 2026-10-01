@@ -161,7 +161,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 4. Ler reactions (motion por transição) e nested instances (exposed ou fixa).
 5. Construir `components/<id>/` (css · js · playground) **consumindo** os building blocks já existentes.
 6. Testar em servidor local: estados, teclado, dark, 360px.
-7. Publicar e registrar no §6 (Aprendizados) e no §5 (dúvidas novas).
+7. Publicar e registrar no §7 (Aprendizados) e no §5 (dúvidas novas).
+8. **Atualizar `docs/ARCHITECTURE.md`**: diário (§7), nova rodada da análise (§5) e backlog (§6).
 
 ---
 
@@ -202,6 +203,11 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
 | Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
 | Q11 | **Currency Largest com valor oculto** usa Heading/Small (38px de altura) para o "R$", e com valor usa Title/Medium (36px). Intencional? | Implementado como no Figma |
+| Q13 | **Disabled inconsistente entre botões:** Main/Drop/Filter usam `Opacity/light` (0.32), Icon Button usa `Opacity/medium` (0.4) | Implementado como no Figma |
+| Q14 | **Ghost Inversed Disabled** (Main, Drop, Icon Button) troca o texto/ícone para `Text/intense`/`Icons/intense` (escuro sobre fundo escuro) | Parece erro; implementado como no Figma |
+| Q15 | **Neutral diverge entre Main, Drop e Icon Button** (hover: `Neutral/Solid/medium` × `Neutral/Opacity/Intense/semi-transparent` × `Neutral/Solid/semi-soft`; pressed do Ghost: `Surface/01` × sem fundo × `Neutral/Solid/medium`) | Implementado por componente; vale alinhar a família |
+| Q16 | **Drop Button `Default, Inversed, Pressed`** está quebrada (sem fundo, padding 0, raio 0) | Usei o Pressed do Main Button |
+| Q17 | **Badge dentro do Filter button no Mobile:** no Figma é a pílula de 16px; pela regra do próprio Badge (Viewport) vira ponto de 8px | Segui a regra do Badge |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
 ## 5.1 Débito de export (Gustavo)
@@ -254,4 +260,5 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Exporta
 | 0 | ✅ 01/10 — 250 tokens `Common/*` (89 com dark) + 34 text styles + 3 elevations + Motion Styles gerados por `scripts/build-tokens.js` · pipeline `scripts/build-assets.js` (ícones como máscara + manifest) · side menu por página do Figma + seção Building blocks · Work Sans carregada |
 | 1a | ✅ 01/10 — Icon · Shaped Icon · Tag · Badge · Status Dot · Divider · Spinner · Progress Line |
 | 1b | ✅ 01/10 — Image · Avatar · Caju Brand · .Credit Card Flags · Link · Currency · .Text Content · .Currency Content · .Currency Symbol |
-| 2 a 9 | ⏳ (Q5 precisa de resposta antes do Lote 3) |
+| 2 | ✅ 01/10 — Icon Button (componente; OTP e Credit Card passam a consumi-lo) · Main Button · Drop Button · Filter button · .Icons |
+| 3 a 9 | ⏳ (Q5 precisa de resposta antes do Lote 3) |

@@ -68,7 +68,7 @@ CDS.register({
         title: "Trailing Item · Icon Button", exposed: false,
         note: "Configuração fixa no componente. O papel da ação é de quem implementa.",
         props: function(){
-          var b = p.querySelector(".cds-cc__box .cds-icon-button");
+          var host = p.querySelector(".cds-cc__box cds-icon-button"), b = host && host.button;
           if (!b) return [["Show Trailing Item", "false"]];
           return [
             ["Kind", "Ghost"], ["Appearance", "Neutral"], ["Size", "Small"],

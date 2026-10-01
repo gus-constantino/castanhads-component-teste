@@ -1,0 +1,9 @@
+/* =====================================================================
+   Drop Button · Buttons · set 6955:6985 — herda .cds-btn (main-button.css)
+   Diferenças do Figma em relação ao Main Button:
+   · Default Neutral Hovered: Neutral/Opacity/Intense/semi-transparent (Main: Neutral/Solid/medium)
+   · Ghost Neutral Pressed: sem fundo (Main: Surface/01)
+   · Trailing: dropdown-open-line ↔ dropdown-close-line (Is Active)
+   ===================================================================== */
+cds-drop-button[appearance="neutral"]:not([kind="ghost"]) > .cds-btn:hover{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+cds-drop-button[kind="ghost"][appearance="neutral"] > .cds-btn:active{ --_bg:transparent; }

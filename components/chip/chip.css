@@ -1,0 +1,22 @@
+/* =====================================================================
+   Base da família Chips (Input Chips · Filter Chips) — interno
+   40 de altura (Viewport Specific/Selection Controls/*: 40 em todos os modos) · pill
+   padding 0 16 · gap 4 · Label/Regular · ícones 16 · Disabled Opacity/medium
+   Motion: Hover e Press 150ms systemic-accelerate
+   ===================================================================== */
+.cds-chip{
+  --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-medium); --_ic:var(--common-colors-icons-medium);
+  --_bd:transparent; --_bw:var(--common-border-width-hairline);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-4); flex:0 0 auto;
+  height:var(--common-sizes-40); padding:0 var(--common-sizes-16); margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-pill);
+  background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--_bw) var(--_bd);
+  font:var(--text-style-label-regular); white-space:nowrap;
+  --cds-icon-color:var(--_ic);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate),
+             box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate),
+             color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+[disabled] > .cds-chip{ --_bg:var(--common-colors-surface-default); --_bd:var(--common-colors-border-semi-soft); }
+cds-input-chip[disabled], cds-filter-chip[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ .cds-chip{ transition:none; } }

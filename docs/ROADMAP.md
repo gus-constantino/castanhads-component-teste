@@ -58,7 +58,7 @@ Coluna *Usa*: instâncias aninhadas na 1ª variante (ícones omitidos).
 | Checkbox / Checkbox Group | `4123:2560` / `4132:1511` | 12 / 1 | — / Checkbox |
 | Radio Button / Group | `4429:10437` / `4429:11192` | 8 / 1 | — / Radio |
 | Switch / Group | `4895:809` / `4895:1233` | 8 / 1 | — / Switch |
-| Input Chips (**2 sets**) | `12365:2728` · `14120:5313` | 4 · 4 | — |
+| Input Chips | `12365:2728` (o duplicado `14120:5313` foi removido — Q5) | 4 | — |
 | Filter Chips | `12365:2744` | 8 | — |
 | Chips Group | `12457:3664` | 4 | Filter Chips |
 
@@ -194,13 +194,13 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D22 | Sem Jira conhecido, o item do menu sai sem chave; o link do Figma aponta para o node do set na main | 01/10 |
 | D23 | **Assets de marca** (Caju Brand, bandeiras) mantêm as cores do Figma — não são tokens. Caju Brand vira SVG inline (paths do Figma); bandeiras ficam em `assets/flags/` | 01/10 |
 | D25 | **Fonte de verdade = main da lib.** Exceções: as branches já puxadas (Code Input OTP `PfeMbrThCwzwJFFo2GiAbW` e Credit Card Input `NHkGUvBfNMNTLnsxKtAmWa`). Novas branches entram depois, quando o Gustavo indicar, como atualização do componente | 01/10 |
+| D26 | **Input Chips = `12365:2728`** (com stroke `Border/semi-soft`, o que o Chips Group consome). O set duplicado `14120:5313` era erro e foi removido no Figma (Q5 resolvida) | Q5 · 01/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
 
 | # | Dúvida | Proposta |
 |---|---|---|
-| Q5 | **Input Chips aparece em dois sets** com as mesmas props e variantes, na mesma posição do frame `Chips` (um sobre o outro). Diferença: `12365:2728` tem stroke `Border/semi-soft`; `14120:5313` não tem stroke. O **Chips Group usa o `12365:2728`** | Aguardando o Gustavo — proposta: `12365:2728` (é o consumido) |
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
 | Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
 | Q11 | **Currency Largest com valor oculto** usa Heading/Small (38px de altura) para o "R$", e com valor usa Title/Medium (36px). Intencional? | Implementado como no Figma |
@@ -209,6 +209,10 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Q15 | **Neutral diverge entre Main, Drop e Icon Button** (hover: `Neutral/Solid/medium` × `Neutral/Opacity/Intense/semi-transparent` × `Neutral/Solid/semi-soft`; pressed do Ghost: `Surface/01` × sem fundo × `Neutral/Solid/medium`) | Implementado por componente; vale alinhar a família |
 | Q16 | **Drop Button `Default, Inversed, Pressed`** está quebrada (sem fundo, padding 0, raio 0) | Usei o Pressed do Main Button |
 | Q17 | **Badge dentro do Filter button no Mobile:** no Figma é a pílula de 16px; pela regra do próprio Badge (Viewport) vira ponto de 8px | Segui a regra do Badge |
+| Q18 | **Hover do Unselected diverge entre Checkbox e Radio:** Checkbox usa `Border/semi-intense`; Radio usa `Accent/Solid/medium` (o mesmo do Pressed) | Implementado como no Figma; vale alinhar a família |
+| Q19 | **Indeterminate sem reaction:** o clique no Checkbox Indeterminate não tem transição no Figma | Segui o nativo: o clique vai para Selected |
+| Q20 | **Foco por teclado não desenhado** nos Selection Controls e Chips | Assumi outline 2px `Support/system` com offset; confirmar |
+| Q21 | **Switch usa 300ms** (`medium-02`) enquanto Checkbox, Radio e Chips usam 150ms | Implementado como no Figma (o toggle percorre distância) |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
 ## 5.1 Débito de export (Gustavo)
@@ -249,6 +253,8 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Exporta
 | 01/10 | Divider tem annotations de implementação (SVG para Dashed, tokens diferentes por construção, `role=separator` opcional) — annotations também trazem decisão de código, não só de design |
 | 01/10 | Spinner: as 4 "Spinner Position" com AFTER_TIMEOUT ≈ 0 e Smart Animate 200ms ease-out = rotação contínua em passos de 90° |
 | 01/10 | `exportAsync` falha em vetores sem fill no nó (cores nas regiões da vector network): reconstruir via `vectorPaths` + `vectorNetwork.regions[].fills` |
+| 01/10 | Selection Controls: o Figma desenha o *Selector* (pílula 48×48) separado da caixa de 24, então o hover pinta a área de toque inteira, não só a caixa |
+| 01/10 | Input Chips: o alvo de remoção é o chip inteiro (40px), não o ícone de 16px, por causa do WCAG 2.5.8 |
 | 01/10 | Link usa motion próprio (150ms com a curva *accelerate* `.7,0,.8,1` no hover), diferente do Hover In dos inputs |
 
 ---
@@ -262,4 +268,5 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Exporta
 | 1a | ✅ 01/10 — Icon · Shaped Icon · Tag · Badge · Status Dot · Divider · Spinner · Progress Line |
 | 1b | ✅ 01/10 — Image · Avatar · Caju Brand · .Credit Card Flags · Link · Currency · .Text Content · .Currency Content · .Currency Symbol |
 | 2 | ✅ 01/10 — Icon Button (componente; OTP e Credit Card passam a consumi-lo) · Main Button · Drop Button · Filter button · .Icons |
-| 3 a 9 | ⏳ (Q5 precisa de resposta antes do Lote 3) |
+| 3 | ✅ 01/10 — Checkbox · Radio Button · Switch (+ os 3 Groups) · Input Chips · Filter Chips · Chips Group, todos sobre a base `CDS.SelectionControl` / `.cds-chip` |
+| 4 a 9 | ⏳ |

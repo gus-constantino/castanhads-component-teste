@@ -26,6 +26,15 @@ window.CDS_EXPECTED = {
   "drop-button":       { h: 48, src: "6955:6985 · Size=Medium" },
   "filter-button":     { h: 48, src: "5099:5389 · Desktop" },
   "icons-block":       { w: 20, h: 20, src: "5218:1271" },
+  "checkbox":          { h: 48, src: "4123:2560 · linha 48 (selector 48×48)" },
+  "radio-button":      { h: 48, src: "4429:10437" },
+  "switch":            { h: 48, src: "4895:809" },
+  "checkbox-group":    { h: 328, src: "4132:1511 · 6 itens × 48 + 5 × 8" },
+  "radio-button-group":{ h: 328, src: "4429:11192" },
+  "switch-group":      { h: 328, src: "4895:1233" },
+  "input-chips":       { h: 40, src: "12365:2728" },
+  "filter-chips":      { h: 40, src: "12365:2744" },
+  "chips-group":       { w: 320, h: 48, src: "12457:3664 · Single Rows" },
   "code-input-otp":    { w: 320, src: "24060:7228 · base 320 (6 células)" },
   "credit-card-input": { w: 320, src: "24614:7155" }
 };

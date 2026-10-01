@@ -1,6 +1,10 @@
-/* GERADO por scripts/build-assets.js · não editar à mão · 12 ícones */
+/* GERADO por scripts/build-assets.js · não editar à mão · 16 ícones */
 /* URL em longhand, sem var(): o Safari falha com var() no shorthand -webkit-mask */
 .cds-icon--calendar-line{ -webkit-mask-image:url("../assets/icons/calendar-line.svg"); mask-image:url("../assets/icons/calendar-line.svg"); }
+.cds-icon--check-line{ -webkit-mask-image:url("../assets/icons/check-line.svg"); mask-image:url("../assets/icons/check-line.svg"); }
+.cds-icon--checkbox-check{ -webkit-mask-image:url("../assets/icons/checkbox-check.svg"); mask-image:url("../assets/icons/checkbox-check.svg"); }
+.cds-icon--checkbox-indeterminate{ -webkit-mask-image:url("../assets/icons/checkbox-indeterminate.svg"); mask-image:url("../assets/icons/checkbox-indeterminate.svg"); }
+.cds-icon--close-line{ -webkit-mask-image:url("../assets/icons/close-line.svg"); mask-image:url("../assets/icons/close-line.svg"); }
 .cds-icon--credit-card-line{ -webkit-mask-image:url("../assets/icons/credit-card-line.svg"); mask-image:url("../assets/icons/credit-card-line.svg"); }
 .cds-icon--dropdown-close-line{ -webkit-mask-image:url("../assets/icons/dropdown-close-line.svg"); mask-image:url("../assets/icons/dropdown-close-line.svg"); }
 .cds-icon--dropdown-open-line{ -webkit-mask-image:url("../assets/icons/dropdown-open-line.svg"); mask-image:url("../assets/icons/dropdown-open-line.svg"); }

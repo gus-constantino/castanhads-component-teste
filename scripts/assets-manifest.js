@@ -7,6 +7,22 @@ CDS.assets = {
       "cls": "cds-icon--calendar-line"
     },
     {
+      "name": "check-line",
+      "cls": "cds-icon--check-line"
+    },
+    {
+      "name": "checkbox-check",
+      "cls": "cds-icon--checkbox-check"
+    },
+    {
+      "name": "checkbox-indeterminate",
+      "cls": "cds-icon--checkbox-indeterminate"
+    },
+    {
+      "name": "close-line",
+      "cls": "cds-icon--close-line"
+    },
+    {
       "name": "credit-card-line",
       "cls": "cds-icon--credit-card-line"
     },

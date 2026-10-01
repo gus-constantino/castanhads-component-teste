@@ -47,7 +47,7 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 
 ## 3. Contrato de componente (estado atual)
 
-1. **Custom element em light DOM**, sem Shadow DOM, estendendo `CDS.Element` (`render()`, `flag()`, `text()`, `a11yName()`, `define()`). Light DOM deixa os tokens cascatearem, o tema funcionar por `data-theme` e os seletores `[data-viewport]` alcançarem o componente. Componentes com estado (OTP, Credit Card) sobrescrevem `attributeChangedCallback`.
+1. **Custom element em light DOM**, sem Shadow DOM, estendendo `CDS.Element` (`render()`, `flag()`, `text()`, `a11yName()`, `define()`). Light DOM deixa os tokens cascatearem, o tema funcionar por `data-theme` e os seletores `[data-viewport]` alcançarem o componente. Componentes com estado (OTP, Credit Card) sobrescrevem `attributeChangedCallback`. **Famílias** ganham uma base própria: `CDS.SelectionControl` (Checkbox, Radio, Switch) com render incremental (`build()` uma vez + `update()` por atributo), que mantém o `<input>` nativo e o foco.
    **Dependências** declaradas no JSDoc (`@deps icon badge`); a ordem de carga sai do `build-index.js`.
 2. **Atributos = props do Figma** em kebab-case. Variant → atributo de valor (`appearance="warning"`). Boolean `Show X` ligado por padrão → `show-x="false"` desliga. Text → atributo de texto.
 3. **Estado visual por CSS:** `:hover` = Hovered, `:active` = Pressed, `:focus-within` = Is Active. Valores em custom properties privadas (`--_bg`, `--_fg`, `--_bd`, `--_stroke-c`…) trocadas por seletor.
@@ -56,7 +56,7 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 6. **Override de cor em nested** = o pai define `--cds-icon-color` no próprio elemento (ex.: `cds-tag{ --cds-icon-color:var(--_fg); }`). O ícone resolve `--cds-icon-color` > `--_icon-color` (Appearance) > padrão. Não depende de especificidade e é o equivalente direto do override de instância do Figma.
 7. **Motion só por token:** `var(--common-motion-duration-*) var(--common-motion-easing-*)` ou aliases de Motion Styles (`--motion-hover-*`, `--motion-press-*`, `--motion-active-*`).
 8. **Viewport:** o componente lê `[data-viewport="mobile|tablet"]` do ancestral e aceita `viewport="…"` para forçar o modo.
-9. **Eventos:** `cds-change`, `cds-complete`, `cds-toggle`, `cds-visibility-change`, `cds-trailing-action` (`bubbles: true`). O papel da ação é de quem implementa.
+9. **Eventos:** `cds-change`, `cds-remove` (cancelável: `preventDefault()` mantém o chip), `cds-complete`, `cds-toggle`, `cds-visibility-change`, `cds-trailing-action` (`bubbles: true`). O papel da ação é de quem implementa.
 10. **A11y:** elemento nativo sempre que existir (`<button>`, `<a>`, `<input>`). Decorativo → `aria-hidden`. Com `label` → `role="img"` + `aria-label`.
 
 ---
@@ -75,7 +75,19 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 
 ---
 
-## 5. Análise — rodada 2 (01/10 · pós-arquitetura)
+## 5. Análise — rodada 3 (01/10 · Lote 3)
+
+| # | Achado | Antes → agora | Status |
+|---|---|---|---|
+| A3 | Re-render por `innerHTML` | 15 → 16 componentes (os chips recriam só o conteúdo do `<button>`, que é mantido, então o foco não se perde). **Primeira base incremental:** `CDS.SelectionControl` não recria nada | 🟡 o padrão está validado; aplicar aos inputs no Lote 4 |
+| A5 | px literais | +3 no Lote 3: `translateX(16px)` do Switch (sem token de deslocamento), largura 320 do Chips Group (largura do frame no Figma) e o offset do outline de foco | ⏳ P3 |
+| A7 | Smoke | 24 → **33/33**; os Groups medem 328 = 6 × 48 + 5 × 8, a mesma conta do Figma | ✅ |
+| A13 | **Novo — classe base por família:** 3 componentes compartilham markup, a11y e evento, mudando só `inputType`, `buildBox()` e `applyStatus()`. O CSS também tem base (`selection-control.css`, `chip.css`) | Checkbox, Radio e Switch têm ~30 linhas de JS cada | ✅ padrão para Text Fields e Lists |
+| A14 | **Novo — `@deps` com base sem tag de playground:** `selection-control` e `chip` não registram playground; o `build-index` já trata (carrega CSS/JS, sem `.playground.js`) | — | ✅ |
+| A15 | **Novo — um arquivo, vários elementos:** `selection-group.js` define 3 tags e o playground registra 3 páginas | O `build-index` trabalha por pasta, não por tag | 🟢 ok enquanto as tags forem irmãs |
+| A16 | **Novo — `role` é atributo reservado:** a prop `Role` do Chips Group virou `role-kind` | Props do Figma que colidem com atributos globais de HTML (`role`, `hidden`, `title`) precisam de prefixo | 🟢 regra registrada no contrato |
+
+### Rodada 2 (01/10 · pós-arquitetura)
 
 | # | Achado | Antes → agora | Status |
 |---|---|---|---|
@@ -121,8 +133,9 @@ Medições no código atual:
 | ✅ | ~~Motion por token~~ | A4 | feito | rodada de arquitetura |
 | ✅ | ~~`--cds-icon-color`~~ | A6 | feito | rodada de arquitetura |
 | ✅ | ~~Smoke test~~ | A7 | feito | rodada de arquitetura |
+| **P2** | Migrar OTP e Credit Card para `build()`/`update()` (como a base `CDS.SelectionControl`) ao realinhar a família Text Fields | A3 | por componente | Lote 4 |
 | **P2** | Smoke: rodar também em dark e em `data-viewport=mobile`, e verificar `aria-*` básicos (botão com nome, ícone decorativo com `aria-hidden`) | A7 | ~1h | Lote 3 |
-| **P2** | `CDS.Element` com render incremental opcional (`build()` uma vez + `update()` por atributo) | A3 | ~1h base + por componente | Lote 4 |
+| **P2** | Subir `build()`/`update()` de `CDS.SelectionControl` para `CDS.Element` (opcional por componente) quando a 2ª família usar | A3 | ~1h | Lote 4 |
 | **P3** | `tools/figma/extract.js`: versionar os extratores (matriz de variantes, tree+diff, export SVG) para colar sem reescrever | A8 | ~30min | quando houver folga |
 | **P3** | Revisar px literais e mapear o que tem token | A5 | ~30min | Lote 5 |
 | **P3** | TypeScript com `esbuild` gerando `dist/`, mantendo o Pages sem build (commit do bundle) | A10 | ~2h | depois de ~40 componentes |
@@ -140,6 +153,7 @@ Medições no código atual:
 | Lote 1a | `data-viewport` no frame · Icon como nested real | Override de cor em nested exige vencer `[appearance]` do filho (→ backlog P2) |
 | Lote 1b | Assets coloridos fora do pipeline de máscara · building blocks com `block: true` | Exportação de vetor pode falhar; reconstrução por `vectorPaths` é confiável |
 | Lote 2 | Icon Button vira componente e substitui o botão desenhado à mão em OTP e Credit Card · base `.cds-btn` compartilhada entre Main e Drop | Componente consumido por outros tem que carregar antes: a ordem no `index.html` virou dependência implícita (→ P1 `build-index.js`) |
+| Lote 3 | Primeiras **bases de família**: `CDS.SelectionControl` (JS + CSS) e `.cds-chip` (CSS + `CDS.chipIcon`) · primeiro render incremental · um arquivo definindo 3 tags (Groups) · `kit.selectionControl` (um playground parametrizado para 3 componentes) · evento cancelável `cds-remove` | Manter o `<input>` nativo e só atualizar atributos dá teclado, foco e leitor de tela de graça. A base de família reduz cada variante a poucas linhas. Props com nome de atributo global de HTML precisam de prefixo (`role` → `role-kind`) |
 | Arquitetura | `CDS.Element` · `@deps` + `build-index.js` · `--cds-icon-color` · motion por token · reset na base da lib · smoke test | Teste automatizado barato (mount + medida vs Figma) já paga na 1ª execução. Variável de override é mais robusta que especificidade. Reset de box-sizing é parte da lib, não do app |
 
 ---
@@ -150,4 +164,5 @@ Medições no código atual:
 - **Resolver um token light/dark:** seguir `valuesByMode` até o primitivo, escolhendo o modo cujo nome contém `light` ou `dark` em cada coleção (Brand Style tem um modo só, "Caju", e aponta para Caju Beneficios Light/Dark).
 - **Exportar ícone:** `getMainComponentAsync()` da instância → `exportAsync({format:'SVG_STRING'})`; se falhar, exportar a instância.
 - **Adicionar componente:** criar a pasta com `@deps` no JSDoc → `node scripts/build-index.js` → registrar o tamanho em `tests/expected.js` → abrir `tests/smoke.html`.
+- **Nova família de componentes:** base em `components/<familia>/` (sem playground) com `@deps —`; cada membro declara `@deps <familia>` e sobrescreve só o que muda. No playground, um helper no kit (ex.: `kit.selectionControl`) evita repetir os controles.
 - **Testar no navegador:** abrir via servidor, checar `document.styleSheets` (todos com `cssRules`) e `customElements.get(...)`, recarregar se algo falhou, depois passar por todas as rotas medindo `getBoundingClientRect` e `getComputedStyle`.

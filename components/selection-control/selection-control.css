@@ -1,0 +1,32 @@
+/* =====================================================================
+   Base da família Selection Controls (Checkbox · Radio Button · Switch) — interno
+   Linha 48 de altura: Selector 48×48 (alvo de toque, raio pill) + Label/Regular Text/intense
+   Disabled: Opacity/light · Motion: Hover e Press 150ms systemic-accelerate (Switch: 300ms)
+   ===================================================================== */
+.cds-sc{
+  --_sel-bg:transparent; --_dur:var(--common-motion-duration-short-03); --_ease:var(--common-motion-easing-systemic-accelerate);
+  display:inline-flex; align-items:center; min-height:var(--common-sizes-48); cursor:pointer;
+  font:var(--text-style-label-regular); color:var(--common-colors-text-intense);
+  -webkit-tap-highlight-color:transparent;
+}
+.cds-sc__selector{
+  position:relative; flex:0 0 auto; display:grid; place-items:center;
+  width:var(--common-sizes-48); height:var(--common-sizes-48);
+  border-radius:var(--common-border-radius-pill); background:var(--_sel-bg);
+  transition:background-color var(--_dur) var(--_ease);
+}
+/* input nativo cobre o selector: teclado, foco e leitor de tela de graça */
+.cds-sc__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:inherit; }
+.cds-sc__box{
+  --_bg:transparent; --_bd:var(--common-colors-border-medium);
+  display:grid; place-items:center; width:var(--common-sizes-24); height:var(--common-sizes-24);
+  background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
+  transition:background-color var(--_dur) var(--_ease), box-shadow var(--_dur) var(--_ease);
+  pointer-events:none;
+}
+/* Foco visível (padrão global do Castanha ainda não especificado em token — 🟡 ver roadmap) */
+.cds-sc__input:focus-visible ~ .cds-sc__box{ outline:2px solid var(--common-colors-support-system); outline-offset:2px; }
+
+[disabled] > .cds-sc{ opacity:var(--common-opacity-light); pointer-events:none; }
+[show-text-label="false"] .cds-sc__label{ display:none; }
+@media (prefers-reduced-motion:reduce){ .cds-sc, .cds-sc *{ transition:none !important; } }

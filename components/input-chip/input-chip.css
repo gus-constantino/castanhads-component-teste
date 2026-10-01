@@ -1,0 +1,8 @@
+/* =====================================================================
+   Input Chips · Selection Controls · set 12365:2728 (canônico — o duplicado foi removido) — base em chip.css
+   Stroke Border/semi-soft → Hovered Border/medium → Pressed Border/intense (+ texto e ícone intense)
+   ===================================================================== */
+cds-input-chip{ display:inline-flex; }
+cds-input-chip > .cds-chip{ --_bd:var(--common-colors-border-semi-soft); }
+cds-input-chip > .cds-chip:hover{ --_bd:var(--common-colors-border-medium); }
+cds-input-chip > .cds-chip:active{ --_bd:var(--common-colors-border-intense); --_fg:var(--common-colors-text-intense); --_ic:var(--common-colors-icons-intense); }

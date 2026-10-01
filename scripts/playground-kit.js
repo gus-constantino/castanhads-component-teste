@@ -164,11 +164,36 @@
       onChange: o.onChange });
   }
 
+  /**
+   * Playground padrão dos Selection Controls (Checkbox · Radio Button · Switch).
+   * o.tag · o.statuses [[valor, rótulo]] · o.extraHint
+   */
+  function selectionControl(ctx, o){
+    var p = el(o.tag, { label: "Label", status: "unselected" });
+    ctx.preview.appendChild(p);
+    var statusSeg;
+    function readout(){ ctx.readout(p.getAttribute("status"), false); }
+    p.addEventListener("cds-change", function(){
+      statusSeg.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.v === p.getAttribute("status"))); });
+      readout();
+    });
+    section(ctx.panel, "Variants");
+    statusSeg = seg(ctx.panel, { label: "Status", value: "unselected", options: o.statuses, hint: o.extraHint, onChange: function(v){ p.setAttribute("status", v); readout(); } });
+    toggle(ctx.panel, { label: "State: Disabled", onChange: function(on){ attr(p, "disabled", on); } });
+    hint(ctx.panel, "Hovered e Pressed são interação; o clique alterna o Status (como as reactions do Figma).");
+    section(ctx.panel, "Booleans");
+    toggle(ctx.panel, { label: "Show Text Label", checked: true, onChange: function(on){ attr(p, "show-text-label", on ? null : "false"); } });
+    section(ctx.panel, "Texts");
+    text(ctx.panel, { label: "Text Label", value: "Label", onInput: function(v){ p.setAttribute("label", v); } });
+    readout();
+    return p;
+  }
+
   /** Liga/desliga um atributo no elemento de preview. */
   function attr(node, name, val){
     if (val === null || val === false || val === "") node.removeAttribute(name);
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, selectionControl: selectionControl, attr: attr };
 })();

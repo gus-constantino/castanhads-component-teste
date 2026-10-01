@@ -86,11 +86,15 @@
   .cds-ci__action:active{ background:var(--common-colors-neutral-solid-medium); }
   /* Ícone 20px na cor Icons/intense (asset do Figma usado como máscara para herdar o token) */
   .cds-ci__icon{
-    width:var(--common-sizes-20); height:var(--common-sizes-20); background:var(--common-colors-icons-intense);
-    -webkit-mask:var(--_icon) center / contain no-repeat; mask:var(--_icon) center / contain no-repeat;
+    display:block; width:var(--common-sizes-20); height:var(--common-sizes-20);
+    background-color:var(--common-colors-icons-intense);
+    -webkit-mask-position:center; mask-position:center;
+    -webkit-mask-size:contain; mask-size:contain;
+    -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
   }
-  .cds-ci__icon--show{ --_icon:url("assets/icons/hide-line.svg"); }
-  .cds-ci__icon--hide{ --_icon:url("assets/icons/hide-off-line.svg"); }
+  /* URL direto em longhand (sem var()) — o Safari falha com var() no shorthand -webkit-mask */
+  .cds-ci__icon--show{ -webkit-mask-image:url("assets/icons/hide-line.svg"); mask-image:url("assets/icons/hide-line.svg"); }
+  .cds-ci__icon--hide{ -webkit-mask-image:url("assets/icons/hide-off-line.svg"); mask-image:url("assets/icons/hide-off-line.svg"); }
 
   .cds-ci__label{
     display:flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-20);
@@ -139,6 +143,7 @@
     pointer-events:none; display:none;
   }
   .cds-ci--masked .cds-ci__input{ color:transparent; }
+  .cds-ci__input::selection{ background:transparent; color:inherit; } /* sem destaque de seleção sobre o caractere/dot */
   .cds-ci--masked .cds-ci__box.is-filled .cds-ci__dot{ display:block; }
   /* Show Caret — 1×24 Icons/intense, centralizado; só na célula ativa (Is Active=True) e vazia */
   .cds-ci__caret{
@@ -231,7 +236,7 @@
   .pg-frame{
     width:100%; max-width:600px; flex:0 0 auto;
     background:var(--common-colors-surface-default); border-radius:var(--common-border-radius-large);
-    padding:40px 24px; display:flex; flex-direction:column; align-items:center; gap:24px;
+    padding:40px 16px; display:flex; flex-direction:column; align-items:center; gap:24px;
     transition:width .25s ease;
   }
   .pg-frame-meta{ align-self:stretch; display:flex; justify-content:space-between; gap:8px;

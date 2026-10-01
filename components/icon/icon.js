@@ -1,4 +1,5 @@
 /**
+ * @deps —
  * <cds-icon> — Icon · Images · set 2261:1126
  *
  * Atributos (padrões do Figma):
@@ -11,19 +12,16 @@
   "use strict";
   function slug(n){ return String(n || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
 
-  class CdsIcon extends HTMLElement {
+  class CdsIcon extends CDS.Element {
     static get observedAttributes(){ return ["icon", "label"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     get icon(){ return this.getAttribute("icon") || "placeholder-line"; }
     render(){
       var label = this.getAttribute("label");
       if (!this._glyph){ this._glyph = document.createElement("span"); this.appendChild(this._glyph); }
       this._glyph.className = "cds-icon cds-icon--" + slug(this.icon);
       this._glyph.setAttribute("aria-hidden", "true");
-      if (label){ this.setAttribute("role", "img"); this.setAttribute("aria-label", label); this.removeAttribute("aria-hidden"); }
-      else { this.removeAttribute("role"); this.removeAttribute("aria-label"); this.setAttribute("aria-hidden", "true"); }
+      this.a11yName(label);
     }
   }
-  if (!customElements.get("cds-icon")) customElements.define("cds-icon", CdsIcon);
+  CdsIcon.define("cds-icon");
 })();

@@ -2,18 +2,16 @@
 <html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Castanha DS — Playground</title>
-<meta name="description" content="Playground de componentes do Castanha DS." />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Smoke — Castanha DS</title>
+<!-- Todos os caminhos relativos resolvem a partir da raiz do repo -->
+<base href="../" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Work+Sans:wght@500;700&display=swap" rel="stylesheet" />
-
-<!-- Fundação -->
 <link rel="stylesheet" href="styles/tokens.css" />
 <link rel="stylesheet" href="styles/shared.css" />
 <link rel="stylesheet" href="styles/icons.css" />
-<!-- Componentes — GERADO por scripts/build-index.js (ordem de dependência) -->
 <!-- @components:css -->
 <link rel="stylesheet" href="components/badge/badge.css" />
 <link rel="stylesheet" href="components/caju-brand/caju-brand.css" />
@@ -40,52 +38,29 @@
 <link rel="stylesheet" href="components/tag/tag.css" />
 <link rel="stylesheet" href="components/text-content/text-content.css" />
 <!-- /@components:css -->
-<!-- Shell do playground -->
-<link rel="stylesheet" href="styles/playground.css" />
+<style>
+  body{ margin:0; padding:24px; font:14px/1.5 Roboto, system-ui, sans-serif; background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); }
+  h1{ font:500 20px/1.3 Roboto, sans-serif; margin:0 0 8px; }
+  .sum.good{ color:var(--common-colors-feedback-positive-semi-intense); } .sum.bad{ color:var(--common-colors-feedback-negative-semi-intense); }
+  table{ border-collapse:collapse; width:100%; background:var(--common-colors-surface-default); border-radius:12px; overflow:hidden; }
+  th, td{ text-align:left; padding:6px 10px; box-shadow:inset 0 -1px 0 var(--common-colors-border-semi-soft); vertical-align:top; }
+  td:nth-child(3), td:nth-child(4){ font-family:ui-monospace, Menlo, monospace; }
+  tr.ko td{ background:var(--common-colors-feedback-negative-soft); }
+  /* Os componentes são montados aqui, fora da tela, num frame de 600px como o playground (Fluido) */
+  #stage{ position:absolute; left:-10000px; top:0; width:600px; }
+  .frame{ width:600px; display:flex; flex-direction:column; align-items:center; }
+  .frame > div{ width:100%; display:flex; justify-content:center; }
+</style>
 </head>
 <body>
+<h1>Smoke test — playground do Castanha DS</h1>
+<p>Monta cada componente registrado e compara o tamanho com o Figma (<code>tests/expected.js</code>, ±1px).</p>
+<div id="out">Rodando…</div>
+<div id="stage" aria-hidden="true"></div>
 
-<header class="pg-header">
-  <p class="pg-brand">Castanha DS <span>Playground de componentes</span></p>
-  <button class="pg-iconbtn" id="theme" type="button" aria-label="Ativar tema escuro" aria-pressed="false" title="Alternar tema">
-    <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
-  </button>
-</header>
-
-<div class="pg-shell">
-  <nav class="pg-sidebar" aria-label="Componentes">
-    <input class="pg-search" id="search" type="search" placeholder="Buscar componente" aria-label="Buscar componente" autocomplete="off" />
-    <p class="pg-nav-title">Componentes</p>
-    <ul class="pg-nav" id="nav"></ul>
-  </nav>
-
-  <main class="pg-canvas">
-    <div class="pg-toolbar">
-      <div>
-        <h1 id="cmp-title"></h1>
-        <div class="pg-links" id="cmp-links"></div>
-      </div>
-      <div id="viewport"></div>
-    </div>
-    <div class="pg-stage">
-      <div class="pg-frame" id="frame">
-        <div class="pg-frame-meta"><span>Viewport: <code id="vp-readout">fluido</code></span><span>Valor: <code id="rval">—</code> <span id="rdone"></span></span></div>
-        <div class="pg-preview" id="preview"></div>
-      </div>
-    </div>
-  </main>
-
-  <aside class="pg-panel" aria-label="Controles">
-    <h2>Controles</h2>
-    <div id="panel"></div>
-  </aside>
-</div>
-
-<!-- Kit do playground (registro + controles) -->
 <script src="scripts/cds-element.js"></script>
 <script src="scripts/playground-kit.js"></script>
 <script src="scripts/assets-manifest.js"></script>
-<!-- Componentes — GERADO por scripts/build-index.js (ordem de dependência) -->
 <!-- @components:js -->
 <script src="components/badge/badge.js"></script>
 <script src="components/badge/badge.playground.js"></script>
@@ -136,7 +111,12 @@
 <script src="components/text-content/text-content.js"></script>
 <script src="components/text-content/text-content.playground.js"></script>
 <!-- /@components:js -->
-<!-- Shell: side menu, rotas, tema, viewport -->
-<script src="scripts/app.js"></script>
+<script src="tests/expected.js"></script>
+<script>
+  // Espera fontes e estilos para medir o layout final
+  window.addEventListener("load", function(){ (document.fonts ? document.fonts.ready : Promise.resolve()).then(function(){
+    var s = document.createElement("script"); s.src = "tests/smoke.js"; document.body.appendChild(s);
+  }); });
+</script>
 </body>
 </html>

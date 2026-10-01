@@ -1,4 +1,5 @@
 /**
+ * @deps icon
  * <cds-tag> — Tag · Status · set 4475:114
  * Compõe um <cds-icon size="small" appearance="neutral"> (nested instance) com override de cor.
  *
@@ -10,14 +11,12 @@
  */
 (function(){
   "use strict";
-  class CdsTag extends HTMLElement {
+  class CdsTag extends CDS.Element {
     static get observedAttributes(){ return ["label", "icon", "show-lead-item"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){
       this.innerHTML = "";
       this.iconEl = null;
-      if (this.getAttribute("show-lead-item") !== "false"){
+      if (this.flag("show-lead-item")){
         this.iconEl = document.createElement("cds-icon");
         this.iconEl.setAttribute("icon", this.getAttribute("icon") || "placeholder-line");
         this.iconEl.setAttribute("size", "small");
@@ -29,5 +28,5 @@
       this.appendChild(t);
     }
   }
-  if (!customElements.get("cds-tag")) customElements.define("cds-tag", CdsTag);
+  CdsTag.define("cds-tag");
 })();

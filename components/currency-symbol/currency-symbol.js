@@ -1,4 +1,5 @@
 /**
+ * @deps —
  * <cds-currency-symbol> — .Currency Symbol (building block, usado na Table)
  * Atributo: currency (id kebab-case do Figma) · padrão brazil-real
  */
@@ -10,12 +11,10 @@
     "mexican-peso": "Mex$", "russian-ruble": "₽", "south-african-rand": "R", "turkish-lira": "₺", "swedish-krona": "kr",
     "norwegian-krone": "kr", "danish-krone": "kr", "singapore-dollar": "S$", "hong-kong-dollar": "HK$"
   };
-  class CdsCurrencySymbol extends HTMLElement {
+  class CdsCurrencySymbol extends CDS.Element {
     static get observedAttributes(){ return ["currency"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){ this.textContent = SYMBOLS[this.getAttribute("currency")] || SYMBOLS["brazil-real"]; }
   }
   CdsCurrencySymbol.SYMBOLS = SYMBOLS;
-  if (!customElements.get("cds-currency-symbol")) customElements.define("cds-currency-symbol", CdsCurrencySymbol);
+  CdsCurrencySymbol.define("cds-currency-symbol");
 })();

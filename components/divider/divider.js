@@ -1,4 +1,5 @@
 /**
+ * @deps —
  * <cds-divider> — Divider · Dividers · set 4931:207
  *
  * Atributos (padrões do Figma):
@@ -11,10 +12,8 @@
 (function(){
   "use strict";
   var NS = "http://www.w3.org/2000/svg";
-  class CdsDivider extends HTMLElement {
+  class CdsDivider extends CDS.Element {
     static get observedAttributes(){ return ["kind", "orientation", "separator"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){
       var vertical = this.getAttribute("orientation") === "vertical";
       this.innerHTML = "";
@@ -33,5 +32,5 @@
       } else { this.removeAttribute("role"); this.removeAttribute("aria-orientation"); this.setAttribute("aria-hidden", "true"); }
     }
   }
-  if (!customElements.get("cds-divider")) customElements.define("cds-divider", CdsDivider);
+  CdsDivider.define("cds-divider");
 })();

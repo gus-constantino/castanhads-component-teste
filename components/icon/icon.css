@@ -9,6 +9,7 @@ cds-icon{
   vertical-align:middle;
 }
 cds-icon > .cds-icon{ width:100%; height:100%; }
+/* Pais que fazem override de cor (Tag, Link, botões) definem --cds-icon-color — ver styles/shared.css */
 
 cds-icon[size="medium"]{ --_icon-size:var(--common-sizes-20); }
 cds-icon[size="large"]{ --_icon-size:var(--common-sizes-24); }

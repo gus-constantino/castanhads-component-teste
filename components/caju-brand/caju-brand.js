@@ -1,4 +1,5 @@
 /**
+ * @deps —
  * <cds-caju-brand> — Caju Brand · Images · set 11271:154
  * Paths exportados do Figma. Cores de marca (folha, caju, tipografia) por Kind.
  *
@@ -20,13 +21,11 @@
     "full-white": ["#FFFFFF", "#FFFFFF", "#FFFFFF"],
     "full-black": ["#000000", "#000000", "#000000"]
   };
-  class CdsCajuBrand extends HTMLElement {
+  class CdsCajuBrand extends CDS.Element {
     static get observedAttributes(){ return ["kind", "show-typography", "label"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){
       var c = COLORS[this.getAttribute("kind")] || COLORS["default"];
-      var typo = this.getAttribute("show-typography") !== "false";
+      var typo = this.flag("show-typography");
       this.innerHTML = '<svg viewBox="0 0 ' + (typo ? 69 : 18) + ' 28" fill="none" aria-hidden="true" focusable="false">' +
         '<path d="' + LEAF + '" fill="' + c[0] + '"/>' +
         '<path fill-rule="evenodd" clip-rule="evenodd" d="' + FRUIT + '" fill="' + c[1] + '"/>' +
@@ -35,5 +34,5 @@
       this.setAttribute("aria-label", this.getAttribute("label") || "Caju");
     }
   }
-  if (!customElements.get("cds-caju-brand")) customElements.define("cds-caju-brand", CdsCajuBrand);
+  CdsCajuBrand.define("cds-caju-brand");
 })();

@@ -11,7 +11,7 @@ cds-tag{
   font:var(--text-style-caption-medium); white-space:nowrap;
 }
 /* Override do Icon aninhado: a cor acompanha o texto em todas as Appearances (como no Figma) */
-cds-tag > cds-icon, cds-tag > cds-icon[appearance]{ --_icon-color:var(--_fg); } /* vence o [appearance] do Icon */
+cds-tag{ --cds-icon-color:var(--_fg); }
 
 cds-tag[appearance="positive"]{ --_bg:var(--common-colors-feedback-positive-soft); --_fg:var(--common-colors-feedback-positive-intense); }
 cds-tag[appearance="warning"]{ --_bg:var(--common-colors-feedback-warning-soft); --_fg:var(--common-colors-feedback-warning-intense); }

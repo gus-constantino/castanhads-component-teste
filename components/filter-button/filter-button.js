@@ -1,4 +1,5 @@
 /**
+ * @deps icons-block badge
  * <cds-filter-button> — Filter button · Buttons · set 5099:5389
  * Desktop: .Icons + "Filtros". Tablet/Mobile (collection Viewport): só o ícone, 48×48.
  * Is Active = há filtros aplicados → Badge Neutral com a contagem no lugar do ícone (Desktop)
@@ -13,10 +14,8 @@
  */
 (function(){
   "use strict";
-  class CdsFilterButton extends HTMLElement {
+  class CdsFilterButton extends CDS.Element {
     static get observedAttributes(){ return ["label", "active", "count", "disabled"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     get button(){ return this._btn; }
     render(){
       var b = this._btn || document.createElement("button");
@@ -35,5 +34,5 @@
       if (!this._btn){ this._btn = b; this.appendChild(b); }
     }
   }
-  if (!customElements.get("cds-filter-button")) customElements.define("cds-filter-button", CdsFilterButton);
+  CdsFilterButton.define("cds-filter-button");
 })();

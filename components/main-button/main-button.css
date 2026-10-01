@@ -3,7 +3,7 @@
    Medium: 48 · raio medium · Label/Medium (Pressed: Label/Bold)
    Small:  40 · raio small  · Caption/Medium (Pressed: Caption/Bold)
    padding 0 20 · gap 8 · ícones 20 · Disabled Opacity/light
-   Motion (reactions): Hover e Press 150ms cubic-bezier(.7,0,.8,1)
+   Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
    Viewport (Specific/Buttons/Main Button/Width/min-width): Desktop 136 · Tablet 220 · Mobile 328
    ===================================================================== */
 cds-main-button, cds-drop-button{ display:inline-flex; flex:0 0 auto; max-width:100%; }
@@ -16,9 +16,9 @@ cds-main-button > .cds-btn{ --_min-w:136px; }
   border-radius:var(--common-border-radius-medium);
   background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
   font:var(--_font); white-space:nowrap;
-  transition:background-color 150ms cubic-bezier(.7,0,.8,1), color 150ms cubic-bezier(.7,0,.8,1), box-shadow 150ms cubic-bezier(.7,0,.8,1);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
 }
-.cds-btn > cds-icon, .cds-btn > cds-icon[appearance]{ --_icon-color:var(--_fg); }
+.cds-btn{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
 .cds-btn:active{ font:var(--_font-pressed); }
 [size="small"] > .cds-btn{ height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); --_font:var(--text-style-caption-medium); --_font-pressed:var(--text-style-caption-bold); }
 

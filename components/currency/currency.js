@@ -1,4 +1,5 @@
 /**
+ * @deps —
  * <cds-currency> — Currency · Content · set 5301:2173
  *
  * Atributos (padrões do Figma):
@@ -10,13 +11,11 @@
  */
 (function(){
   "use strict";
-  class CdsCurrency extends HTMLElement {
+  class CdsCurrency extends CDS.Element {
     static get observedAttributes(){ return ["value", "symbol", "show-value"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){
       var symbol = this.getAttribute("symbol") || "R$", value = this.hasAttribute("value") ? this.getAttribute("value") : "100,00";
-      var shown = this.getAttribute("show-value") !== "false";
+      var shown = this.flag("show-value");
       this.innerHTML = "";
       var s = document.createElement("span"); s.textContent = symbol; this.appendChild(s);
       if (shown){ var v = document.createElement("span"); v.textContent = value; this.appendChild(v); this.removeAttribute("aria-label"); this.removeAttribute("role"); }
@@ -28,5 +27,5 @@
       }
     }
   }
-  if (!customElements.get("cds-currency")) customElements.define("cds-currency", CdsCurrency);
+  CdsCurrency.define("cds-currency");
 })();

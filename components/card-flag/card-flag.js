@@ -1,4 +1,5 @@
 /**
+ * @deps —
  * <cds-card-flag> — .Credit Card Flags · Flags · set 4934:771 (building block)
  * Atributos: kind empty | elo | mastercard | visa · padrão empty
  * As bandeiras usam o SVG de marca reconstruído do Figma (assets/flags). Nome acessível = nome da bandeira.
@@ -6,10 +7,8 @@
 (function(){
   "use strict";
   var NAMES = { elo: "Elo", mastercard: "Mastercard", visa: "Visa" };
-  class CdsCardFlag extends HTMLElement {
+  class CdsCardFlag extends CDS.Element {
     static get observedAttributes(){ return ["kind"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){
       var k = this.getAttribute("kind");
       this.innerHTML = "";
@@ -19,5 +18,5 @@
       } else this.setAttribute("aria-hidden", "true");
     }
   }
-  if (!customElements.get("cds-card-flag")) customElements.define("cds-card-flag", CdsCardFlag);
+  CdsCardFlag.define("cds-card-flag");
 })();

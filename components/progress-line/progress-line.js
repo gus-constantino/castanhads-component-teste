@@ -1,4 +1,5 @@
 /**
+ * @deps —
  * <cds-progress-line> — Progress Line · Progress Indicators · set 2322:4006
  * O Figma tem Percent em passos de 10; o código aceita qualquer valor de 0 a 100.
  *
@@ -8,7 +9,7 @@
  */
 (function(){
   "use strict";
-  class CdsProgressLine extends HTMLElement {
+  class CdsProgressLine extends CDS.Element {
     static get observedAttributes(){ return ["percent", "label"]; }
     connectedCallback(){ if (!this._bar){ this._bar = document.createElement("span"); this._bar.className = "cds-pl__bar"; this.appendChild(this._bar); } this.update(); }
     attributeChangedCallback(){ if (this._bar) this.update(); }
@@ -21,5 +22,5 @@
       if (this.getAttribute("label")) this.setAttribute("aria-label", this.getAttribute("label")); else this.removeAttribute("aria-label");
     }
   }
-  if (!customElements.get("cds-progress-line")) customElements.define("cds-progress-line", CdsProgressLine);
+  CdsProgressLine.define("cds-progress-line");
 })();

@@ -1,6 +1,10 @@
 /* =====================================================================
-   Building blocks compartilhados entre componentes
+   Base da lib — carregar antes de qualquer componente
    ===================================================================== */
+
+/* Os tamanhos do Figma assumem border-box (padding dentro da largura). Sem isto,
+   min-width + padding somam e o componente cresce (achado do smoke test: Badge 24px em vez de 16). */
+*, *::before, *::after{ box-sizing:border-box; }
 
 /* Icon Button agora é componente: components/icon-button (<cds-icon-button>) */
 
@@ -8,7 +12,8 @@
    As classes .cds-icon--<nome> ficam em styles/icons.css (gerado por scripts/build-assets.js). */
 .cds-icon{
   display:block; flex:0 0 auto; width:var(--common-sizes-24); height:var(--common-sizes-24);
-  background-color:var(--_icon-color, var(--common-colors-icons-intense));
+  /* Prioridade: override do pai (--cds-icon-color) > Appearance do Icon (--_icon-color) > padrão */
+  background-color:var(--cds-icon-color, var(--_icon-color, var(--common-colors-icons-intense)));
   -webkit-mask-position:center; mask-position:center;
   -webkit-mask-size:contain; mask-size:contain;
   -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;

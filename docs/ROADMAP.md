@@ -159,8 +159,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 2. **Ler as annotations da página antes de decidir qualquer lógica** (Anexo 11 da skill).
 3. Ler tokens por variante: fill, stroke e peso, texto, raio, opacidade, resolvendo light e dark.
 4. Ler reactions (motion por transição) e nested instances (exposed ou fixa).
-5. Construir `components/<id>/` (css · js · playground) **consumindo** os building blocks já existentes.
-6. Testar em servidor local: estados, teclado, dark, 360px.
+5. Construir `components/<id>/` (css · js · playground) **consumindo** os building blocks já existentes; `extends CDS.Element`, `@deps` no JSDoc, `node scripts/build-index.js`.
+6. Testar em servidor local: estados, teclado, dark, 360px. Registrar o tamanho em `tests/expected.js` e rodar `tests/smoke.html` (tudo verde).
 7. Publicar e registrar no §7 (Aprendizados) e no §5 (dúvidas novas).
 8. **Atualizar `docs/ARCHITECTURE.md`**: diário (§7), nova rodada da análise (§5) e backlog (§6).
 

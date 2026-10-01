@@ -1,4 +1,5 @@
 /**
+ * @deps icon
  * <cds-avatar> — Avatar · Images · set 2278:92
  * Kind=Default compõe <cds-icon icon="user-line"> (nested instance): 20px no Small/Medium, 24px no Large.
  *
@@ -12,10 +13,8 @@
  */
 (function(){
   "use strict";
-  class CdsAvatar extends HTMLElement {
+  class CdsAvatar extends CDS.Element {
     static get observedAttributes(){ return ["kind", "appearance", "size", "label", "src", "alt", "name"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){
       var kind = this.getAttribute("kind") || "default", size = this.getAttribute("size") || "small";
       this.innerHTML = ""; this.iconEl = null;
@@ -31,9 +30,8 @@
         this.appendChild(this.iconEl);
       }
       var name = this.getAttribute("name") || this.getAttribute("alt");
-      if (name){ this.setAttribute("role", "img"); this.setAttribute("aria-label", name); this.removeAttribute("aria-hidden"); }
-      else { this.removeAttribute("role"); this.removeAttribute("aria-label"); this.setAttribute("aria-hidden", "true"); }
+      this.a11yName(name);
     }
   }
-  if (!customElements.get("cds-avatar")) customElements.define("cds-avatar", CdsAvatar);
+  CdsAvatar.define("cds-avatar");
 })();

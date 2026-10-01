@@ -1,4 +1,5 @@
 /**
+ * @deps —
  * <cds-image> — Image · Images · set 2273:320
  * Atributos: src · alt (obrigatório quando a imagem informa; vazio = decorativa)
  *            aspect-ratio none | 1:1 | 3:2 · padrão none (proporção natural)
@@ -6,10 +7,8 @@
  */
 (function(){
   "use strict";
-  class CdsImage extends HTMLElement {
+  class CdsImage extends CDS.Element {
     static get observedAttributes(){ return ["src", "alt"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){
       var src = this.getAttribute("src");
       if (!src){ this.innerHTML = ""; this.img = null; return; }
@@ -18,5 +17,5 @@
       this.img.alt = this.getAttribute("alt") || "";
     }
   }
-  if (!customElements.get("cds-image")) customElements.define("cds-image", CdsImage);
+  CdsImage.define("cds-image");
 })();

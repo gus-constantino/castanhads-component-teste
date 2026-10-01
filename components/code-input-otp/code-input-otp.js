@@ -1,4 +1,5 @@
 /**
+ * @deps icon-button
  * <cds-code-input> — Code Input OTP · CDS-1608
  *
  * Atributos: length (3–6, padrão 6) · type (alphanumeric|numeric, padrão alphanumeric) · appearance (neutral|warning)
@@ -14,7 +15,7 @@
   var uid = 0;
   function clamp(n, a, b){ return Math.min(b, Math.max(a, n)); }
 
-  class CdsCodeInput extends HTMLElement {
+  class CdsCodeInput extends CDS.Element {
     static get observedAttributes(){ return ["length","type","value","masked","disabled","appearance","label","required-text","supporting","error","separators","show-label","show-required","show-supporting-content","show-trailing-item"]; }
     constructor(){ super(); this.inputs = []; this.boxes = []; this._id = "cds-ci-" + (++uid); }
     get length(){ return clamp(parseInt(this.getAttribute("length"), 10) || 6, MIN, MAX); }
@@ -22,7 +23,6 @@
     get appearance(){ return this.getAttribute("appearance") === "warning" ? "warning" : "neutral"; }
     get masked(){ return this.hasAttribute("masked"); }
     get disabled(){ return this.hasAttribute("disabled"); }
-    flag(name){ return this.getAttribute(name) !== "false"; }
     get separators(){
       var n = this.length, raw = this.getAttribute("separators"), all = [];
       for (var p = 1; p < n; p++) all.push(p);
@@ -32,7 +32,6 @@
     }
     get value(){ return this.inputs.map(function(i){ return i.value; }).join(""); }
 
-    connectedCallback(){ this.render(); }
     attributeChangedCallback(name){ if (this.isConnected) this.render(name === "value" ? null : this.value); }
 
     charOk(ch){ return this.type === "numeric" ? /^[0-9]$/.test(ch) : /^[0-9a-zA-Z]$/.test(ch); }
@@ -174,5 +173,5 @@
       });
     }
   }
-  if (!customElements.get("cds-code-input")) customElements.define("cds-code-input", CdsCodeInput);
+  CdsCodeInput.define("cds-code-input");
 })();

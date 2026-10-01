@@ -1,4 +1,5 @@
 /**
+ * @deps icon-button icon
  * <cds-credit-card-input> — Credit Card Input · CDS-1607
  *
  * Campo do número do cartão (PAN), da família text field. Aceita só dígitos e agrupa em
@@ -25,16 +26,14 @@
     return formatted.length;
   }
 
-  class CdsCreditCardInput extends HTMLElement {
+  class CdsCreditCardInput extends CDS.Element {
     static get observedAttributes(){ return ["appearance","disabled","value","placeholder","trailing-label","label","required-text","supporting","error","show-label","show-required","show-lead-icon","show-trailing-item","show-supporting-content"]; }
     constructor(){ super(); this._id = "cds-cc-" + (++uid); this._digits = null; }
     get appearance(){ return this.getAttribute("appearance") === "warning" ? "warning" : "neutral"; }
     get disabled(){ return this.hasAttribute("disabled"); }
     get value(){ return this._digits || ""; }
     set value(v){ this._digits = onlyDigits(v).slice(0, MAX_DIGITS); if (this.input) this.input.value = format(this._digits); }
-    flag(name){ return this.getAttribute(name) !== "false"; }
 
-    connectedCallback(){ this.render(); }
     attributeChangedCallback(name){
       if (name === "value") this._digits = null; // o atributo volta a ser a fonte
       if (this.isConnected) this.render();
@@ -149,5 +148,5 @@
       });
     }
   }
-  if (!customElements.get("cds-credit-card-input")) customElements.define("cds-credit-card-input", CdsCreditCardInput);
+  CdsCreditCardInput.define("cds-credit-card-input");
 })();

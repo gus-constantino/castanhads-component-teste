@@ -1,4 +1,5 @@
 /**
+ * @deps icon
  * <cds-shaped-icon> — Shaped Icon · Images · set 2272:146
  * Compõe um <cds-icon> (nested instance), como no Figma.
  *
@@ -15,10 +16,8 @@
   // Appearance do container → Appearance do Icon (Inversed usa ícone intense sobre Surface/default)
   var ICON_APPEARANCE = { neutral: "neutral", inversed: "neutral", accent: "accent", positive: "positive", warning: "warning", negative: "negative", informative: "informative" };
 
-  class CdsShapedIcon extends HTMLElement {
+  class CdsShapedIcon extends CDS.Element {
     static get observedAttributes(){ return ["icon", "appearance", "size", "label"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     get size(){ var s = this.getAttribute("size"); return ICON_SIZE[s] ? s : "smallest"; }
     get appearance(){ var a = this.getAttribute("appearance"); return ICON_APPEARANCE[a] ? a : "neutral"; }
     render(){
@@ -27,9 +26,8 @@
       this.iconEl.setAttribute("size", ICON_SIZE[this.size]);
       this.iconEl.setAttribute("appearance", ICON_APPEARANCE[this.appearance]);
       var label = this.getAttribute("label");
-      if (label){ this.setAttribute("role", "img"); this.setAttribute("aria-label", label); this.removeAttribute("aria-hidden"); }
-      else { this.removeAttribute("role"); this.removeAttribute("aria-label"); this.setAttribute("aria-hidden", "true"); }
+      this.a11yName(label);
     }
   }
-  if (!customElements.get("cds-shaped-icon")) customElements.define("cds-shaped-icon", CdsShapedIcon);
+  CdsShapedIcon.define("cds-shaped-icon");
 })();

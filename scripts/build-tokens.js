@@ -79,8 +79,6 @@ ${texts.join("\n")}
   --motion-hover-duration:var(--motion-hover-in-timing);     --motion-hover-easing:var(--motion-hover-in-easing);
   --motion-press-duration:var(--motion-pressed-timing);      --motion-press-easing:var(--motion-pressed-easing);
   --motion-active-duration:var(--motion-selected-in-timing); --motion-active-easing:var(--motion-selected-in-easing);
-  /* Icon Button Enabled → Hovered: reaction 300ms ease-out (não é Motion Style) */
-  --motion-icon-button-duration:300ms; --motion-icon-button-easing:ease-out;
 }
 html[data-theme="dark"]{
 ${dark.join("\n")}

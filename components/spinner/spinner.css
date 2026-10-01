@@ -13,7 +13,7 @@ cds-spinner[size="large"]{ --_size:var(--common-sizes-32); }
 cds-spinner[appearance="accent"]{ --_track:var(--common-colors-accent-solid-soft); --_arc:var(--common-colors-icons-accent); }
 cds-spinner[appearance="inversed"]{ --_track:var(--common-colors-surface-inversed); --_arc:var(--common-colors-icons-inversed); }
 
-cds-spinner > svg{ display:block; width:100%; height:100%; animation:cds-spin 800ms infinite; }
+cds-spinner > svg{ display:block; width:100%; height:100%; animation:cds-spin calc(var(--common-motion-duration-short-04) * 4) infinite; /* 4 passos × 200ms */ }
 cds-spinner .cds-spin__track{ stroke:var(--_track); }
 cds-spinner .cds-spin__arc{ stroke:var(--_arc); }
 @keyframes cds-spin{

@@ -1,4 +1,5 @@
 /**
+ * @deps icon
  * <cds-link> — Link · Content · set 4926:213
  * Renderiza um <a> de verdade; o ícone trailing é um <cds-icon size="small"> (nested instance).
  *
@@ -12,10 +13,8 @@
  */
 (function(){
   "use strict";
-  class CdsLink extends HTMLElement {
+  class CdsLink extends CDS.Element {
     static get observedAttributes(){ return ["label", "href", "icon", "show-trailing-item", "disabled", "target"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){
       this.innerHTML = "";
       var a = document.createElement("a");
@@ -26,7 +25,7 @@
       var t = document.createElement("span"); t.textContent = this.hasAttribute("label") ? this.getAttribute("label") : "Link content";
       a.appendChild(t);
       this.iconEl = null;
-      if (this.getAttribute("show-trailing-item") !== "false"){
+      if (this.flag("show-trailing-item")){
         this.iconEl = document.createElement("cds-icon");
         this.iconEl.setAttribute("icon", this.getAttribute("icon") || "navigation-right-line");
         this.iconEl.setAttribute("size", "small"); this.iconEl.setAttribute("appearance", "neutral");
@@ -36,5 +35,5 @@
       this.anchor = a;
     }
   }
-  if (!customElements.get("cds-link")) customElements.define("cds-link", CdsLink);
+  CdsLink.define("cds-link");
 })();

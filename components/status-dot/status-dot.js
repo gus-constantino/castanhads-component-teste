@@ -1,4 +1,5 @@
 /**
+ * @deps —
  * <cds-status-dot> — Status Dot · Status · set 21745:69
  * O rótulo carrega a informação; o ponto é reforço visual (aria-hidden) — description do set.
  *
@@ -9,10 +10,8 @@
  */
 (function(){
   "use strict";
-  class CdsStatusDot extends HTMLElement {
+  class CdsStatusDot extends CDS.Element {
     static get observedAttributes(){ return ["label"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     render(){
       if (!this._t){
         var d = document.createElement("span"); d.className = "cds-sd__dot"; d.setAttribute("aria-hidden", "true");
@@ -22,5 +21,5 @@
       this._t.textContent = this.hasAttribute("label") ? this.getAttribute("label") : "Label";
     }
   }
-  if (!customElements.get("cds-status-dot")) customElements.define("cds-status-dot", CdsStatusDot);
+  CdsStatusDot.define("cds-status-dot");
 })();

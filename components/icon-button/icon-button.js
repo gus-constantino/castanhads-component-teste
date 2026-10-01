@@ -1,4 +1,5 @@
 /**
+ * @deps icon badge
  * <cds-icon-button> — Icon Button · Buttons · set 4464:636
  * Renderiza um <button> com <cds-icon size="medium"> (20px) e, opcionalmente, <cds-badge> (Show Notification).
  *
@@ -15,10 +16,8 @@
  */
 (function(){
   "use strict";
-  class CdsIconButton extends HTMLElement {
+  class CdsIconButton extends CDS.Element {
     static get observedAttributes(){ return ["icon", "disabled", "show-notification", "notification", "label", "pressed"]; }
-    connectedCallback(){ this.render(); }
-    attributeChangedCallback(){ if (this.isConnected) this.render(); }
     get button(){ return this._btn; }
     focus(opts){ if (this._btn) this._btn.focus(opts); }
     render(){
@@ -40,5 +39,5 @@
       } else if (badge) badge.remove();
     }
   }
-  if (!customElements.get("cds-icon-button")) customElements.define("cds-icon-button", CdsIconButton);
+  CdsIconButton.define("cds-icon-button");
 })();

@@ -17,6 +17,7 @@
     /* Common/Colors */
     --common-colors-surface-default:#fcfcfc;
     --common-colors-surface-01:#f0f0f0;
+    --common-colors-border-semi-soft:#e3e3e3;
     --common-colors-border-medium:#999999;
     --common-colors-border-semi-intense:#4d4d4d;
     --common-colors-border-intense:#1a1a1a;
@@ -50,6 +51,7 @@
   html[data-theme="dark"]{
     --common-colors-surface-default:#1a1a1a;
     --common-colors-surface-01:#4d4d4d;
+    --common-colors-border-semi-soft:#4d4d4d;
     --common-colors-border-medium:#808080;
     --common-colors-border-semi-intense:#cccccc;
     --common-colors-border-intense:#fcfcfc;
@@ -109,7 +111,7 @@
   /* Box — stroke INSIDE via inset shadow (não desloca layout ao trocar hairline → thin) */
   .cds-ci__box{
     --_stroke-w:var(--common-border-width-hairline);
-    --_stroke-c:var(--common-colors-border-medium);
+    --_stroke-c:var(--common-colors-border-semi-soft); /* repouso: soft/decorativa (Figma 01/10) */
     --_bg:var(--common-colors-surface-default);
     --_fg:var(--common-colors-text-medium);
     /* a transição usada é a do estado de destino; volta ao repouso = reverso do hover */
@@ -150,6 +152,7 @@
   /* State=Hovered (Is Active=False) — While hovering · 150ms */
   .cds-ci__box:hover{
     --_bg:var(--common-colors-surface-01); --_stroke-w:var(--common-border-width-thin);
+    --_stroke-c:var(--common-colors-border-medium);
     --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
   }
   /* State=Pressed (Is Active=False) — While pressing · 200ms */

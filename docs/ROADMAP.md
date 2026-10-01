@@ -202,8 +202,17 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
 | Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
 | Q11 | **Currency Largest com valor oculto** usa Heading/Small (38px de altura) para o "R$", e com valor usa Title/Medium (36px). Intencional? | Implementado como no Figma |
-| Q12 | **Bandeiras do `.Credit Card Flags` não exportam** pelo MCP ("no visible layers"). Reconstruí os SVGs a partir de `vectorPaths` e das regiões; o Elo teve as coordenadas arredondadas. Vale exportar os SVGs oficiais e substituir em `assets/flags/` | Pendente de você |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
+
+## 5.1 Débito de export (Gustavo)
+
+Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Exportar do Figma como SVG, com o nome do componente, e rodar `node scripts/build-assets.js`.
+
+| Asset | Origem | Destino | Hoje no repo |
+|---|---|---|---|
+| Ícones (274) | `[Caju] Icons` · página `UI & Caju` | `assets/icons/` | 8, exportados sob demanda |
+| Ilustrações (237 + Hero + Cartões) | `[Caju] Illustrations` · página `Caju UI` | `assets/illustrations/` | 0 |
+| Bandeiras Elo, Mastercard e Visa | `.Credit Card Flags` (`4934:771`) | `assets/flags/<kind>.svg` | 3, reconstruídas de `vectorPaths` (o Elo com coordenadas arredondadas); o MCP falha com "no visible layers". Substituir pelos SVGs oficiais, sem mudar código |
 
 ## 6. Preferências do Gustavo (observadas)
 

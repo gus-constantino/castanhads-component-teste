@@ -37,6 +37,7 @@ O side menu e a rota `#/<id>` aparecem automaticamente.
 ## Atualizar tokens e assets
 
 1. **Ícones e ilustrações:** no Figma, selecione os componentes, faça *Export → SVG* e salve em `assets/icons/` ou `assets/illustrations/`, com o nome do componente. Depois rode `node scripts/build-assets.js`.
+   As bandeiras do `.Credit Card Flags` vão em `assets/flags/<elo|mastercard|visa>.svg`. Os pendentes estão no *Débito de export* em `docs/ROADMAP.md`.
 2. **Tokens:** atualize `tokens/figma-snapshot.json` (lido via Figma MCP) e rode `node scripts/build-tokens.js`.
 
 Os dois scripts usam só Node, sem dependências. O site continua sem build: só lê os arquivos gerados.

@@ -11,16 +11,37 @@
   var preview = $("preview"), panel = $("panel"), frame = $("frame");
   var rval = $("rval"), rdone = $("rdone"), vpOut = $("vp-readout");
   var list = CDS.playgrounds.slice().sort(function(a, b){ return a.name.localeCompare(b.name, "pt-BR"); });
+  // rota padrão = primeiro componente (não building block)
 
   // ---------- Side menu ----------
+  // Grupos na ordem das páginas do [CastanhaDS] Components; building blocks numa seção recolhida no fim.
+  var PAGES = ["Actions","Banner","Breadcrumbs","Buttons","Caju Card","Containers","Content","Datepicker","Dividers","Feedback","File Upload","Fixed Bar","Flags","Images","Lists","Loaders","Navigation","Pagination","Popovers","Progress Indicators","Rating Score","Selection Controls","Slider","Status","Tabs","Tab View","Tables","Text Fields","Tooltips","Utilities"];
+  var blocksOpen = false;
+  function link(c){
+    return kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.task || "" })])]);
+  }
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
-    var shown = list.filter(function(c){ return !q || (c.name + " " + c.task).toLowerCase().indexOf(q) !== -1; });
-    shown.forEach(function(c){
-      var a = kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.task })]);
-      nav.appendChild(kit.el("li", null, [a]));
+    var shown = list.filter(function(c){ return !q || (c.name + " " + (c.task || "") + " " + (c.category || "")).toLowerCase().indexOf(q) !== -1; });
+    var comps = shown.filter(function(c){ return !c.block; }), blocks = shown.filter(function(c){ return c.block; });
+    var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
+    cats.forEach(function(cat){
+      var items = comps.filter(function(c){ return (c.category || "Outros") === cat; });
+      if (!items.length) return;
+      nav.appendChild(kit.el("li", { "class": "pg-nav-group", text: cat }));
+      items.forEach(function(c){ nav.appendChild(link(c)); });
     });
+    if (blocks.length){
+      var det = kit.el("details", { "class": "pg-nav-blocks" });
+      if (blocksOpen || q || blocks.some(function(c){ return c.id === currentId(); })) det.open = true;
+      det.addEventListener("toggle", function(){ blocksOpen = det.open; });
+      det.appendChild(kit.el("summary", { text: "Building blocks (" + blocks.length + ")" }));
+      var ul = kit.el("ul", { "class": "pg-nav" });
+      blocks.forEach(function(c){ ul.appendChild(link(c)); });
+      det.appendChild(ul);
+      nav.appendChild(kit.el("li", null, [det]));
+    }
     if (!shown.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
     markCurrent();
   }
@@ -35,7 +56,7 @@
   // ---------- Roteamento ----------
   function currentId(){
     var id = (location.hash || "").replace(/^#\/?/, "");
-    return list.some(function(c){ return c.id === id; }) ? id : list[0].id;
+    return list.some(function(c){ return c.id === id; }) ? id : (list.filter(function(c){ return !c.block; })[0] || list[0]).id;
   }
   function mount(){
     var def = list.filter(function(c){ return c.id === currentId(); })[0];

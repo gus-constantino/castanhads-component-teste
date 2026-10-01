@@ -4,6 +4,8 @@
  * Cada componente registra um playground:
  *   CDS.register({
  *     id: "credit-card-input", name: "Credit Card Input",
+ *     category: "Text Fields",   // página do Figma (agrupa o side menu)
+ *     block: false,              // true = building block (seção recolhida no fim do menu)
  *     task: "CDS-1607", figma: "https://…", zeroheight: "https://…",
  *     mount(ctx){ … }   // ctx.preview · ctx.panel · ctx.kit · ctx.readout(text, done)
  *   });

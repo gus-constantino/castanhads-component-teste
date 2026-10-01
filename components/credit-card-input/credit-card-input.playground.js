@@ -2,6 +2,7 @@
 CDS.register({
   id: "credit-card-input",
   name: "Credit Card Input",
+  category: "Text Fields",
   task: "CDS-1607",
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/NHkGUvBfNMNTLnsxKtAmWa/-CastanhaDS--Components?node-id=24614-7155",
   zeroheight: "https://zeroheight.com/858426090/v/latest/p/933a06-credit-card-input",

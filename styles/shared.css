@@ -14,7 +14,7 @@
 .cds-icon-button .cds-icon{ width:var(--common-sizes-20); height:var(--common-sizes-20); }
 
 /* Ícone — asset do Figma (assets/icons) usado como máscara para herdar a cor do token.
-   URL em longhand, sem var(): o Safari falha com var() no shorthand -webkit-mask. */
+   As classes .cds-icon--<nome> ficam em styles/icons.css (gerado por scripts/build-assets.js). */
 .cds-icon{
   display:block; flex:0 0 auto; width:var(--common-sizes-24); height:var(--common-sizes-24);
   background-color:var(--_icon-color, var(--common-colors-icons-intense));
@@ -22,8 +22,3 @@
   -webkit-mask-size:contain; mask-size:contain;
   -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
 }
-.cds-icon--hide-line{ -webkit-mask-image:url("../assets/icons/hide-line.svg"); mask-image:url("../assets/icons/hide-line.svg"); }
-.cds-icon--hide-off-line{ -webkit-mask-image:url("../assets/icons/hide-off-line.svg"); mask-image:url("../assets/icons/hide-off-line.svg"); }
-.cds-icon--credit-card-line{ -webkit-mask-image:url("../assets/icons/credit-card-line.svg"); mask-image:url("../assets/icons/credit-card-line.svg"); }
-.cds-icon--support-line{ -webkit-mask-image:url("../assets/icons/support-line.svg"); mask-image:url("../assets/icons/support-line.svg"); }
-.cds-icon--warning-line{ -webkit-mask-image:url("../assets/icons/warning-line.svg"); mask-image:url("../assets/icons/warning-line.svg"); }

@@ -2,6 +2,7 @@
 CDS.register({
   id: "code-input-otp",
   name: "Code Input OTP",
+  category: "Text Fields",
   task: "CDS-1608",
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/PfeMbrThCwzwJFFo2GiAbW/-CastanhaDS--Components?node-id=24060-7228",
   zeroheight: "https://zeroheight.com/858426090/v/latest/p/1166c7",

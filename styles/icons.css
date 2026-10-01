@@ -1,0 +1,7 @@
+/* GERADO por scripts/build-assets.js · não editar à mão · 5 ícones */
+/* URL em longhand, sem var(): o Safari falha com var() no shorthand -webkit-mask */
+.cds-icon--credit-card-line{ -webkit-mask-image:url("../assets/icons/credit-card-line.svg"); mask-image:url("../assets/icons/credit-card-line.svg"); }
+.cds-icon--hide-line{ -webkit-mask-image:url("../assets/icons/hide-line.svg"); mask-image:url("../assets/icons/hide-line.svg"); }
+.cds-icon--hide-off-line{ -webkit-mask-image:url("../assets/icons/hide-off-line.svg"); mask-image:url("../assets/icons/hide-off-line.svg"); }
+.cds-icon--support-line{ -webkit-mask-image:url("../assets/icons/support-line.svg"); mask-image:url("../assets/icons/support-line.svg"); }
+.cds-icon--warning-line{ -webkit-mask-image:url("../assets/icons/warning-line.svg"); mask-image:url("../assets/icons/warning-line.svg"); }

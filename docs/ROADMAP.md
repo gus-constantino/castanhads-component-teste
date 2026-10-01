@@ -143,13 +143,13 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 
 | Lote | Tema | Componentes | Building blocks que entram |
 |---|---|---|---|
-| **0** | Fundação | tokens completos (Brand Style + Text Styles + Motion Styles + Elevations, light/dark) · pipeline de ícones · ilustrações sob demanda · Viewport Restriction · side menu agrupado por página do Figma | — |
+| **0** | Fundação | tokens completos (Brand Style + Text Styles + Motion Styles + Elevations, light/dark) · pipeline de ícones · ilustrações sob demanda · side menu agrupado por página do Figma | — |
 | **1** | Visuais | Icon · Shaped Icon · Image · Avatar · Caju Brand · .Credit Card Flags · Divider · Spinner · Tag · Badge · Status Dot · Progress Line · Link · Currency · .Text Content | .Currency Content · .Currency Symbol |
 | **2** | Ações | Main Button · Icon Button · Drop Button · Filter button | .Icons |
 | **3** | Selection Controls | Checkbox (+Group) · Radio (+Group) · Switch (+Group) · Input Chips · Filter Chips · Chips Group | — |
 | **4** | Text fields | Text Input · Search · Text Area · Password · [Beta] Quantity · **realinhar Credit Card e OTP à família** | .Text Content Mask |
 | **5** | Feedback e conteúdo | Toast · Alert · System Banner · Confirmation Message · Topic · Tooltip · Banner · Balance Card | .Close Toast · .Close Alert · .Lead item (Topic) · .Content Banner |
-| **6** | Containers e overlays | Card · Backdrop · Popover · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar → em seguida os 5 Select Inputs | .Header (×2) · .Footer |
+| **6** | Containers e overlays | Viewport Restriction · Card · Backdrop · Popover · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar → em seguida os 5 Select Inputs | .Header (×2) · .Footer |
 | **7** | Navegação | Breadcrumb · Fixed Tab · Scrollable Tab · Tab View · Nav Control · Pagination | .Item (×2) · .Item Nav Control · .Select Number |
 | **8** | Listas | Content List Item · Content List · Selection List Item · Selection List | .Lead Item · .Trailing Item · .Transaction Status Icon |
 | **9** | Complexos | Date Picker · Modal Date Picker · Date Input · Table · File Upload (3) · Slider · NPS · CSAT · Progress Tracker · Caju Card | .Day · .Week · .Navigation Control · .Head · .Data Cell · .Table Column · .Toolbar · .Lead item (File) · .Value Item · .CSAT Item |
@@ -184,19 +184,18 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D13 | O papel de trailing actions (ex.: `support-line`) é de quem implementa: o componente só emite evento e aceita `trailing-label` | 01/10 |
 | D14 | Credit Card fixo em 16 dígitos (4×4); OTP de 3 a 6 células | 01/10 |
 | D15 | Viewport padrão do playground = Fluido | 01/10 |
+| D16 | **Fonte de verdade: sempre perguntar** antes de cada lote se há branch ativa para algum componente (default = main) | Q1 · 01/10 |
+| D17 | Building blocks ficam numa **seção recolhida "Building blocks" no fim do side menu**, além de aparecerem em Nested instances | Q2 · 01/10 |
+| D18 | **Ilustrações e ícones sob demanda** via MCP; o Gustavo exporta tudo depois. Pipeline: soltar os SVGs em `assets/icons/` e `assets/illustrations/` e rodar `node scripts/build-assets.js`, que gera `styles/icons.css` e `scripts/assets-manifest.js` | Q3/Q4 · 01/10 |
+| D19 | Complexos: **visual fiel + interação essencial** (estados, teclado e a11y do Figma e das annotations); regras de negócio simuladas | Q8 · 01/10 |
 
 ## 5. Dúvidas abertas
 
 | # | Dúvida | Proposta |
 |---|---|---|
-| Q1 | **Fonte de verdade: main ou branches?** OTP e Credit Card só existem em branch. Os próximos saem da main? | Main por padrão; branch só quando você indicar |
-| Q2 | **Building blocks no side menu?** | Não entram como item próprio: aparecem em *Nested instances* e numa seção "Building blocks" recolhida no fim do menu |
-| Q3 | **Ícones: exportar os 274 de uma vez?** | Sim, no Lote 0 (~274 SVGs pequenos), para o swap de `Lead Icon`/`Icon` funcionar com qualquer ícone |
-| Q4 | **Ilustrações (237 de 200×200, mais Hero e Cartões)?** | Sob demanda: só as usadas por Banner, Caju Card etc. |
 | Q5 | **Input Chips aparece em dois sets** (`12365:2728` e `14120:5313`) com as mesmas props. Qual é o canônico? | Perguntar antes do Lote 3 |
 | Q6 | **Collection Viewport** (Desktop/Tablet/Mobile, 31 variáveis `Specific/*`): usar no seletor de viewport? | Sim: o seletor passa a trocar o modo e os componentes leem `data-viewport` |
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
-| Q8 | **Escopo de comportamento dos complexos** (Date Picker, Table, Select com Popover): fiel ao Figma visual + interação básica, ou completo? | Visual fiel + teclado/a11y essenciais; regras de negócio ficam fora |
 | Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
@@ -220,6 +219,9 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | 01/10 | Preview em `file://` não carrega CSS/JS separados; testar com `python3 -m http.server` (fora do sandbox, por causa da porta local) |
 | 01/10 | Handoffs `.md` às vezes divergem do Figma (máximo de células, token do caret, Character Counter): sempre conferir na fonte |
 | 01/10 | Annotations decidem coisas que as props não mostram (ex.: Disabled × Active é artefato; Lead Icon não detecta bandeira) |
+| 01/10 | A lib tem 34 text styles, incluindo a família **Decorative em Work Sans**; o Label usa line-height 100% (não 150%) |
+| 01/10 | Motion Styles completos: além de Hover In/Pressed/Selected In existem **Hover Out (150ms + delay 56ms), Released (50ms), Selected Out (200ms) e Disabled (150ms)** — usar a partir do Lote 1 |
+| 01/10 | Exportar 274 ícones por MCP sairia caro (cada SVG passa pelo contexto); a exportação em massa do Figma + `build-assets.js` é o caminho |
 
 ---
 
@@ -228,4 +230,5 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Lote | Status |
 |---|---|
 | — | ✅ Code Input OTP · ✅ Credit Card Input (branches) |
-| 0 a 9 | ⏳ aguardando as respostas de Q1–Q5 |
+| 0 | ✅ 01/10 — 250 tokens `Common/*` (89 com dark) + 34 text styles + 3 elevations + Motion Styles gerados por `scripts/build-tokens.js` · pipeline `scripts/build-assets.js` (ícones como máscara + manifest) · side menu por página do Figma + seção Building blocks · Work Sans carregada |
+| 1 a 9 | ⏳ (Q5 precisa de resposta antes do Lote 3) |

@@ -82,7 +82,8 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 |---|---|---|---|
 | A17 | **Doc como dados, não HTML:** 13 tipos de bloco (`h2`, `p`, `cards`, `anatomy`, `props`, `specimens`, `guides`, `dodont`, `table`…) cobrem o frame `[Documentação]` inteiro | Uma doc nova é só um `.docs.js`; o estilo fica num lugar (`docs.css`). O frame do Figma tem estrutura estável (Sobre → Uso → Anatomia → Propriedades → Estilos → Acessibilidade → Diretrizes → Motion → Do's) | ✅ pronto para replicar |
 | A18 | **Doc viva = teste visual:** os exemplos são o componente real, então divergências aparecem | Achou o Label do Warning sem cor no Credit Card | ✅ |
-| A19 | **Estados forçados por atributo** (`state="hovered|pressed"`, `is-active`) | Necessário para specimens estáticos; hoje só no Credit Card. Cada componente com estados de interação vai precisar do mesmo | 🟡 padronizar quando a 2ª doc chegar |
+| A19 | **Estados forçados por atributo** (`state="hovered|pressed"`, `is-active`) | Necessário para specimens estáticos; já em Credit Card e OTP (mesmo padrão: lista de seletores ao lado do `:hover`/`:active`/`:focus-within`) | 🟡 virar contrato da família no Lote 4 |
+| A22 | **2ª doc custou só dados + 2 ajustes no kit:** grade de specimens com `min` por coluna e anatomia medindo a largura natural (`flex:0 0 auto`) | O kit generalizou; os bugs achados eram do kit (grade com wrapper extra), não da doc | ✅ |
 | A20 | **Anatomia mede o DOM:** marcadores posicionados por `getBoundingClientRect` + `ResizeObserver`; em tela estreita o diagrama encolhe (`scale`) e a seta some | Seletores de alvo (`.cds-cc__label`) acoplam a doc à estrutura interna do componente | 🟢 aceitável; quebra visível se a estrutura mudar |
 | A21 | **Docs não entram no smoke** | `*.docs.js` carrega no smoke (só dados), mas as tabs não são montadas | ⏳ P3: smoke montar cada tab e checar overflow |
 
@@ -147,7 +148,8 @@ Medições no código atual:
 | **P2** | Migrar OTP e Credit Card para `build()`/`update()` (como a base `CDS.SelectionControl`) ao realinhar a família Text Fields | A3 | por componente | Lote 4 |
 | **P2** | Smoke: rodar também em dark e em `data-viewport=mobile`, e verificar `aria-*` básicos (botão com nome, ícone decorativo com `aria-hidden`) | A7 | ~1h | Lote 3 |
 | **P2** | Subir `build()`/`update()` de `CDS.SelectionControl` para `CDS.Element` (opcional por componente) quando a 2ª família usar | A3 | ~1h | Lote 4 |
-| **P2** | Estados forçados (`state`, `is-active`) como contrato da família ao escrever a 2ª doc (provavelmente um mixin no `CDS.Element`) | A19 | ~30min | 2ª doc |
+| **P2** | Estados forçados (`state`, `is-active`) como contrato da família de inputs no Lote 4 (OTP e Credit Card já têm) | A19 | ~30min | Lote 4 |
+| **P2** | Smoke: checar a cor do Label/mensagem por Appearance nos inputs (o bug do Warning passou nos dois) | — | ~20min | Lote 4 |
 | **P3** | Smoke montar as tabs de doc e checar overflow horizontal em 375px | A21 | ~30min | 2ª doc |
 | **P3** | Extrator do frame `[Documentação]` → `.docs.js` (estrutura estável: seções por nome) | A17 | ~1h | se a doc virar padrão |
 | **P3** | `tools/figma/extract.js`: versionar os extratores (matriz de variantes, tree+diff, export SVG) para colar sem reescrever | A8 | ~30min | quando houver folga |

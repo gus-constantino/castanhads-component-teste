@@ -17,7 +17,7 @@
  *   compare: [{ title, attrs | empty }]   exemplos lado a lado
  *   anatomy: { attrs, markers: [{ n, target, side }], legend: [...] }
  *   props: [{ name, type, icon, nested: [{ name, type, values }] }]
- *   specimens: { title, items: [{ label, attrs }] }
+ *   specimens: { title, min, items: [{ label, attrs }] }   min = largura mínima da coluna
  *   guides: [{ attrs, title, text }]
  *   dodont: [{ kind: "do"|"dont", attrs, text, style }]
  *   table: { head: [...], rows: [[...]] }
@@ -73,6 +73,7 @@
     var wrap = el("div", "pg-doc-anatomy");
     var stage = display(null, "pg-doc-display--anatomy");
     var cmp = example(doc, b.attrs, false);
+    cmp.style.flex = "0 0 auto"; // sem encolher como item flex: a medida é a largura natural
     stage.appendChild(cmp);
     var marks = b.markers.map(function(m){
       var mk = el("span", "pg-doc-mark pg-doc-mark--" + m.side);
@@ -84,16 +85,15 @@
     });
     // Normal: número + seta (76px por lado). Sem esse espaço (telas estreitas), o diagrama encolhe
     // por escala e o número fica colado na parte, sem seta (32px por lado).
-    var SIDE = 76, SIDE_COMPACT = 32, W = 320;
+    var SIDE = 76, SIDE_COMPACT = 32;
     function place(){
-      cmp.style.transform = ""; cmp.style.maxWidth = "";
+      cmp.style.transform = ""; cmp.style.maxWidth = "none"; // mede a largura natural do componente
+      var W = cmp.offsetWidth;
       // decide pela largura total (o padding muda com a classe; medir por ele faria a decisão oscilar)
       var compact = stage.clientWidth - 48 < W + 2 * SIDE, avail = stage.clientWidth - 16;
       stage.classList.toggle("is-compact", compact);
-      if (compact){
-        var k = Math.min(1, (avail - 2 * SIDE_COMPACT) / W);
-        cmp.style.maxWidth = "none"; cmp.style.transform = "scale(" + k.toFixed(3) + ")";
-      }
+      if (compact) cmp.style.transform = "scale(" + Math.min(1, (avail - 2 * SIDE_COMPACT) / W).toFixed(3) + ")";
+      else cmp.style.maxWidth = "";
       var s = stage.getBoundingClientRect(), gap = compact ? 4 : 8;
       marks.forEach(function(x){
         var t = cmp.querySelector(x.m.target), mk = x.el;
@@ -170,14 +170,15 @@
     specimens: function(d, v){
       var s = el("section", "pg-doc-specimens");
       if (v.title) s.appendChild(el("h3", "pg-doc-h3", v.title));
-      var g = el("div", "pg-doc-grid");
+      var g = display(null, "pg-doc-display--grid"); // a própria caixa é a grade
+      if (v.min) g.style.setProperty("--_min", v.min); // largura mínima da coluna (padrão 320px)
       v.items.forEach(function(it){
         var f = el("figure", "pg-doc-specimen");
         f.appendChild(example(d, it.attrs));
         f.appendChild(el("figcaption", null, it.label));
         g.appendChild(f);
       });
-      s.appendChild(display(g, "pg-doc-display--grid"));
+      s.appendChild(g);
       return s;
     },
     guides: function(d, v){

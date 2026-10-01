@@ -70,21 +70,26 @@ cds-code-input[disabled]{ opacity:var(--common-opacity-medium); pointer-events:n
 .cds-ci__box:focus-within:not(.is-filled) .cds-ci__caret{ display:block; }
 @keyframes cds-ci-blink{ 50%{ opacity:0; } }
 
+/* Estados forçados (state="hovered|pressed" · is-active) = props State / Is Active do .Value Box, para specimens
+   estáticos (doc). Valem para todas as células; em uso real os estados vêm da interação. */
 /* State=Hovered (Is Active=False) — Hover In · 150ms */
-.cds-ci__box:hover{
+.cds-ci__box:hover,
+cds-code-input[state="hovered"] .cds-ci__box{
   --_bg:var(--common-colors-surface-01); --_stroke-w:var(--common-border-width-thin);
   --_stroke-c:var(--common-colors-border-medium);
   --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
 }
 /* State=Pressed (Is Active=False) — Pressed · 200ms */
-.cds-ci__box:active{
+.cds-ci__box:active,
+cds-code-input[state="pressed"] .cds-ci__box{
   --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
   --_stroke-w:var(--common-border-width-thin);
   --_stroke-c:var(--common-colors-border-semi-intense);
   --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
 }
 /* Is Active=True (célula em edição) — Selected In · 350ms */
-.cds-ci__box:focus-within{
+.cds-ci__box:focus-within,
+cds-code-input[is-active] .cds-ci__box{
   --_bg:var(--common-colors-surface-default);
   --_stroke-w:var(--common-border-width-thin);
   --_stroke-c:var(--common-colors-border-intense);
@@ -111,11 +116,15 @@ cds-code-input[disabled]{ opacity:var(--common-opacity-medium); pointer-events:n
 cds-code-input[appearance="warning"] .cds-ci__box,
 cds-code-input[appearance="warning"] .cds-ci__box:hover,
 cds-code-input[appearance="warning"] .cds-ci__box:active,
-cds-code-input[appearance="warning"] .cds-ci__box:focus-within{
+cds-code-input[appearance="warning"] .cds-ci__box:focus-within,
+cds-code-input[appearance="warning"][state] .cds-ci__box,
+cds-code-input[appearance="warning"][is-active] .cds-ci__box{
   --_stroke-c:var(--common-colors-feedback-warning-semi-intense);
 }
 
 .cds-ci__msg{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+/* Warning: Label e Required Text também em Feedback/Warning/semi-intense (set 24060:7228) */
+cds-code-input[appearance="warning"] .cds-ci__label,
 cds-code-input[appearance="warning"] .cds-ci__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
 
 @media (prefers-reduced-motion:reduce){ .cds-ci__box, .cds-ci__input{ transition:none; } .cds-ci__caret{ animation:none; } }

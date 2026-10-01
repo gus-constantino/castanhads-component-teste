@@ -126,7 +126,7 @@
     position:absolute; inset:0; width:100%; height:100%;
     margin:0; padding:0; border:0; outline:0; background:transparent; border-radius:inherit;
     text-align:center; font:var(--text-style-subtitle-medium); color:var(--_fg);
-    caret-color:var(--common-colors-border-intense); cursor:text;
+    caret-color:transparent; cursor:text; /* caret nativo oculto — usa o Caret do Figma */
     transition:color var(--_dur) var(--_ease);
   }
   /* Hidden Value: círculo 8px Icons/intense no lugar do caractere */
@@ -138,6 +138,14 @@
   }
   .cds-ci--masked .cds-ci__input{ color:transparent; }
   .cds-ci--masked .cds-ci__box.is-filled .cds-ci__dot{ display:block; }
+  /* Show Caret — 1×24 Icons/intense, centralizado; só na célula ativa (Is Active=True) e vazia */
+  .cds-ci__caret{
+    position:absolute; top:50%; left:50%; width:1px; height:24px; margin:-12px 0 0 -.5px;
+    background:var(--common-colors-icons-intense); pointer-events:none; display:none;
+    animation:cds-ci-blink 1s steps(1, end) infinite;
+  }
+  .cds-ci__box:focus-within:not(.is-filled) .cds-ci__caret{ display:block; }
+  @keyframes cds-ci-blink{ 50%{ opacity:0; } }
 
   /* State=Hovered (Is Active=False) — While hovering · 150ms */
   .cds-ci__box:hover{
@@ -186,7 +194,7 @@
   .cds-ci__msg{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
   cds-code-input[appearance="warning"] .cds-ci__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
 
-  @media (prefers-reduced-motion:reduce){ .cds-ci__box, .cds-ci__input{ transition:none; } }
+  @media (prefers-reduced-motion:reduce){ .cds-ci__box, .cds-ci__input{ transition:none; } .cds-ci__caret{ animation:none; } }
 
   /* ============================ Playground ============================ */
   *,*::before,*::after{ box-sizing:border-box; }
@@ -298,8 +306,8 @@
   <aside class="pg-panel" aria-label="Controles">
     <h2>Controles</h2>
 
-    <div class="pg-ctrl"><label class="pg-lbl" for="c-length">Length (3–8)</label>
-      <div class="pg-range"><input type="range" id="c-length" min="3" max="8" value="6"><output id="c-length-v" for="c-length">6</output></div></div>
+    <div class="pg-ctrl"><label class="pg-lbl" for="c-length">Length (3–6)</label>
+      <div class="pg-range"><input type="range" id="c-length" min="3" max="6" value="6"><output id="c-length-v" for="c-length">6</output></div></div>
 
     <div class="pg-ctrl"><span class="pg-lbl" id="l-app">Appearance</span>
       <div class="pg-seg" id="c-appearance" role="group" aria-labelledby="l-app">
@@ -352,13 +360,13 @@
 <script>
 (function(){
   "use strict";
-  var MIN = 3, MAX = 8;
+  var MIN = 3, MAX = 6;
   var uid = 0;
   function clamp(n, a, b){ return Math.min(b, Math.max(a, n)); }
 
   /**
    * <cds-code-input>
-   * Atributos: length (3–8, padrão 6) · type (alphanumeric|numeric, padrão alphanumeric) · appearance (neutral|warning)
+   * Atributos: length (3–6, padrão 6) · type (alphanumeric|numeric, padrão alphanumeric) · appearance (neutral|warning)
    * masked (Hidden Values) · disabled · value · separators ("3" | "2,4" | "all" | "none")
    * Texto: label (Text Label) · required-text (padrão "(Obrigatório)") · supporting · error
    * Booleans do Figma, ligados por padrão — passar "false" desliga:
@@ -432,7 +440,8 @@
         if (warning) inp.setAttribute("aria-invalid", "true");
         if (msg) inp.setAttribute("aria-describedby", msgId);
         var dot = document.createElement("span"); dot.className = "cds-ci__dot"; dot.setAttribute("aria-hidden", "true");
-        box.appendChild(inp); box.appendChild(dot);
+        var caret = document.createElement("span"); caret.className = "cds-ci__caret"; caret.setAttribute("aria-hidden", "true");
+        box.appendChild(inp); box.appendChild(dot); box.appendChild(caret);
         box.classList.toggle("is-filled", !!inp.value);
         vb.appendChild(box);
         if (i < n - 1 && seps.indexOf(i + 1) !== -1){

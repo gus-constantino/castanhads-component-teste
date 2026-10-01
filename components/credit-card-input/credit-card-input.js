@@ -46,6 +46,7 @@
       var label = this.getAttribute("label");
       var msg = this.flag("show-supporting-content") ? (warning ? this.getAttribute("error") : this.getAttribute("supporting")) : null;
       var inputId = this._id + "-input", msgId = this._id + "-msg";
+      if (this.disabled) this.setAttribute("aria-disabled", "true"); else this.removeAttribute("aria-disabled");
       this.innerHTML = "";
 
       // Label Content

@@ -10,6 +10,7 @@
   var nav = $("nav"), search = $("search"), title = $("cmp-title"), links = $("cmp-links");
   var preview = $("preview"), panel = $("panel"), frame = $("frame");
   var rval = $("rval"), rdone = $("rdone"), vpOut = $("vp-readout");
+  var tabsEl = $("tabs"), docsEl = $("docs"), stage = $("stage"), shell = document.querySelector(".pg-shell");
   var list = CDS.playgrounds.slice().sort(function(a, b){ return a.name.localeCompare(b.name, "pt-BR"); });
   // rota padrão = primeiro componente (não building block)
 
@@ -53,13 +54,61 @@
   }
   search.addEventListener("input", function(){ buildNav(search.value); });
 
-  // ---------- Roteamento ----------
+  // ---------- Roteamento: #/<id> ou #/<id>/<tab> ----------
+  function route(){ return (location.hash || "").replace(/^#\/?/, "").split("/"); }
   function currentId(){
-    var id = (location.hash || "").replace(/^#\/?/, "");
+    var id = route()[0];
     return list.some(function(c){ return c.id === id; }) ? id : (list.filter(function(c){ return !c.block; })[0] || list[0]).id;
+  }
+  function currentTab(){
+    var doc = CDS.docs && CDS.docs[currentId()], t = route()[1];
+    return doc && doc.tabs.some(function(x){ return x.id === t; }) ? t : "playground";
+  }
+
+  // ---------- Tabs (só quando o componente tem *.docs.js) ----------
+  function buildTabs(id){
+    var doc = CDS.docs && CDS.docs[id];
+    tabsEl.innerHTML = "";
+    tabsEl.hidden = !doc || !CDS.renderDoc;
+    if (tabsEl.hidden) return;
+    [{ id: "playground", title: "Playground" }].concat(doc.tabs).forEach(function(t){
+      var b = kit.el("button", { type: "button", role: "tab", "class": "pg-tab", id: "tab-" + t.id, "data-tab": t.id, text: t.title });
+      b.addEventListener("click", function(){ location.hash = "#/" + id + (t.id === "playground" ? "" : "/" + t.id); });
+      tabsEl.appendChild(b);
+    });
+  }
+  // Setas/Home/End movem entre as tabs (padrão WAI-ARIA, ativação automática)
+  tabsEl.addEventListener("keydown", function(e){
+    var tabs = Array.prototype.slice.call(tabsEl.querySelectorAll('[role="tab"]')), i = tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    var j = e.key === "ArrowRight" ? (i + 1) % tabs.length : e.key === "ArrowLeft" ? (i - 1 + tabs.length) % tabs.length : e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : -1;
+    if (j < 0) return;
+    e.preventDefault(); tabs[j].focus(); tabs[j].click();
+  });
+  function applyTab(){
+    var id = currentId(), tab = currentTab(), doc = CDS.docs && CDS.docs[id];
+    var isDoc = !tabsEl.hidden && tab !== "playground";
+    tabsEl.querySelectorAll('[role="tab"]').forEach(function(b){
+      var on = b.dataset.tab === tab;
+      b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1;
+    });
+    if (tabsEl.hidden){ stage.removeAttribute("role"); stage.removeAttribute("aria-labelledby"); }
+    else { stage.setAttribute("role", "tabpanel"); stage.setAttribute("aria-labelledby", "tab-playground"); }
+    shell.classList.toggle("is-doc", isDoc);
+    docsEl.hidden = !isDoc;
+    if (isDoc){ docsEl.setAttribute("aria-labelledby", "tab-" + tab); CDS.renderDoc(doc, tab, docsEl); docsEl.scrollTop = 0; }
+    else docsEl.innerHTML = "";
+  }
+
+  var mountedId = null;
+  function onRoute(){
+    var id = currentId();
+    if (id !== mountedId){ mount(); mountedId = id; }
+    applyTab();
   }
   function mount(){
     var def = list.filter(function(c){ return c.id === currentId(); })[0];
+    buildTabs(def.id);
     preview.innerHTML = ""; panel.innerHTML = "";
     title.textContent = def.name;
     document.title = def.name + " — Castanha DS";
@@ -71,7 +120,7 @@
     def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });
     markCurrent();
   }
-  window.addEventListener("hashchange", mount);
+  window.addEventListener("hashchange", onRoute);
 
   function readout(value, done){ rval.textContent = value || "—"; rdone.textContent = done ? "✓ completo" : ""; }
 
@@ -99,5 +148,5 @@
     paintTheme();
   });
 
-  paintTheme(); buildNav(); setViewport("fluid"); mount();
+  paintTheme(); buildNav(); setViewport("fluid"); onRoute();
 })();

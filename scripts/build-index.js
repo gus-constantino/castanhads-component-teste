@@ -45,6 +45,7 @@ function blocks(prefix){
   const js = order.map((id) => {
     const lines = [`<script src="${prefix}components/${id}/${id}.js"></script>`];
     if (fs.existsSync(path.join(DIR, id, id + ".playground.js"))) lines.push(`<script src="${prefix}components/${id}/${id}.playground.js"></script>`);
+    if (fs.existsSync(path.join(DIR, id, id + ".docs.js"))) lines.push(`<script src="${prefix}components/${id}/${id}.docs.js"></script>`);
     return lines.join("\n");
   }).join("\n");
   return { css, js };

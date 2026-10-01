@@ -57,6 +57,7 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 7. **Motion só por token:** `var(--common-motion-duration-*) var(--common-motion-easing-*)` ou aliases de Motion Styles (`--motion-hover-*`, `--motion-press-*`, `--motion-active-*`).
 8. **Viewport:** o componente lê `[data-viewport="mobile|tablet"]` do ancestral e aceita `viewport="…"` para forçar o modo.
 9. **Eventos:** `cds-change`, `cds-remove` (cancelável: `preventDefault()` mantém o chip), `cds-complete`, `cds-toggle`, `cds-visibility-change`, `cds-trailing-action` (`bubbles: true`). O papel da ação é de quem implementa.
+11. **Documentação (opcional):** `components/<id>/<id>.docs.js` registra `CDS.docs[id]` só com dados (tabs → blocos). O shell mostra as tabs quando existe doc; a rota é `#/<id>/<tab>`. Exemplos usam o componente real com atributos; estáticos ficam `inert`. Estados de interação forçados por atributo (`state`, `is-active`) espelham as props do Figma para specimens.
 10. **A11y:** elemento nativo sempre que existir (`<button>`, `<a>`, `<input>`). Decorativo → `aria-hidden`. Com `label` → `role="img"` + `aria-label`.
 
 ---
@@ -75,7 +76,17 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 
 ---
 
-## 5. Análise — rodada 3 (01/10 · Lote 3)
+## 5. Análise — rodada 4 (01/10 · experimento de documentação)
+
+| # | Achado | Detalhe | Status |
+|---|---|---|---|
+| A17 | **Doc como dados, não HTML:** 13 tipos de bloco (`h2`, `p`, `cards`, `anatomy`, `props`, `specimens`, `guides`, `dodont`, `table`…) cobrem o frame `[Documentação]` inteiro | Uma doc nova é só um `.docs.js`; o estilo fica num lugar (`docs.css`). O frame do Figma tem estrutura estável (Sobre → Uso → Anatomia → Propriedades → Estilos → Acessibilidade → Diretrizes → Motion → Do's) | ✅ pronto para replicar |
+| A18 | **Doc viva = teste visual:** os exemplos são o componente real, então divergências aparecem | Achou o Label do Warning sem cor no Credit Card | ✅ |
+| A19 | **Estados forçados por atributo** (`state="hovered|pressed"`, `is-active`) | Necessário para specimens estáticos; hoje só no Credit Card. Cada componente com estados de interação vai precisar do mesmo | 🟡 padronizar quando a 2ª doc chegar |
+| A20 | **Anatomia mede o DOM:** marcadores posicionados por `getBoundingClientRect` + `ResizeObserver`; em tela estreita o diagrama encolhe (`scale`) e a seta some | Seletores de alvo (`.cds-cc__label`) acoplam a doc à estrutura interna do componente | 🟢 aceitável; quebra visível se a estrutura mudar |
+| A21 | **Docs não entram no smoke** | `*.docs.js` carrega no smoke (só dados), mas as tabs não são montadas | ⏳ P3: smoke montar cada tab e checar overflow |
+
+### Rodada 3 (01/10 · Lote 3)
 
 | # | Achado | Antes → agora | Status |
 |---|---|---|---|
@@ -136,6 +147,9 @@ Medições no código atual:
 | **P2** | Migrar OTP e Credit Card para `build()`/`update()` (como a base `CDS.SelectionControl`) ao realinhar a família Text Fields | A3 | por componente | Lote 4 |
 | **P2** | Smoke: rodar também em dark e em `data-viewport=mobile`, e verificar `aria-*` básicos (botão com nome, ícone decorativo com `aria-hidden`) | A7 | ~1h | Lote 3 |
 | **P2** | Subir `build()`/`update()` de `CDS.SelectionControl` para `CDS.Element` (opcional por componente) quando a 2ª família usar | A3 | ~1h | Lote 4 |
+| **P2** | Estados forçados (`state`, `is-active`) como contrato da família ao escrever a 2ª doc (provavelmente um mixin no `CDS.Element`) | A19 | ~30min | 2ª doc |
+| **P3** | Smoke montar as tabs de doc e checar overflow horizontal em 375px | A21 | ~30min | 2ª doc |
+| **P3** | Extrator do frame `[Documentação]` → `.docs.js` (estrutura estável: seções por nome) | A17 | ~1h | se a doc virar padrão |
 | **P3** | `tools/figma/extract.js`: versionar os extratores (matriz de variantes, tree+diff, export SVG) para colar sem reescrever | A8 | ~30min | quando houver folga |
 | **P3** | Revisar px literais e mapear o que tem token | A5 | ~30min | Lote 5 |
 | **P3** | TypeScript com `esbuild` gerando `dist/`, mantendo o Pages sem build (commit do bundle) | A10 | ~2h | depois de ~40 componentes |
@@ -154,6 +168,7 @@ Medições no código atual:
 | Lote 1b | Assets coloridos fora do pipeline de máscara · building blocks com `block: true` | Exportação de vetor pode falhar; reconstrução por `vectorPaths` é confiável |
 | Lote 2 | Icon Button vira componente e substitui o botão desenhado à mão em OTP e Credit Card · base `.cds-btn` compartilhada entre Main e Drop | Componente consumido por outros tem que carregar antes: a ordem no `index.html` virou dependência implícita (→ P1 `build-index.js`) |
 | Lote 3 | Primeiras **bases de família**: `CDS.SelectionControl` (JS + CSS) e `.cds-chip` (CSS + `CDS.chipIcon`) · primeiro render incremental · um arquivo definindo 3 tags (Groups) · `kit.selectionControl` (um playground parametrizado para 3 componentes) · evento cancelável `cds-remove` | Manter o `<input>` nativo e só atualizar atributos dá teclado, foco e leitor de tela de graça. A base de família reduz cada variante a poucas linhas. Props com nome de atributo global de HTML precisam de prefixo (`role` → `role-kind`) |
+| Doc (experimento) | `*.docs.js` (dados) + `scripts/docs-kit.js` (render) + `styles/docs.css` · tabs no shell com rota `#/<id>/<tab>` e teclado WAI-ARIA · `build-index` inclui `.docs.js` · estados forçados no Credit Card | Separar dados de render deixa a doc barata de escrever e consistente. Exemplos com `inert` ficam estáticos sem hacks de CSS. Decidir a anatomia compacta pela largura total, não pelo padding (que muda com a classe), evita oscilação no `ResizeObserver` |
 | Arquitetura | `CDS.Element` · `@deps` + `build-index.js` · `--cds-icon-color` · motion por token · reset na base da lib · smoke test | Teste automatizado barato (mount + medida vs Figma) já paga na 1ª execução. Variável de override é mais robusta que especificidade. Reset de box-sizing é parte da lib, não do app |
 
 ---
@@ -165,4 +180,5 @@ Medições no código atual:
 - **Exportar ícone:** `getMainComponentAsync()` da instância → `exportAsync({format:'SVG_STRING'})`; se falhar, exportar a instância.
 - **Adicionar componente:** criar a pasta com `@deps` no JSDoc → `node scripts/build-index.js` → registrar o tamanho em `tests/expected.js` → abrir `tests/smoke.html`.
 - **Nova família de componentes:** base em `components/<familia>/` (sem playground) com `@deps —`; cada membro declara `@deps <familia>` e sobrescreve só o que muda. No playground, um helper no kit (ex.: `kit.selectionControl`) evita repetir os controles.
+- **Documentar um componente:** criar `components/<id>/<id>.docs.js` com `CDS.docs[id] = { tag, base, source, tabs }` → `node scripts/build-index.js`. Os blocos estão descritos no topo de `scripts/docs-kit.js`. Para specimens de Hovered/Pressed/Is Active, o componente precisa aceitar `state` / `is-active`.
 - **Testar no navegador:** abrir via servidor, checar `document.styleSheets` (todos com `cssRules`) e `customElements.get(...)`, recarregar se algo falhou, depois passar por todas as rotas medindo `getBoundingClientRect` e `getComputedStyle`.

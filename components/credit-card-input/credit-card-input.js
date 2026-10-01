@@ -10,6 +10,7 @@
  * Texto: label (Text Label) · required-text (padrão "(Obrigatório)") · supporting · error
  * Booleans do Figma, ligados por padrão — passar "false" desliga:
  *   show-label · show-required · show-lead-icon · show-trailing-item · show-supporting-content
+ * Estados forçados (specimen/doc): state="hovered|pressed" · is-active — só CSS, não mudam o comportamento
  * Eventos: cds-change {value, formatted} · cds-complete {value} · cds-trailing-action
  */
 (function(){

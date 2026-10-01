@@ -42,21 +42,26 @@ cds-credit-card-input[disabled]{ opacity:var(--common-opacity-medium); pointer-e
 .cds-cc__input::placeholder{ color:var(--common-colors-text-soft); opacity:1; }
 .cds-cc__warn{ --_icon-color:var(--common-colors-feedback-warning-semi-intense); width:var(--common-sizes-16); height:var(--common-sizes-16); }
 
+/* Estados forçados (state="hovered|pressed" · is-active) = props State / Is Active do Figma, para specimens estáticos (doc).
+   Em uso real, os estados vêm da interação. */
 /* State=Hovered — Hover In · 150ms */
-.cds-cc__box:hover{
+.cds-cc__box:hover,
+cds-credit-card-input[state="hovered"] .cds-cc__box{
   --_bg:var(--common-colors-surface-01);
   --_stroke-c:var(--common-colors-border-medium);
   --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
 }
 /* State=Pressed — Pressed · 200ms */
-.cds-cc__box:active{
+.cds-cc__box:active,
+cds-credit-card-input[state="pressed"] .cds-cc__box{
   --_bg:var(--common-colors-surface-default);
   --_stroke-w:var(--common-border-width-thin);
   --_stroke-c:var(--common-colors-border-semi-intense);
   --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
 }
 /* Is Active=True — Selected In · 350ms */
-.cds-cc__box:focus-within{
+.cds-cc__box:focus-within,
+cds-credit-card-input[is-active] .cds-cc__box{
   --_bg:var(--common-colors-surface-default);
   --_stroke-w:var(--common-border-width-hairline);
   --_stroke-c:var(--common-colors-border-semi-intense);
@@ -87,7 +92,9 @@ cds-credit-card-input[disabled] .cds-cc__box{ --_stroke-c:var(--common-colors-bo
 cds-credit-card-input[appearance="warning"] .cds-cc__box,
 cds-credit-card-input[appearance="warning"] .cds-cc__box:hover,
 cds-credit-card-input[appearance="warning"] .cds-cc__box:active,
-cds-credit-card-input[appearance="warning"] .cds-cc__box:focus-within{
+cds-credit-card-input[appearance="warning"] .cds-cc__box:focus-within,
+cds-credit-card-input[appearance="warning"][state] .cds-cc__box,
+cds-credit-card-input[appearance="warning"][is-active] .cds-cc__box{
   --_stroke-c:var(--common-colors-feedback-warning-semi-intense);
 }
 
@@ -96,6 +103,8 @@ cds-credit-card-input[appearance="warning"] .cds-cc__box:focus-within{
   display:flex; align-items:center; min-height:var(--common-sizes-24);
   font:var(--text-style-caption-regular); color:var(--common-colors-text-medium);
 }
+/* Warning: Label e Required Text também em Feedback/Warning/semi-intense (set 24614:7155) */
+cds-credit-card-input[appearance="warning"] .cds-cc__label,
 cds-credit-card-input[appearance="warning"] .cds-cc__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
 
 @media (prefers-reduced-motion:reduce){ .cds-cc__box{ transition:none; } }

@@ -195,6 +195,10 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D23 | **Assets de marca** (Caju Brand, bandeiras) mantêm as cores do Figma — não são tokens. Caju Brand vira SVG inline (paths do Figma); bandeiras ficam em `assets/flags/` | 01/10 |
 | D25 | **Fonte de verdade = main da lib.** Exceções: as branches já puxadas (Code Input OTP `PfeMbrThCwzwJFFo2GiAbW` e Credit Card Input `NHkGUvBfNMNTLnsxKtAmWa`). Novas branches entram depois, quando o Gustavo indicar, como atualização do componente | 01/10 |
 | D26 | **Input Chips = `12365:2728`** (com stroke `Border/semi-soft`, o que o Chips Group consome). O set duplicado `14120:5313` era erro e foi removido no Figma (Q5 resolvida) | Q5 · 01/10 |
+| D27 | **Hover do Unselected:** Checkbox usa `Border/semi-intense` e Radio usa `Accent/Solid/medium` — é intencional (Q18) | Q18 · 01/10 |
+| D28 | **Foco por teclado:** não é prioridade agora; manter o outline 2px `Support/system` como padrão provisório (Q20) | Q20 · 01/10 |
+| D29 | **Switch em 300ms** fica por enquanto; o Gustavo vai ajustar no Figma e atualizamos aqui (Q21) | Q21 · 01/10 |
+| D30 | **Documentação dentro do componente, em tabs** (experimento no Credit Card Input): `components/<id>/<id>.docs.js` só com dados, montado por `scripts/docs-kit.js`. Exemplos são o componente real; estilo do frame `[Documentação]` e tabs no estilo do Scrollable Tab | 01/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -209,10 +213,10 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Q15 | **Neutral diverge entre Main, Drop e Icon Button** (hover: `Neutral/Solid/medium` × `Neutral/Opacity/Intense/semi-transparent` × `Neutral/Solid/semi-soft`; pressed do Ghost: `Surface/01` × sem fundo × `Neutral/Solid/medium`) | Implementado por componente; vale alinhar a família |
 | Q16 | **Drop Button `Default, Inversed, Pressed`** está quebrada (sem fundo, padding 0, raio 0) | Usei o Pressed do Main Button |
 | Q17 | **Badge dentro do Filter button no Mobile:** no Figma é a pílula de 16px; pela regra do próprio Badge (Viewport) vira ponto de 8px | Segui a regra do Badge |
-| Q18 | **Hover do Unselected diverge entre Checkbox e Radio:** Checkbox usa `Border/semi-intense`; Radio usa `Accent/Solid/medium` (o mesmo do Pressed) | Implementado como no Figma; vale alinhar a família |
 | Q19 | **Indeterminate sem reaction:** o clique no Checkbox Indeterminate não tem transição no Figma | Segui o nativo: o clique vai para Selected |
-| Q20 | **Foco por teclado não desenhado** nos Selection Controls e Chips | Assumi outline 2px `Support/system` com offset; confirmar |
-| Q21 | **Switch usa 300ms** (`medium-02`) enquanto Checkbox, Radio e Chips usam 150ms | Implementado como no Figma (o toggle percorre distância) |
+| Q22 | **Specimens da doc do Credit Card com props trocadas:** o card "Is Active" usa `State=Disabled` e o "Warning · Enabled" usa `State=Pressed` (frame 24931:8090) | Renderizei pelo rótulo (Is Active e Enabled) |
+| Q23 | **Motion da doc** usa a ilustração de empty state (caixa) como placeholder | Troquei por um exemplo interativo |
+| Q24 | **Variáveis `Commom/Colors/...`** (com "m") nos Tags do `.Prop-type` da doc — outra coleção ou erro de digitação? | Usei os tokens `Common/*` equivalentes |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
 ## 5.1 Débito de export (Gustavo)
@@ -255,6 +259,7 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Exporta
 | 01/10 | `exportAsync` falha em vetores sem fill no nó (cores nas regiões da vector network): reconstruir via `vectorPaths` + `vectorNetwork.regions[].fills` |
 | 01/10 | Selection Controls: o Figma desenha o *Selector* (pílula 48×48) separado da caixa de 24, então o hover pinta a área de toque inteira, não só a caixa |
 | 01/10 | Input Chips: o alvo de remoção é o chip inteiro (40px), não o ícone de 16px, por causa do WCAG 2.5.8 |
+| 01/10 | Montar a doc com o componente real expôs um bug: o Label do Credit Card em Warning não ficava laranja (`Feedback/Warning/semi-intense` no Figma). Doc viva também é teste visual |
 | 01/10 | Link usa motion próprio (150ms com a curva *accelerate* `.7,0,.8,1` no hover), diferente do Hover In dos inputs |
 
 ---
@@ -269,4 +274,5 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Exporta
 | 1b | ✅ 01/10 — Image · Avatar · Caju Brand · .Credit Card Flags · Link · Currency · .Text Content · .Currency Content · .Currency Symbol |
 | 2 | ✅ 01/10 — Icon Button (componente; OTP e Credit Card passam a consumi-lo) · Main Button · Drop Button · Filter button · .Icons |
 | 3 | ✅ 01/10 — Checkbox · Radio Button · Switch (+ os 3 Groups) · Input Chips · Filter Chips · Chips Group, todos sobre a base `CDS.SelectionControl` / `.cds-chip` |
+| — | 🧪 01/10 — Experimento: documentação em tabs no Credit Card Input (Uso · Anatomia · Estilos · Acessibilidade · Diretrizes · Motion) |
 | 4 a 9 | ⏳ |

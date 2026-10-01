@@ -51,6 +51,7 @@
 <!-- /@components:css -->
 <!-- Shell do playground -->
 <link rel="stylesheet" href="styles/playground.css" />
+<link rel="stylesheet" href="styles/docs.css" />
 </head>
 <body>
 
@@ -76,12 +77,14 @@
       </div>
       <div id="viewport"></div>
     </div>
-    <div class="pg-stage">
+    <div class="pg-tabs" id="tabs" role="tablist" aria-label="Seções do componente" hidden></div>
+    <div class="pg-stage" id="stage">
       <div class="pg-frame" id="frame">
         <div class="pg-frame-meta"><span>Viewport: <code id="vp-readout">fluido</code></span><span>Valor: <code id="rval">—</code> <span id="rdone"></span></span></div>
         <div class="pg-preview" id="preview"></div>
       </div>
     </div>
+    <div class="pg-docs" id="docs" role="tabpanel" hidden></div>
   </main>
 
   <aside class="pg-panel" aria-label="Controles">
@@ -93,6 +96,7 @@
 <!-- Kit do playground (registro + controles) -->
 <script src="scripts/cds-element.js"></script>
 <script src="scripts/playground-kit.js"></script>
+<script src="scripts/docs-kit.js"></script>
 <script src="scripts/assets-manifest.js"></script>
 <!-- Componentes — GERADO por scripts/build-index.js (ordem de dependência) -->
 <!-- @components:js -->
@@ -123,6 +127,7 @@
 <script src="components/code-input-otp/code-input-otp.playground.js"></script>
 <script src="components/credit-card-input/credit-card-input.js"></script>
 <script src="components/credit-card-input/credit-card-input.playground.js"></script>
+<script src="components/credit-card-input/credit-card-input.docs.js"></script>
 <script src="components/icons-block/icons-block.js"></script>
 <script src="components/icons-block/icons-block.playground.js"></script>
 <script src="components/filter-button/filter-button.js"></script>

@@ -1,0 +1,121 @@
+/* =====================================================================
+   Code Input OTP · CDS-1608
+   Figma: PfeMbrThCwzwJFFo2GiAbW · set 24060:7228 · .Value Box 24032:5486
+   ===================================================================== */
+
+/* Base 320px (6 células); cresce com o conteúdo até o teto de 480px da fileira */
+cds-code-input{
+  display:flex; flex-direction:column; align-items:stretch;
+  gap:var(--common-sizes-8);
+  width:max-content; min-width:min(320px, 100%); max-width:min(480px, 100%);
+  opacity:var(--common-opacity-opaque);
+}
+cds-code-input[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+
+.cds-ci__label{
+  display:flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-20);
+  font:var(--text-style-label-medium); color:var(--common-colors-text-intense); white-space:nowrap;
+}
+.cds-ci__boxes{
+  display:flex; align-items:center; justify-content:flex-start; gap:var(--common-sizes-4);
+  width:100%; max-width:480px; overflow-x:auto; scrollbar-width:thin;
+}
+/* .Value Box = célula + separator opcional */
+.cds-ci__vb{ display:flex; align-items:center; gap:var(--common-sizes-4); flex:0 0 auto; }
+.cds-ci__sep{
+  width:var(--common-sizes-8); height:var(--common-sizes-2);
+  border-radius:var(--common-border-radius-pill);
+  background:var(--common-colors-neutral-solid-semi-intense);
+}
+
+/* Box — stroke INSIDE via inset shadow (não desloca layout ao trocar hairline → thin) */
+.cds-ci__box{
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-soft); /* repouso: soft/decorativa */
+  --_bg:var(--common-colors-surface-default);
+  --_fg:var(--common-colors-text-medium);
+  /* a transição usada é a do estado de destino; volta ao repouso = reverso do hover */
+  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+  position:relative; flex:0 0 auto;
+  width:var(--common-sizes-40); height:var(--common-sizes-56);
+  border-radius:var(--common-border-radius-medium);
+  background:var(--_bg);
+  box-shadow:inset 0 0 0 var(--_stroke-w) var(--_stroke-c);
+  transition:background-color var(--_dur) var(--_ease),
+             box-shadow var(--_dur) var(--_ease);
+}
+.cds-ci__input{
+  position:absolute; inset:0; width:100%; height:100%;
+  margin:0; padding:0; border:0; outline:0; background:transparent; border-radius:inherit;
+  text-align:center; font:var(--text-style-subtitle-medium); color:var(--_fg);
+  caret-color:transparent; cursor:text; /* caret nativo oculto — usa o Caret do Figma */
+  transition:color var(--_dur) var(--_ease);
+}
+/* Hidden Value: círculo 8px Icons/intense no lugar do caractere */
+.cds-ci__dot{
+  position:absolute; top:50%; left:50%; width:var(--common-sizes-8); height:var(--common-sizes-8);
+  margin:calc(var(--common-sizes-8) / -2) 0 0 calc(var(--common-sizes-8) / -2);
+  border-radius:var(--common-border-radius-pill); background:var(--common-colors-icons-intense);
+  pointer-events:none; display:none;
+}
+.cds-ci--masked .cds-ci__input{ color:transparent; }
+.cds-ci__input::selection{ background:transparent; color:inherit; } /* sem destaque de seleção sobre o caractere/dot */
+.cds-ci--masked .cds-ci__box.is-filled .cds-ci__dot{ display:block; }
+/* Show Caret — 1×24 Icons/intense, centralizado; só na célula ativa (Is Active=True) e vazia */
+.cds-ci__caret{
+  position:absolute; top:50%; left:50%; width:1px; height:24px; margin:-12px 0 0 -.5px;
+  background:var(--common-colors-icons-intense); pointer-events:none; display:none;
+  animation:cds-ci-blink 1s steps(1, end) infinite;
+}
+.cds-ci__box:focus-within:not(.is-filled) .cds-ci__caret{ display:block; }
+@keyframes cds-ci-blink{ 50%{ opacity:0; } }
+
+/* State=Hovered (Is Active=False) — Hover In · 150ms */
+.cds-ci__box:hover{
+  --_bg:var(--common-colors-surface-01); --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-medium);
+  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+}
+/* State=Pressed (Is Active=False) — Pressed · 200ms */
+.cds-ci__box:active{
+  --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
+  --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
+}
+/* Is Active=True (célula em edição) — Selected In · 350ms */
+.cds-ci__box:focus-within{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-intense);
+  --_fg:var(--common-colors-text-intense);
+  --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
+}
+.cds-ci__box:focus-within:hover{
+  --_bg:var(--common-colors-surface-01); --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+}
+.cds-ci__box:focus-within:active{
+  --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
+  --_stroke-c:var(--common-colors-border-intense);
+  --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
+}
+/* Logo após o tap o cursor ainda está sobre a célula: segura Enabled + Is Active pela
+   duração do Selected In para o hover não sobrescrever a transição de 350ms. */
+.cds-ci__box.is-tapped:focus-within{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-c:var(--common-colors-border-intense);
+  --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
+}
+/* Appearance=Warning — stroke warning em todos os estados */
+cds-code-input[appearance="warning"] .cds-ci__box,
+cds-code-input[appearance="warning"] .cds-ci__box:hover,
+cds-code-input[appearance="warning"] .cds-ci__box:active,
+cds-code-input[appearance="warning"] .cds-ci__box:focus-within{
+  --_stroke-c:var(--common-colors-feedback-warning-semi-intense);
+}
+
+.cds-ci__msg{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+cds-code-input[appearance="warning"] .cds-ci__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
+
+@media (prefers-reduced-motion:reduce){ .cds-ci__box, .cds-ci__input{ transition:none; } .cds-ci__caret{ animation:none; } }

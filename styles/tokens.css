@@ -1,0 +1,60 @@
+/* =====================================================================
+   Tokens — Castanha DS · [CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA)
+   Collection "Brand Style" (Common/*) resolvida nos modos light e dark.
+   Valores lidos das branches no Figma; não editar à mão sem conferir lá.
+   ===================================================================== */
+:root{
+  /* Common/Colors */
+  --common-colors-surface-default:#fcfcfc;
+  --common-colors-surface-01:#f0f0f0;
+  --common-colors-border-semi-soft:#e3e3e3;
+  --common-colors-border-medium:#999999;
+  --common-colors-border-semi-intense:#4d4d4d;
+  --common-colors-border-intense:#1a1a1a;
+  --common-colors-text-soft:#999999;
+  --common-colors-text-medium:#4d4d4d;
+  --common-colors-text-intense:#1a1a1a;
+  --common-colors-icons-intense:#1a1a1a;
+  --common-colors-neutral-solid-semi-intense:#4d4d4d;
+  --common-colors-neutral-solid-medium:#999999;
+  --common-colors-neutral-solid-semi-soft:#e3e3e3;
+  --common-colors-neutral-opacity-intense-semi-transparent:#1a1a1a29;
+  --common-colors-feedback-warning-semi-intense:#974602;
+  --common-colors-support-system:#0069cc;
+  /* Common/Sizes */
+  --common-sizes-0:0px; --common-sizes-2:2px; --common-sizes-4:4px; --common-sizes-8:8px;
+  --common-sizes-16:16px; --common-sizes-20:20px; --common-sizes-24:24px; --common-sizes-32:32px;
+  --common-sizes-40:40px; --common-sizes-48:48px; --common-sizes-56:56px;
+  /* Common/Border */
+  --common-border-radius-small:12px; --common-border-radius-medium:16px; --common-border-radius-large:24px; --common-border-radius-pill:1000px;
+  --common-border-width-hairline:1px; --common-border-width-thin:2px;
+  /* Common/Opacity */
+  --common-opacity-opaque:1; --common-opacity-medium:.4;
+  /* Text Styles */
+  --text-style-label-medium: 500 16px/1 Roboto, system-ui, sans-serif;
+  --text-style-body-regular: 400 16px/1.5 Roboto, system-ui, sans-serif;
+  --text-style-subtitle-medium: 500 20px/1.5 Roboto, system-ui, sans-serif;
+  --text-style-caption-regular: 400 14px/1.5 Roboto, system-ui, sans-serif;
+  /* Motion Styles (modo Normal) */
+  --motion-hover-duration:150ms;  --motion-hover-easing:cubic-bezier(.7,0,.5,1);   /* Hover In */
+  --motion-press-duration:200ms;  --motion-press-easing:cubic-bezier(.7,0,.8,1);   /* Pressed */
+  --motion-active-duration:350ms; --motion-active-easing:cubic-bezier(.4,0,.1,1);  /* Selected In */
+  --motion-icon-button-duration:300ms; --motion-icon-button-easing:ease-out;       /* Icon Button Enabled → Hovered */
+}
+html[data-theme="dark"]{
+  --common-colors-surface-default:#1a1a1a;
+  --common-colors-surface-01:#4d4d4d;
+  --common-colors-border-semi-soft:#4d4d4d;
+  --common-colors-border-medium:#808080;
+  --common-colors-border-semi-intense:#cccccc;
+  --common-colors-border-intense:#fcfcfc;
+  --common-colors-text-soft:#808080;
+  --common-colors-text-medium:#cccccc;
+  --common-colors-text-intense:#fcfcfc;
+  --common-colors-icons-intense:#fcfcfc;
+  --common-colors-neutral-solid-semi-intense:#cccccc;
+  --common-colors-neutral-solid-medium:#808080;
+  --common-colors-neutral-solid-semi-soft:#4d4d4d;
+  --common-colors-neutral-opacity-intense-semi-transparent:#fcfcfc29;
+  --common-colors-feedback-warning-semi-intense:#fdac68;
+}

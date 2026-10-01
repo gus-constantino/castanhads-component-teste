@@ -1,0 +1,101 @@
+/* =====================================================================
+   Credit Card Input · CDS-1607
+   Figma: NHkGUvBfNMNTLnsxKtAmWa · set 24614:7155 (família text field)
+   ===================================================================== */
+
+cds-credit-card-input{
+  display:flex; flex-direction:column; align-items:stretch;
+  gap:var(--common-sizes-4);
+  width:320px; max-width:100%;
+  opacity:var(--common-opacity-opaque);
+}
+cds-credit-card-input[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+
+/* Label Content — Text Label + Required Text */
+.cds-cc__label{
+  display:flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-20);
+  font:var(--text-style-label-medium); color:var(--common-colors-text-intense); white-space:nowrap;
+}
+
+/* Text Box — 48px · padding 0 16 · gap 8 · raio small · stroke INSIDE (inset shadow) */
+.cds-cc__box{
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-soft);
+  --_bg:var(--common-colors-surface-default);
+  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+  display:flex; align-items:center; gap:var(--common-sizes-8);
+  height:var(--common-sizes-48); padding:0 var(--common-sizes-16);
+  border-radius:var(--common-border-radius-small);
+  background:var(--_bg);
+  box-shadow:inset 0 0 0 var(--_stroke-w) var(--_stroke-c);
+  cursor:text;
+  transition:background-color var(--_dur) var(--_ease), box-shadow var(--_dur) var(--_ease);
+}
+.cds-cc__content{ flex:1 1 auto; min-width:0; display:flex; align-items:center; gap:var(--common-sizes-4); }
+.cds-cc__lead{ width:var(--common-sizes-24); height:var(--common-sizes-24); } /* 24×24 intencional (bandeira) */
+.cds-cc__input{
+  flex:1 1 auto; min-width:0; margin:0; padding:0; border:0; outline:0; background:transparent;
+  font:var(--text-style-body-regular); color:var(--common-colors-text-intense);
+  caret-color:var(--common-colors-icons-intense); /* caret nativo — Show Caret é só afordância de protótipo */
+  font-variant-numeric:tabular-nums;
+}
+.cds-cc__input::placeholder{ color:var(--common-colors-text-soft); opacity:1; }
+.cds-cc__warn{ --_icon-color:var(--common-colors-feedback-warning-semi-intense); width:var(--common-sizes-16); height:var(--common-sizes-16); }
+
+/* State=Hovered — Hover In · 150ms */
+.cds-cc__box:hover{
+  --_bg:var(--common-colors-surface-01);
+  --_stroke-c:var(--common-colors-border-medium);
+  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+}
+/* State=Pressed — Pressed · 200ms */
+.cds-cc__box:active{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
+}
+/* Is Active=True — Selected In · 350ms */
+.cds-cc__box:focus-within{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
+}
+.cds-cc__box:focus-within:hover{
+  --_bg:var(--common-colors-surface-01);
+  --_stroke-c:var(--common-colors-border-medium);
+  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+}
+.cds-cc__box:focus-within:active{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
+}
+/* Logo após o tap o cursor ainda está sobre o campo: segura Is Active pela duração do Selected In */
+.cds-cc__box.is-tapped:focus-within{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
+}
+/* State=Disabled — borda medium (Figma), container com Opacity/medium */
+cds-credit-card-input[disabled] .cds-cc__box{ --_stroke-c:var(--common-colors-border-medium); }
+
+/* Appearance=Warning — stroke warning em todos os estados */
+cds-credit-card-input[appearance="warning"] .cds-cc__box,
+cds-credit-card-input[appearance="warning"] .cds-cc__box:hover,
+cds-credit-card-input[appearance="warning"] .cds-cc__box:active,
+cds-credit-card-input[appearance="warning"] .cds-cc__box:focus-within{
+  --_stroke-c:var(--common-colors-feedback-warning-semi-intense);
+}
+
+/* Trailing Content — Supporting / Error Message */
+.cds-cc__msg{
+  display:flex; align-items:center; min-height:var(--common-sizes-24);
+  font:var(--text-style-caption-regular); color:var(--common-colors-text-medium);
+}
+cds-credit-card-input[appearance="warning"] .cds-cc__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
+
+@media (prefers-reduced-motion:reduce){ .cds-cc__box{ transition:none; } }

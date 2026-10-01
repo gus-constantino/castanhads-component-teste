@@ -204,6 +204,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D33 | **Motion Styles com o índice no nome** (`Hover In/01`), como estão na main; no código `--motion-hover-in-01-timing`, apontando para o primitivo `Common/Motion/*`. A aba Motion mostra só interação → gatilho → Motion Style (primitivos e variáveis CSS ficam fora da doc) | 01/10 |
 | D34 | **Nome dos Motion Styles segue a main** (`Hover In/01/Timing`). Se a main renomear, atualizar o snapshot e rodar `build-tokens` (Q28) | Q28 · 01/10 |
 | D35 | **Ícones organizados por bucket = frame de categoria do [Caju] Icons** (`assets/icons/<categoria>/<nome>.svg`), ordem e palavras-chave em `catalog.json`. Nome de classe continua `.cds-icon--<nome>` (único); deprecated fica em bucket próprio, fora do instance swap. Glifos internos de componentes (checkbox) em `_glyphs` | 01/10 |
+| D36 | **Lib de apoio ≠ componente.** [Caju] Icons, [Caju] Illustrations, Caju Theme e Animações são **Recursos de suporte**: espaço próprio no side menu, pasta `resources/<id>/`, só doc (sem playground). O componente Icon fica só com o playground. A biblioteca de ícones é um accordion por categoria | 01/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -225,6 +226,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | Q27 | **Borda em repouso do OTP (`Border/semi-soft`, ~1,24:1)** ficou mais sutil que o `#999` anterior; o handoff pede confirmar com a11y se as células vazias seguem visíveis | Registrado; fora do corpo da doc |
 | Q29 | **Icon Button dentro do Credit Card** (branch NHkG…) tem hover em 300ms `EASE_OUT`, que não é Motion Style (devia ser `Hover In/01`) | Gustavo corrige no Figma; o código já usa o motion do Icon Button da lib, nada muda aqui |
 | Q30 | **Naming no [Caju] Icons:** `Database`, `Code` e `Mouse` com maiúscula; `login`, `undo`, `redo`, `wallet`, `savings` sem sufixo `-line`; `stop-filled` × `play-fill` (`-filled` × `-fill`); `dark-mode-line` duplicado (ativo e deprecated); frame `Guide & Maintanance` (typo) | Arquivos em minúsculo; o resto como no Figma |
+| Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | Aguardando o Gustavo |
 | Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
 ## 5.1 Débito de export (Gustavo)
@@ -284,5 +286,5 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 2 | ✅ 01/10 — Icon Button (componente; OTP e Credit Card passam a consumi-lo) · Main Button · Drop Button · Filter button · .Icons |
 | 3 | ✅ 01/10 — Checkbox · Radio Button · Switch (+ os 3 Groups) · Input Chips · Filter Chips · Chips Group, todos sobre a base `CDS.SelectionControl` / `.cds-chip` |
 | — | 🧪 01/10 — Experimento: documentação em tabs no Credit Card Input (Uso · Anatomia · Estilos · Acessibilidade · Diretrizes · Motion) e no Code Input OTP (Acessibilidade montada das annotations + handoff, D32) |
-| — | ✅ 01/10 — 274 ícones do [Caju] Icons em 12 buckets + galeria pesquisável na doc do Icon + instance swap agrupado por categoria |
+| — | ✅ 01/10 — 274 ícones do [Caju] Icons em 12 buckets + instance swap agrupado por categoria · biblioteca em Recursos de suporte (accordion por categoria, D36) |
 | 4 a 9 | ⏳ |

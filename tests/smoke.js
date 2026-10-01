@@ -12,7 +12,7 @@
   var stage = document.getElementById("stage"), out = document.getElementById("out");
   var exp = window.CDS_EXPECTED || {};
 
-  CDS.playgrounds.slice().sort(function(a, b){ return a.id.localeCompare(b.id); }).forEach(function(def){
+  CDS.playgrounds.filter(function(d){ return !d.resource; }).sort(function(a, b){ return a.id.localeCompare(b.id); }).forEach(function(def){
     var frame = document.createElement("div"); frame.className = "frame"; frame.dataset.viewport = "desktop";
     var preview = document.createElement("div"), panel = document.createElement("div");
     frame.appendChild(preview); stage.appendChild(frame);

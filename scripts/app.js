@@ -7,7 +7,7 @@
   var CDS = window.CDS, kit = CDS.kit;
   var JIRA = "https://caju746.atlassian.net/browse/";
   var $ = function(id){ return document.getElementById(id); };
-  var nav = $("nav"), search = $("search"), title = $("cmp-title"), links = $("cmp-links");
+  var nav = $("nav"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), title = $("cmp-title"), links = $("cmp-links");
   var preview = $("preview"), panel = $("panel"), frame = $("frame");
   var rval = $("rval"), rdone = $("rdone"), vpOut = $("vp-readout");
   var tabsEl = $("tabs"), docsEl = $("docs"), stage = $("stage"), shell = document.querySelector(".pg-shell");
@@ -25,7 +25,11 @@
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
     var shown = list.filter(function(c){ return !q || (c.name + " " + (c.task || "") + " " + (c.category || "")).toLowerCase().indexOf(q) !== -1; });
-    var comps = shown.filter(function(c){ return !c.block; }), blocks = shown.filter(function(c){ return c.block; });
+    var comps = shown.filter(function(c){ return !c.block && !c.resource; }), blocks = shown.filter(function(c){ return c.block && !c.resource; });
+    // Recursos de suporte (libs de apoio: ícones, ilustrações…) ficam num espaço próprio, fora dos componentes
+    var res = shown.filter(function(c){ return c.resource; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); });
+    navRes.innerHTML = ""; navResTitle.hidden = navRes.hidden = !res.length;
+    res.forEach(function(c){ navRes.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.status || "" })])])); });
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
     cats.forEach(function(cat){
       var items = comps.filter(function(c){ return (c.category || "Outros") === cat; });
@@ -43,12 +47,12 @@
       det.appendChild(ul);
       nav.appendChild(kit.el("li", null, [det]));
     }
-    if (!shown.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
+    if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
     markCurrent();
   }
   function markCurrent(){
     var cur = currentId();
-    nav.querySelectorAll("a").forEach(function(a){
+    [].slice.call(nav.querySelectorAll("a")).concat([].slice.call(navRes.querySelectorAll("a"))).forEach(function(a){
       if (a.getAttribute("href") === "#/" + cur) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
     });
   }
@@ -58,11 +62,14 @@
   function route(){ return (location.hash || "").replace(/^#\/?/, "").split("/"); }
   function currentId(){
     var id = route()[0];
-    return list.some(function(c){ return c.id === id; }) ? id : (list.filter(function(c){ return !c.block; })[0] || list[0]).id;
+    return list.some(function(c){ return c.id === id; }) ? id : (list.filter(function(c){ return !c.block && !c.resource; })[0] || list[0]).id;
   }
+  function currentDef(){ var id = currentId(); return list.filter(function(c){ return c.id === id; })[0]; }
   function currentTab(){
     var doc = CDS.docs && CDS.docs[currentId()], t = route()[1];
-    return doc && doc.tabs.some(function(x){ return x.id === t; }) ? t : "playground";
+    if (doc && doc.tabs.some(function(x){ return x.id === t; })) return t;
+    // recurso não tem playground: abre na primeira tab da doc
+    return currentDef().resource && doc ? doc.tabs[0].id : "playground";
   }
 
   // ---------- Tabs (só quando o componente tem *.docs.js) ----------
@@ -71,9 +78,10 @@
     tabsEl.innerHTML = "";
     tabsEl.hidden = !doc || !CDS.renderDoc;
     if (tabsEl.hidden) return;
-    [{ id: "playground", title: "Playground" }].concat(doc.tabs).forEach(function(t){
+    var def = currentDef();
+    (def.resource ? [] : [{ id: "playground", title: "Playground" }]).concat(doc.tabs).forEach(function(t){
       var b = kit.el("button", { type: "button", role: "tab", "class": "pg-tab", id: "tab-" + t.id, "data-tab": t.id, text: t.title });
-      b.addEventListener("click", function(){ location.hash = "#/" + id + (t.id === "playground" ? "" : "/" + t.id); });
+      b.addEventListener("click", function(){ location.hash = "#/" + id + (t.id === "playground" || (def.resource && t.id === doc.tabs[0].id) ? "" : "/" + t.id); });
       tabsEl.appendChild(b);
     });
   }
@@ -117,7 +125,7 @@
     if (def.figma) links.appendChild(kit.el("a", { href: def.figma, target: "_blank", rel: "noopener", text: "Figma" }));
     if (def.zeroheight) links.appendChild(kit.el("a", { href: def.zeroheight, target: "_blank", rel: "noopener", text: "Zeroheight" }));
     readout("", false);
-    def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });
+    if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });
     markCurrent();
   }
   window.addEventListener("hashchange", onRoute);

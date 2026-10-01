@@ -9,6 +9,9 @@
  *    <!-- @components:css --> … <!-- /@components:css -->
  *    <!-- @components:js -->  … <!-- /@components:js -->
  * Falha se houver dependência inexistente ou ciclo.
+ *
+ * Recursos de suporte (resources/<id>/<id>.js + .css opcional) entram depois dos componentes:
+ * são páginas de doc das libs de apoio ([Caju] Icons, Illustrations…), sem dependências.
  */
 "use strict";
 const fs = require("fs");
@@ -16,6 +19,8 @@ const path = require("path");
 
 const ROOT = path.join(__dirname, "..");
 const DIR = path.join(ROOT, "components");
+const RES = path.join(ROOT, "resources");
+const resources = fs.existsSync(RES) ? fs.readdirSync(RES).filter((d) => fs.existsSync(path.join(RES, d, d + ".js"))).sort() : [];
 
 const comps = fs.readdirSync(DIR).filter((d) => fs.existsSync(path.join(DIR, d, d + ".js"))).sort();
 const deps = {};
@@ -41,13 +46,15 @@ if (order.length !== comps.length) throw new Error("ciclo de dependências entre
 
 function blocks(prefix){
   const css = order.filter((id) => fs.existsSync(path.join(DIR, id, id + ".css")))
-    .map((id) => `<link rel="stylesheet" href="${prefix}components/${id}/${id}.css" />`).join("\n");
+    .map((id) => `<link rel="stylesheet" href="${prefix}components/${id}/${id}.css" />`)
+    .concat(resources.filter((id) => fs.existsSync(path.join(RES, id, id + ".css"))).map((id) => `<link rel="stylesheet" href="${prefix}resources/${id}/${id}.css" />`))
+    .join("\n");
   const js = order.map((id) => {
     const lines = [`<script src="${prefix}components/${id}/${id}.js"></script>`];
     if (fs.existsSync(path.join(DIR, id, id + ".playground.js"))) lines.push(`<script src="${prefix}components/${id}/${id}.playground.js"></script>`);
     if (fs.existsSync(path.join(DIR, id, id + ".docs.js"))) lines.push(`<script src="${prefix}components/${id}/${id}.docs.js"></script>`);
     return lines.join("\n");
-  }).join("\n");
+  }).concat(resources.map((id) => `<script src="${prefix}resources/${id}/${id}.js"></script>`)).join("\n");
   return { css, js };
 }
 

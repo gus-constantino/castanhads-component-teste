@@ -25,6 +25,7 @@ components/<nome>/
   <nome>.css                  estilos do componente
   <nome>.js                   custom element <cds-…>
   <nome>.playground.js        controles do playground
+resources/<id>/<id>.js        Recursos de suporte (libs de apoio: [Caju] Icons, Illustrations, Theme…) — só doc
 assets/icons/<categoria>/*.svg [Caju] Icons (24×24, monocromático) · catalog.json = ordem e palavras-chave
 assets/illustrations/*.svg    [Caju] Illustrations (200×200, colorido)
 ```

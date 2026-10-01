@@ -57,6 +57,7 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 7. **Motion só por token:** `var(--common-motion-duration-*) var(--common-motion-easing-*)` ou aliases de Motion Styles (`--motion-hover-*`, `--motion-press-*`, `--motion-active-*`).
 8. **Viewport:** o componente lê `[data-viewport="mobile|tablet"]` do ancestral e aceita `viewport="…"` para forçar o modo.
 9. **Eventos:** `cds-change`, `cds-remove` (cancelável: `preventDefault()` mantém o chip), `cds-complete`, `cds-toggle`, `cds-visibility-change`, `cds-trailing-action` (`bubbles: true`). O papel da ação é de quem implementa.
+12. **Recurso de suporte ≠ componente:** libs de apoio registram `CDS.register({ resource:true, order, status })` em `resources/<id>/<id>.js`, com doc em `CDS.docs[id]` e sem `mount`. O shell lista num espaço próprio ("Recursos de suporte"), abre direto na doc e não mostra a tab Playground; o smoke ignora.
 11. **Documentação (opcional):** `components/<id>/<id>.docs.js` registra `CDS.docs[id]` só com dados (tabs → blocos). O shell mostra as tabs quando existe doc; a rota é `#/<id>/<tab>`. Exemplos usam o componente real com atributos; estáticos ficam `inert`. Estados de interação forçados por atributo (`state`, `is-active`) espelham as props do Figma para specimens.
 10. **A11y:** elemento nativo sempre que existir (`<button>`, `<a>`, `<input>`). Decorativo → `aria-hidden`. Com `label` → `role="img"` + `aria-label`.
 
@@ -76,7 +77,16 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 
 ---
 
-## 5. Análise — rodada 5 (01/10 · importação dos ícones)
+## 5. Análise — rodada 6 (01/10 · recursos de suporte)
+
+| # | Achado | Detalhe | Status |
+|---|---|---|---|
+| A29 | **Dois tipos de entrada no registro:** componente (playground + doc opcional) e recurso (só doc) | Mesmo `CDS.register` com `resource:true`; o shell decide tabs, modo doc e menu. Evita um segundo roteador | ✅ |
+| A30 | **`resources/` fora de `components/`** e sem `@deps` | O `build-index` inclui depois dos componentes; um recurso nunca é dependência de componente (o componente consome os *arquivos*, não a página) | ✅ |
+| A31 | **Accordion nativo (`<details>`)** na biblioteca | Teclado e leitor de tela de graça; a busca abre só os painéis com resultado e limpar volta ao estado inicial | ✅ reutilizável quando o Accordion do DS existir |
+| A32 | **Página reservada sem fonte** (Animações) | Fica marcada "a definir" e sem conteúdo inventado até o link chegar | 🟡 Q31 |
+
+### Rodada 5 (01/10 · importação dos ícones)
 
 | # | Achado | Detalhe | Status |
 |---|---|---|---|
@@ -182,6 +192,7 @@ Medições no código atual:
 | Lote 1b | Assets coloridos fora do pipeline de máscara · building blocks com `block: true` | Exportação de vetor pode falhar; reconstrução por `vectorPaths` é confiável |
 | Lote 2 | Icon Button vira componente e substitui o botão desenhado à mão em OTP e Credit Card · base `.cds-btn` compartilhada entre Main e Drop | Componente consumido por outros tem que carregar antes: a ordem no `index.html` virou dependência implícita (→ P1 `build-index.js`) |
 | Lote 3 | Primeiras **bases de família**: `CDS.SelectionControl` (JS + CSS) e `.cds-chip` (CSS + `CDS.chipIcon`) · primeiro render incremental · um arquivo definindo 3 tags (Groups) · `kit.selectionControl` (um playground parametrizado para 3 componentes) · evento cancelável `cds-remove` | Manter o `<input>` nativo e só atualizar atributos dá teclado, foco e leitor de tela de graça. A base de família reduz cada variante a poucas linhas. Props com nome de atributo global de HTML precisam de prefixo (`role` → `role-kind`) |
+| Recursos de suporte | `resources/<id>/` · `CDS.register({ resource:true })` · seção própria no side menu · `iconGallery` em accordion (`<details>`) · Icon sem doc da lib | Separar *quem desenha* (lib de apoio) de *quem aplica* (componente) deixa claro onde atualizar cada coisa. `<details>` resolve accordion sem JS de acessibilidade |
 | Ícones | 274 SVGs em 12 buckets + `catalog.json` · `build-assets` com buckets, deprecated e `_glyphs` · `kit.iconSwap` com `<optgroup>` · bloco `iconGallery` + `icon.docs.js` | Edição de arquivo por fatia (`s[a:b]`) precisa checar `a < b`: com a ordem invertida a fatia sai vazia e `replace("", novo)` insere o texto entre todos os caracteres (aconteceu no kit; restaurado do git). Sempre `assert` na âncora |
 | Motion Styles | `--motion-*-01-*` com alias para o primitivo; bloco `specs` (fichas) no kit; `<wbr>` em `código` longo | Tabela larga não funciona em doc responsiva: ficha por item escala melhor. Servidor local cacheia JS (sem headers): forçar `fetch(..., {cache:'reload'})` antes de recarregar |
 | Doc (experimento) | `*.docs.js` (dados) + `scripts/docs-kit.js` (render) + `styles/docs.css` · tabs no shell com rota `#/<id>/<tab>` e teclado WAI-ARIA · `build-index` inclui `.docs.js` · estados forçados no Credit Card | Separar dados de render deixa a doc barata de escrever e consistente. Exemplos com `inert` ficam estáticos sem hacks de CSS. Decidir a anatomia compacta pela largura total, não pelo padding (que muda com a classe), evita oscilação no `ResizeObserver` |
@@ -196,6 +207,7 @@ Medições no código atual:
 - **Exportar ícone:** `getMainComponentAsync()` da instância → `exportAsync({format:'SVG_STRING'})`; se falhar, exportar a instância.
 - **Adicionar componente:** criar a pasta com `@deps` no JSDoc → `node scripts/build-index.js` → registrar o tamanho em `tests/expected.js` → abrir `tests/smoke.html`.
 - **Nova família de componentes:** base em `components/<familia>/` (sem playground) com `@deps —`; cada membro declara `@deps <familia>` e sobrescreve só o que muda. No playground, um helper no kit (ex.: `kit.selectionControl`) evita repetir os controles.
+- **Adicionar um recurso de suporte:** criar `resources/<id>/<id>.js` com `CDS.register({ id, name, resource:true, order, status, figma })` e `CDS.docs[id] = { source, sourceLabel, tabs }` (começar com `window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};`) → `node scripts/build-index.js`.
 - **Documentar um componente:** criar `components/<id>/<id>.docs.js` com `CDS.docs[id] = { tag, base, source, tabs }` → `node scripts/build-index.js`. Os blocos estão descritos no topo de `scripts/docs-kit.js`. Para specimens de Hovered/Pressed/Is Active, o componente precisa aceitar `state` / `is-active`.
 - **Reimportar ícones do [Caju] Icons:** `use_figma` na página `UI & Caju` (0:1), listando os componentes dos frames de categoria em ordem e devolvendo linhas `@@ICON\t<categoria>\t<nome>\t<description>\t<svg interno>` em pedaços de até 19 KB (parâmetro `START`, a resposta termina com `@@NEXT\t<i>\t<total>`). Depois: `python3 scripts/dev/extract-icons.py <transcript.jsonl> --write` → `node scripts/build-assets.js`. O transcript fica em `~/.claude/projects/<projeto>/<sessão>.jsonl`.
 - **Testar no navegador:** abrir via servidor, checar `document.styleSheets` (todos com `cssRules`) e `customElements.get(...)`, recarregar se algo falhou, depois passar por todas as rotas medindo `getBoundingClientRect` e `getComputedStyle`.

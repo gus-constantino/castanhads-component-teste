@@ -1,19 +1,23 @@
 /**
  * @deps overlay header footer viewport-restriction
  * <cds-drawer> — Drawer · Drawers · componente 16456:4381
- * Painel lateral que abre da direita. 640 de largura (min 640) · pad 0 20 · Elevation/level 1.
- * Header (pad 12 0 · Title Body/Bold · Close Button) + Slot + Action Buttons (pad 20 0 · gap 8 · botões até 320).
+ * Description do Figma: painel deslizante que surge da direita, sempre sobre um Backdrop; para conteúdo mais denso que o
+ * Modal (formulários maiores, detalhes, configurações). Header obrigatório (título + fechar) · Slot obrigatório ·
+ * Action Buttons opcionais (secundária + primária). Não usar para confirmações rápidas (Modal), navegação ou fluxos em etapas.
+ * 640 de largura (min 640) · pad 0 20 · Elevation/level 1 · Surface/default.
+ * Header (pad 12 0 · Title Body/Bold · Close Button Ghost Neutral) + Slot + Action Buttons (pad Grids/gutter 0 · gap 8 · botões até 320).
  * Só desktop: no Figma, Specific/Drawer/Is Mobile e Is Tablet escondem o painel e mostram um Viewport Restriction.
  * Aqui o modo vem do atributo viewport ou do [data-viewport] mais próximo (seletor de viewport do playground).
  *
  * Sempre com Backdrop e sempre fecha ao clicar fora ou no Esc (decisão do Gustavo, 02/10 · C38): não aceita dismissible.
- * Atributos: open · inline · text-title ("Title") · show-action-buttons · primary-label · secondary-label
+ * Atributos: open · inline · text-title ("Title") · show-action-buttons · show-secondary-action-button (padrão ligado, como no Figma)
+ *   primary-label · secondary-label
  *   viewport (desktop|tablet|mobile) · label
  */
 (function(){
   "use strict";
   class CdsDrawer extends CDS.Overlay {
-    static get observedAttributes(){ return CDS.Overlay.observedAttributes.concat(["text-title","show-action-buttons","primary-label","secondary-label","viewport"]); }
+    static get observedAttributes(){ return CDS.Overlay.observedAttributes.concat(["text-title","show-action-buttons","show-secondary-action-button","primary-label","secondary-label","viewport"]); }
     get panelClass(){ return "cds-drawer"; }
     buildPanel(dlg, slot){
       var p = this.panelEl = dlg.appendChild(CDS.create("div", null, "cds-drawer__panel"));
@@ -28,7 +32,7 @@
       var f = this.footerEl, self = this;
       this.headerEl.setAttribute("text-title", this.text("text-title", "Title"));
       f.hidden = !this.flag("show-action-buttons");
-      ["primary-label","secondary-label"].forEach(function(a){ if (self.hasAttribute(a)) f.setAttribute(a, self.getAttribute(a)); else f.removeAttribute(a); });
+      ["primary-label","secondary-label","show-secondary-action-button"].forEach(function(a){ if (self.hasAttribute(a)) f.setAttribute(a, self.getAttribute(a)); else f.removeAttribute(a); });
     }
   }
   CdsDrawer.define("cds-drawer");

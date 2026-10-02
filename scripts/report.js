@@ -10,7 +10,7 @@
   var REPO = "https://github.com/gus-constantino/castanhads-component-teste/blob/main/";
   // Seções por número do título (ROADMAP/ARCHITECTURE) ou pelo nome (CONFERIR). O que não estiver listado vai para o último grupo.
   var TABS = [
-    { id: "visao", title: "Saúde da stack Figma" },
+    { id: "visao", title: "Visão geral" },
     { id: "conferir", title: "Conferir", file: "docs/CONFERIR.md", groups: [
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },
@@ -242,7 +242,7 @@
     root.innerHTML = "";
     var head = root.appendChild(el("div", "rp-head"));
     var t = head.appendChild(el("div"));
-    t.appendChild(el("h1", "rp-title", "Relatório do projeto"));
+    t.appendChild(el("h1", "rp-title", "Saúde da stack Figma"));
     t.appendChild(el("p", "rp-meta", "Castanha DS · implementação da lib <em>[CastanhaDS] Components</em> no playground. Atualizado direto dos registros do repositório."));
     searchEl = head.appendChild(el("input", "pg-search rp-search"));
     searchEl.type = "search"; searchEl.placeholder = "Buscar no relatório"; searchEl.setAttribute("aria-label", "Buscar no relatório");

@@ -1,0 +1,12 @@
+/* Tooltip · 11211:416 — Surface/inversed · raio extra-small · Elevation/level 2 · pad 8 12 · gap 4 · máx. 240
+   Label Caption/Bold + conteúdo Caption/Regular, Text/inversed */
+cds-tooltip{
+  display:flex; flex-direction:column; gap:var(--common-sizes-4); max-width:240px; width:max-content;
+  padding:var(--common-sizes-8) var(--common-sizes-12); border-radius:var(--common-border-radius-extra-small);
+  background:var(--common-colors-surface-inversed); color:var(--common-colors-text-inversed);
+  box-shadow:var(--common-elevation-level-2);
+}
+cds-tooltip[hidden]{ display:none; }
+cds-tooltip.is-floating{ position:fixed; z-index:1000; pointer-events:none; }
+.cds-tooltip__label{ margin:0; font:var(--text-style-caption-bold); }
+.cds-tooltip__text{ margin:0; font:var(--text-style-caption-regular); }

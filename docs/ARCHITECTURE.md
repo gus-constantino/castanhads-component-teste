@@ -77,7 +77,19 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 
 ---
 
-## 5. Análise — rodada 7 (01/10 · Lote 4, Text Fields)
+## 5. Análise — rodada 8 (02/10 · Lote 5, Feedback e conteúdo)
+
+| # | Achado | Detalhe | Status |
+|---|---|---|---|
+| A38 | **Override por variável virou padrão** (`--cds-icon-color`, agora `--cds-shaped-bg`) | A instância do Figma muda o fundo do Shaped Icon no Alert; o pai define a variável e o componente filho não ganha variante nova | ✅ usar para todo override de instância |
+| A39 | **Conteúdo rico por filhos** (Alert/System Banner) | Os filhos de quem usa são capturados no primeiro `build` e viram o Text Content; sem filhos, vale o atributo `text` | ✅ padrão para "pode ter negrito e link" |
+| A40 | **Área clicável inteira** (Banner, Balance Card) | `<a>` com `href`, `<button>` sem; um só alvo focável, sem botão aninhado | ✅ |
+| A41 | **Primeiro elemento flutuante** (Tooltip com `for`) | `position:fixed` calculado no `show()`, vira para baixo se não couber em cima. O Popover (Lote 6) deve reaproveitar o posicionamento, de preferência com Popover API/anchor positioning | ⏳ extrair para `CDS.position` no Lote 6 |
+| A42 | **Ilustração maior que 20 KB** | `scripts/dev/extract-svg.py` junta pedaços `@@SVG` do transcript | ✅ receita para o [Caju] Illustrations |
+| A43 | **Smoke mede o playground** | Os padrões do playground têm de ser os do Figma; o Balance Card com textos de exemplo mediu 151 em vez de 144 | ✅ regra: exemplos ficam no hint, não no default |
+| A44 | **Backdrop ainda não existe** | O Banner Kind=Image desenha o próprio backdrop (Surface/inversed · 0.4) | ⏳ consumir o componente no Lote 6 |
+
+### Rodada 7 (01/10 · Lote 4, Text Fields)
 
 | # | Achado | Detalhe | Status |
 |---|---|---|---|
@@ -174,7 +186,8 @@ Medições no código atual:
 |---|---|---|---|---|
 | ✅ | ~~`build-index.js` com `@deps` e ordenação topológica~~ | A1 | feito | rodada de arquitetura |
 | ✅ | ~~`CDS.Element` + migração dos 24~~ | A2 | feito | rodada de arquitetura |
-| **P1** | Render incremental para interativos (criar o DOM uma vez e atualizar atributos), começando pelo Text Input | A3 | por componente | Regra Figma-primeiro | `docs/CONFERIR.md` (C01–C25) · motion dos Text Fields por variáveis `--tf-*` (main 300ms; Credit Card sobrescreve com Motion Styles) · Drop Button Pressed Inversed, Badge do Filter e specimens da doc revertidos ao Figma | Isolar o valor divergente numa variável ou numa regra só (`--tf-*`, última regra do `drop-button.css`) deixa a correção futura em uma linha. A coluna "Quando corrigir" do CONFERIR aponta o lugar |
+| **P1** | Render incremental para interativos (criar o DOM uma vez e atualizar atributos), começando pelo Text Input | A3 | por componente | Lote 5 | 12 componentes (4 building blocks) · `--cds-shaped-bg` · Alert com conteúdo rico por filhos · Tooltip com gatilho (`for`) · ilustração `sino` via `extract-svg.py` | Os defaults do playground são o contrato do smoke: exemplo bonito vai para o hint. Override de instância do Figma = variável CSS no pai, nunca variante nova no filho |
+| Regra Figma-primeiro | `docs/CONFERIR.md` (C01–C25) · motion dos Text Fields por variáveis `--tf-*` (main 300ms; Credit Card sobrescreve com Motion Styles) · Drop Button Pressed Inversed, Badge do Filter e specimens da doc revertidos ao Figma | Isolar o valor divergente numa variável ou numa regra só (`--tf-*`, última regra do `drop-button.css`) deixa a correção futura em uma linha. A coluna "Quando corrigir" do CONFERIR aponta o lugar |
 | Lote 4 |
 | ✅ | ~~Motion por token~~ | A4 | feito | rodada de arquitetura |
 | ✅ | ~~`--cds-icon-color`~~ | A6 | feito | rodada de arquitetura |

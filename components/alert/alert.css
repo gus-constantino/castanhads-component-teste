@@ -1,0 +1,18 @@
+/* Alert · set 11864:12559 — Feedback/<Appearance>/soft · raio medium · pad 16 · gap 8
+   Shaped Icon Small (Feedback/<Appearance>/semi-soft) · Label Caption/Bold + mensagem Caption/Regular em
+   Feedback/<Appearance>/intense · gap 2 · .Close Alert */
+cds-alert, cds-system-banner{
+  --_bg:var(--common-colors-feedback-positive-soft); --_fg:var(--common-colors-feedback-positive-intense);
+  --cds-shaped-bg:var(--common-colors-feedback-positive-semi-soft); /* instância do Figma: semi-soft, não o soft do Shaped Icon */
+  display:flex; align-items:center; gap:var(--common-sizes-8);
+  padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium);
+  background:var(--_bg); color:var(--_fg);
+}
+cds-alert [hidden], cds-system-banner [hidden]{ display:none !important; }
+cds-alert[appearance="warning"], cds-system-banner[appearance="warning"]{ --_bg:var(--common-colors-feedback-warning-soft); --_fg:var(--common-colors-feedback-warning-intense); --cds-shaped-bg:var(--common-colors-feedback-warning-semi-soft); }
+cds-alert[appearance="informative"], cds-system-banner[appearance="informative"]{ --_bg:var(--common-colors-feedback-informative-soft); --_fg:var(--common-colors-feedback-informative-intense); --cds-shaped-bg:var(--common-colors-feedback-informative-semi-soft); }
+.cds-alert__text{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-2); }
+.cds-alert__label{ margin:0; font:var(--text-style-caption-bold); }
+.cds-alert__msg{ margin:0; font:var(--text-style-caption-regular); }
+.cds-alert__msg a{ color:inherit; text-decoration:underline; text-underline-offset:2px; }
+.cds-alert__msg b, .cds-alert__msg strong{ font-weight:700; }

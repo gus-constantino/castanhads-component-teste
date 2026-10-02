@@ -40,6 +40,18 @@ window.CDS_EXPECTED = {
   "text-area":         { w: 320, src: "10110:3028 · Text Box ≥ 72 (cresce)" },
   "password-input":    { w: 320, h: 100, src: "5798:2677" },
   "quantity-input":    { w: 184, src: "22756:7351 · 48 + 8 + 72 + 8 + 48" },
+  "close-toast":       { w: 40, h: 40, src: "5219:558" },
+  "close-alert":       { w: 40, h: 40, src: "11830:5584" },
+  "lead-item":         { w: 40, h: 40, src: "15621:66" },
+  "content-banner":    { h: 127, src: "20028:15153 · 60 + 40 + 27" },
+  "toast":             { w: 312, src: "5234:516 · min 312" },
+  "alert":             { h: 76, src: "11864:12559 · pad 16 + 44" },
+  "system-banner":     { h: 76, src: "18432:2090" },
+  "confirmation-message": { w: 320, h: 244, src: "16359:1803" },
+  "topic":             { w: 340, h: 118, src: "15621:1175 · Horizontal" },
+  "tooltip":           { w: 240, h: 83, src: "11211:416" },
+  "banner":            { w: 280, h: 170, src: "20051:15726 · Illustration" },
+  "balance-card":      { w: 144, h: 167, src: "17881:1707" },
   "code-input-otp":    { w: 320, src: "24060:7228 · base 320 (6 células)" },
   "credit-card-input": { w: 320, src: "24614:7155" }
 };

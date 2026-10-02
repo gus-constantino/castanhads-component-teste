@@ -81,14 +81,14 @@ Coluna *Usa*: instâncias aninhadas na 1ª variante (ícones omitidos).
 ### Feedback e conteúdo
 | Página | Componente | Node | Var. | Usa |
 |---|---|---|---:|---|
-| Feedback | Toast | `5234:516` | 2 | .Close Toast |
-| Feedback | Alert | `11864:12559` | 3 | Shaped Icon + .Close Alert |
-| Feedback | System Banner | `18432:2090` | 3 | Shaped Icon + .Close Alert |
-| Content | Confirmation Message | `16359:1803` | 3 | Shaped Icon |
-| Content | Topic | `15621:1175` | 2 | .Lead item + Shaped Icon |
-| Tooltips | Tooltip | `11211:416` | 1 | — |
-| Banner | Banner | `20051:15726` | 8 | .Content Banner + Icon |
-| Actions | Balance Card | `17881:1707` | 4 | Tag + Currency |
+| Feedback | Toast ✅ | `5234:516` | 2 | .Close Toast |
+| Feedback | Alert ✅ | `11864:12559` | 3 | Shaped Icon + .Close Alert |
+| Feedback | System Banner ✅ | `18432:2090` | 3 | Shaped Icon + .Close Alert |
+| Content | Confirmation Message ✅ | `16359:1803` | 3 | Shaped Icon |
+| Content | Topic ✅ | `15621:1175` | 2 | .Lead item + Shaped Icon |
+| Tooltips | Tooltip ✅ | `11211:416` | 1 | — |
+| Banner | Banner ✅ | `20051:15726` | 8 | .Content Banner + Icon |
+| Actions | Balance Card ✅ | `17881:1707` | 4 | Tag + Currency |
 
 ### Containers e overlays
 | Componente | Node | Var. | Usa |
@@ -149,7 +149,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | **3** | Selection Controls | Checkbox (+Group) · Radio (+Group) · Switch (+Group) · Input Chips · Filter Chips · Chips Group | — |
 | **4** | Text fields | Text Input · Search · Text Area · Password · [Beta] Quantity · **realinhar Credit Card e OTP à família** | .Text Content Mask |
 | **5** | Feedback e conteúdo | Toast · Alert · System Banner · Confirmation Message · Topic · Tooltip · Banner · Balance Card | .Close Toast · .Close Alert · .Lead item (Topic) · .Content Banner |
-| **6** | Containers e overlays | Viewport Restriction · Card · Backdrop · Popover (**+ Drop Button abrindo o Popover**, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar → em seguida os 5 Select Inputs | .Header (×2) · .Footer |
+| **6** | Containers e overlays | Viewport Restriction · Card · Backdrop (**o Banner Kind=Image passa a consumir**) · Popover (**+ Drop Button abrindo o Popover**, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar → em seguida os 5 Select Inputs | .Header (×2) · .Footer |
 | **7** | Navegação | Breadcrumb · Fixed Tab · Scrollable Tab · Tab View · Nav Control · Pagination | .Item (×2) · .Item Nav Control · .Select Number |
 | **8** | Listas | Content List Item · Content List · Selection List Item · Selection List | .Lead Item · .Trailing Item · .Transaction Status Icon |
 | **9** | Complexos | Date Picker · Modal Date Picker · Date Input · Table · File Upload (3) · Slider · NPS · CSAT · Progress Tracker · Caju Card | .Day · .Week · .Navigation Control · .Head · .Data Cell · .Table Column · .Toolbar · .Lead item (File) · .Value Item · .CSAT Item |
@@ -210,6 +210,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D39 | **`.Text Content Mask` como `mask`** no Text Input (text, cpf, cnpj, cnpj-new, telefone, celular, cep, date, currency); o valor guardado é só o dado. O Credit Card usa o mesmo motor de máscara | 01/10 |
 | D40 | **O código segue o Figma como está hoje**, mesmo quando parece errado; quando o Figma corrigir, o código acompanha. Toda divergência vai para `docs/CONFERIR.md` (C01–C25). Exceções: decisão explícita do Gustavo, ausência de especificação e adaptação para web aprovada. Q32 (CEP correto) e Q35 (senha mascarada) ficam como exceções aprovadas | Q33 · 02/10 |
 | D41 | **Drop Button abre o Popover** (pedido do Gustavo): entra no Lote 6, junto com o Popover | 02/10 |
+| D42 | **Override de instância por variável** também no Shaped Icon (`--cds-shaped-bg`): o Alert e o System Banner usam `Feedback/*/semi-soft` como no Figma, sem mexer no Shaped Icon solto | 02/10 |
+| D43 | **Cards e banners clicáveis** viram `<a>` com `href` e `<button>` sem; o CTA do Banner é só visual (description do Figma) | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -281,4 +283,5 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | — | 🧪 01/10 — Experimento: documentação em tabs no Credit Card Input (Uso · Anatomia · Estilos · Acessibilidade · Diretrizes · Motion) e no Code Input OTP (Acessibilidade montada das annotations + handoff, D32) |
 | — | ✅ 01/10 — 274 ícones do [Caju] Icons em 12 buckets + instance swap agrupado por categoria · biblioteca em Recursos de suporte (accordion por categoria, D36) |
 | 4 | ✅ 01/10 — Text Input · Search · Text Area · Password · [Beta] Quantity sobre `CDS.TextField` · Credit Card realinhado (subclasse) · OTP com Label/mensagem da família |
-| 5 a 9 | ⏳ |
+| 5 | ✅ 02/10 — Toast · Alert · System Banner · Confirmation Message · Topic · Tooltip · Banner · Balance Card + .Close Toast · .Close Alert · .Lead item · .Content Banner · ilustração `sino` |
+| 6 a 9 | ⏳ |

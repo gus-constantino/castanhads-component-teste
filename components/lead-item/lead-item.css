@@ -1,0 +1,3 @@
+/* .Lead item · set 15621:66 — 40×40 */
+cds-lead-item{ display:inline-flex; flex:0 0 auto; width:var(--common-sizes-40); height:var(--common-sizes-40); }
+cds-lead-item > cds-image{ width:100%; height:100%; }

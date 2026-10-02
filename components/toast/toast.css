@@ -1,0 +1,24 @@
+/* Toast · set 5234:516 — Surface/inversed · raio large · pad 20 · gap 8 · min 312 · max 743
+   Ícone 24 num container 40: Positive Decorative/03 (positive-line) · Warning Decorative/01 (warning-line)
+   Texto Caption/Regular · Text/inversed · até 2 linhas
+   Mobile (Toast mobile): coluna · pad 24 20 · gap 12 · ícone e fechar no topo, sem raio (como no Figma) */
+cds-toast{
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto; grid-template-areas:"icon text close";
+  align-items:center; column-gap:var(--common-sizes-8);
+  width:312px; min-width:min(312px, 100%); max-width:min(743px, 100%); /* 312 no Figma; a instância pode crescer até 743 */
+  padding:var(--common-sizes-20); border-radius:var(--common-border-radius-large);
+  background:var(--common-colors-surface-inversed); color:var(--common-colors-text-inversed);
+}
+cds-toast [hidden]{ display:none !important; }
+.cds-toast__icon{ grid-area:icon; display:grid; place-items:center; width:var(--common-sizes-40); height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); }
+.cds-toast__icon > .cds-icon{ --cds-icon-color:var(--common-colors-decorative-03); width:var(--common-sizes-24); height:var(--common-sizes-24); }
+cds-toast[appearance="warning"] .cds-toast__icon > .cds-icon{ --cds-icon-color:var(--common-colors-decorative-01); }
+.cds-toast__text{
+  grid-area:text; margin:0; font:var(--text-style-caption-regular);
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+cds-toast > cds-close-toast{ grid-area:close; }
+[data-viewport="mobile"] cds-toast:not([viewport]), cds-toast[viewport="mobile"]{
+  grid-template-columns:auto minmax(0,1fr) auto; grid-template-areas:"icon . close" "text text text";
+  row-gap:var(--common-sizes-12); padding:var(--common-sizes-24) var(--common-sizes-20); border-radius:var(--common-border-radius-none);
+}

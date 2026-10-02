@@ -31,6 +31,13 @@ Exceções à regra ficam marcadas **exceção** na coluna "No código", com o m
 | C23 | Selection Controls e Chips · foco | Foco por teclado não desenhado (padrão global do DS) | Spec do foco global | **Exceção** (sem especificação): outline 2px `Support/system` | Trocar pelo padrão global quando existir |
 | C24 | `.Motion Styles` · naming | Índice no meio: `Hover In/01/Timing` | A skill registra a decisão de levar o índice para o fim (`Hover In/Timing/01`) | Segue a main | Atualizar o snapshot e rodar `build-tokens` |
 | C25 | Naming da lib (geral) | `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Padrão do Índice de Propriedades | Implementar com o nome do Figma quando o componente entrar | Renomear junto |
+| C26 | .Content Banner · Appearance=Inversed | Icon do CTA continua `Appearance=Neutral` (escuro sobre fundo escuro) | Icon Inversed | Segue o Figma | Trocar a `appearance` do ícone em `content-banner.js` no Inversed |
+| C27 | Banner · Kind=Illustration | `.Content Banner` (127 de altura) dentro de um Container fixo de 122: o texto transborda 5px para cima | Container acompanhar o conteúdo | Segue o Figma: linha com 122px e conteúdo alinhado embaixo | Trocar `height:122px` por `min-height` em `banner.css` |
+| C28 | Toast · Mobile | Frame `Toast mobile` sem raio; Description em frame fixo de 44px (2 linhas de Caption dão 42) | Confirmar o raio e a altura no mobile | Segue o Figma: sem raio no mobile; texto com a altura natural (42) | Ajustar o raio do mobile em `toast.css` |
+| C29 | Confirmation Message | Só `Appearance` é prop; título, descrição e ícone (`placeholder-line`) são texto/instância fixos da amostra | Expor `Text Title`, `Text Description` e o ícone como props | Atributos `title`, `description` e `icon` (padrões do Figma) | Nada a mudar se o Figma expuser as props com os mesmos nomes |
+| C30 | .Close Toast | Tem os variants Hovered e Pressed, mas as reactions são só `ON_CLICK` (não há transição de hover) | Reactions de hover/press como no .Close Alert | Hover e Pressed por CSS (150ms · Systemic/accelerate), como os variants | Nada a mudar |
+| C31 | Banner · State=Disabled | `State Overlay` (Neutral/Opacity/Soft/intense) existe, mas está oculto; o componente fica com opacity 0.4 | Usar o overlay ou removê-lo | Segue o Figma: opacity medium, sem overlay | Ativar o overlay em `banner.css` se ficar visível |
+| C32 | Balance Card · Hovered | Só o Label muda (Text/medium → Text/intense); fundo e borda iguais | Confirmar se o hover é só isso | Segue o Figma | Ajustar `balance-card.css` |
 
 ## Como usar esta lista
 

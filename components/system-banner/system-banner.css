@@ -1,0 +1,2 @@
+/* System Banner · set 18432:2090 — base em alert.css · sem raio · largura total · mínimo 360 */
+cds-system-banner{ border-radius:var(--common-border-radius-none); width:100%; min-width:min(360px, 100%); }

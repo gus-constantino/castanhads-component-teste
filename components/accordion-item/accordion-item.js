@@ -10,7 +10,7 @@
  *   Kind=Card: pad 8 · raio large · stroke Border/semi-soft INSIDE · Container min 80, pad 0 16 · Slot pad 16 · sem Divider
  *   States: Hovered Surface/01 (Card Border/medium) · Pressed Neutral/Opacity/Intense/semi-transparent (Card Border/intense)
  *           Disabled Opacity/light (Card Border/medium)
- *   Ícone: dropdown-open-line recolhido · dropdown-close-line aberto (variantes do Figma; a description diz o contrário, C79)
+ *   Ícone: dropdown-open-line recolhido · dropdown-close-line aberto (variantes e description do Figma, C79 resolvido)
  *
  * Web: o cabeçalho é um <button aria-expanded aria-controls> e o conteúdo um role="region" (padrão Accordion do WAI-ARIA).
  * O Figma pinta o item inteiro no hover/press; aqui o alvo é o cabeçalho e a cor continua no item todo.

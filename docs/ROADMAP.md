@@ -314,6 +314,7 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 02/10 | O relatório depende do formato dos docs: tabelas com o ID na 1ª coluna (C/D/Q ou data), status com ✅/⏳/🧪 e seções `## N. Título`. Mudar o formato pede ajustar `scripts/report.js` |
 | 02/10 | **`curl` é bloqueado pela política da Caju**, não pelo sandbox: `~/.claude/remote-settings.json` tem `deny: Bash(curl *)` e `allowManagedPermissionRulesOnly` (regra local não libera). As URLs do `download_assets` do MCP do Figma não servem aqui; asset grande vem do export do Figma feito pelo Gustavo |
 | 02/10 | O export SVG do Figma vira subpasta quando o nome tem `/` e numera repetidos (`-1`, `-2`) na ordem do documento; o 1º traço do SVG basta para saber qual arquivo é qual nó. Conferir visualmente: as três `moeda-verde-pilha-2` pareciam iguais pelo 1º traço e eram cores diferentes |
+| 02/10 | Primeira escrita no Figma (C79), com aprovação explícita e só na branch: trocar um trecho exato da description e conferir que o resto ficou igual. Regra continua: sem aprovação, Figma é só leitura |
 
 ## 8. Status
 

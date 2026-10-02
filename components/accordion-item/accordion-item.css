@@ -3,7 +3,7 @@
    Default: 57 recolhido (8 + 44 + 4 + Divider 1) · 143 aberto (+ 4 + Slot 82)
    Card:    96 recolhido (8 + 80 + 8) · 182 aberto (+ 4 + Slot 82, pad 16)
    Motion (reactions do Figma): hover 150ms Systemic/default · press 200ms Systemic/accelerate
-     abrir 200ms (Short/04) e fechar 350ms (Medium/03), ambos Expressive/decelerate (C80)
+     abrir 200ms (Short/04) e fechar 350ms (Medium/03), ambos Expressive/decelerate (decisão de motion, C80)
    ===================================================================== */
 cds-accordion-item{ display:block; box-sizing:border-box; width:var(--cds-accordion-width, 320px); max-width:100%; min-width:0; }
 cds-accordion-item [hidden]{ display:none !important; }

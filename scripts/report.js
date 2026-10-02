@@ -10,7 +10,7 @@
   var REPO = "https://github.com/gus-constantino/castanhads-component-teste/blob/main/";
   // Seções por número do título (ROADMAP/ARCHITECTURE) ou pelo nome (CONFERIR). O que não estiver listado vai para o último grupo.
   var TABS = [
-    { id: "visao", title: "Visão geral" },
+    { id: "visao", title: "Saúde da stack Figma" },
     { id: "conferir", title: "Conferir", file: "docs/CONFERIR.md", groups: [
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },

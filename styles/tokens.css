@@ -394,3 +394,11 @@ html[data-theme="dark"]{
   --common-colors-charts-07-medium:#d3d3d3;
   --common-colors-charts-07-intense:#e3e3e3;
 }
+
+/* Grids (coleção Viewport · Desktop no :root) */
+:root{ --common-grids-margin:var(--common-sizes-104); --common-grids-gutter:var(--common-sizes-20); }
+@media (max-width:1023px){ :root{ --common-grids-margin:var(--common-sizes-16); --common-grids-gutter:var(--common-sizes-8); } }
+@media (max-width:599px){ :root{ --common-grids-margin:var(--common-sizes-20); --common-grids-gutter:var(--common-sizes-16); } }
+[data-viewport="desktop"]{ --common-grids-margin:var(--common-sizes-104); --common-grids-gutter:var(--common-sizes-20); }
+[data-viewport="tablet"]{ --common-grids-margin:var(--common-sizes-16); --common-grids-gutter:var(--common-sizes-8); }
+[data-viewport="mobile"]{ --common-grids-margin:var(--common-sizes-20); --common-grids-gutter:var(--common-sizes-16); }

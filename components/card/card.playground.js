@@ -7,7 +7,7 @@ CDS.register({
       kit.el("strong", { text: "Conteúdo do Slot", style: "font:var(--text-style-body-bold)" }),
       kit.el("span", { text: "O Card agrupa conteúdo relacionado; o Slot recebe qualquer composição.", style: "font:var(--text-style-caption-regular);color:var(--common-colors-text-medium)" })
     ]);
-    var wrap = kit.el("div", { style: "padding:24px;background:var(--common-colors-surface-01);border-radius:var(--common-border-radius-medium)" }, [p]);
+    var wrap = kit.el("div", { style: "padding:var(--common-sizes-24);background:var(--common-colors-surface-01);border-radius:var(--common-border-radius-medium)" }, [p]);
     ctx.preview.appendChild(wrap);
     kit.hint(panel, "O fundo cinza do preview é só para o Card aparecer; no Figma ele é Surface/default.");
     kit.section(panel, "Variants");

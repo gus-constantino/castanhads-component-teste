@@ -4,7 +4,7 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4926-213",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:8px 16px; border-radius:16px;" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-8) var(--common-sizes-16); border-radius:var(--common-border-radius-medium);" });
     var p = kit.el("cds-link", { label: "Link content", href: "#/link", appearance: "neutral" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }

@@ -6,6 +6,8 @@
  * Nomenclatura: Common/Colors/Text/intense → --common-colors-text-intense (1:1 com o Figma).
  * Text styles:  Label/Medium Label        → --text-style-label-medium (shorthand `font`)
  * Elevations:   Common/Elevations/Level 1 → --common-elevation-level-1 (box-shadow pronto)
+ * Grids (coleção Viewport): Common/Grids/gutter → --common-grids-gutter, valor Desktop no :root e Tablet/Mobile
+ *                por [data-viewport] (frame do playground) e por largura de tela (shell): ≤1023 Tablet, ≤599 Mobile
  * Motion Styles: Hover In/01/Timing       → --motion-hover-in-01-timing (o índice fica: vão existir outros estilos)
  *                aponta para o primitivo do Figma (motionAlias), ex.: var(--common-motion-duration-short-03)
  *
@@ -68,6 +70,19 @@ const texts = snap.textStyles.map(([name, family, style, size, lh, deco]) => {
   return line;
 });
 
+// Grids: alias para o tamanho (Common/Sizes/N) em cada modo da coleção Viewport
+const grids = snap.grids || [];
+const gridLine = (mode) => grids.map(([n, m]) => `--${slug(n)}:var(--${slug(m[mode])});`).join(" ");
+const gridCss = grids.length ? `
+/* Grids (coleção Viewport · Desktop no :root) */
+:root{ ${gridLine("Desktop")} }
+@media (max-width:1023px){ :root{ ${gridLine("Tablet")} } }
+@media (max-width:599px){ :root{ ${gridLine("Mobile")} } }
+[data-viewport="desktop"]{ ${gridLine("Desktop")} }
+[data-viewport="tablet"]{ ${gridLine("Tablet")} }
+[data-viewport="mobile"]{ ${gridLine("Mobile")} }
+` : "";
+
 const out = `/* =====================================================================
    Tokens — Castanha DS · GERADO por scripts/build-tokens.js · não editar à mão
    Fonte: tokens/figma-snapshot.json (${snap._source})
@@ -89,6 +104,6 @@ ${texts.join("\n")}
 html[data-theme="dark"]{
 ${dark.join("\n")}
 }
-`;
+${gridCss}`;
 fs.writeFileSync(path.join(ROOT, "styles/tokens.css"), out);
-console.log(`styles/tokens.css: ${light.length} tokens (${dark.length} com valor dark), ${texts.length} text styles, ${elevations.length} elevations`);
+console.log(`styles/tokens.css: ${light.length} tokens (${dark.length} com valor dark), ${texts.length} text styles, ${elevations.length} elevations, ${grids.length} grids`);

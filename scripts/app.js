@@ -159,7 +159,7 @@
   // data-viewport espelha a collection Viewport do Figma (Desktop/Tablet/Mobile); componentes leem via CSS
   function setViewport(w){
     frame.dataset.viewport = w === "360" ? "mobile" : w === "744" ? "tablet" : "desktop";
-    if (w === "fluid"){ frame.style.width = "100%"; frame.style.maxWidth = "600px"; vpOut.textContent = "fluido"; }
+    if (w === "fluid"){ frame.style.width = "100%"; frame.style.maxWidth = "calc(3 * var(--common-sizes-200))"; vpOut.textContent = "fluido"; }
     else { frame.style.width = w + "px"; frame.style.maxWidth = "none"; vpOut.textContent = w + "px"; }
   }
   kit.seg($("viewport"), { label: "Viewport", value: "fluid", options: [["360","360"],["744","744"],["1366","1366"],["fluid","Fluido"]], onChange: setViewport });

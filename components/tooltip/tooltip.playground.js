@@ -3,7 +3,7 @@ CDS.register({
   id: "tooltip", name: "Tooltip", category: "Tooltips", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11211-416",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var wrap = kit.el("div", { style: "display:flex;flex-direction:column;align-items:center;gap:32px" });
+    var wrap = kit.el("div", { style: "display:flex;flex-direction:column;align-items:center;gap:var(--common-sizes-32)" });
     var p = kit.el("cds-tooltip", {}); wrap.appendChild(p);
     var trig = kit.el("cds-icon-button", { id: "pg-tooltip-trigger", kind: "ghost", appearance: "neutral", icon: "support-line", label: "Ajuda" });
     var t2 = kit.el("cds-tooltip", { for: "pg-tooltip-trigger", label: "Ajuda", text: "Passe o mouse ou foque o botão; Esc fecha." });

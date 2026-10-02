@@ -3,7 +3,7 @@ CDS.register({
   id: "content-banner", name: ".Content Banner", category: "Banner", block: true, figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=20028-15153",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var wrap = kit.el("div", { style: "padding:24px;border-radius:var(--common-border-radius-large);background:var(--common-colors-decorative-01)" });
+    var wrap = kit.el("div", { style: "padding:var(--common-sizes-24);border-radius:var(--common-border-radius-large);background:var(--common-colors-decorative-01)" });
     var p = kit.el("cds-content-banner", {}); wrap.appendChild(p); ctx.preview.appendChild(wrap);
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "neutral", options: [["neutral","Neutral"],["inversed","Inversed"]], onChange: function(v){

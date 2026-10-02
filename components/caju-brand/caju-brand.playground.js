@@ -4,7 +4,7 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11271-154",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:24px; border-radius:16px;" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-24); border-radius:var(--common-border-radius-medium);" });
     var p = kit.el("cds-caju-brand", { kind: "default" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     // Fundo sugerido pela description: atente-se à cor do fundo

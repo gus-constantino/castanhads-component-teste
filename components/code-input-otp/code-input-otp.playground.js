@@ -41,7 +41,7 @@ CDS.register({
     // Show Separator por dígito
     var sepWrap = kit.el("div", { "class": "pg-ctrl" });
     sepWrap.appendChild(kit.el("span", { "class": "pg-lbl", text: "Show Separator — depois de qual dígito" }));
-    var allNone = kit.el("div", { "class": "pg-seg", style: "margin-bottom:6px" });
+    var allNone = kit.el("div", { "class": "pg-seg", style: "margin-bottom:var(--common-sizes-6)" });
     var bAll = kit.el("button", { type: "button", text: "Todos" }), bNone = kit.el("button", { type: "button", text: "Nenhum" });
     allNone.appendChild(bAll); allNone.appendChild(bNone); sepWrap.appendChild(allNone);
     chips = kit.el("div", { "class": "pg-chips", role: "group", "aria-label": "Separador depois do dígito" });

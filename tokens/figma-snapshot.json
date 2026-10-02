@@ -1723,5 +1723,23 @@
   "Selected Out/01/Easing": "Common/Motion/Easing/Expressive/decelerate",
   "Disabled/01/Timing": "Common/Motion/Duration/Short/03",
   "Disabled/01/Easing": "Common/Motion/Easing/Systemic/default"
- }
+ },
+ "grids": [
+  [
+   "Common/Grids/margin",
+   {
+    "Desktop": "Common/Sizes/104",
+    "Tablet": "Common/Sizes/16",
+    "Mobile": "Common/Sizes/20"
+   }
+  ],
+  [
+   "Common/Grids/gutter",
+   {
+    "Desktop": "Common/Sizes/20",
+    "Tablet": "Common/Sizes/8",
+    "Mobile": "Common/Sizes/16"
+   }
+  ]
+ ]
 }

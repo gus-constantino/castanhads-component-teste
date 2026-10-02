@@ -61,3 +61,4 @@ python3 -m http.server 8765
 - `docs/ARCHITECTURE.md` — arquitetura, análise por rodada, backlog e receitas
 - `docs/CONFERIR.md` — divergências Figma × esperado: o código segue o Figma e a lista guarda o que ajustar quando o Figma mudar
 - [`docs/TABLE-LINHAS-X-COLUNAS.md`](docs/TABLE-LINHAS-X-COLUNAS.md) — por que a Table é por linhas (decisão D62)
+- [`docs/PLANO-UI-DS.md`](docs/PLANO-UI-DS.md) — plano para a UI do playground usar só componentes e tokens do DS (D69)

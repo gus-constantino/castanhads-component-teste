@@ -8,7 +8,8 @@
  *   for — id do elemento que dispara: o tooltip aparece no hover e no foco dele, some com Esc e ao sair.
  *         Sem for, fica sempre visível (specimen).
  *   placement — top | bottom (padrão top)
- * A11y: role="tooltip"; o gatilho recebe aria-describedby.
+ * A11y: role="tooltip"; o gatilho recebe aria-describedby. Gatilho composto (ex.: <cds-icon-button>, que tem um
+ *   <button> dentro): a descrição vai para o primeiro elemento focável dentro dele, que é o que o leitor de tela lê.
  */
 (function(){
   "use strict";
@@ -29,8 +30,15 @@
       if (!id){ this.classList.remove("is-floating"); this.hidden = false; return; }
       var t = document.getElementById(id); if (!t || t === this._trigger) return;
       this._trigger = t; this.classList.add("is-floating"); this.hidden = true;
-      var desc = (t.getAttribute("aria-describedby") || "").split(" ").filter(Boolean);
-      if (desc.indexOf(this.id) < 0){ desc.push(this.id); t.setAttribute("aria-describedby", desc.join(" ")); }
+      var FOCUSABLE = "button, a[href], input, select, textarea, [tabindex]", tipId = this.id;
+      var describe = function(){
+        var d = t.matches(FOCUSABLE) ? t : (t.querySelector(FOCUSABLE) || t);
+        var desc = (d.getAttribute("aria-describedby") || "").split(" ").filter(Boolean);
+        if (desc.indexOf(tipId) < 0){ desc.push(tipId); d.setAttribute("aria-describedby", desc.join(" ")); }
+      };
+      // gatilho ainda não definido (custom element registrado depois): descreve o focável interno quando ele existir
+      if (t.localName.indexOf("-") > 0 && !customElements.get(t.localName)) customElements.whenDefined(t.localName).then(describe);
+      else describe();
       var show = function(){ self.show(); }, hide = function(){ self.hidden = true; };
       var esc = function(e){ if (e.key === "Escape") hide(); };
       this._off = function(){ ["mouseenter","focusin"].forEach(function(e){ t.removeEventListener(e, show); }); ["mouseleave","focusout"].forEach(function(e){ t.removeEventListener(e, hide); }); t.removeEventListener("keydown", esc); };

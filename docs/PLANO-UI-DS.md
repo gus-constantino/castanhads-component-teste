@@ -65,7 +65,7 @@
 | Fase | Status |
 |---|---|
 | 0 · Tokens | ✅ 02/10 — `playground.css`, `docs.css` e `report.css` sem px/hex/rgba/ms crus; tokens de grid (`--common-grids-margin/gutter`) gerados do Figma; padding/margem/gap/raio dos playgrounds em token. Gaps: C82 (grid do Tablet) e C83 (sem text style de código, sem tamanhos de layout) |
-| 1 · Header e links | ⏳ |
+| 1 · Header e links | ✅ 02/10 — Icon Button (Ghost · Neutral · Small) + Tooltip no tema e no relatório, ícones `dark-mode-line`/`light-mode-line`/`chart-up-line` do [Caju] Icons; links da toolbar com Link (Neutral, `link-line`, nova aba). Tooltip passou a descrever o focável dentro de gatilhos compostos. Gap: C84 (Icon Button sem estado selecionado) |
 | 2 · Painel de controles | ⏳ |
 | 3 · Navegação | ⏳ |
 | 4 · Doc e recursos | ⏳ |

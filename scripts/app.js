@@ -123,13 +123,14 @@
   }
 
   var mountedId = null, reportBtn = $("report-btn"), report = $("report"), lastHash = "#/";
+  reportBtn.addEventListener("click", function(){ location.hash = route()[0] === "relatorio" ? lastHash : "#/relatorio"; });
   function onRoute(){
     // #/relatorio[/tab]: o relatório troca o shell inteiro; o botão volta para o último componente
     var r = route(), isReport = r[0] === "relatorio" && !!CDS.report;
     shell.hidden = isReport; report.hidden = !isReport;
-    reportBtn.setAttribute("aria-current", isReport ? "page" : "false");
-    reportBtn.setAttribute("href", isReport ? lastHash : "#/relatorio");
-    reportBtn.setAttribute("aria-label", isReport ? "Voltar aos componentes" : "Abrir relatório do projeto");
+    reportBtn.setAttribute("pressed", String(isReport));
+    reportBtn.setAttribute("label", isReport ? "Voltar aos componentes" : "Abrir relatório do projeto");
+    $("report-tip").setAttribute("text", isReport ? "Voltar aos componentes" : "Relatório");
     if (isReport){ CDS.report.show(r[1], r[2]); return; }
     lastHash = location.hash || "#/";
     if (mountedId) document.title = currentDef().name + " — Castanha DS";
@@ -144,9 +145,10 @@
     title.textContent = def.name;
     document.title = def.name + " — Castanha DS";
     links.innerHTML = "";
-    if (def.task) links.appendChild(kit.el("a", { href: JIRA + def.task, target: "_blank", rel: "noopener", text: def.task }));
-    if (def.figma) links.appendChild(kit.el("a", { href: def.figma, target: "_blank", rel: "noopener", text: "Figma" }));
-    if (def.zeroheight) links.appendChild(kit.el("a", { href: def.zeroheight, target: "_blank", rel: "noopener", text: "Zeroheight" }));
+    // Link do DS (Neutral, ícone de link no lugar da seta: abre em outra aba)
+    [[def.task && JIRA + def.task, def.task], [def.figma, "Figma"], [def.zeroheight, "Zeroheight"]].forEach(function(l){
+      if (l[0]) links.appendChild(kit.el("cds-link", { label: l[1], href: l[0], target: "_blank", appearance: "neutral", icon: "link-line" }));
+    });
     readout("", false);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });
     markCurrent();
@@ -164,15 +166,14 @@
   }
   kit.seg($("viewport"), { label: "Viewport", value: "fluid", options: [["360","360"],["744","744"],["1366","1366"],["fluid","Fluido"]], onChange: setViewport });
 
-  // ---------- Tema — light padrão, dark opcional ----------
-  var root = document.documentElement, tbtn = $("theme"), ticon = $("theme-icon");
-  var SUN = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
-  var MOON = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
+  // ---------- Tema — light padrão, dark opcional (Icon Button + Tooltip do DS) ----------
+  var root = document.documentElement, tbtn = $("theme"), ttip = $("theme-tip");
   function paintTheme(){
     var dark = root.getAttribute("data-theme") === "dark";
-    ticon.innerHTML = dark ? MOON : SUN;
-    tbtn.setAttribute("aria-pressed", String(dark));
-    tbtn.setAttribute("aria-label", dark ? "Ativar tema claro" : "Ativar tema escuro");
+    tbtn.setAttribute("icon", dark ? "light-mode-line" : "dark-mode-line");
+    tbtn.setAttribute("pressed", String(dark));
+    tbtn.setAttribute("label", dark ? "Ativar tema claro" : "Ativar tema escuro");
+    ttip.setAttribute("text", dark ? "Tema claro" : "Tema escuro");
   }
   tbtn.addEventListener("click", function(){
     root.setAttribute("data-theme", root.getAttribute("data-theme") === "dark" ? "light" : "dark");

@@ -121,7 +121,7 @@
 <link rel="stylesheet" href="components/modal-date-picker/modal-date-picker.css?v=55452764" />
 <!-- /@components:css -->
 <!-- Shell do playground -->
-<link rel="stylesheet" href="styles/playground.css?v=f4717d91" />
+<link rel="stylesheet" href="styles/playground.css?v=0f174943" />
 <link rel="stylesheet" href="styles/report.css?v=e8930c73" />
 <link rel="stylesheet" href="styles/docs.css?v=0625c949" />
 </head>
@@ -130,12 +130,11 @@
 <header class="pg-header">
   <p class="pg-brand"><a href="#/">Castanha DS:</a> <span>Playground de handoff design &lt;&gt; Code</span></p>
   <div class="pg-header__actions">
-  <a class="pg-iconbtn" id="report-btn" href="#/relatorio" aria-label="Abrir relatório do projeto" title="Relatório">
-    <span class="cds-icon cds-icon--chart-up-line" aria-hidden="true"></span>
-  </a>
-  <button class="pg-iconbtn" id="theme" type="button" aria-label="Ativar tema escuro" aria-pressed="false" title="Alternar tema">
-    <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
-  </button>
+    <!-- Icon Button (Ghost · Neutral · Small) + Tooltip do DS (D69, Fase 1) -->
+    <cds-icon-button id="report-btn" kind="ghost" appearance="neutral" size="small" icon="chart-up-line" label="Abrir relatório do projeto" pressed="false"></cds-icon-button>
+    <cds-tooltip id="report-tip" for="report-btn" placement="bottom" show-label="false" text="Relatório"></cds-tooltip>
+    <cds-icon-button id="theme" kind="ghost" appearance="neutral" size="small" icon="dark-mode-line" label="Ativar tema escuro" pressed="false"></cds-icon-button>
+    <cds-tooltip id="theme-tip" for="theme" placement="bottom" show-label="false" text="Tema escuro"></cds-tooltip>
   </div>
 </header>
 
@@ -350,7 +349,7 @@
 <script src="components/text-input/text-input.playground.js?v=f615a107"></script>
 <script src="components/toast/toast.js?v=8b1c767f"></script>
 <script src="components/toast/toast.playground.js?v=f81b707d"></script>
-<script src="components/tooltip/tooltip.js?v=26571687"></script>
+<script src="components/tooltip/tooltip.js?v=3669d420"></script>
 <script src="components/tooltip/tooltip.playground.js?v=4a5bee78"></script>
 <script src="components/topic/topic.js?v=5e43844e"></script>
 <script src="components/topic/topic.playground.js?v=dd9521d0"></script>
@@ -403,6 +402,6 @@
 <!-- /@components:js -->
 <!-- Shell: side menu, rotas, tema, viewport, relatório -->
 <script src="scripts/report.js?v=c81110c6"></script>
-<script src="scripts/app.js?v=29a3ea03"></script>
+<script src="scripts/app.js?v=495e2e08"></script>
 </body>
 </html>

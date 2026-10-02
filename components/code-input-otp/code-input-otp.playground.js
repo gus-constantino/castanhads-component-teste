@@ -41,10 +41,12 @@ CDS.register({
     // Show Separator por dígito
     var sepWrap = kit.el("div", { "class": "pg-ctrl" });
     sepWrap.appendChild(kit.el("span", { "class": "pg-lbl", text: "Show Separator — depois de qual dígito" }));
-    var allNone = kit.el("div", { "class": "pg-seg", style: "margin-bottom:var(--common-sizes-6)" });
-    var bAll = kit.el("button", { type: "button", text: "Todos" }), bNone = kit.el("button", { type: "button", text: "Nenhum" });
-    allNone.appendChild(bAll); allNone.appendChild(bNone); sepWrap.appendChild(allNone);
-    chips = kit.el("div", { "class": "pg-chips", role: "group", "aria-label": "Separador depois do dígito" });
+    var allNone = kit.el("div", { "class": "pg-actions" });
+    kit.button(allNone, { label: "Todos", kind: "ghost", onClick: function(){ sepOn = []; for (var i = 1; i < n(); i++) sepOn.push(i); buildSep(); applySeps(); } });
+    kit.button(allNone, { label: "Nenhum", kind: "ghost", onClick: function(){ sepOn = []; buildSep(); applySeps(); } });
+    sepWrap.appendChild(allNone);
+    // multisseleção de verdade: Filter Chips (cada um liga/desliga)
+    chips = kit.el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: "Separador depois do dígito", "class": "pg-choice" });
     sepWrap.appendChild(chips);
     kit.hint(sepWrap, "O último dígito nunca tem separador. Ex.: só o 3 agrupa 3 + 3.");
     panel.appendChild(sepWrap);
@@ -57,18 +59,16 @@ CDS.register({
     function buildSep(){
       chips.innerHTML = "";
       for (var pos = 1; pos < n(); pos++){
-        var b = kit.el("button", { type: "button", "data-p": pos, text: String(pos), "aria-label": "Separador depois do dígito " + pos, "aria-pressed": String(sepOn.indexOf(pos) !== -1) });
-        b.addEventListener("click", function(){
-          var at = parseInt(this.dataset.p, 10), on = this.getAttribute("aria-pressed") !== "true";
-          this.setAttribute("aria-pressed", String(on));
+        var b = kit.el("cds-filter-chip", { "data-p": pos, label: String(pos), "show-lead-icon": "false", selected: sepOn.indexOf(pos) !== -1 });
+        b.addEventListener("cds-change", function(e){
+          e.stopPropagation();
+          var at = parseInt(this.dataset.p, 10), on = e.detail.selected;
           sepOn = on ? sepOn.concat(at) : sepOn.filter(function(x){ return x !== at; });
           applySeps();
         });
         chips.appendChild(b);
       }
     }
-    bAll.addEventListener("click", function(){ sepOn = []; for (var i = 1; i < n(); i++) sepOn.push(i); buildSep(); applySeps(); });
-    bNone.addEventListener("click", function(){ sepOn = []; buildSep(); applySeps(); });
 
     kit.section(panel, "Texts");
     kit.text(panel, { label: "Text Label", value: "Código", onInput: function(v){ set("label", v); } });

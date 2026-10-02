@@ -13,7 +13,7 @@ CDS.register({
     function set(k, v){ if (v == null) delete attrs[k]; else attrs[k] = v; kit.attr(p, k, v); }
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "positive", options: [["positive","Positive"],["warning","Warning"],["informative","Informative"]], hint: "Warning usa role=alert; os outros, role=status.", onChange: function(v){ set("appearance", v === "positive" ? null : v); } });
-    var again = kit.el("button", { type: "button", "class": "pg-text", text: "Mostrar de novo" }); again.addEventListener("click", function(){ make(); ctx.readout("", false); }); panel.appendChild(again);
+    kit.button(panel, { label: "Mostrar de novo", onClick: function(){ make(); ctx.readout("", false); } });
     kit.section(panel, "Booleans");
     kit.toggle(panel, { label: "Show Label", checked: true, onChange: function(on){ set("show-label", on ? null : "false"); } });
     kit.toggle(panel, { label: "Show Close Button", checked: true, onChange: function(on){ set("show-close-button", on ? null : "false"); } });

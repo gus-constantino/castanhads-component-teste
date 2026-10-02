@@ -9,6 +9,11 @@
  *     task: "CDS-1607", figma: "https://…", zeroheight: "https://…",
  *     mount(ctx){ … }   // ctx.preview · ctx.panel · ctx.kit · ctx.readout(text, done)
  *   });
+ *
+ * Os controles do painel são componentes do próprio Castanha DS (D69 · Fase 2 de docs/PLANO-UI-DS.md):
+ *   seg → Chips Group + Filter Chips (um selecionado) · toggle → Switch · text → Text Input · range → Slider
+ *   select → Radio Select Input · iconSwap / illustrationSwap → Async Select Input (com busca) · button → Main Button
+ *   nested → Tag + Filter Chips. A API do kit não mudou: toggle devolve { checked }, text/range/select { value }.
  */
 (function(){
   "use strict";
@@ -37,59 +42,71 @@
 
   function hint(parent, text){ var h = el("div", { "class": "pg-hint", html: text }); parent.appendChild(h); return h; }
 
-  /** Segmented control. options: [[valor, rótulo], …] */
+  /** Escolha única → Chips Group com Filter Chips (o DS não tem segmented control, C85). options: [[valor, rótulo], …]
+   *  Retorna o grupo; grupo.setValue(v) marca uma opção por fora (sem chamar onChange). */
   function seg(panel, o){
     var lid = id("l"), wrap = el("div", { "class": "pg-ctrl" });
     wrap.appendChild(el("span", { "class": "pg-lbl", id: lid, text: o.label }));
-    var group = el("div", { "class": "pg-seg", role: "group", "aria-labelledby": lid });
+    var group = el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: o.label, "class": "pg-choice" });
+    function mark(v){ [].forEach.call(group.querySelectorAll("cds-filter-chip"), function(c){ CDS.attr(c, "selected", c.dataset.v === String(v)); }); }
     o.options.forEach(function(opt){
-      var b = el("button", { type: "button", "data-v": opt[0], "aria-pressed": String(opt[0] === o.value), text: opt[1] });
-      b.addEventListener("click", function(){
-        group.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+      var c = el("cds-filter-chip", { label: opt[1], "show-lead-icon": "false", "data-v": opt[0], selected: opt[0] === o.value });
+      c.addEventListener("cds-change", function(e){
+        e.stopPropagation();
+        mark(opt[0]); // escolha única: clicar no selecionado não desmarca
+        if (!e.detail.selected) return;
         o.onChange(opt[0]);
       });
-      group.appendChild(b);
+      group.appendChild(c);
     });
+    group.setValue = mark;
     wrap.appendChild(group);
     if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
     return group;
   }
 
-  /** Switch (boolean). Retorna o <input type=checkbox>. */
+  /** Booleano → Switch do DS. Retorna { checked } (ler e escrever, sem chamar onChange) e .el. */
   function toggle(panel, o){
-    var iid = id("c"), wrap = el("div", { "class": "pg-ctrl pg-row" });
-    wrap.appendChild(el("label", { "class": "pg-lbl", "for": iid, text: o.label }));
-    var input = el("input", { type: "checkbox", id: iid, checked: !!o.checked });
-    var sw = el("label", { "class": "pg-switch" }, [input, el("span", { "class": "pg-track" }), el("span", { "class": "pg-thumb" })]);
-    input.addEventListener("change", function(){ o.onChange(input.checked); });
+    var wrap = el("div", { "class": "pg-ctrl" });
+    var sw = el("cds-switch", { label: o.label, status: o.checked ? "selected" : "unselected", "class": "pg-switch-ds" });
+    sw.addEventListener("cds-change", function(e){ e.stopPropagation(); o.onChange(e.detail.status === "selected"); });
     wrap.appendChild(sw);
-    panel.appendChild(wrap);
-    return input;
-  }
-
-  /** Campo de texto. Retorna o <input>. */
-  function text(panel, o){
-    var iid = id("c"), wrap = el("div", { "class": "pg-ctrl" });
-    wrap.appendChild(el("label", { "class": "pg-lbl", "for": iid, text: o.label }));
-    var input = el("input", { "class": "pg-text", type: "text", id: iid, value: o.value || "", placeholder: o.placeholder, autocomplete: "off" });
-    input.addEventListener("input", function(){ o.onInput(input.value); });
-    wrap.appendChild(input);
     if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
-    return input;
+    return { el: sw, get checked(){ return sw.getAttribute("status") === "selected"; }, set checked(v){ CDS.attr(sw, "status", v ? "selected" : "unselected"); } };
   }
 
-  /** Slider com valor. Retorna o <input type=range>. */
-  function range(panel, o){
-    var iid = id("c"), wrap = el("div", { "class": "pg-ctrl" });
-    wrap.appendChild(el("label", { "class": "pg-lbl", "for": iid, text: o.label }));
-    var input = el("input", { type: "range", id: iid, min: o.min, max: o.max, value: o.value });
-    var out = el("output", { "for": iid, text: String(o.value) });
-    input.addEventListener("input", function(){ out.textContent = input.value; o.onInput(parseInt(input.value, 10)); });
-    wrap.appendChild(el("div", { "class": "pg-range" }, [input, out]));
+  /** Campo de texto → Text Input do DS (sem ícone e sem mensagem; a dica fica embaixo). Retorna o elemento (.value). */
+  function text(panel, o){
+    var wrap = el("div", { "class": "pg-ctrl" });
+    var f = el("cds-text-input", { label: o.label, value: o.value || "", placeholder: o.placeholder, "show-lead-icon": "false", "show-required": "false", "show-supporting-content": "false", "class": "pg-field" });
+    f.addEventListener("cds-change", function(e){ e.stopPropagation(); o.onInput(f.value); });
+    wrap.appendChild(f);
+    if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
-    return input;
+    return f;
+  }
+
+  /** Número num intervalo → Slider do DS (passo 1, com o valor na bolha). Retorna { value } e .el. */
+  function range(panel, o){
+    var wrap = el("div", { "class": "pg-ctrl" });
+    wrap.appendChild(el("span", { "class": "pg-lbl", text: o.label }));
+    var sl = el("cds-slider", { min: o.min, max: o.max, step: 1, value: o.value, label: o.label, "show-stops": "false", "class": "pg-slider" });
+    var last = o.value;
+    sl.addEventListener("input", function(){ var v = sl.values[0]; if (v !== last){ last = v; o.onInput(v); } });
+    sl.addEventListener("cds-change", function(e){ e.stopPropagation(); var v = sl.values[0]; if (v !== last){ last = v; o.onInput(v); } });
+    wrap.appendChild(sl);
+    panel.appendChild(wrap);
+    return { el: sl, get value(){ return String(sl.values[0]); } };
+  }
+
+  /** Botão de ação do painel → Main Button do DS (Neutral · Small, sem ícones). */
+  function button(panel, o){
+    var b = el("cds-main-button", { kind: o.kind || "default", appearance: "neutral", size: "small", label: o.label, "show-lead-icon": "false", "show-trailing-icon": "false", "class": "pg-action" });
+    b.addEventListener("click", o.onClick);
+    if (panel) panel.appendChild(b);
+    return b;
   }
 
   /**
@@ -101,12 +118,12 @@
     var box = el("div", { "class": "pg-nested" });
     var head = el("div", { "class": "pg-nested__head" }, [
       el("span", { "class": "pg-nested__title", text: o.title }),
-      el("span", { "class": "pg-badge" + (o.exposed ? " is-on" : ""), text: o.exposed ? "exposta" : "fixa" })
+      el("cds-tag", { label: o.exposed ? "exposta" : "fixa", appearance: o.exposed ? "accent" : "neutral", "show-lead-item": "false" })
     ]);
     box.appendChild(head);
     if (o.note) box.appendChild(el("div", { "class": "pg-hint", html: o.note }));
     var picker = null, sel = 0;
-    if (o.items){ picker = el("div", { "class": "pg-chips", role: "group", "aria-label": "Instância" }); box.appendChild(picker); }
+    if (o.items){ picker = el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: "Instância", "class": "pg-choice" }); box.appendChild(picker); }
     var dl = el("dl", { "class": "pg-props" });
     box.appendChild(dl);
     panel.appendChild(box);
@@ -117,12 +134,12 @@
         if (picker.children.length !== items.length){
           picker.innerHTML = "";
           items.forEach(function(lbl, i){
-            var b = el("button", { type: "button", text: lbl, "aria-pressed": String(i === sel) });
-            b.addEventListener("click", function(){ sel = i; refresh(); });
+            var b = el("cds-filter-chip", { label: lbl, "show-lead-icon": "false" });
+            b.addEventListener("cds-change", function(e){ e.stopPropagation(); sel = i; refresh(); });
             picker.appendChild(b);
           });
         }
-        Array.prototype.forEach.call(picker.children, function(b, i){ b.setAttribute("aria-pressed", String(i === sel)); });
+        Array.prototype.forEach.call(picker.children, function(b, i){ CDS.attr(b, "selected", i === sel); });
       }
       dl.innerHTML = "";
       o.props(sel).forEach(function(kv){
@@ -142,46 +159,36 @@
     new MutationObserver(run).observe(node, { attributes: true, childList: true, subtree: true });
   }
 
-  /** Select. options: [[valor, rótulo], …]. Retorna o <select>. */
+  /** Lista curta → Radio Select Input do DS. options: [[valor, rótulo], …]. Retorna o elemento (.value). */
   function select(panel, o){
-    var iid = id("c"), wrap = el("div", { "class": "pg-ctrl" });
-    wrap.appendChild(el("label", { "class": "pg-lbl", "for": iid, text: o.label }));
-    var sel = el("select", { "class": "pg-text", id: iid });
-    o.options.forEach(function(opt){ var op = el("option", { value: opt[0], text: opt[1] }); if (opt[0] === o.value) op.selected = true; sel.appendChild(op); });
-    sel.addEventListener("change", function(){ o.onChange(sel.value); });
-    wrap.appendChild(sel);
+    var wrap = el("div", { "class": "pg-ctrl" });
+    var f = el(o.searchable ? "cds-async-select-input" : "cds-radio-select-input", { label: o.label, "show-lead-icon": "false", "show-required": "false", "show-supporting-content": "false", placeholder: o.placeholder || "Escolher", "class": "pg-field" });
+    f.options = o.options.map(function(opt){ return { value: opt[0], label: opt[1] }; });
+    if (o.value != null) f.value = o.value;
+    f.addEventListener("cds-change", function(e){ e.stopPropagation(); if (f.value) o.onChange(f.value); });
+    f.addEventListener("cds-toggle", function(e){ e.stopPropagation(); });
+    wrap.appendChild(f);
     if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
-    return sel;
+    return f;
   }
 
-  /** Instance swap de ícone — agrupado por bucket (categoria do [Caju] Icons); deprecated e glifos ficam de fora. */
+  /** Instance swap de ícone → Async Select Input (busca por nome ou categoria). Deprecated e glifos ficam de fora.
+   *  O Select do DS não tem grupos de opções: a categoria vai no rótulo (C85). */
   function iconSwap(panel, o){
     var A = window.CDS.assets || {}, icons = A.icons || [], buckets = (A.iconBuckets || []).filter(function(b){ return !b.deprecated && !b.glyphs; });
-    var sel = select(panel, { label: o.label || "Icon (instance swap)", value: o.value, options: [],
-      hint: buckets.reduce(function(t, b){ return t + b.icons.length; }, 0) + " ícones do [Caju] Icons em " + buckets.length + " categorias · <a href=\"#/caju-icons\">ver biblioteca</a>",
-      onChange: o.onChange });
-    var has = {}; icons.forEach(function(i){ has[i.name] = true; });
-    buckets.forEach(function(b){
-      var g = el("optgroup", { label: b.name });
-      b.icons.forEach(function(n){ if (!has[n]) return; var op = el("option", { value: n, text: n }); if (n === o.value) op.selected = true; g.appendChild(op); });
-      if (g.children.length) sel.appendChild(g);
-    });
-    return sel;
+    var has = {}, opts = []; icons.forEach(function(i){ has[i.name] = true; });
+    buckets.forEach(function(b){ b.icons.forEach(function(n){ if (has[n]) opts.push([n, n + " · " + b.name]); }); });
+    return select(panel, { label: o.label || "Icon (instance swap)", value: o.value, options: opts, searchable: true, placeholder: "Buscar ícone",
+      hint: opts.length + " ícones do [Caju] Icons em " + buckets.length + " categorias · <a href=\"#/caju-icons\">ver biblioteca</a>", onChange: o.onChange });
   }
 
-  /** Instance swap de ilustração — agrupado pela categoria do [Caju] Illustrations (valor = "<categoria>/<nome>"). */
+  /** Instance swap de ilustração → Async Select Input (valor = "<categoria>/<nome>"). */
   function illustrationSwap(panel, o){
-    var A = window.CDS.assets || {}, buckets = A.illustrationBuckets || [], n = (A.illustrations || []).length;
-    var sel = select(panel, { label: o.label || "Illustration (instance swap)", value: o.value, options: [],
-      hint: n + " ilustrações do [Caju] Illustrations em " + buckets.length + " categorias · <a href=\"#/caju-illustrations\">ver biblioteca</a>",
-      onChange: o.onChange });
-    buckets.forEach(function(b){
-      var g = el("optgroup", { label: b.name });
-      b.items.forEach(function(k){ var op = el("option", { value: k, text: k.split("/").pop() }); if (k === o.value) op.selected = true; g.appendChild(op); });
-      sel.appendChild(g);
-    });
-    return sel;
+    var A = window.CDS.assets || {}, buckets = A.illustrationBuckets || [], opts = [];
+    buckets.forEach(function(b){ b.items.forEach(function(k){ opts.push([k, k.split("/").pop() + " · " + b.name]); }); });
+    return select(panel, { label: o.label || "Illustration (instance swap)", value: o.value, options: opts, searchable: true, placeholder: "Buscar ilustração",
+      hint: opts.length + " ilustrações do [Caju] Illustrations em " + buckets.length + " categorias · <a href=\"#/caju-illustrations\">ver biblioteca</a>", onChange: o.onChange });
   }
 
   /**
@@ -264,7 +271,7 @@
     var statusSeg;
     function readout(){ ctx.readout(p.getAttribute("status"), false); }
     p.addEventListener("cds-change", function(){
-      statusSeg.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.v === p.getAttribute("status"))); });
+      statusSeg.setValue(p.getAttribute("status"));
       readout();
     });
     section(ctx.panel, "Variants");
@@ -294,9 +301,7 @@
     live.addEventListener("cds-action", function(e){ ctx.readout("cds-action · " + e.detail.action, false); live.close(); });
     ctx.preview.appendChild(spec); ctx.preview.appendChild(live);
     function set(k, v){ if (v == null) delete attrs[k]; else attrs[k] = v; attr(spec, k, v); attr(live, k, v); }
-    var open = el("button", { type: "button", "class": "pg-text", text: "Abrir de verdade" });
-    open.addEventListener("click", function(){ live.show(); });
-    panel.appendChild(open);
+    button(panel, { label: "Abrir de verdade", onClick: function(){ live.show(); } });
     if (o.hint) hint(panel, o.hint);
     if (o.variants) o.variants(panel, set);
     if (o.booleans && o.booleans.length){
@@ -315,5 +320,5 @@
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
 })();

@@ -9,7 +9,7 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "positive", options: [["positive","Positive"],["warning","Warning"]], hint: "Positive usa role=status; Warning usa role=alert.", onChange: function(v){ set("appearance", v === "positive" ? null : v); } });
     kit.hint(panel, "Use o seletor de Viewport (360) para ver o layout mobile do Figma.");
-    var again = kit.el("button", { type: "button", "class": "pg-text", text: "Mostrar de novo" }); again.addEventListener("click", function(){ make(); ctx.readout("", false); }); panel.appendChild(again);
+    kit.button(panel, { label: "Mostrar de novo", onClick: function(){ make(); ctx.readout("", false); } });
     kit.section(panel, "Booleans");
     kit.toggle(panel, { label: "Show Trailing Item", checked: true, onChange: function(on){ set("show-trailing-item", on ? null : "false"); } });
     kit.section(panel, "Texts");

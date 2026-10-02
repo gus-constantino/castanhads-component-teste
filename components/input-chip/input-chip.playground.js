@@ -9,7 +9,7 @@ CDS.register({
     kit.section(panel, "Variants");
     var dis = kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ kit.attr(p, "disabled", on); } });
     kit.hint(panel, "Clicar no chip inteiro remove (alvo de 40px). Hovered e Pressed são interação.");
-    var again = kit.el("button", { type: "button", "class": "pg-text", text: "Restaurar chip" }); again.addEventListener("click", function(){ make(); ctx.readout("", false); }); panel.appendChild(again);
+    kit.button(panel, { label: "Restaurar chip", onClick: function(){ make(); ctx.readout("", false); } });
     kit.section(panel, "Booleans");
     var lead = kit.toggle(panel, { label: "Show Lead Icon", checked: true, onChange: function(on){ kit.attr(p, "show-lead-icon", on ? null : "false"); } });
     kit.section(panel, "Texts");

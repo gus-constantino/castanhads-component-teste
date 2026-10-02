@@ -1536,7 +1536,7 @@ CDS.register({
     kit.section(panel, "Variants");
     var dis = kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ kit.attr(p, "disabled", on); } });
     kit.hint(panel, "Clicar no chip inteiro remove (alvo de 40px). Hovered e Pressed são interação.");
-    var again = kit.el("button", { type: "button", "class": "pg-text", text: "Restaurar chip" }); again.addEventListener("click", function(){ make(); ctx.readout("", false); }); panel.appendChild(again);
+    kit.button(panel, { label: "Restaurar chip", onClick: function(){ make(); ctx.readout("", false); } });
     kit.section(panel, "Booleans");
     var lead = kit.toggle(panel, { label: "Show Lead Icon", checked: true, onChange: function(on){ kit.attr(p, "show-lead-icon", on ? null : "false"); } });
     kit.section(panel, "Texts");
@@ -3096,7 +3096,7 @@ CDS.register({
     function set(k, v){ if (v == null) delete attrs[k]; else attrs[k] = v; kit.attr(p, k, v); }
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "positive", options: [["positive","Positive"],["warning","Warning"],["informative","Informative"]], hint: "Warning usa role=alert; os outros, role=status.", onChange: function(v){ set("appearance", v === "positive" ? null : v); } });
-    var again = kit.el("button", { type: "button", "class": "pg-text", text: "Mostrar de novo" }); again.addEventListener("click", function(){ make(); ctx.readout("", false); }); panel.appendChild(again);
+    kit.button(panel, { label: "Mostrar de novo", onClick: function(){ make(); ctx.readout("", false); } });
     kit.section(panel, "Booleans");
     kit.toggle(panel, { label: "Show Label", checked: true, onChange: function(on){ set("show-label", on ? null : "false"); } });
     kit.toggle(panel, { label: "Show Close Button", checked: true, onChange: function(on){ set("show-close-button", on ? null : "false"); } });
@@ -3710,7 +3710,7 @@ CDS.register({
     function set(k, v){ if (v == null) delete attrs[k]; else attrs[k] = v; kit.attr(p, k, v); }
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "positive", options: [["positive","Positive"],["warning","Warning"],["informative","Informative"]], hint: "Warning usa role=alert; os outros, role=status.", onChange: function(v){ set("appearance", v === "positive" ? null : v); } });
-    var again = kit.el("button", { type: "button", "class": "pg-text", text: "Mostrar de novo" }); again.addEventListener("click", function(){ make(); ctx.readout("", false); }); panel.appendChild(again);
+    kit.button(panel, { label: "Mostrar de novo", onClick: function(){ make(); ctx.readout("", false); } });
     kit.section(panel, "Booleans");
     kit.toggle(panel, { label: "Show Label", checked: true, onChange: function(on){ set("show-label", on ? null : "false"); } });
     kit.toggle(panel, { label: "Show Close Button", checked: true, onChange: function(on){ set("show-close-button", on ? null : "false"); } });
@@ -3863,7 +3863,7 @@ CDS.register({
   id: "fixed-tab", name: "Fixed Tab", category: "Navigation", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=6500-6958",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel, p = kit.el("cds-fixed-tab", {}); ctx.preview.appendChild(p);
-    p.addEventListener("cds-change", function(e){ ctx.readout("Active Item " + e.detail.index, false); seg.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.v === String(e.detail.index))); }); });
+    p.addEventListener("cds-change", function(e){ ctx.readout("Active Item " + e.detail.index, false); seg.setValue(String(e.detail.index)); });
     kit.hint(panel, "Setas, Home e End trocam de aba (só a ativa entra no Tab).");
     kit.section(panel, "Variants");
     var opts = []; for (var i = 1; i <= 3; i++) opts.push([String(i), String(i)]);
@@ -3899,7 +3899,7 @@ CDS.register({
   id: "scrollable-tab", name: "Scrollable Tab", category: "Navigation", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=6646-181",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel, p = kit.el("cds-scrollable-tab", {}); ctx.preview.appendChild(p);
-    p.addEventListener("cds-change", function(e){ ctx.readout("Active Item " + e.detail.index, false); seg.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.v === String(e.detail.index))); }); });
+    p.addEventListener("cds-change", function(e){ ctx.readout("Active Item " + e.detail.index, false); seg.setValue(String(e.detail.index)); });
     kit.hint(panel, "Setas, Home e End trocam de aba (só a ativa entra no Tab). Abas no tamanho do texto, com rolagem horizontal.");
     kit.section(panel, "Variants");
     var opts = []; for (var i = 1; i <= 6; i++) opts.push([String(i), String(i)]);
@@ -5063,10 +5063,12 @@ CDS.register({
     // Show Separator por dígito
     var sepWrap = kit.el("div", { "class": "pg-ctrl" });
     sepWrap.appendChild(kit.el("span", { "class": "pg-lbl", text: "Show Separator — depois de qual dígito" }));
-    var allNone = kit.el("div", { "class": "pg-seg", style: "margin-bottom:var(--common-sizes-6)" });
-    var bAll = kit.el("button", { type: "button", text: "Todos" }), bNone = kit.el("button", { type: "button", text: "Nenhum" });
-    allNone.appendChild(bAll); allNone.appendChild(bNone); sepWrap.appendChild(allNone);
-    chips = kit.el("div", { "class": "pg-chips", role: "group", "aria-label": "Separador depois do dígito" });
+    var allNone = kit.el("div", { "class": "pg-actions" });
+    kit.button(allNone, { label: "Todos", kind: "ghost", onClick: function(){ sepOn = []; for (var i = 1; i < n(); i++) sepOn.push(i); buildSep(); applySeps(); } });
+    kit.button(allNone, { label: "Nenhum", kind: "ghost", onClick: function(){ sepOn = []; buildSep(); applySeps(); } });
+    sepWrap.appendChild(allNone);
+    // multisseleção de verdade: Filter Chips (cada um liga/desliga)
+    chips = kit.el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: "Separador depois do dígito", "class": "pg-choice" });
     sepWrap.appendChild(chips);
     kit.hint(sepWrap, "O último dígito nunca tem separador. Ex.: só o 3 agrupa 3 + 3.");
     panel.appendChild(sepWrap);
@@ -5079,18 +5081,16 @@ CDS.register({
     function buildSep(){
       chips.innerHTML = "";
       for (var pos = 1; pos < n(); pos++){
-        var b = kit.el("button", { type: "button", "data-p": pos, text: String(pos), "aria-label": "Separador depois do dígito " + pos, "aria-pressed": String(sepOn.indexOf(pos) !== -1) });
-        b.addEventListener("click", function(){
-          var at = parseInt(this.dataset.p, 10), on = this.getAttribute("aria-pressed") !== "true";
-          this.setAttribute("aria-pressed", String(on));
+        var b = kit.el("cds-filter-chip", { "data-p": pos, label: String(pos), "show-lead-icon": "false", selected: sepOn.indexOf(pos) !== -1 });
+        b.addEventListener("cds-change", function(e){
+          e.stopPropagation();
+          var at = parseInt(this.dataset.p, 10), on = e.detail.selected;
           sepOn = on ? sepOn.concat(at) : sepOn.filter(function(x){ return x !== at; });
           applySeps();
         });
         chips.appendChild(b);
       }
     }
-    bAll.addEventListener("click", function(){ sepOn = []; for (var i = 1; i < n(); i++) sepOn.push(i); buildSep(); applySeps(); });
-    bNone.addEventListener("click", function(){ sepOn = []; buildSep(); applySeps(); });
 
     kit.section(panel, "Texts");
     kit.text(panel, { label: "Text Label", value: "Código", onInput: function(v){ set("label", v); } });
@@ -6176,7 +6176,7 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "positive", options: [["positive","Positive"],["warning","Warning"]], hint: "Positive usa role=status; Warning usa role=alert.", onChange: function(v){ set("appearance", v === "positive" ? null : v); } });
     kit.hint(panel, "Use o seletor de Viewport (360) para ver o layout mobile do Figma.");
-    var again = kit.el("button", { type: "button", "class": "pg-text", text: "Mostrar de novo" }); again.addEventListener("click", function(){ make(); ctx.readout("", false); }); panel.appendChild(again);
+    kit.button(panel, { label: "Mostrar de novo", onClick: function(){ make(); ctx.readout("", false); } });
     kit.section(panel, "Booleans");
     kit.toggle(panel, { label: "Show Trailing Item", checked: true, onChange: function(on){ set("show-trailing-item", on ? null : "false"); } });
     kit.section(panel, "Texts");
@@ -7947,7 +7947,7 @@ CDS.register({
     var spec = kit.el("cds-modal-date-picker", Object.assign({ inline: "", open: "" }, attrs)), live = kit.el("cds-modal-date-picker", attrs);
     ctx.preview.appendChild(spec); ctx.preview.appendChild(live);
     live.addEventListener("cds-change", function(e){ ctx.readout(e.detail.value || (e.detail.start + " → " + e.detail.end), true); });
-    var b = kit.el("button", { type: "button", "class": "pg-text", text: "Abrir de verdade" }); b.addEventListener("click", function(){ live.show(); }); panel.appendChild(b);
+    kit.button(panel, { label: "Abrir de verdade", onClick: function(){ live.show(); } });
     kit.hint(panel, "Só desktop: no 360 e no 744 o Viewport Restriction cobre o modal. A data só vale no Confirmar.");
     function set(k, v){ [spec, live].forEach(function(n){ kit.attr(n, k, v); }); }
     kit.section(panel, "Variants");

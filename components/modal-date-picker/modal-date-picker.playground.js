@@ -6,7 +6,7 @@ CDS.register({
     var spec = kit.el("cds-modal-date-picker", Object.assign({ inline: "", open: "" }, attrs)), live = kit.el("cds-modal-date-picker", attrs);
     ctx.preview.appendChild(spec); ctx.preview.appendChild(live);
     live.addEventListener("cds-change", function(e){ ctx.readout(e.detail.value || (e.detail.start + " → " + e.detail.end), true); });
-    var b = kit.el("button", { type: "button", "class": "pg-text", text: "Abrir de verdade" }); b.addEventListener("click", function(){ live.show(); }); panel.appendChild(b);
+    kit.button(panel, { label: "Abrir de verdade", onClick: function(){ live.show(); } });
     kit.hint(panel, "Só desktop: no 360 e no 744 o Viewport Restriction cobre o modal. A data só vale no Confirmar.");
     function set(k, v){ [spec, live].forEach(function(n){ kit.attr(n, k, v); }); }
     kit.section(panel, "Variants");

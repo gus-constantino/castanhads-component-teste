@@ -235,8 +235,10 @@
       var A = window.CDS.assets || {}, meta = {};
       (A.icons || []).forEach(function(i){ meta[i.name] = i; });
       var wrap = el("div", "pg-doc-icons");
-      var search = el("input", "pg-text pg-doc-icons__search");
-      search.type = "search"; search.placeholder = "Buscar por nome ou palavra-chave (ex.: cartão, seta, pix)"; search.setAttribute("aria-label", "Buscar ícone");
+      // Search Input do DS (Fase 2 do plano UI no DS): rótulo visível, lupa fixa e botão de limpar
+      var search = document.createElement("cds-search-input"); search.className = "pg-doc-icons__search";
+      search.setAttribute("label", "Buscar ícone"); search.setAttribute("placeholder", "Nome ou palavra-chave (ex.: cartão, seta, pix)");
+      search.setAttribute("show-required", "false"); search.setAttribute("show-supporting-content", "false");
       var tools = el("div", "pg-doc-icons__tools");
       var count = el("p", "pg-doc-note"); count.setAttribute("aria-live", "polite");
       var toggleAll = el("button", "pg-doc-link", "Abrir todas"); toggleAll.type = "button";
@@ -274,7 +276,7 @@
       });
       wrap.appendChild(acc);
       function filter(){
-        var q = fold(search.value.trim()), shown = 0;
+        var q = fold(String(search.value || "").trim()), shown = 0;
         sections.forEach(function(s){
           var any = 0;
           s.tiles.forEach(function(t){ var ok = !q || t.text.indexOf(q) !== -1; t.li.hidden = !ok; if (ok) any++; });
@@ -282,11 +284,12 @@
           if (q) s.det.open = any > 0;
           shown += any;
         });
-        count.textContent = shown + " ícone" + (shown === 1 ? "" : "s") + (q ? " para “" + search.value.trim() + "”" : " em " + sections.length + " categorias") + ". Clique para copiar o nome.";
+        count.textContent = shown + " ícone" + (shown === 1 ? "" : "s") + (q ? " para “" + String(search.value || "").trim() + "”" : " em " + sections.length + " categorias") + ". Clique para copiar o nome.";
       }
       var wasQuery = false;
-      search.addEventListener("input", function(){
-        var has = !!search.value.trim();
+      search.addEventListener("cds-change", function(e){
+        e.stopPropagation();
+        var has = !!String(search.value || "").trim();
         if (wasQuery && !has) sections.forEach(function(s){ s.det.open = s.first; }); // limpou a busca: volta ao estado inicial
         wasQuery = has; filter();
       });
@@ -302,8 +305,10 @@
       var A = window.CDS.assets || {}, meta = {};
       (A.illustrations || []).forEach(function(i){ meta[i.name] = i; });
       var wrap = el("div", "pg-doc-icons pg-doc-ills");
-      var search = el("input", "pg-text pg-doc-icons__search");
-      search.type = "search"; search.placeholder = "Buscar por nome, categoria ou uso (ex.: cartão, pix, erro)"; search.setAttribute("aria-label", "Buscar ilustração");
+      // Search Input do DS (Fase 2 do plano UI no DS): rótulo visível, lupa fixa e botão de limpar
+      var search = document.createElement("cds-search-input"); search.className = "pg-doc-icons__search";
+      search.setAttribute("label", "Buscar ilustração"); search.setAttribute("placeholder", "Nome, categoria ou uso (ex.: cartão, pix, erro)");
+      search.setAttribute("show-required", "false"); search.setAttribute("show-supporting-content", "false");
       var tools = el("div", "pg-doc-icons__tools");
       var count = el("p", "pg-doc-note"); count.setAttribute("aria-live", "polite");
       var toggleAll = el("button", "pg-doc-link", "Abrir todas"); toggleAll.type = "button";
@@ -339,7 +344,7 @@
       });
       wrap.appendChild(acc);
       function filter(){
-        var q = fold(search.value.trim()), shown = 0;
+        var q = fold(String(search.value || "").trim()), shown = 0;
         sections.forEach(function(s){
           var any = 0;
           s.tiles.forEach(function(t){ var ok = !q || t.text.indexOf(q) !== -1; t.li.hidden = !ok; if (ok) any++; });
@@ -347,11 +352,12 @@
           if (q) s.det.open = any > 0;
           shown += any;
         });
-        count.textContent = shown + " ilustraç" + (shown === 1 ? "ão" : "ões") + (q ? " para “" + search.value.trim() + "”" : " em " + sections.length + " categorias") + ". Clique para copiar o nome (categoria/nome).";
+        count.textContent = shown + " ilustraç" + (shown === 1 ? "ão" : "ões") + (q ? " para “" + String(search.value || "").trim() + "”" : " em " + sections.length + " categorias") + ". Clique para copiar o nome (categoria/nome).";
       }
       var wasQuery = false;
-      search.addEventListener("input", function(){
-        var has = !!search.value.trim();
+      search.addEventListener("cds-change", function(e){
+        e.stopPropagation();
+        var has = !!String(search.value || "").trim();
         if (wasQuery && !has) sections.forEach(function(s){ s.det.open = s.first; });
         wasQuery = has; filter();
       });

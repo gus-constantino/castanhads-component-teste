@@ -42,8 +42,8 @@ CDS.register({
     var sepWrap = kit.el("div", { "class": "pg-ctrl" });
     sepWrap.appendChild(kit.el("span", { "class": "pg-lbl", text: "Show Separator — depois de qual dígito" }));
     var allNone = kit.el("div", { "class": "pg-actions" });
-    kit.button(allNone, { label: "Todos", kind: "ghost", onClick: function(){ sepOn = []; for (var i = 1; i < n(); i++) sepOn.push(i); buildSep(); applySeps(); } });
-    kit.button(allNone, { label: "Nenhum", kind: "ghost", onClick: function(){ sepOn = []; buildSep(); applySeps(); } });
+    kit.action(allNone, { label: "Marcar todos", onClick: function(){ sepOn = []; for (var i = 1; i < n(); i++) sepOn.push(i); buildSep(); applySeps(); } });
+    kit.action(allNone, { label: "Limpar", onClick: function(){ sepOn = []; buildSep(); applySeps(); } });
     sepWrap.appendChild(allNone);
     // multisseleção de verdade: Filter Chips (cada um liga/desliga)
     chips = kit.el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: "Separador depois do dígito", "class": "pg-choice" });

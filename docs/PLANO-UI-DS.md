@@ -68,6 +68,7 @@
 | 1 · Header e links | ✅ 02/10 — Icon Button (Ghost · Neutral · Small) + Tooltip no tema e no relatório, ícones `dark-mode-line`/`light-mode-line`/`chart-up-line` do [Caju] Icons; links da toolbar com Link (Neutral, `link-line`, nova aba). Tooltip passou a descrever o focável dentro de gatilhos compostos. Gap: C84 (Icon Button sem estado selecionado) |
 | — · Desempenho | ✅ 02/10 — pacotes `dist/cds.css` e `dist/cds.js` (D70): de ~250 para 14 requisições |
 | 2 · Painel de controles | ✅ 02/10 — `kit.seg` → Chips Group + Filter Chips (um selecionado) · `kit.toggle` → Switch · `kit.text` → Text Input · `kit.range` → Slider · `kit.select` → Radio Select Input · `kit.iconSwap`/`illustrationSwap` → Async Select Input com busca · `kit.button` (novo) → Main Button · inspetor → Tag + Filter Chips. Seletor de viewport e separadores do OTP também. API do kit mantida (`toggle` → `{checked}`, `seg.setValue`). Gap: C85 |
+| 2b · Ajustes (Gustavo) | ✅ 02/10 — Chips Group voltou a ter gap 8 entre chips e linhas (o shell desligava o flex); escala de espaço do shell subiu um degrau (painel 24, controles 24, seções 32, menu 24, barra 32); seletor de viewport com Icon Button + Tooltip (C86); buscas das bibliotecas com Search Input; "Marcar todos"/"Limpar" do OTP com Link |
 | 3 · Navegação | ⏳ |
 | 4 · Doc e recursos | ⏳ |
 | 5 · Relatório | ⏳ |

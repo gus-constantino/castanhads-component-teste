@@ -101,6 +101,14 @@
     return { el: sl, get value(){ return String(sl.values[0]); } };
   }
 
+  /** Ação de texto curta (ex.: "Marcar todos") → Link do DS sem ícone; não navega. */
+  function action(parent, o){
+    var l = el("cds-link", { label: o.label, href: "#", "show-trailing-item": "false", "class": "pg-link-action" });
+    l.addEventListener("click", function(e){ e.preventDefault(); o.onClick(); });
+    if (parent) parent.appendChild(l);
+    return l;
+  }
+
   /** Botão de ação do painel → Main Button do DS (Neutral · Small, sem ícones). */
   function button(panel, o){
     var b = el("cds-main-button", { kind: o.kind || "default", appearance: "neutral", size: "small", label: o.label, "show-lead-icon": "false", "show-trailing-icon": "false", "class": "pg-action" });
@@ -320,5 +328,5 @@
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, action: action, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
 })();

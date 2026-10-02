@@ -164,7 +164,25 @@
     if (w === "fluid"){ frame.style.width = "100%"; frame.style.maxWidth = "calc(3 * var(--common-sizes-200))"; vpOut.textContent = "fluido"; }
     else { frame.style.width = w + "px"; frame.style.maxWidth = "none"; vpOut.textContent = w + "px"; }
   }
-  kit.seg($("viewport"), { label: "Viewport", value: "fluid", options: [["360","360"],["744","744"],["1366","1366"],["fluid","Fluido"]], onChange: setViewport });
+  // Seletor de viewport: Icon Button Small do DS + Tooltip com a largura. Ativo = Default · Accent; demais = Ghost · Neutral.
+  // O [Caju] Icons não tem ícone de tablet nem de desktop (C86): 744 usa placeholder-line até o ícone existir.
+  (function(){
+    var host = $("viewport"), cur = "fluid", lid = "vp-lbl";
+    host.classList.add("pg-ctrl");
+    host.appendChild(kit.el("span", { "class": "pg-lbl", id: lid, text: "Viewport" }));
+    var row = host.appendChild(kit.el("div", { "class": "pg-vp", role: "group", "aria-labelledby": lid }));
+    var opts = [["360","smartphone-line","360px · Mobile"],["744","placeholder-line","744px · Tablet"],["1366","fullscreen-line","1366px · Desktop"],["fluid","swap-left-right-line","Fluido (até 600px)"]], btns = {};
+    function paint(){ opts.forEach(function(o){ var on = o[0] === cur, b = btns[o[0]]; b.setAttribute("kind", on ? "default" : "ghost"); b.setAttribute("appearance", on ? "accent" : "neutral"); b.setAttribute("pressed", String(on)); }); }
+    opts.forEach(function(o){
+      var b = btns[o[0]] = kit.el("cds-icon-button", { id: "vp-" + o[0], size: "small", icon: o[1], label: "Viewport " + o[2] });
+      b.addEventListener("click", function(){ cur = o[0]; setViewport(cur); paint(); });
+      row.appendChild(b);
+      var tip = kit.el("cds-tooltip", { id: "vp-tip-" + o[0], "for": "vp-" + o[0], placement: "bottom", "show-label": "false" });
+      tip.setAttribute("text", o[2]); // kit.el usa "text" como conteúdo; aqui é atributo do Tooltip
+      row.appendChild(tip);
+    });
+    paint();
+  })();
 
   // ---------- Tema — light padrão, dark opcional (Icon Button + Tooltip do DS) ----------
   var root = document.documentElement, tbtn = $("theme"), ttip = $("theme-tip");

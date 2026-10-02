@@ -11,7 +11,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Ajuste de texto](#ajuste-de-texto) | 6 |
 | [Ajuste de UI](#ajuste-de-ui) | 24 |
 | [Motion](#motion) | 7 |
-| [Refactor](#refactor) | 16 |
+| [Refactor](#refactor) | 17 |
 | [Naming](#naming) | 10 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 3 |
@@ -96,6 +96,7 @@ Props, estrutura ou comportamento do componente (camada sem uso, prop sem efeito
 | C75 | Caju Card · arte e dados | Cada variante é um desenho fechado (vetores + textos); os dados (número, CVV, validade, código de ativação, 4 últimos dígitos) são camadas de texto soltas na arte | Arte estática separada dos dados, com os textos como propriedades do componente | **Exceção** (adaptação para web, D65): SVG da arte inline + `tspan[data-field]` preenchido pelos atributos; a arte não muda com o tema | Separar arte e dados no Figma; aí a arte vira imagem e os dados, texto do componente |
 | C83 | Gaps de token achados ao levar a UI do playground para o DS (Fase 0, `docs/PLANO-UI-DS.md`) | Não há text style de código (monospace), nem de rótulo em caixa alta/letter-spacing; tamanhos acima de `Sizes/200` não existem (larguras de layout 232, 320, 920) | Text style `Code` e, se fizer sentido, tamanhos de layout | Código usa o tamanho do Caption/Disclaimer com fonte mono; caixa alta saiu; larguras viram soma de tokens (`200 + 32`). Breakpoints de `@media` continuam em px (CSS não aceita `var()` ali). Larguras de specimen nos playgrounds seguem o frame do Figma | **Exceção por enquanto** (Gustavo, 02/10): valores e tokens aproximados até ele tratar; depois criar os tokens no Figma e trocar |
 | C85 | Gaps de componente achados no painel do playground (Fase 2, `docs/PLANO-UI-DS.md`) | (1) Não há **segmented control** (escolha única com as opções visíveis). (2) Os **Select Inputs não têm grupos de opções** (seções na lista). (3) Filter Chips são toggles independentes: não há modo "escolha única" com semântica de rádio | Avaliar um Segmented Control e seções no Selection List / Select | Escolha única = Chips Group + Filter Chips, com o kit garantindo um selecionado (clicar no selecionado não desmarca); ícones e ilustrações no Async Select Input com a categoria no rótulo ("pix-line · Brands") e busca | Registrado; trocar quando o DS ganhar os componentes |
+| C86 | [Caju] Icons · dispositivos | Só existem `smartphone-line` e `fullscreen-line`; não há ícone de **tablet** nem de **desktop** | Ícones de tablet e desktop | Seletor de viewport do playground com Icon Button: 360 `smartphone-line` · 744 `placeholder-line` · 1366 `fullscreen-line` · Fluido `swap-left-right-line`, cada um com Tooltip da largura | **Chamado** que o Gustavo vai abrir (02/10); trocar os ícones em `scripts/app.js` quando chegarem |
 
 ## Naming
 

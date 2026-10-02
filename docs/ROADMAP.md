@@ -133,7 +133,7 @@ Coluna *Usa*: instâncias aninhadas na 1ª variante (ícones omitidos).
 | Caju Card | Caju Card | `17053:1181` | 21 | — |
 
 ### Building blocks (`.Building Blocks`, 28)
-`.Currency Content` · `.Currency Symbol` · `.Lead Item` · `.Trailing Item` · `.Transaction Status Icon` · `.Item` (Breadcrumb, `6713:3`) · `.Item` (Tabs, `6498:375`) · `.Icons` · `.Header` (`5077:800`) · `.Header` (`16362:3241`) · `.Footer` · `.Close Toast` · `.Close Alert` · `.Lead item` (Topic, `15621:66`) · `.Lead item` (File, `15207:13262`) · `.Text Content Mask` · `.Value Item` · `.CSAT Item` · `.Select Number` · `.Data Cell` · `.Head` · `.Toolbar` · `.Table Column` · `.Navigation Control` · `.Day` · `.Week` · `.Content Banner` · `.Item Nav Control`
+`.Currency Content` · `.Currency Symbol` · `.Lead Item` · `.Trailing Item` · ~~`.Transaction Status Icon`~~ (removido, C55) · `.Item` (Breadcrumb, `6713:3`) · `.Item` (Tabs, `6498:375`) · `.Icons` · `.Header` (`5077:800`) · `.Header` (`16362:3241`) · `.Footer` · `.Close Toast` · `.Close Alert` · `.Lead item` (Topic, `15621:66`) · `.Lead item` (File, `15207:13262`) · `.Text Content Mask` · `.Value Item` · `.CSAT Item` · `.Select Number` · `.Data Cell` · `.Head` · `.Toolbar` · `.Table Column` · `.Navigation Control` · `.Day` · `.Week` · `.Content Banner` · `.Item Nav Control`
 
 ---
 
@@ -151,7 +151,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | **5** | Feedback e conteúdo | Toast · Alert · System Banner · Confirmation Message · Topic · Tooltip · Banner · Balance Card | .Close Toast · .Close Alert · .Lead item (Topic) · .Content Banner |
 | **6** | Containers e overlays | Viewport Restriction · Card · Backdrop (**o Banner Kind=Image passa a consumir**) · Popover (**+ Drop Button abrindo o Popover**, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar → em seguida os 5 Select Inputs | .Header (×2) · .Footer |
 | **7** | Navegação | Breadcrumb · Fixed Tab · Scrollable Tab · Tab View · Nav Control · Pagination | .Item (×2) · .Item Nav Control · .Select Number |
-| **8** | Listas | ~~Content List Item~~ · Content List · ~~Selection List Item~~ · Selection List (os itens foram antecipados para os Select Inputs, D50) | ~~.Lead Item~~ · ~~.Trailing Item~~ · .Transaction Status Icon |
+| **8** | Listas | ~~Content List Item~~ · Content List · ~~Selection List Item~~ · Selection List (os itens foram antecipados para os Select Inputs, D50) | ~~.Lead Item~~ · ~~.Trailing Item~~ · ~~.Transaction Status Icon~~ (removido do Figma, C55) |
 | **9** | Complexos | Date Picker · Modal Date Picker · Date Input · Table · File Upload (3) · Slider · NPS · CSAT · Progress Tracker · Caju Card | .Day · .Week · .Navigation Control · .Head · .Data Cell · .Table Column · .Toolbar · .Lead item (File) · .Value Item · .CSAT Item |
 
 ### Processo por componente (checklist)
@@ -224,6 +224,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D53 | **Navegação com padrões do WAI-ARIA**: Tabs = tablist com foco itinerante (setas/Home/End ativam); Tab View = radiogroup; Breadcrumb = `nav` + `ol`, página atual com `aria-current`; Nav Control só leitura (indicadores `aria-hidden` + região `aria-live` "Item n de total") | 02/10 |
 | D54 | **Breadcrumb por filhos `<a href>`**: o último nível é a página atual; `collapse` manda os primeiros níveis para o Popover do "…". Sem filhos, renderiza a amostra do Figma | 02/10 |
 | D55 | **Listas repassam Kind/Intent aos itens**: Content List e Selection List aceitam filhos e, sem eles, geram a amostra de 12 itens do Figma; a Selection List emite um `cds-change { values }` agregado | 02/10 |
+| D56 | **Lote 9 dividido** em 9a (datas), 9b (dados e upload) e 9c (entrada e avaliação) | 02/10 |
+| D57 | **Date Picker = grade do WAI-ARIA** (role grid, foco itinerante no dia, setas/Home/End/PageUp/PageDown); seleção `single` ou `range`; datas em AAAA-MM-DD nos atributos e dd/mm/aaaa na tela. O Modal Date Picker só aplica no Confirmar | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -285,6 +287,7 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 02/10 | Em aba oculta, além de rAF e do `close` do dialog, o `setTimeout` é estrangulado e `blur()` não dispara `focusout`: fechar lista por foco usa `focusout` + `relatedTarget` |
 | 02/10 | Prefixo de classe colidiu: o Breadcrumb usava `.cds-bc`, que já era do Balance Card (o `<nav>` herdou o padding do card). Conferir prefixos novos com `grep` antes de criar |
 | 02/10 | Conteúdo de um `<cds-popover>` precisa entrar antes de ele conectar: no connect ele move os filhos para o Slot; depois, o que se acrescenta fica fora do Slot |
+| 02/10 | Componente que gera amostra quando conecta sem filhos (o `.Week`) precisa ser preenchido antes de entrar no DOM; senão a amostra se soma aos filhos reais |
 
 ---
 
@@ -305,6 +308,8 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 6 | ✅ 02/10 — Viewport Restriction · Card · Backdrop (Banner Image consome) · Popover (Drop Button abre, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar + .Header · .Footer · `CDS.position` · `CDS.Overlay` |
 | 6b | ✅ 02/10 — Async · Async creatable · Radio · Checkbox · Multi Select Input sobre `CDS.SelectField` (TextField + Popover, padrão combobox) · antecipados do Lote 8: Selection List Item · Content List Item · .Trailing Item · .Lead Item (Lists) sobre `CDS.ListItem` (D50) |
 | 7 | ✅ 02/10 — Breadcrumb · Fixed Tab · Scrollable Tab · Tab View · Nav Control · Pagination + .Item (Breadcrumb) · .Item (Tabs) · .Item Nav Control · .Select Number (base `CDS.TabList`) |
-| 8 | ✅ 02/10 — Content List · Selection List · .Transaction Status Icon (os itens entraram com os Selects, D50) |
-| 9 | ⏳ |
+| 8 | ✅ 02/10 — Content List · Selection List (os itens entraram com os Selects, D50; o .Transaction Status Icon saiu do Figma, C55) |
+| 9a | ✅ 02/10 — Date Picker · Modal Date Picker · Date Input + .Day · .Week · .Navigation Control (Datepicker) |
+| 9b | ⏳ Table · Upload Item · Dropzone · Upload List |
+| 9c | ⏳ Slider · NPS Score · CSAT Score · Progress Tracker · Caju Card |
 | — | ⏳ Recurso Animações (Q31) — no final |

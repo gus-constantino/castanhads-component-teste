@@ -1,0 +1,24 @@
+/* Date Picker · set 17629:24427 — Single 320 / Double 620 · pad 0 20 · gap 8 · Surface/default
+   Calendário: cabeçalho 40 (Label/Medium Text/medium) + gap 8 + semanas (gap 8, pb 8) · dois meses com gap 20
+   Month/Year: Main Buttons Medium 280 × 48 (gap 4) em 288 com rolagem · Selected Date: Caption/Medium + Body/Medium */
+cds-date-picker{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); box-sizing:border-box;
+  width:320px; max-width:100%; padding:0 var(--common-sizes-20); background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); }
+cds-date-picker[kind="double"]{ width:620px; }
+cds-date-picker [hidden]{ display:none !important; }
+cds-date-picker .cds-dp__nav{ width:100%; }
+cds-date-picker[kind="double"] .cds-dn__btn{ flex:1 1 0; } /* 167 cada no Figma */
+cds-date-picker[kind="double"] .cds-dn__btn .cds-btn{ width:100%; }
+.cds-dp__body{ width:100%; display:flex; justify-content:center; }
+.cds-dp__months{ display:flex; gap:var(--common-sizes-20); }
+.cds-dp__calendar{ display:flex; flex-direction:column; gap:var(--common-sizes-8); width:280px; }
+.cds-dp__weekdays{ display:flex; }
+.cds-dp__weekday{ display:flex; align-items:center; justify-content:center; width:var(--common-sizes-40); height:var(--common-sizes-40); font:var(--text-style-label-medium); color:var(--common-colors-text-medium); }
+.cds-dp__weeks{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding-bottom:var(--common-sizes-8); }
+.cds-dp__list{ display:flex; flex-direction:column; gap:var(--common-sizes-4); width:100%; height:288px; overflow-y:auto; overscroll-behavior:contain; }
+.cds-dp__item{ display:flex; flex:0 0 auto; }
+.cds-dp__item .cds-btn{ width:100%; }
+.cds-dp__selected{ display:flex; flex-direction:column; gap:var(--common-sizes-4); width:100%; }
+.cds-dp__sel-label{ display:flex; align-items:center; min-height:var(--common-sizes-24); font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); }
+.cds-dp__sel-dates{ display:flex; gap:var(--common-sizes-4); min-height:var(--common-sizes-24); }
+.cds-dp__sel-date, .cds-dp__sel-last span{ font:var(--text-style-body-medium); color:var(--common-colors-text-intense); }
+.cds-dp__sel-last{ display:flex; gap:var(--common-sizes-8); }

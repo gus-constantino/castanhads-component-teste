@@ -1,0 +1,3 @@
+/* .Navigation Control (Datepicker) · 17465:384 — SPACE_BETWEEN · 40 · Surface/default */
+cds-date-navigation{ display:flex; align-items:center; justify-content:space-between; width:280px; max-width:100%; min-height:var(--common-sizes-40); background:var(--common-colors-surface-default); }
+cds-date-navigation [hidden]{ display:none !important; }

@@ -1,0 +1,7 @@
+/* Date Input · set 17962:70687 — base em text-field.css · Text Box pad 0 16 · Calendar Button 40 (Icon Button Small)
+   Is Active = Popover aberto (stroke Border/semi-intense, como o foco) */
+.cds-tf--date.is-open .cds-tf__box{
+  --_bg:var(--common-colors-surface-default); --_stroke-w:var(--common-border-width-hairline); --_stroke-c:var(--common-colors-border-semi-intense);
+}
+.cds-tf--date[appearance="warning"].is-open .cds-tf__box{ --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
+.cds-di__popover{ min-width:0; }

@@ -1,0 +1,3 @@
+/* .Week · 17465:280 — 7 × 40 = 280 · raio small */
+cds-calendar-week{ display:flex; width:280px; height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); }
+.cds-dp__cell{ width:var(--common-sizes-40); height:var(--common-sizes-40); flex:0 0 auto; }

@@ -9,10 +9,10 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | Tipo | Itens |
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 6 |
-| [Ajuste de UI](#ajuste-de-ui) | 20 |
+| [Ajuste de UI](#ajuste-de-ui) | 22 |
 | [Motion](#motion) | 7 |
-| [Refactor](#refactor) | 13 |
-| [Naming](#naming) | 9 |
+| [Refactor](#refactor) | 14 |
+| [Naming](#naming) | 8 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 2 |
 
@@ -55,6 +55,8 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C63 | .Lead item (File) · ícone do hover | Kind=View file mostra `hide-line` (olho cortado) no Hovered/Pressed | Ícone de ver (olho aberto) | Segue o Figma: `hide-line` | Só registrado por enquanto (Gustavo, 02/10). Se mudar, trocar o ícone em `file-lead-item.js` |
 | C64 | Upload Item · espaçamentos | Uploading: gap 6 entre o nome e a Progress Line (sem token); pad vertical 8 em Uploading/Success e 0 em Error/Uploaded | Tokens e um padding só | Segue o Figma (6px literal) | **Erro no Figma**, registrado por enquanto (Gustavo, 02/10). Ajustar `upload-item.css` quando corrigir |
 | C65 | Dropzone · estados | Disabled só muda a borda para Border/semi-intense (igual à versão Mobile Enabled), sem opacidade e com o Main Button Enabled; Desktop não tem Hovered nem Pressed; borda dash 4-4 | Disabled distinguível; hover/press no Desktop | Segue o Figma; a borda usa `dashed` do CSS (o traço não fica exatamente 4-4) | Registrado (Gustavo, 02/10). Ajustar `dropzone.css` quando o Figma mudar |
+| C73 | Caju Card · cores da arte | Fills crus fora das variáveis: verde do Corporativo `#2c3a25` e o vermelho do cartão `#e80537` no padrão, enquanto o Is Blocked usa `Surface/accent` para o mesmo fill | Variáveis (Brand ou Surface) em todas as variantes | Segue o Figma: a arte é o SVG exportado de cada variante, com as cores como estão | Trocar no Figma e reexportar `assets/caju-card/*.svg` |
+| C74 | Caju Card · combinações | Das 21 variantes: falta Físico Corporativo Horizontal (frente e verso) e o verso só existe para Físico (H e V) e Físico Corporativo (V); Virtual, Voucher e Virtual Corporativo não têm verso | Matriz completa ou props que só aparecem onde existem | Combinação ausente cai na mais próxima: mesma orientação na vertical e, sem verso, a frente (o rótulo acessível acompanha) | Definir no Figma; exportar as novas artes |
 
 ## Motion
 
@@ -89,6 +91,7 @@ Props, estrutura ou comportamento do componente (camada sem uso, prop sem efeito
 | C61 | Table · estrutura | Montada por colunas (`.Table Column` com `.Head` + `.Data Cell` no Slot) | Uma tabela por linhas para leitor de tela e teclado | **Exceção** (adaptação para web): `<table>` com `<th scope=col>` e `<td>`; as colunas viram `.columns` e as linhas `.rows` | **Decisão registrada (D62)** a pedido do Gustavo, para o debate no time de design: por linhas é o correto. Argumentos em `docs/TABLE-LINHAS-X-COLUNAS.md` |
 | C66 | Table · comportamento | Sem especificação de ciclo de ordenação, alcance do checkbox do cabeçalho, paginação dos dados e estado vazio sem erro (o Empty só tem a mensagem de falha) | Definir | **Exceção** (sem especificação): Default → Up → Down → Default com `aria-sort`; o cabeçalho marca a página visível (indeterminado quando parcial); paginação no cliente; Empty com `empty-text` editável | Só documentado por enquanto (Gustavo, 02/10). Ajustar `table.js` se o comportamento for desenhado |
 | C68 | CSAT Score · variáveis | Fundo já em `Surface/default` (ajustado, 02/10); o Disabled ainda usa `shape/opacity/high`, de fora da Common | `Opacity/medium` (ou outro token Common) | Surface/default · Disabled com Opacity/medium | Falta trocar a opacidade do Disabled no Figma; o fundo foi corrigido |
+| C75 | Caju Card · arte e dados | Cada variante é um desenho fechado (vetores + textos); os dados (número, CVV, validade, código de ativação, 4 últimos dígitos) são camadas de texto soltas na arte | Arte estática separada dos dados, com os textos como propriedades do componente | **Exceção** (adaptação para web, D65): SVG da arte inline + `tspan[data-field]` preenchido pelos atributos; a arte não muda com o tema | Separar arte e dados no Figma; aí a arte vira imagem e os dados, texto do componente |
 
 ## Naming
 
@@ -104,7 +107,6 @@ Nome de prop, variante, camada ou variável fora do padrão.
 | C53 | Naming (Lote 7) | `Show Itens per page` / `Nav Itens` (mistura de "Itens" com inglês) · `.Item` usado por Breadcrumb e Tabs (dois sets com o mesmo nome, C25) · `State=Enable` no .Item do Breadcrumb | Padrão do Índice de Propriedades | Atributos em inglês e kebab-case (`show-items-per-page`) | Renomear junto com C25 |
 | C54 | Naming (Lote 8) | Content List `Intent=Switch` usa itens `Intent=Transaction` (não há switch) | Nomes que descrevem o conteúdo | `intent="switch"` gera itens `transaction` | Renomear junto com C25 |
 | C67 | Naming (Tables e File Upload) | `.Table Column` Kind `Default`/`Percentual`/`Icon Buttons` × `.Data Cell` Kind `Text`/`Percentage`/`Action Controls`; slot `Upload itens`; terceiro `.Lead item` (File) | Um nome por conceito | `kind` aceita os dois nomes (default = text, percentual = percentage, icon-buttons = actions) | Renomear junto com C25 |
-| C72 | Naming (Rating Score) | Selecionado já é `State=Enabled` (corrigido, 02/10); o não selecionado continua `State=Enable` | State Enabled e o valor como prop | `selected` e `value` | Falta renomear `Enable` → `Enabled` na variante não selecionada |
 
 ## Acessibilidade
 
@@ -146,3 +148,4 @@ Frames de documentação no Figma.
 | C69 | CSAT Score · rótulo `Médio` com acento: ajustado no Figma e no código | 02/10 |
 | C70 | Slider · Hovered com o círculo em Icons/Accent: é o esperado (Gustavo) | 02/10 |
 | C71 | Tamanhos fixos conferidos: o Progress Tracker Item tem `minHeight 64` (Connector min 20) e o .CSAT Item no Score é 56 Fixed × Fill (o rótulo quebra em 2 linhas). O código segue (CSAT ajustado para 56) | 02/10 |
+| C72 | .Value Item (NPS): State `Enabled` no selecionado e no não selecionado; corrigido no Figma (Gustavo) | 02/10 |

@@ -233,6 +233,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D62 | **Table por linhas, não por colunas** (registrada a pedido do Gustavo para o debate no time de design): o dado é a linha; ordenar, selecionar, hover e paginar agem sobre linhas; leitor de tela e responsividade dependem disso. No Figma, a largura consistente sai de tokens de largura por coluna numa `.Table Row`. Detalhes: `docs/TABLE-LINHAS-X-COLUNAS.md` | 02/10 |
 | D63 | **Controles de avaliação sobre `<input type="radio">` nativo** (NPS e CSAT: radiogroup com setas) e **Slider com thumbs `role="slider"`** (teclado completo, Range sem cruzar), como pede a description do Slider | 02/10 |
 | D64 | **Caju Card em etapa própria (9d)**: as artes vêm de vetores por Kind e orientação; a fidelidade pede exportar as peças estáticas sem alterar o arquivo do Figma | 02/10 |
+| D65 | **Caju Card = arte em SVG + dados como texto**: cada variante exportada do Figma vira `assets/caju-card/<kind>-<h\|v>-<front\|back>.svg`, inserida inline; número, CVV, validade, código de ativação e 4 últimos dígitos são `tspan[data-field]` trocados pelos atributos. Combinação ausente cai na mais próxima (C74) | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -242,7 +243,7 @@ Só perguntas de escopo ou de fonte. Divergências entre o Figma e o esperado fi
 | # | Dúvida | Proposta |
 |---|---|---|
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
-| Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
+| Q9 | ~~Caju Card: de onde vêm as artes?~~ Dos vetores do próprio componente (exportados por variante, D65) | ✅ 02/10 |
 | Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | **Deixar para o final** (Gustavo, 02/10): entra depois do Lote 9 |
 
 ## 5.1 Débito de export (Gustavo)
@@ -327,5 +328,5 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 9a | ✅ 02/10 — Date Picker · Modal Date Picker · Date Input + .Day · .Week · .Navigation Control (Datepicker) |
 | 9b | ✅ 02/10 — Table (+ .Head · .Data Cell · .Toolbar) · Upload Item · Dropzone · Upload List (+ .Lead item File) · ilustração `empty-state` |
 | 9c | ✅ 02/10 — Slider (Single/Range) · NPS Score (+ .Value Item) · CSAT Score (+ .CSAT Item) · Progress Tracker (+ Item) |
-| 9d | ⏳ Caju Card (21 variantes: artes por Kind, frente e verso; exportar as peças estáticas e sobrepor os dados como texto) |
+| 9d | ✅ 02/10 — Caju Card (5 Kinds × Vertical/Horizontal × Frente/Verso × Is Blocked; 12 artes do Figma, dados como texto) |
 | — | ⏳ Recurso Animações (Q31) — no final |

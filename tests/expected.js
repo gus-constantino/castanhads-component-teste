@@ -105,5 +105,6 @@ window.CDS_EXPECTED = {
   "csat-score":        { w: 320, h: 120, src: "10100:1192" },
   "csat-item":         { w: 48, h: 82, src: "10100:1155" },
   "progress-tracker-item": { w: 206, h: 117, src: "14415:3778" },
-  "progress-tracker":  { w: 200, h: 261, src: "14524:1024 · 64 + 117 + 64 + 2 × 8" }
+  "progress-tracker":  { w: 200, h: 261, src: "14524:1024 · 64 + 117 + 64 + 2 × 8" },
+  "caju-card":         { w: 216, h: 288, src: "17053:1181 · Físico · Vertical · Front" }
 };

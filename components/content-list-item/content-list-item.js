@@ -1,5 +1,5 @@
 /**
- * @deps list-item trailing-item tag icon shaped-icon currency-content
+ * @deps list-item trailing-item tag icon shaped-icon currency-content transaction-status-icon
  * <cds-content-list-item> — Content List Item · Lists · set 5488:675 (20 variantes)
  * Kind (Default|Card) × Intent × State.
  *   Intent=Default:     .Lead Item + .Text Content + .Trailing Item (padrão Checkbox)
@@ -9,7 +9,7 @@
  *
  * Atributos: os de CDS.ListItem · intent · show-trailing-item · show-navigation-indicator · show-tag
  *   trailing-item (kind do .Trailing Item · checkbox) · status (do controle) · tag-label ("Tag") · tag-appearance (warning)
- *   shaped-icon (placeholder-line) · value ("30.000,00") · symbol ("R$") · show-negative-symbol · value-description
+ *   shaped-icon (placeholder-line) · transaction-status (status do .Transaction Status Icon: troca appearance e ícone) · value ("30.000,00") · symbol ("R$") · show-negative-symbol · value-description
  *   href — a linha vira <a>
  * A linha é <a> com href, <div> que repassa o clique ao controle (Intent=Default com controle), senão <button>.
  * Eventos: cds-change { status } (controle) · click
@@ -18,7 +18,7 @@
   "use strict";
   var CONTROLS = { checkbox: 1, "radio-button": 1, "switch": 1 };
   class CdsContentListItem extends CDS.ListItem {
-    static get observedAttributes(){ return CDS.ListItem.observedAttributes.concat(["intent","show-trailing-item","show-navigation-indicator","show-tag","trailing-item","status","tag-label","tag-appearance","shaped-icon","value","symbol","show-negative-symbol","value-description"]); }
+    static get observedAttributes(){ return CDS.ListItem.observedAttributes.concat(["intent","transaction-status","show-trailing-item","show-navigation-indicator","show-tag","trailing-item","status","tag-label","tag-appearance","shaped-icon","value","symbol","show-negative-symbol","value-description"]); }
     get intent(){ var i = this.getAttribute("intent"); return i === "navigation" || i === "transaction" ? i : "default"; }
     get trailingKind(){ var k = (this.getAttribute("trailing-item") || "checkbox").toLowerCase(); return k === "chechbox" ? "checkbox" : k; }
     get hasControl(){ return this.intent === "default" && this.flag("show-trailing-item") && !!CONTROLS[this.trailingKind]; }
@@ -39,7 +39,9 @@
       var i = this.intent, self = this;
       this.leadEl.hidden = i === "transaction" || !this.flag("show-lead-item");
       this.shapedEl.hidden = i !== "transaction" || !this.flag("show-lead-item");
-      CDS.attr(this.shapedEl, "icon", this.getAttribute("shaped-icon") || "placeholder-line");
+      var ts = this.getAttribute("transaction-status"), M = CDS.TransactionStatus, st = ts && M && M[ts];
+      CDS.attr(this.shapedEl, "icon", st ? st[1] : this.getAttribute("shaped-icon") || "placeholder-line");
+      CDS.attr(this.shapedEl, "appearance", st ? st[0] : "neutral");
       this.currencyEl.hidden = i !== "transaction";
       if (i === "transaction"){
         var cc = this.currencyEl;

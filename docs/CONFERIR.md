@@ -11,8 +11,8 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Ajuste de texto](#ajuste-de-texto) | 5 |
 | [Ajuste de UI](#ajuste-de-ui) | 16 |
 | [Motion](#motion) | 7 |
-| [Refactor](#refactor) | 10 |
-| [Naming](#naming) | 6 |
+| [Refactor](#refactor) | 11 |
+| [Naming](#naming) | 7 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 2 |
 
@@ -81,6 +81,7 @@ Props, estrutura ou comportamento do componente (camada sem uso, prop sem efeito
 | C44 | Select Inputs · estados sem especificação | Não há estado vazio (sem resultado), carregando (Async), altura máxima da lista nem crescimento do Multi com muitos chips (no Figma o Chips Group de 320 transborda o Text Box de 48) | Desenhar vazio, carregando e o limite da lista | **Exceção** (sem especificação): "Nenhuma opção encontrada" em Caption/Text/medium; `aria-busy` no carregamento, sem spinner; lista até 320px com rolagem; o Multi cresce em linhas | Implementar o que for desenhado em `select-field.js/.css` |
 | C51 | Breadcrumb · conteúdo e semântica | O Item 1 é sempre Truncate (…); **Is Active** está ligado no Item 2 e no Item 6 da amostra, sem regra clara; o Popover (Show Popover) está vazio | Definir o que Is Active significa (página atual?) e o que o Popover lista | **Exceção** (sem especificação): a amostra repete o Figma; com links, o último nível é a página atual (`aria-current`, Is Active) e o Popover lista os níveis escondidos (`collapse`) | Ajustar `breadcrumb.js` (`model()`) |
 | C52 | Pagination · limites | Sem estado das setas na primeira e na última página | Desabilitar nos limites | **Exceção** (sem especificação): ‹ desabilitado na página 1 e › na última | Implementar o que for desenhado em `pagination.js` |
+| C55 | .Transaction Status Icon · uso | Nenhum componente usa o building block; o Content List Item Transaction tem um Shaped Icon genérico (placeholder-line) | Ligar o status da transação ao item | **Exceção (a confirmar):** o Content List Item aceita `transaction-status` (opcional; sem ele, segue o Figma) | Se o Figma trocar o Shaped Icon pelo building block, o atributo vira o padrão |
 
 ## Naming
 
@@ -94,6 +95,7 @@ Nome de prop, variante, camada ou variável fora do padrão.
 | C25 | Naming da lib (geral) | `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Padrão do Índice de Propriedades | Implementar com o nome do Figma quando o componente entrar | Renomear junto |
 | C39 | Naming (Lote 6) | Fixed Bar usa `Show Secondary Action`; o .Footer, `Show Secondary Action Button`. No Bottom Sheet as instâncias se chamam `Header`/`Footer` (sem ponto) | Um nome só | Os dois atributos com o nome do Figma | Registrado para conferir (Gustavo, 02/10). Renomear junto com C25 |
 | C53 | Naming (Lote 7) | `Show Itens per page` / `Nav Itens` (mistura de "Itens" com inglês) · `.Item` usado por Breadcrumb e Tabs (dois sets com o mesmo nome, C25) · `State=Enable` no .Item do Breadcrumb | Padrão do Índice de Propriedades | Atributos em inglês e kebab-case (`show-items-per-page`) | Renomear junto com C25 |
+| C54 | Naming (Lote 8) | Content List `Intent=Switch` usa itens `Intent=Transaction` (não há switch); `.Transaction Status Icon` tem `Status=Status6` | Nomes que descrevem o conteúdo | `intent="switch"` gera itens `transaction`; `status="status6"` | Renomear junto com C25 |
 
 ## Acessibilidade
 

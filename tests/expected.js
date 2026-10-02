@@ -82,5 +82,8 @@ window.CDS_EXPECTED = {
   "nav-control-item":  { w: 14, h: 14, src: "19188:379" },
   "nav-control":       { w: 280, h: 40, src: "19560:3280 · Desktop" },
   "select-number":     { w: 52, h: 29, src: "13408:1596" },
-  "pagination":        { w: 780, h: 56, src: "13408:1416" }
+  "pagination":        { w: 780, h: 56, src: "13408:1416" },
+  "content-list":      { w: 320, h: 684, src: "5488:1482 · Default · 12 × 57" },
+  "selection-list":    { w: 320, h: 828, src: "5488:1552 · Default · 12 × 69" },
+  "transaction-status-icon": { w: 40, h: 40, src: "5488:658" }
 };

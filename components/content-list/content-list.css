@@ -1,0 +1,3 @@
+/* Content List · set 5488:1482 — coluna · Default sem gap · Card gap 8 */
+cds-content-list{ display:flex; flex-direction:column; width:320px; max-width:100%; }
+cds-content-list[kind="card"]{ gap:var(--common-sizes-8); }

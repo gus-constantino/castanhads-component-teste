@@ -223,6 +223,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D52 | **Linha de lista sem `<label>` aninhado**: com Checkbox/Radio/Switch no trailing, a linha repassa o clique ao input nativo, que recebe o nome do Label por `aria-labelledby`; sem controle, a linha é `<button aria-pressed>` (Selection) ou `<button>`/`<a>` (Content) | 02/10 |
 | D53 | **Navegação com padrões do WAI-ARIA**: Tabs = tablist com foco itinerante (setas/Home/End ativam); Tab View = radiogroup; Breadcrumb = `nav` + `ol`, página atual com `aria-current`; Nav Control só leitura (indicadores `aria-hidden` + região `aria-live` "Item n de total") | 02/10 |
 | D54 | **Breadcrumb por filhos `<a href>`**: o último nível é a página atual; `collapse` manda os primeiros níveis para o Popover do "…". Sem filhos, renderiza a amostra do Figma | 02/10 |
+| D55 | **Listas repassam Kind/Intent aos itens**: Content List e Selection List aceitam filhos e, sem eles, geram a amostra de 12 itens do Figma; a Selection List emite um `cds-change { values }` agregado | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -304,5 +305,6 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 6 | ✅ 02/10 — Viewport Restriction · Card · Backdrop (Banner Image consome) · Popover (Drop Button abre, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar + .Header · .Footer · `CDS.position` · `CDS.Overlay` |
 | 6b | ✅ 02/10 — Async · Async creatable · Radio · Checkbox · Multi Select Input sobre `CDS.SelectField` (TextField + Popover, padrão combobox) · antecipados do Lote 8: Selection List Item · Content List Item · .Trailing Item · .Lead Item (Lists) sobre `CDS.ListItem` (D50) |
 | 7 | ✅ 02/10 — Breadcrumb · Fixed Tab · Scrollable Tab · Tab View · Nav Control · Pagination + .Item (Breadcrumb) · .Item (Tabs) · .Item Nav Control · .Select Number (base `CDS.TabList`) |
-| 8 a 9 | ⏳ |
+| 8 | ✅ 02/10 — Content List · Selection List · .Transaction Status Icon (os itens entraram com os Selects, D50) |
+| 9 | ⏳ |
 | — | ⏳ Recurso Animações (Q31) — no final |

@@ -1,0 +1,9 @@
+/* .Item Nav Control · set 19188:379 — pad 4 · 6×6 (ativo 16×6) · raio pill */
+cds-nav-control-item{ --_c:var(--common-colors-neutral-solid-semi-intense); display:inline-flex; padding:var(--common-sizes-4); flex:0 0 auto; }
+cds-nav-control-item[is-active]{ --_c:var(--common-colors-accent-solid-medium); }
+cds-nav-control-item[appearance="inversed"]{ --_c:var(--common-colors-neutral-opacity-soft-semi-opaque); }
+cds-nav-control-item[appearance="inversed"][is-active]{ --_c:var(--common-colors-neutral-solid-soft); }
+.cds-nci__dot{ display:block; width:var(--common-sizes-6); height:var(--common-sizes-6); border-radius:var(--common-border-radius-pill); background:var(--_c);
+  transition:width var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate), background-color var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate); }
+cds-nav-control-item[is-active] .cds-nci__dot{ width:var(--common-sizes-16); }
+@media (prefers-reduced-motion:reduce){ .cds-nci__dot{ transition:none; } }

@@ -72,5 +72,15 @@ window.CDS_EXPECTED = {
   "async-creatable-select-input": { w: 320, h: 100, src: "11018:5694" },
   "radio-select-input": { w: 320, h: 100, src: "11143:3056" },
   "checkbox-select-input": { w: 320, h: 100, src: "11143:4833" },
-  "multi-select-input": { w: 320, h: 100, src: "13795:4984" }
+  "multi-select-input": { w: 320, h: 100, src: "13795:4984" },
+  "breadcrumb-item":   { w: 75, h: 48, src: "6713:3 · Default · Is Active · 16 + 55 + pad 4" },
+  "breadcrumb":        { w: 423, h: 48, src: "6792:24 · itens 48 + 5×75 (o frame do Figma é fixo em 434, C48)" },
+  "tab-item":          { w: 55, h: 48, src: "6498:375" },
+  "fixed-tab":         { w: 320, h: 48, src: "6500:6958" },
+  "scrollable-tab":    { w: 320, h: 48, src: "6646:181" },
+  "tab-view":          { w: 120, h: 64, src: "15713:2488" },
+  "nav-control-item":  { w: 14, h: 14, src: "19188:379" },
+  "nav-control":       { w: 280, h: 40, src: "19560:3280 · Desktop" },
+  "select-number":     { w: 52, h: 29, src: "13408:1596" },
+  "pagination":        { w: 780, h: 56, src: "13408:1416" }
 };

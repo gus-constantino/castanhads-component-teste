@@ -221,6 +221,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D50 | **Listas antecipadas para os Selects** (Gustavo): Selection List Item, Content List Item, .Trailing Item e .Lead Item (Lists) entram completos agora, porque são as opções dos Select Inputs no Figma. O Lote 8 fica com Content List, Selection List e .Transaction Status Icon | 02/10 |
 | D51 | **Select Inputs = combobox do WAI-ARIA**: o foco fica no `<input role="combobox">`, opções `role="option"` num `role="listbox"` dentro do Popover (`popover="manual"`), opção atual em `aria-activedescendant`. Opções por `<option>` filhos ou `.options`; Async aceita `.loadOptions(query)` | 02/10 |
 | D52 | **Linha de lista sem `<label>` aninhado**: com Checkbox/Radio/Switch no trailing, a linha repassa o clique ao input nativo, que recebe o nome do Label por `aria-labelledby`; sem controle, a linha é `<button aria-pressed>` (Selection) ou `<button>`/`<a>` (Content) | 02/10 |
+| D53 | **Navegação com padrões do WAI-ARIA**: Tabs = tablist com foco itinerante (setas/Home/End ativam); Tab View = radiogroup; Breadcrumb = `nav` + `ol`, página atual com `aria-current`; Nav Control só leitura (indicadores `aria-hidden` + região `aria-live` "Item n de total") | 02/10 |
+| D54 | **Breadcrumb por filhos `<a href>`**: o último nível é a página atual; `collapse` manda os primeiros níveis para o Popover do "…". Sem filhos, renderiza a amostra do Figma | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -280,6 +282,8 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 02/10 | Description do Figma decide comportamento que as props não mostram: padrão Dialog do Modal (sem Close Button, não fecha fora), 320→512 do Modal, "Mobile only" do Bottom Sheet |
 | 02/10 | `setAttribute` com o mesmo valor também dispara `attributeChangedCallback`: o pai repassando atributos ao filho na ordem errada fez o filho re-renderizar com o status velho (um radio remarcava e o navegador desmarcava o outro do grupo). Daí o `CDS.attr` |
 | 02/10 | Em aba oculta, além de rAF e do `close` do dialog, o `setTimeout` é estrangulado e `blur()` não dispara `focusout`: fechar lista por foco usa `focusout` + `relatedTarget` |
+| 02/10 | Prefixo de classe colidiu: o Breadcrumb usava `.cds-bc`, que já era do Balance Card (o `<nav>` herdou o padding do card). Conferir prefixos novos com `grep` antes de criar |
+| 02/10 | Conteúdo de um `<cds-popover>` precisa entrar antes de ele conectar: no connect ele move os filhos para o Slot; depois, o que se acrescenta fica fora do Slot |
 
 ---
 
@@ -299,5 +303,6 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 5 | ✅ 02/10 — Toast · Alert · System Banner · Confirmation Message · Topic · Tooltip · Banner · Balance Card + .Close Toast · .Close Alert · .Lead item · .Content Banner · ilustração `sino` |
 | 6 | ✅ 02/10 — Viewport Restriction · Card · Backdrop (Banner Image consome) · Popover (Drop Button abre, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar + .Header · .Footer · `CDS.position` · `CDS.Overlay` |
 | 6b | ✅ 02/10 — Async · Async creatable · Radio · Checkbox · Multi Select Input sobre `CDS.SelectField` (TextField + Popover, padrão combobox) · antecipados do Lote 8: Selection List Item · Content List Item · .Trailing Item · .Lead Item (Lists) sobre `CDS.ListItem` (D50) |
-| 7 a 9 | ⏳ |
+| 7 | ✅ 02/10 — Breadcrumb · Fixed Tab · Scrollable Tab · Tab View · Nav Control · Pagination + .Item (Breadcrumb) · .Item (Tabs) · .Item Nav Control · .Select Number (base `CDS.TabList`) |
+| 8 a 9 | ⏳ |
 | — | ⏳ Recurso Animações (Q31) — no final |

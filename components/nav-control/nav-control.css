@@ -1,0 +1,10 @@
+/* Nav Control · set 19560:3280 — Desktop: 280 × 40 · pad-left 12 · SPACE_BETWEEN · indicadores pad 4 0 · setas 40
+   Mobile: só os indicadores · Tablet: nada (Is Mobile e Is Desktop falsos, C46) */
+cds-nav-control{ display:flex; align-items:center; justify-content:space-between; width:280px; max-width:100%; min-height:var(--common-sizes-40); padding-left:var(--common-sizes-12); box-sizing:border-box; }
+.cds-nc__dots{ display:flex; align-items:center; padding:var(--common-sizes-4) 0; }
+.cds-nc__btns{ display:flex; align-items:center; }
+.cds-nc__live{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+/* Viewport (collection Viewport do Figma) */
+[data-viewport="mobile"] cds-nav-control:not([viewport]), cds-nav-control[viewport="mobile"]{ width:auto; min-height:0; padding-left:0; justify-content:flex-start; }
+[data-viewport="mobile"] cds-nav-control:not([viewport]) .cds-nc__btns, cds-nav-control[viewport="mobile"] .cds-nc__btns{ display:none; }
+[data-viewport="tablet"] cds-nav-control:not([viewport]), cds-nav-control[viewport="tablet"]{ display:none; }

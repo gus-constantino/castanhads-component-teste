@@ -1,0 +1,8 @@
+/* Breadcrumb · set 6792:24 — 48 de altura, itens lado a lado sem gap; Popover (2270:102) com os níveis escondidos */
+cds-breadcrumb{ display:block; min-width:0; }
+.cds-bcr__list{ display:flex; align-items:center; flex-wrap:wrap; margin:0; padding:0; list-style:none; min-height:var(--common-sizes-48); }
+.cds-bcr__li{ display:flex; }
+.cds-bcr__li[hidden]{ display:none; }
+.cds-bcr__poplist{ display:flex; flex-direction:column; margin:0; padding:0; list-style:none; }
+.cds-bcr__poplist cds-breadcrumb-item{ height:auto; padding:0; }
+.cds-bcr__poplist .cds-bci__content{ width:100%; }

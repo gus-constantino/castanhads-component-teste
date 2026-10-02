@@ -1,0 +1,19 @@
+/* .Select Number · set 13408:1596 — pílula Surface/default · pad 4 8 · gap 4 · 29 de altura
+   Motion: 150ms + Systemic/accelerate (hover, press, click) */
+cds-select-number{ display:inline-flex; }
+.cds-sn{
+  --_bg:var(--common-colors-surface-default);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-4); padding:var(--common-sizes-4) var(--common-sizes-8); margin:0; border:0;
+  border-radius:var(--common-border-radius-pill); background:var(--_bg); cursor:pointer;
+  font:var(--text-style-caption-regular); color:var(--common-colors-text-intense);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-sn:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:0; } /* C23 */
+.cds-sn:hover{ --_bg:var(--common-colors-neutral-solid-semi-soft); color:var(--common-colors-text-medium); }
+.cds-sn:active{ --_bg:var(--common-colors-neutral-solid-semi-soft); color:var(--common-colors-text-intense); font:var(--text-style-caption-medium); }
+.cds-sn:disabled{ opacity:var(--common-opacity-light); color:var(--common-colors-text-medium); cursor:default; }
+.cds-sn__popover{ min-width:0; }
+.cds-sn__list{ display:flex; flex-direction:column; max-height:220px; overflow-y:auto; outline:none; }
+/* override de instância do Figma: opções com 32 de altura */
+.cds-sn__list .cds-li__container{ min-height:0; }
+@media (prefers-reduced-motion:reduce){ .cds-sn{ transition:none; } }

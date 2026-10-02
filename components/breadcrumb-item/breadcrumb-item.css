@@ -1,0 +1,20 @@
+/* .Item (Breadcrumb) · set 6713:3 — 48 de altura · Default pad 0 4 0 0 · Truncate pad 0 8
+   Content pad 8 · raio extra-small · Hovered Surface/01 · Pressed Accent/Solid/soft · Disabled Opacity/light
+   Motion: hover/press 300ms + Systemic/accelerate (reactions do Figma) */
+cds-breadcrumb-item{ display:inline-flex; align-items:center; height:var(--common-sizes-48); padding:0 var(--common-sizes-4) 0 0; flex:0 0 auto; }
+cds-breadcrumb-item[kind="truncate"]{ padding:0 var(--common-sizes-8); }
+cds-breadcrumb-item [hidden]{ display:none !important; }
+cds-breadcrumb-item[disabled]{ opacity:var(--common-opacity-light); }
+.cds-bci__content{
+  --_bg:transparent;
+  display:inline-flex; align-items:center; padding:var(--common-sizes-8); margin:0; border:0; border-radius:var(--common-border-radius-extra-small);
+  background:var(--_bg); font:var(--text-style-label-regular); color:var(--common-colors-text-medium); text-decoration:none; white-space:nowrap;
+  cursor:pointer; transition:background-color var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate);
+}
+span.cds-bci__content{ cursor:default; }
+.cds-bci__content:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:0; } /* C23 */
+cds-breadcrumb-item[is-active] .cds-bci__content{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+a.cds-bci__content:hover, button.cds-bci__content:hover, [state="hovered"] > .cds-bci__content{ --_bg:var(--common-colors-surface-01); color:var(--common-colors-text-intense); }
+a.cds-bci__content:active, button.cds-bci__content:active, [state="pressed"] > .cds-bci__content{ --_bg:var(--common-colors-accent-solid-soft); color:var(--common-colors-text-intense); }
+cds-breadcrumb-item[disabled] .cds-bci__content{ pointer-events:none; color:var(--common-colors-text-medium); }
+@media (prefers-reduced-motion:reduce){ .cds-bci__content{ transition:none; } }

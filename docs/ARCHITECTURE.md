@@ -77,7 +77,16 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 
 ---
 
-## 5. Análise — rodada 10 (02/10 · Select Inputs + listas antecipadas)
+## 5. Análise — rodada 11 (02/10 · Lote 7, Navegação)
+
+| # | Achado | Detalhe | Status |
+|---|---|---|---|
+| A57 | **`CDS.TabList`** (base de Fixed e Scrollable Tab) | tablist com foco itinerante; o `tabindex` vem do próprio `.Item` (ele conecta depois da lista), por isso o `role` é definido antes de criar os itens | ✅ |
+| A58 | **Colisão de prefixo de classe** | `.cds-bc` (Balance Card × Breadcrumb). Um `grep` nos `.css` acha prefixos definidos por mais de um componente; os demais casos são reaproveitamento de base (`.cds-tf`, `.cds-li`, `.cds-btn`) | ⏳ backlog: checagem automática no `build-index` com lista de bases permitidas |
+| A59 | **Popover: conteúdo antes do connect** | O Popover move os filhos para o Slot no primeiro render; filhos acrescentados depois ficam fora (viraram uma linha flex ao lado do Slot) | ✅ regra; ⏳ backlog: o Popover aceitar filhos novos (MutationObserver ou `slotEl` público) |
+| A60 | **Specimens mais largos que o frame** (Pagination 780, Drawer 640) | `max-width:none; flex:none` no specimen do playground; o componente segue responsivo (`max-width:100%`, quebra de linha) | ✅ |
+
+### Rodada 10 (02/10 · Select Inputs + listas antecipadas)
 
 | # | Achado | Detalhe | Status |
 |---|---|---|---|
@@ -224,6 +233,8 @@ Medições no código atual:
 | **P3** | Revisar px literais e mapear o que tem token | A5 | ~30min | Lote 5 |
 | **P3** | Carimbar também os `url()` do `icons.css` (SVGs) se um ícone mudar sem trocar de nome | D47 | ~20min | próxima reimportação de ícones |
 | **P3** | Overlays e Badge numa página real: ler o viewport por `matchMedia` quando não houver `[data-viewport]` (hoje o padrão é desktop) | A49 | ~30min | Lote 7 |
+| **P2** | `build-index`: avisar quando dois componentes definem o mesmo prefixo de classe fora da lista de bases | A58 | ~20min | Lote 8 |
+| **P3** | Popover aceitar conteúdo acrescentado depois do connect | A59 | ~20min | Lote 8 |
 | **P3** | Smoke: abrir os Selects (`openList()`), checar `aria-expanded`, `aria-activedescendant` e a largura do Popover = largura do campo | A54 | ~30min | Lote 7 |
 | **P3** | Smoke: abrir os overlays de verdade (`show()`), checar `:modal`, foco no primeiro controle e fechamento por Esc/Backdrop | A48 | ~30min | Select Inputs |
 | **P3** | TypeScript com `esbuild` gerando `dist/`, mantendo o Pages sem build (commit do bundle) | A10 | ~2h | depois de ~40 componentes |
@@ -248,6 +259,7 @@ Medições no código atual:
 | Lote 6 | `CDS.position` (Tooltip e Popover) · Popover sobre a Popover API nativa (`for` liga o gatilho; Drop Button sincroniza Is Active) · `CDS.Overlay` sobre `<dialog>` + `showModal()` (Modal, Drawer, Bottom Sheet) com o Backdrop no `::backdrop` · `inline` para specimens · Viewport Restriction por `viewport`/`[data-viewport]` · `CDS.Footer` como base do Fixed Bar · `kit.overlay` | Com o painel do navegador oculto, `requestAnimationFrame` não roda e o evento `close` do `<dialog>` atrasa: estado de componente não pode depender deles (o bind do Popover passou a ser síncrono; o `close()` do overlay atualiza o atributo e dispara `cds-close` na hora). `title` é atributo global (tooltip nativo sobre o painel inteiro): props de texto viram `text-title` |
 | Cache-busting | `build-index.js` carimba `?v=<sha1:8>` em todo `.js`/`.css` local citado no HTML (inclusive o `tests/smoke.js` injetado por script); idempotente · CONFERIR agrupado por tipo de ajuste | Com hash do conteúdo (e não número de versão) só o arquivo alterado perde o cache, e não há passo manual para esquecer. Limite: arquivos puxados por `url()` dentro do CSS (SVGs dos ícones) seguem sem carimbo |
 | Select Inputs + listas | `CDS.ListItem` → Selection List Item · Content List Item · `.Trailing Item` · `.Lead Item` (Lists) · `CDS.SelectField` → 5 Selects · `CDS.attr` · `kit.selectField` | Com `?v=hash`, rodar o `build-index` depois de cada edição para o navegador pegar o arquivo novo. Testes de comportamento por script (combobox, teclado, radio em grupo) acharam dois bugs que o smoke não veria: ordem de atributos e foco em aba oculta |
+| Lote 7 | `CDS.TabList` → Fixed/Scrollable Tab · Breadcrumb (+ .Item, Popover de níveis) · Tab View (radiogroup sobre Icon Button) · Nav Control (+ .Item, `aria-live`) · Pagination (+ .Select Number) | Testar no navegador achou três problemas que o smoke só mostrou como tamanho errado (prefixo de classe, ordem role × itens, conteúdo fora do Slot). Ler a causa antes de ajustar o `expected` |
 | Recursos de suporte | `resources/<id>/` · `CDS.register({ resource:true })` · seção própria no side menu · `iconGallery` em accordion (`<details>`) · Icon sem doc da lib | Separar *quem desenha* (lib de apoio) de *quem aplica* (componente) deixa claro onde atualizar cada coisa. `<details>` resolve accordion sem JS de acessibilidade |
 | Ícones | 274 SVGs em 12 buckets + `catalog.json` · `build-assets` com buckets, deprecated e `_glyphs` · `kit.iconSwap` com `<optgroup>` · bloco `iconGallery` + `icon.docs.js` | Edição de arquivo por fatia (`s[a:b]`) precisa checar `a < b`: com a ordem invertida a fatia sai vazia e `replace("", novo)` insere o texto entre todos os caracteres (aconteceu no kit; restaurado do git). Sempre `assert` na âncora |
 | Motion Styles | `--motion-*-01-*` com alias para o primitivo; bloco `specs` (fichas) no kit; `<wbr>` em `código` longo | Tabela larga não funciona em doc responsiva: ficha por item escala melhor. Servidor local cacheia JS (sem headers): forçar `fetch(..., {cache:'reload'})` antes de recarregar |

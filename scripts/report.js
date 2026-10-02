@@ -12,7 +12,7 @@
   var TABS = [
     { id: "visao", title: "Visão geral" },
     { id: "roadmap", title: "Roadmap", file: "docs/ROADMAP.md", groups: [
-      ["Andamento", ["8", "3"]], ["Decisões e pendências", ["4", "5", "5.1", "5.2"]], ["Referência", ["2", "7", "1", "6"]] ] },
+      ["Andamento", ["8", "3"]], ["Decisões e pendências", ["4", "5", "5.1", "5.2"]], ["Referência", ["2", "7", "1"]] ], hide: ["6"] }, // 6 = Preferências (nota de trabalho, fica só no doc)
     { id: "conferir", title: "Conferir", file: "docs/CONFERIR.md", groups: [
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },
@@ -111,9 +111,13 @@
   // ---------- Números do topo ----------
   function kpis(docs){
     var road = docs.roadmap, conf = docs.conferir;
-    var status = sec(road, function(s){ return s.num === "8"; }).lines.filter(function(l){ return /^\|/.test(l) && !/^\|\s*(Lote|-)/.test(l); });
-    var done = status.filter(function(l){ return !/⏳/.test(l); }).length; // ✅ e 🧪 (experimento feito) contam como concluídas
-    var next = status.filter(function(l){ return /⏳/.test(l); }).map(function(l){ return cells(l)[1].replace(/⏳\s*/, "").replace(/\s*\(.*$/, ""); })[0];
+    // Inventário (§2): soma da coluna Var. ("12 / 1" = dois sets)
+    var sets = 0, variants = 0;
+    sec(road, function(s){ return s.num === "2"; }).lines.forEach(function(l){
+      if (!/^\|/.test(l) || /^\|\s*:?-{3,}|^\|\s*(Página|Componente)\s*\|/.test(l)) return;
+      var c = cells(l), v = c[c.length - 2] || "";
+      v.split("/").forEach(function(x){ var n = parseInt(x, 10); if (!isNaN(n)){ variants += n; sets++; } });
+    });
     var openC = conf.sections.filter(function(s){ return TYPES.indexOf(s.title) !== -1; }).reduce(function(a, s){ return a + items(s.lines).length; }, 0);
     var solved = items(sec(conf, function(s){ return s.title === "Resolvidos"; }).lines).length;
     var dec = items(sec(road, function(s){ return s.num === "4"; }).lines).length;
@@ -122,7 +126,7 @@
     var comps = pg.filter(function(c){ return !c.block; }).length;
     return [
       { label: "Componentes no playground", value: comps, sub: "+ " + (pg.length - comps) + " building blocks" },
-      { label: "Etapas concluídas", value: done + " de " + status.length, sub: next ? "Falta: " + next : "Todas concluídas" },
+      { label: "Variantes do Figma cobertas", value: variants.toLocaleString("pt-BR"), sub: "em " + sets + " sets da lib" },
       { label: "Divergências em aberto", value: openC, sub: solved + " já resolvidas" },
       { label: "Decisões registradas", value: dec, sub: qs ? qs + " dúvida(s) em aberto" : "Sem dúvidas em aberto" }
     ];
@@ -158,26 +162,6 @@
     var road = docs.roadmap, conf = docs.conferir;
     var grid = bodyEl.appendChild(el("div", "rp-dash"));
 
-    // Etapas
-    var st = rows(sec(road, function(s){ return s.num === "8"; }).lines).map(function(r){
-      var txt = r[1], state = /✅/.test(txt) ? "done" : /⏳/.test(txt) ? "todo" : "extra";
-      txt = txt.replace(/^[✅⏳🧪]\s*/u, "").replace(/[✅⏳🧪]\s*/gu, "");
-      var m = txt.match(/^(\d{2}\/\d{2})\s*—\s*(.*)$/);
-      return { lote: r[0] === "—" ? "Extra" : "Lote " + r[0], date: m ? m[1] : "", text: plain(m ? m[2] : txt), state: state };
-    });
-    var done = st.filter(function(x){ return x.state !== "todo"; }).length;
-    var p1 = panel(grid, "Etapas", done + " de " + st.length + " concluídas", "rp-panel--wide");
-    var prog = p1.appendChild(el("div", "rp-progress")); prog.setAttribute("role", "img"); prog.setAttribute("aria-label", Math.round(done / st.length * 100) + "% das etapas concluídas");
-    prog.appendChild(el("span")).style.width = (done / st.length * 100) + "%";
-    var ol = p1.appendChild(el("ol", "rp-steps"));
-    st.forEach(function(x){
-      var li = ol.appendChild(el("li", "rp-step is-" + x.state));
-      li.appendChild(el("span", "rp-step__dot")).setAttribute("aria-hidden", "true");
-      li.appendChild(el("span", "rp-step__lote", esc(x.lote)));
-      var t = li.appendChild(el("span", "rp-step__text", esc(x.text))); t.title = x.text;
-      li.appendChild(el("span", "rp-step__date", x.state === "todo" ? "pendente" : esc(x.date)));
-    });
-
     // Divergências por tipo
     var open = conf.sections.filter(function(s){ return TYPES.indexOf(s.title) !== -1; });
     var total = open.reduce(function(a, s){ return a + items(s.lines).length; }, 0);
@@ -208,22 +192,28 @@
     bars(p4, cl, { tone: "neutral" });
     if (rest.length) p4.appendChild(el("p", "rp-panel__foot", "+ " + rest.length + " páginas com até " + rest[0].value + " componente(s): " + esc(rest.map(function(d){ return d.label; }).join(", "))));
 
-    // Pendências
+    // Pendências: abertas primeiro; as já resolvidas nos registros (✅ ou riscadas) vão riscadas para o fim
     var p5 = panel(grid, "Pendências", "O que depende de decisão ou de ajuste no Figma");
     var pend = [];
-    rows(sec(road, function(s){ return s.num === "5"; }).lines).filter(function(r){ return !/✅/.test(r.join(" ")); })
-      .forEach(function(r){ pend.push({ tag: "Dúvida", id: r[0], text: plain(r[1]), note: plain(r[2] || "") }); });
-    rows(sec(road, function(s){ return s.num === "5.2"; }).lines).forEach(function(r){ pend.push({ tag: "Débito de design", id: r[0].split(" ")[0], text: plain(r[1]), note: plain(r[0].split("·")[1] || "").trim() }); });
-    rows(sec(road, function(s){ return s.num === "5.1"; }).lines).filter(function(r){ return !/~~|✅/.test(r[0]); })
-      .forEach(function(r){ pend.push({ tag: "Débito de export", id: "", text: plain(r[0]), note: "Hoje: " + plain(r[3] || "").split(/[.;(]/)[0] }); });
+    function isDone(r){ return /✅|~~/.test(r.join(" ")); }
+    rows(sec(road, function(s){ return s.num === "5"; }).lines).forEach(function(r){
+      var d = isDone(r), q = plain(r[1]), k = q.indexOf("?") + 1; // resolvida: "pergunta? resposta" → pergunta riscada + resposta na nota
+      pend.push({ tag: "Dúvida", id: r[0], text: d && k ? q.slice(0, k) : q, note: d ? "Resolvida: " + (k ? q.slice(k).trim() : plain(r[2] || "")) : plain(r[2] || ""), done: d });
+    });
+    rows(sec(road, function(s){ return s.num === "5.2"; }).lines).forEach(function(r){ pend.push({ tag: "Débito de design", id: r[0].split(" ")[0], text: plain(r[1]), note: plain(r[0].split("·")[1] || "").trim(), done: isDone(r) }); });
+    rows(sec(road, function(s){ return s.num === "5.1"; }).lines).forEach(function(r){
+      var d = isDone(r); pend.push({ tag: "Débito de export", id: "", text: plain(r[0]).replace(/\s*✅/, ""), note: (d ? "Resolvido: " : "Hoje: ") + plain(r[3] || "").split(/[.;(]/)[0], done: d });
+    });
+    pend.sort(function(a, b){ return a.done - b.done; });
+    if (!pend.some(function(x){ return !x.done; })) pend.unshift({ tag: "", text: "Nada em aberto.", done: false });
     var pl = p5.appendChild(el("ul", "rp-list"));
     pend.forEach(function(x){
-      var li = pl.appendChild(el("li"));
-      li.appendChild(el("span", "rp-tag", esc(x.tag)));
-      li.appendChild(el("p", "rp-list__text", (x.id ? "<strong>" + esc(x.id) + "</strong> · " : "") + esc(x.text)));
+      var li = pl.appendChild(el("li", x.done ? "is-done" : null));
+      if (x.tag) li.appendChild(el("span", "rp-tag", esc(x.done ? "Resolvido · " + x.tag : x.tag)));
+      var body = (x.id ? "<strong>" + esc(x.id) + "</strong> · " : "") + esc(x.text);
+      li.appendChild(el("p", "rp-list__text", x.done ? "<del>" + body + "</del>" : body));
       if (x.note) li.appendChild(el("p", "rp-list__note", esc(x.note)));
     });
-    if (!pend.length) pl.appendChild(el("li", "rp-list__note", "Nada pendente."));
 
     // Últimas decisões
     var dec = rows(sec(road, function(s){ return s.num === "4"; }).lines).filter(function(r){ return /^D\d+/.test(r[0]); })
@@ -297,7 +287,7 @@
       var secs = g[1].map(function(k){ return doc.sections.filter(function(s){ return (s.num || s.title) === k; })[0]; }).filter(Boolean);
       used = used.concat(secs); return { title: g[0], secs: secs };
     });
-    var rest = doc.sections.filter(function(s){ return used.indexOf(s) === -1; });
+    var rest = doc.sections.filter(function(s){ return used.indexOf(s) === -1 && (tab.hide || []).indexOf(s.num || s.title) === -1; });
     if (rest.length) groups[groups.length - 1].secs = groups[groups.length - 1].secs.concat(rest);
     groups.forEach(function(g){
       if (!g.secs.length) return;

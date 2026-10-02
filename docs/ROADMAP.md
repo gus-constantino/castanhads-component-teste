@@ -234,7 +234,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D63 | **Controles de avaliação sobre `<input type="radio">` nativo** (NPS e CSAT: radiogroup com setas) e **Slider com thumbs `role="slider"`** (teclado completo, Range sem cruzar), como pede a description do Slider | 02/10 |
 | D64 | **Caju Card em etapa própria (9d)**: as artes vêm de vetores por Kind e orientação; a fidelidade pede exportar as peças estáticas sem alterar o arquivo do Figma | 02/10 |
 | D65 | **Caju Card = arte em SVG + dados como texto**: cada variante exportada do Figma vira `assets/caju-card/<kind>-<h\|v>-<front\|back>.svg`, inserida inline; número, CVV, validade, código de ativação e 4 últimos dígitos são `tspan[data-field]` trocados pelos atributos. Combinação ausente cai na mais próxima (C74) | 02/10 |
-| D66 | **Relatório como painel** (`#/relatorio`, botão de gráfico no header): lê `ROADMAP`, `CONFERIR` e `ARCHITECTURE` ao abrir, sem cópia; tab Visão geral (números, etapas, divergências por tipo, tratamento D40, pendências, decisões) + uma tab por doc com seções reagrupadas. Página renomeada para "Castanha DS: Playground de handoff design <> Code" | 02/10 |
+| D66 | **Relatório como painel** (`#/relatorio`, botão de gráfico no header): lê `ROADMAP`, `CONFERIR` e `ARCHITECTURE` ao abrir, sem cópia; tab Visão geral só com dados (componentes, variantes, divergências por tipo, tratamento D40, pendências com as resolvidas riscadas no fim, decisões; sem as etapas, que são do time) e sem a seção Preferências (fica só no doc) + uma tab por doc com seções reagrupadas. Página renomeada para "Castanha DS: Playground de handoff design <> Code" | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -254,7 +254,7 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | Asset | Origem | Destino | Hoje no repo |
 |---|---|---|---|
 | ~~Ícones (274)~~ ✅ | `[Caju] Icons` · página `UI & Caju` | `assets/icons/<categoria>/` + `catalog.json` | **274 importados em 01/10** (12 buckets, incluindo `deprecated`), com palavras-chave da description. Reimportar: ver ARCHITECTURE §8 |
-| Ilustrações (237 + Hero + Cartões) | `[Caju] Illustrations` · página `Caju UI` | `assets/illustrations/` | 0 |
+| Ilustrações (237 + Hero + Cartões) | `[Caju] Illustrations` · página `Caju UI` | `assets/illustrations/` | 2 (`sino` e `empty-state`, exportadas com os componentes que usam). As artes do Caju Card saíram do próprio componente (12, D65) |
 | Bandeiras Elo, Mastercard e Visa | `.Credit Card Flags` (`4934:771`) | `assets/flags/<kind>.svg` | 3, reconstruídas de `vectorPaths` (o Elo com coordenadas arredondadas); o MCP falha com "no visible layers". Substituir pelos SVGs oficiais, sem mudar código |
 
 ## 5.2 Débitos de design (Gustavo)

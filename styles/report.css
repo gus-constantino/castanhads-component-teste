@@ -126,6 +126,8 @@ a.rp-bar:focus-visible, .rp-more:focus-visible{ outline:2px solid var(--common-c
 .rp-list--cols li{ break-inside:avoid; }
 .rp-list--cols li:first-child{ padding-top:10px; }
 .rp-panel__foot{ margin:var(--common-sizes-12) 0 0; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+.rp-list li.is-done .rp-list__text{ color:var(--common-colors-text-soft); }
+.rp-list li.is-done .rp-tag{ background:var(--common-colors-feedback-positive-soft); color:var(--common-colors-feedback-positive-intense); }
 .rp-more{ display:inline-block; margin-top:var(--common-sizes-12); font:var(--text-style-caption-medium); color:var(--common-colors-text-accent); }
 
 @media (max-width:1100px){

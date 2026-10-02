@@ -17,8 +17,9 @@
       if (this.flag("show-cta")){
         var cta = this.appendChild(CDS.create("span", null, "cds-cb__cta"));
         cta.appendChild(CDS.create("span")).textContent = this.text("cta", "Label");
-        // Figma: o Icon do CTA é Neutral também no Inversed (CONFERIR.md · C26)
-        cta.appendChild(CDS.create("cds-icon", { icon: "go-line", size: "medium", appearance: "neutral" }));
+        // Figma: Icon Neutral com override de cor na instância → Icons/inversed no Inversed
+        var inv = this.getAttribute("appearance") === "inversed";
+        cta.appendChild(CDS.create("cds-icon", { icon: "go-line", size: "medium", appearance: inv ? "inversed" : "neutral" }));
       }
     }
   }

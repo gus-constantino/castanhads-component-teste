@@ -10,7 +10,6 @@ CDS.register({
       kit.attr(p, "appearance", v === "neutral" ? null : v);
       wrap.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : "var(--common-colors-decorative-01)";
     } });
-    kit.hint(panel, "No Inversed, o ícone do CTA continua Neutral, como no Figma (CONFERIR.md · C26).");
     kit.section(panel, "Booleans");
     [["show-text-title","Show Text Title"],["show-cta","Show CTA"]].forEach(function(b){ kit.toggle(panel, { label: b[1], checked: true, onChange: function(on){ kit.attr(p, b[0], on ? null : "false"); } }); });
     kit.section(panel, "Texts");

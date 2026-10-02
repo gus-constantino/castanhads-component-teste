@@ -87,6 +87,7 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 | A41 | **Primeiro elemento flutuante** (Tooltip com `for`) | `position:fixed` calculado no `show()`, vira para baixo se não couber em cima. O Popover (Lote 6) deve reaproveitar o posicionamento, de preferência com Popover API/anchor positioning | ⏳ extrair para `CDS.position` no Lote 6 |
 | A42 | **Ilustração maior que 20 KB** | `scripts/dev/extract-svg.py` junta pedaços `@@SVG` do transcript | ✅ receita para o [Caju] Illustrations |
 | A43 | **Smoke mede o playground** | Os padrões do playground têm de ser os do Figma; o Balance Card com textos de exemplo mediu 151 em vez de 144 | ✅ regra: exemplos ficam no hint, não no default |
+| A45 | **Ler overrides da instância, não só as props** | No `.Content Banner` Inversed a prop do Icon é `Neutral`, mas a instância sobrescreve o fill para `Icons/inversed`. O extrator agora precisa ler a cor resolvida do vetor (`boundVariables.fills`) além de `componentProperties` | ✅ regra no extrator |
 | A44 | **Backdrop ainda não existe** | O Banner Kind=Image desenha o próprio backdrop (Surface/inversed · 0.4) | ⏳ consumir o componente no Lote 6 |
 
 ### Rodada 7 (01/10 · Lote 4, Text Fields)
@@ -229,6 +230,7 @@ Medições no código atual:
 
 ## 8. Receitas (para não reescrever)
 
+- **Cor de ícone aninhado:** ler a cor resolvida do vetor (`vector.boundVariables.fills`) além da prop `Appearance`; a instância pode sobrescrever o fill.
 - **Ler um set grande sem estourar o contexto:** matriz por variante com `fill / stroke / opacity / texto+style / cor do ícone / tamanho / padding / gap / raio` (Lote 2), ou árvore da 1ª variante + diff das demais (Lote 1).
 - **Resolver um token light/dark:** seguir `valuesByMode` até o primitivo, escolhendo o modo cujo nome contém `light` ou `dark` em cada coleção (Brand Style tem um modo só, "Caju", e aponta para Caju Beneficios Light/Dark).
 - **Exportar ícone:** `getMainComponentAsync()` da instância → `exportAsync({format:'SVG_STRING'})`; se falhar, exportar a instância.

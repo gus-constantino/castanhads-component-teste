@@ -7,24 +7,8 @@
    ===================================================================== */
 
 /* ---------- Tabs ---------- */
-.pg-tabs{
-  display:flex; overflow-x:auto; scrollbar-width:none;
-  margin:var(--common-sizes-16) var(--common-sizes-24) 0;
-  box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft);
-}
-.pg-tabs::-webkit-scrollbar{ display:none; }
-.pg-tab{
-  flex:0 0 auto; height:var(--common-sizes-48); padding:0 var(--common-sizes-16);
-  border:0; background:none; cursor:pointer; white-space:nowrap;
-  font:var(--text-style-label-regular); color:var(--common-colors-text-medium);
-  box-shadow:inset 0 calc(-1 * var(--common-border-width-thin)) 0 var(--_line, transparent);
-  transition:box-shadow var(--motion-hover-duration) var(--motion-hover-easing), color var(--motion-hover-duration) var(--motion-hover-easing);
-}
-.pg-tab:hover{ --_line:var(--common-colors-border-semi-soft); }
-.pg-tab:active{ --_line:var(--common-colors-accent-solid-medium); font:var(--text-style-label-medium); }
-.pg-tab[aria-selected="true"]{ --_line:var(--common-colors-accent-solid-medium); font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
-.pg-tab:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-border-intense); outline-offset:calc(-1 * var(--common-border-width-thin)); }
-@media (prefers-reduced-motion:reduce){ .pg-tab{ transition:none; } }
+/* Tabs = Scrollable Tab do DS (Fase 3): aqui só o espaço em volta */
+.pg-tabs{ margin:var(--common-sizes-16) var(--common-sizes-32) 0; --cds-tab-width:100%; }
 
 /* Modo doc: some o stage, o painel de controles e o seletor de viewport */
 .pg-shell.is-doc{ grid-template-columns:var(--pg-sidebar-w) minmax(0,1fr); }

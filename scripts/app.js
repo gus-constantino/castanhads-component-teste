@@ -21,23 +21,21 @@
   function link(c){
     return kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.task || "" })])]);
   }
-  // Accordion de categoria: <details> nativo (teclado e leitor de tela de graça)
+  // Categoria = Accordion Item do DS (Label = categoria, Description = quantidade, sem Lead Item) — Fase 3 do plano UI no DS
   var narrow = window.matchMedia("(max-width:1100px)"); // menu vira faixa horizontal: tudo aberto, sem cabeçalho
   var openCats = {};
   try { openCats = JSON.parse(localStorage.getItem("cds-pg-nav-open") || "{}") || {}; } catch (e) { openCats = {}; }
   function saveOpen(){ try { localStorage.setItem("cds-pg-nav-open", JSON.stringify(openCats)); } catch (e) {} }
   function navGroup(label, items, open, onToggle){
-    var det = kit.el("details", { "class": "pg-nav-cat" });
-    det.open = !!open;
-    var chev = kit.el("span", { "class": "cds-icon cds-icon--dropdown-open-line pg-nav-cat__chev", "aria-hidden": "true" });
-    det.appendChild(kit.el("summary", { "class": "pg-nav-cat__head" }, [kit.el("span", { text: label }), kit.el("small", { text: String(items.length) }), chev]));
+    var acc = kit.el("cds-accordion-item", { "class": "pg-nav-cat", label: label, description: items.length + (items.length === 1 ? " componente" : " componentes"), "show-lead-item": "false", collapsed: !open });
     var ul = kit.el("ul", { "class": "pg-nav" });
     items.forEach(function(c){ ul.appendChild(link(c)); });
-    det.appendChild(ul);
-    det.addEventListener("toggle", function(){ if (!narrow.matches && !search.value.trim()) onToggle(det.open); });
-    return det;
+    acc.appendChild(ul); // Slot: entra antes de conectar
+    acc.addEventListener("cds-toggle", function(e){ if (!narrow.matches && !searchText()) onToggle(!e.detail.collapsed); });
+    return acc;
   }
-  narrow.addEventListener("change", function(){ buildNav(search.value); });
+  function searchText(){ return String(search.value || "").trim(); }
+  narrow.addEventListener("change", function(){ buildNav(searchText()); });
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
@@ -66,11 +64,11 @@
   function markCurrent(){
     var cur = currentId();
     [].slice.call(nav.querySelectorAll("a")).concat([].slice.call(navRes.querySelectorAll("a"))).forEach(function(a){
-      if (a.getAttribute("href") === "#/" + cur){ a.setAttribute("aria-current", "page"); var d = a.closest("details"); if (d) d.open = true; }
+      if (a.getAttribute("href") === "#/" + cur){ a.setAttribute("aria-current", "page"); var d = a.closest("cds-accordion-item"); if (d && d.collapsed) d.collapsed = false; }
       else a.removeAttribute("aria-current");
     });
   }
-  search.addEventListener("input", function(){ buildNav(search.value); });
+  search.addEventListener("cds-change", function(e){ e.stopPropagation(); buildNav(searchText()); });
 
   // ---------- Roteamento: #/<id> ou #/<id>/<tab> ----------
   function route(){ return (location.hash || "").replace(/^#\/?/, "").split("/"); }
@@ -92,28 +90,22 @@
     tabsEl.innerHTML = "";
     tabsEl.hidden = !doc || !CDS.renderDoc;
     if (tabsEl.hidden) return;
-    var def = currentDef();
-    (def.resource ? [] : [{ id: "playground", title: "Playground" }]).concat(doc.tabs).forEach(function(t){
-      var b = kit.el("button", { type: "button", role: "tab", "class": "pg-tab", id: "tab-" + t.id, "data-tab": t.id, text: t.title });
-      b.addEventListener("click", function(){ location.hash = "#/" + id + (t.id === "playground" || (def.resource && t.id === doc.tabs[0].id) ? "" : "/" + t.id); });
-      tabsEl.appendChild(b);
+    var def = currentDef(), tabs = (def.resource ? [] : [{ id: "playground", title: "Playground" }]).concat(doc.tabs);
+    // Scrollable Tab do DS: teclado (setas/Home/End) e foco itinerante vêm do componente
+    var tl = kit.el("cds-scrollable-tab", { label: "Seções do componente" });
+    tabs.forEach(function(t){ tl.appendChild(kit.el("cds-tab-item", { label: t.title, id: "tab-" + t.id, "data-tab": t.id })); });
+    tl.addEventListener("cds-change", function(e){
+      e.stopPropagation();
+      var t = tabs[e.detail.index - 1]; if (!t) return;
+      location.hash = "#/" + id + (t.id === "playground" || (def.resource && t.id === doc.tabs[0].id) ? "" : "/" + t.id);
     });
+    tabsEl.appendChild(tl);
   }
-  // Setas/Home/End movem entre as tabs (padrão WAI-ARIA, ativação automática)
-  tabsEl.addEventListener("keydown", function(e){
-    var tabs = Array.prototype.slice.call(tabsEl.querySelectorAll('[role="tab"]')), i = tabs.indexOf(document.activeElement);
-    if (i < 0) return;
-    var j = e.key === "ArrowRight" ? (i + 1) % tabs.length : e.key === "ArrowLeft" ? (i - 1 + tabs.length) % tabs.length : e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : -1;
-    if (j < 0) return;
-    e.preventDefault(); tabs[j].focus(); tabs[j].click();
-  });
   function applyTab(){
     var id = currentId(), tab = currentTab(), doc = CDS.docs && CDS.docs[id];
     var isDoc = !tabsEl.hidden && tab !== "playground";
-    tabsEl.querySelectorAll('[role="tab"]').forEach(function(b){
-      var on = b.dataset.tab === tab;
-      b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1;
-    });
+    var tl = tabsEl.querySelector("cds-scrollable-tab");
+    if (tl){ var idx = [].map.call(tl.querySelectorAll("cds-tab-item"), function(b){ return b.dataset.tab; }).indexOf(tab); CDS.attr(tl, "active-item", String(idx + 1)); }
     if (tabsEl.hidden){ stage.removeAttribute("role"); stage.removeAttribute("aria-labelledby"); }
     else { stage.setAttribute("role", "tabpanel"); stage.setAttribute("aria-labelledby", "tab-playground"); }
     shell.classList.toggle("is-doc", isDoc);

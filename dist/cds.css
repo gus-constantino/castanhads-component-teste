@@ -1075,7 +1075,7 @@ cds-fixed-tab > cds-tab-item{ flex:1 1 0; }
 
 /* ==== components/scrollable-tab/scrollable-tab.css ==== */
 /* Scrollable Tab · set 6646:181 — abas em Hug, rolagem horizontal sem barra */
-cds-scrollable-tab{ display:flex; align-items:center; width:320px; max-width:100%; overflow-x:auto; scrollbar-width:none; scroll-behavior:smooth; }
+cds-scrollable-tab{ display:flex; align-items:center; width:var(--cds-tab-width, 320px); /* 320 = frame do Figma; quem usa pode trocar */ max-width:100%; overflow-x:auto; scrollbar-width:none; scroll-behavior:smooth; }
 cds-scrollable-tab::-webkit-scrollbar{ display:none; }
 cds-scrollable-tab > cds-tab-item{ flex:0 0 auto; }
 @media (prefers-reduced-motion:reduce){ cds-scrollable-tab{ scroll-behavior:auto; } }

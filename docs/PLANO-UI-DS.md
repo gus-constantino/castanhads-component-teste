@@ -69,7 +69,7 @@
 | — · Desempenho | ✅ 02/10 — pacotes `dist/cds.css` e `dist/cds.js` (D70): de ~250 para 14 requisições |
 | 2 · Painel de controles | ✅ 02/10 — `kit.seg` → Chips Group + Filter Chips (um selecionado) · `kit.toggle` → Switch · `kit.text` → Text Input · `kit.range` → Slider · `kit.select` → Radio Select Input · `kit.iconSwap`/`illustrationSwap` → Async Select Input com busca · `kit.button` (novo) → Main Button · inspetor → Tag + Filter Chips. Seletor de viewport e separadores do OTP também. API do kit mantida (`toggle` → `{checked}`, `seg.setValue`). Gap: C85 |
 | 2b · Ajustes (Gustavo) | ✅ 02/10 — Chips Group voltou a ter gap 8 entre chips e linhas (o shell desligava o flex); escala de espaço do shell subiu um degrau (painel 24, controles 24, seções 32, menu 24, barra 32); seletor de viewport com Icon Button + Tooltip (C86); buscas das bibliotecas com Search Input; "Marcar todos"/"Limpar" do OTP com Link |
-| 3 · Navegação | ⏳ |
+| 3 · Navegação | ✅ 02/10 — busca do menu com Search Input; categorias (e Building blocks) com Accordion Item (Label = categoria, Description = quantidade, sem Lead Item; abertas lembradas no navegador; na faixa estreita sem cabeçalho); tabs da documentação e do relatório com Scrollable Tab + Tab Item (teclado do componente). Scrollable Tab ganhou `--cds-tab-width` (padrão 320, o frame do Figma) |
 | 4 · Doc e recursos | ⏳ |
 | 5 · Relatório | ⏳ |
 | 6 · Fechamento | ⏳ |

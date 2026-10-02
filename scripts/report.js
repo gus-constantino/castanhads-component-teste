@@ -248,18 +248,16 @@
     searchEl.type = "search"; searchEl.placeholder = "Buscar no relatório"; searchEl.setAttribute("aria-label", "Buscar no relatório");
     searchEl.addEventListener("input", filter);
     kpiEl = root.appendChild(el("div", "rp-kpis"));
-    tabsEl = root.appendChild(el("div", "pg-tabs rp-tabs"));
-    tabsEl.setAttribute("role", "tablist"); tabsEl.setAttribute("aria-label", "Registros");
+    // Scrollable Tab do DS (teclado e foco itinerante vêm do componente)
+    var wrap = root.appendChild(el("div", "pg-tabs rp-tabs"));
+    tabsEl = wrap.appendChild(document.createElement("cds-scrollable-tab"));
+    tabsEl.setAttribute("label", "Registros");
     TABS.forEach(function(tab){
-      var b = tabsEl.appendChild(el("button", "pg-tab", tab.title));
-      b.type = "button"; b.setAttribute("role", "tab"); b.id = "rp-tab-" + tab.id; b.dataset.tab = tab.id;
-      b.addEventListener("click", function(){ location.hash = "#/relatorio/" + tab.id; });
+      var it = document.createElement("cds-tab-item");
+      it.setAttribute("label", tab.title); it.id = "rp-tab-" + tab.id; it.dataset.tab = tab.id;
+      tabsEl.appendChild(it);
     });
-    tabsEl.addEventListener("keydown", function(e){
-      var bs = [].slice.call(tabsEl.children), i = bs.indexOf(document.activeElement); if (i < 0) return;
-      var j = e.key === "ArrowRight" ? (i + 1) % bs.length : e.key === "ArrowLeft" ? (i - 1 + bs.length) % bs.length : e.key === "Home" ? 0 : e.key === "End" ? bs.length - 1 : -1;
-      if (j < 0) return; e.preventDefault(); bs[j].focus(); bs[j].click();
-    });
+    tabsEl.addEventListener("cds-change", function(e){ e.stopPropagation(); var t = TABS[e.detail.index - 1]; if (t) location.hash = "#/relatorio/" + t.id; });
     bodyEl = root.appendChild(el("div", "rp-body"));
     bodyEl.setAttribute("role", "tabpanel");
     root.addEventListener("click", function(e){
@@ -272,7 +270,7 @@
 
   function renderTab(id){
     var tab = TABS.filter(function(t){ return t.id === id; })[0], doc = docs[id];
-    [].forEach.call(tabsEl.children, function(b){ var on = b.dataset.tab === id; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; });
+    var idx = TABS.map(function(t){ return t.id; }).indexOf(id); if (tabsEl.getAttribute("active-item") !== String(idx + 1)) tabsEl.setAttribute("active-item", String(idx + 1));
     bodyEl.setAttribute("aria-labelledby", "rp-tab-" + id);
     bodyEl.innerHTML = "";
     bodyEl.classList.toggle("is-dash", !tab.file);

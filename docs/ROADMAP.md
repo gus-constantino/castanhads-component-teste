@@ -306,6 +306,7 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 02/10 | Componente que gera amostra quando conecta sem filhos (o `.Week`) precisa ser preenchido antes de entrar no DOM; senão a amostra se soma aos filhos reais |
 
 ---
+| 02/10 | **GitHub Pages roda Jekyll e descarta pastas que começam com `_`** (`assets/icons/_glyphs` dava 404 só no Pages; local funcionava). `.nojekyll` na raiz desliga isso. Conferência pós-deploy agora inclui um HEAD em todos os arquivos versionados |
 
 ## 8. Status
 

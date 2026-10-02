@@ -11,16 +11,16 @@
   // Seções por número do título (ROADMAP/ARCHITECTURE) ou pelo nome (CONFERIR). O que não estiver listado vai para o último grupo.
   var TABS = [
     { id: "visao", title: "Visão geral" },
-    { id: "roadmap", title: "Roadmap", file: "docs/ROADMAP.md", groups: [
-      ["Andamento", ["8", "3"]], ["Decisões e pendências", ["4", "5", "5.1", "5.2"]], ["Referência", ["2", "7", "1"]] ], hide: ["6"] }, // 6 = Preferências (nota de trabalho, fica só no doc)
     { id: "conferir", title: "Conferir", file: "docs/CONFERIR.md", groups: [
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },
     { id: "arquitetura", title: "Arquitetura", file: "docs/ARCHITECTURE.md", groups: [
-      ["Visão", ["1", "2"]], ["Evolução", ["7", "6", "5"]], ["Referência técnica", ["3", "4", "8"]] ] }
+      ["Visão", ["1", "2"]], ["Evolução", ["7", "6", "5"]], ["Referência técnica", ["3", "4", "8"]] ] },
+    { id: "roadmap", title: "Roadmap", file: "docs/ROADMAP.md", groups: [
+      ["Andamento", ["8", "3"]], ["Decisões e pendências", ["4", "5", "5.1", "5.2"]], ["Referência", ["2", "7", "1"]] ], hide: ["6"] }, // 6 = Preferências (nota de trabalho, fica só no doc)
   ];
   var DOCS = TABS.filter(function(t){ return t.file; });
-  var TYPES = TABS[2].groups[0][1];
+  var TYPES = TABS.filter(function(t){ return t.id === "conferir"; })[0].groups[0][1];
   var cache = {};
   function load(file){
     if (!cache[file]) cache[file] = fetch(file, { cache: "no-cache" }).then(function(r){ if (!r.ok) throw new Error(file + " " + r.status); return r.text(); });

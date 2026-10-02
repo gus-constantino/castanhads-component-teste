@@ -165,7 +165,7 @@
     // Divergências por tipo
     var open = conf.sections.filter(function(s){ return TYPES.indexOf(s.title) !== -1; });
     var total = open.reduce(function(a, s){ return a + items(s.lines).length; }, 0);
-    var p2 = panel(grid, "Divergências Figma × código", total + " em aberto, por tipo de ajuste");
+    var p2 = panel(grid, "Divergências Figma", total + " em aberto, por tipo de ajuste");
     bars(p2, open.map(function(s){ return { label: s.title, value: items(s.lines).length, href: "#/relatorio/conferir/" + slug(s.title) }; })
       .sort(function(a, b){ return b.value - a.value; }));
 

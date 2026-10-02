@@ -1,0 +1,16 @@
+/* .Lead item (File) · set 15207:13262 — 48 · raio medium · overlay Surface/inversed: Hovered Opacity/intense · Pressed semi-opaque */
+cds-file-lead-item{ display:inline-flex; flex:0 0 auto; }
+.cds-fli{ position:relative; display:grid; place-items:center; width:var(--common-sizes-48); height:var(--common-sizes-48); margin:0; padding:0; border:0; background:none;
+  border-radius:var(--common-border-radius-medium); overflow:hidden; }
+button.cds-fli{ cursor:pointer; }
+button.cds-fli:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:2px; } /* C23 */
+.cds-fli > *{ grid-area:1 / 1; }
+.cds-fli__img{ width:100%; height:100%; }
+.cds-fli__overlay{ width:100%; height:100%; background:var(--common-colors-surface-inversed); opacity:0; transition:opacity var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate); }
+.cds-fli__icon{ opacity:0; z-index:1; }
+button.cds-fli:hover .cds-fli__overlay, [state="hovered"] > .cds-fli .cds-fli__overlay{ opacity:var(--common-opacity-intense); }
+button.cds-fli:active .cds-fli__overlay, [state="pressed"] > .cds-fli .cds-fli__overlay{ opacity:var(--common-opacity-semi-opaque); }
+button.cds-fli:hover .cds-fli__icon, button.cds-fli:active .cds-fli__icon, [state] > .cds-fli .cds-fli__icon{ opacity:1; }
+/* Appearance=File: no hover o Shaped Icon some, fica só o overlay com o ícone (como no Figma) */
+button.cds-fli:hover .cds-fli__file, button.cds-fli:active .cds-fli__file, [state] > .cds-fli .cds-fli__file{ visibility:hidden; }
+@media (prefers-reduced-motion:reduce){ .cds-fli__overlay{ transition:none; } }

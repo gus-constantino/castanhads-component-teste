@@ -1,0 +1,19 @@
+/* .Data Cell · set 13404:1015 — 64 · Surface/default · borda inferior Border/semi-soft · gap 4
+   Text: pad 8 20 (à esquerda) · Balance/Percentage: pad 8, à direita · Tag: pad 8 · Checkbox e Action Controls: centralizados */
+.cds-td{ --_bg:var(--common-colors-surface-default); box-sizing:border-box; height:var(--common-sizes-64); padding:var(--common-sizes-8) var(--common-sizes-20); background:var(--_bg);
+  border:0; box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); vertical-align:middle; text-align:left; /* stroke INSIDE */
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate); }
+cds-data-cell.cds-td{ display:flex; align-items:center; width:201px; }
+cds-data-cell[state="hovered"], tr:hover > .cds-td{ --_bg:var(--common-colors-surface-01); } /* na Table o hover é da linha inteira (C62) */
+.cds-td__in{ display:flex; align-items:center; gap:var(--common-sizes-4); min-width:0; flex:1 1 auto; }
+.cds-td[data-kind="balance"], .cds-td[data-kind="percentage"], .cds-td[data-kind="tag"], .cds-td[data-kind="actions"]{ padding:var(--common-sizes-8); }
+.cds-td[data-kind="balance"] .cds-td__in, .cds-td[data-kind="percentage"] .cds-td__in{ justify-content:flex-end; }
+.cds-td[data-kind="checkbox"] .cds-td__in, .cds-td[data-kind="actions"] .cds-td__in{ justify-content:center; }
+.cds-td[data-kind="checkbox"]{ width:88px; }
+.cds-td__text{ display:flex; flex-direction:column; min-width:0; }
+.cds-td__main{ font:var(--text-style-body-regular); color:var(--common-colors-text-intense); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cds-td__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cds-td__value{ font:var(--text-style-label-regular); color:var(--common-colors-text-intense); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.cds-td__num{ font:var(--text-style-body-regular); color:var(--common-colors-text-intense); font-variant-numeric:tabular-nums; }
+.cds-td .cds-sc__label{ display:none; }
+@media (prefers-reduced-motion:reduce){ .cds-td{ transition:none; } }

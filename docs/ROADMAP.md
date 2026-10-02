@@ -228,6 +228,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D57 | **Date Picker = grade do WAI-ARIA** (role grid, foco itinerante no dia, setas/Home/End/PageUp/PageDown); seleção `single` ou `range`; datas em AAAA-MM-DD nos atributos e dd/mm/aaaa na tela. O Modal Date Picker só aplica no Confirmar | 02/10 |
 | D58 | **Modal sem limite de largura**: abraça o conteúdo (min 272); resolve C34 e C58 | 02/10 |
 | D59 | **Amostras do protótipo são ilustrativas**: o código mantém o comportamento funcional (seleção real, textos derivados do estado) em vez de copiar valores de exemplo | 02/10 |
+| D60 | **Table como `<table>` de dados**: `.columns` / `.rows` (propriedades), ordenação com `aria-sort`, seleção por checkbox e paginação no cliente com a Pagination; sem dados, a amostra do Figma | 02/10 |
+| D61 | **Stroke INSIDE vira `box-shadow inset` ou `outline` com offset negativo**, nunca `border`: em célula de tabela e em contornos tracejados a borda soma à altura | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -320,6 +322,6 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 7 | ✅ 02/10 — Breadcrumb · Fixed Tab · Scrollable Tab · Tab View · Nav Control · Pagination + .Item (Breadcrumb) · .Item (Tabs) · .Item Nav Control · .Select Number (base `CDS.TabList`) |
 | 8 | ✅ 02/10 — Content List · Selection List (os itens entraram com os Selects, D50; o .Transaction Status Icon saiu do Figma, C55) |
 | 9a | ✅ 02/10 — Date Picker · Modal Date Picker · Date Input + .Day · .Week · .Navigation Control (Datepicker) |
-| 9b | ⏳ Table · Upload Item · Dropzone · Upload List |
+| 9b | ✅ 02/10 — Table (+ .Head · .Data Cell · .Toolbar) · Upload Item · Dropzone · Upload List (+ .Lead item File) · ilustração `empty-state` |
 | 9c | ⏳ Slider · NPS Score · CSAT Score · Progress Tracker · Caju Card |
 | — | ⏳ Recurso Animações (Q31) — no final |

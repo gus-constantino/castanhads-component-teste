@@ -1,0 +1,30 @@
+/* Dropzone · set 15386:7230 — 320 · contorno 1px tracejado INSIDE (dash 4 4 no Figma; o CSS usa dashed, C65) · raio medium · Surface/default
+   Desktop 165: coluna pad 12 20 gap 16 · Mobile 80: linha pad 16 gap 12 */
+cds-dropzone{ display:block; width:320px; max-width:100%; }
+cds-dropzone [hidden]{ display:none !important; }
+.cds-dz{
+  --_bg:var(--common-colors-surface-default); --_bd:var(--common-colors-border-medium); --_bw:var(--common-border-width-hairline);
+  box-sizing:border-box; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-16);
+  min-height:165px; padding:var(--common-sizes-12) var(--common-sizes-20); border-radius:var(--common-border-radius-medium); background:var(--_bg); text-align:center;
+  outline:var(--_bw) dashed var(--_bd); outline-offset:calc(-1 * var(--_bw)); /* stroke INSIDE tracejado */
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), outline-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-dz__body{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); min-width:0; }
+.cds-dz__texts{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.cds-dz__title{ font:var(--text-style-label-regular); color:var(--common-colors-text-intense); }
+.cds-dz__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.cds-dz__input{ position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+/* Mobile (tablet e mobile) */
+cds-dropzone[data-mode="mobile"] .cds-dz{ --_bd:var(--common-colors-border-semi-intense); flex-direction:row; justify-content:flex-start; gap:var(--common-sizes-12); min-height:var(--common-sizes-80); padding:var(--common-sizes-16); text-align:left; cursor:pointer; }
+cds-dropzone[data-mode="mobile"] .cds-dz__texts{ gap:var(--common-sizes-4); }
+cds-dropzone[data-mode="mobile"] .cds-dz__body{ align-items:flex-start; }
+cds-dropzone[data-mode="mobile"] .cds-dz__title{ font:var(--text-style-label-medium); }
+cds-dropzone[data-mode="mobile"] .cds-dz:hover, cds-dropzone[data-mode="mobile"][state="hovered"] .cds-dz{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-dropzone[data-mode="mobile"] .cds-dz:active, cds-dropzone[data-mode="mobile"][state="pressed"] .cds-dz{ --_bw:var(--common-border-width-thin); }
+cds-dropzone[data-mode="mobile"] .cds-dz:active .cds-dz__desc, cds-dropzone[data-mode="mobile"][state="pressed"] .cds-dz__desc{ font:var(--text-style-caption-medium); }
+cds-dropzone[data-mode="mobile"] .cds-dz:focus-visible{ --_bd:var(--common-colors-support-system); --_bw:2px; } /* foco no próprio contorno (C23) */
+/* Dragover */
+cds-dropzone.is-dragover .cds-dz, cds-dropzone[state="dragover"] .cds-dz{ --_bg:var(--common-colors-accent-solid-soft); --_bd:var(--common-colors-accent-solid-medium); }
+/* Disabled: no Figma só a borda muda (Border/semi-intense), sem opacidade (C65) */
+cds-dropzone[disabled] .cds-dz{ --_bd:var(--common-colors-border-semi-intense); cursor:default; }
+@media (prefers-reduced-motion:reduce){ .cds-dz{ transition:none; } }

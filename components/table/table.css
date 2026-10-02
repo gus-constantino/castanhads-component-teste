@@ -1,0 +1,15 @@
+/* Table · set 13472:5725 — 1053 × 816 no Figma (Default) · Container: stroke 1px INSIDE Border/semi-soft · raio large
+   (outline com offset negativo: o stroke fica por cima, sem somar altura, como o INSIDE do Figma)
+   .Toolbar 64 + .Head 56 + 10 × .Data Cell 64 = 760 · Pagination 56 abaixo (stroke inferior Border/semi-soft)
+   Kind=Empty: Table Columns 376 · coluna gap 24 centralizada · ilustração 200 + texto + Main Button */
+cds-table{ display:flex; flex-direction:column; width:100%; min-width:0; }
+cds-table [hidden]{ display:none !important; }
+.cds-table__box{ display:flex; flex-direction:column; border-radius:var(--common-border-radius-large); overflow:hidden;
+  outline:var(--common-border-width-hairline) solid var(--common-colors-border-semi-soft); outline-offset:calc(-1 * var(--common-border-width-hairline)); }
+.cds-table__scroll{ overflow-x:auto; }
+.cds-table{ width:100%; border-collapse:separate; border-spacing:0; }
+.cds-table__caption{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.cds-table__empty{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-24); min-height:376px; padding:var(--common-sizes-16); background:var(--common-colors-surface-default); text-align:center; }
+.cds-table__ill{ width:200px; height:200px; }
+.cds-table__empty-text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+cds-table .cds-table__pager{ width:100%; max-width:none; box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); }

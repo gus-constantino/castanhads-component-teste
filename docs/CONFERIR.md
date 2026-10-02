@@ -9,10 +9,10 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | Tipo | Itens |
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 6 |
-| [Ajuste de UI](#ajuste-de-ui) | 16 |
+| [Ajuste de UI](#ajuste-de-ui) | 20 |
 | [Motion](#motion) | 7 |
-| [Refactor](#refactor) | 10 |
-| [Naming](#naming) | 7 |
+| [Refactor](#refactor) | 12 |
+| [Naming](#naming) | 8 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 2 |
 
@@ -51,6 +51,10 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C46 | Nav Control · Tablet | `Mobile` visível com `Common/Is Mobile`, `Desktop` com `Common/Is Desktop`; no modo Tablet os dois são falsos e nada aparece | Mostrar uma das versões no Tablet | Segue o Figma: no 744 o componente some (`nav-control.css`) | Trocar a regra `[data-viewport="tablet"]` pela versão escolhida |
 | C48 | Breadcrumb · largura | Frame fixo de 434; os itens somam 423 (48 + 5×75) | Hug no conteúdo | Hug (423), como os itens | Nada a mudar se o frame virar Hug |
 | C49 | Tab View · Disabled | Container com `Opacity/medium` (0.4); as outras famílias usam `Opacity/light` (ver C19) | Um valor só | Segue o Figma | Trocar em `tab-view.css` |
+| C62 | Table · hover | Cada `.Data Cell` tem seu Hovered (Surface/01), porque a tabela é montada por colunas | Hover da linha inteira | **Exceção** (adaptação para web): o hover é da linha (`tr:hover`), com o mesmo Surface/01 | Nada a mudar se o Figma assumir hover por linha |
+| C63 | .Lead item (File) · ícone do hover | Kind=View file mostra `hide-line` (olho cortado) no Hovered/Pressed | Ícone de ver (olho aberto) | Segue o Figma: `hide-line` | Trocar o ícone em `file-lead-item.js` |
+| C64 | Upload Item · espaçamentos | Uploading: gap 6 entre o nome e a Progress Line (sem token); pad vertical 8 em Uploading/Success e 0 em Error/Uploaded | Tokens e um padding só | Segue o Figma (6px literal) | Ajustar `upload-item.css` |
+| C65 | Dropzone · estados | Disabled só muda a borda para Border/semi-intense (igual à versão Mobile Enabled), sem opacidade e com o Main Button Enabled; Desktop não tem Hovered nem Pressed; borda dash 4-4 | Disabled distinguível; hover/press no Desktop | Segue o Figma; a borda usa `dashed` do CSS (o traço não fica exatamente 4-4) | Ajustar `dropzone.css` |
 
 ## Motion
 
@@ -82,6 +86,8 @@ Props, estrutura ou comportamento do componente (camada sem uso, prop sem efeito
 | C51 | Breadcrumb · conteúdo e semântica | O Item 1 é sempre Truncate (…); **Is Active** está ligado no Item 2 e no Item 6 da amostra, sem regra clara; o Popover (Show Popover) está vazio | Definir o que Is Active significa (página atual?) e o que o Popover lista | **Exceção** (sem especificação): a amostra repete o Figma; com links, o último nível é a página atual (`aria-current`, Is Active) e o Popover lista os níveis escondidos (`collapse`) | Ajustar `breadcrumb.js` (`model()`) |
 | C52 | Pagination · limites | Sem estado das setas na primeira e na última página | Desabilitar nos limites | **Exceção** (sem especificação): ‹ desabilitado na página 1 e › na última | Implementar o que for desenhado em `pagination.js` |
 | C59 | Date Picker · comportamento | Sem especificação de: intervalo × data única (o componente não tem a prop), clique antes do início do intervalo, limites (min/max), teclado e anos do Year Selector (a lista começa em 1950) | Definir no Figma | **Exceção** (sem especificação): `mode` single/range; clique antes do início inverte; `min`/`max` desabilitam dias (Disabled); grade do WAI-ARIA com setas/PageUp/PageDown; anos de 1950 até o ano atual + 10 | Mantém assim (Gustavo, 02/10); ele vê depois como verificar. Ajustar `date-picker.js` se algo mudar |
+| C61 | Table · estrutura | Montada por colunas (`.Table Column` com `.Head` + `.Data Cell` no Slot) | Uma tabela por linhas para leitor de tela e teclado | **Exceção** (adaptação para web): `<table>` com `<th scope=col>` e `<td>`; as colunas viram `.columns` e as linhas `.rows` | Nada a mudar no Figma (é a forma de desenhar) |
+| C66 | Table · comportamento | Sem especificação de ciclo de ordenação, alcance do checkbox do cabeçalho, paginação dos dados e estado vazio sem erro (o Empty só tem a mensagem de falha) | Definir | **Exceção** (sem especificação): Default → Up → Down → Default com `aria-sort`; o cabeçalho marca a página visível (indeterminado quando parcial); paginação no cliente; Empty com `empty-text` editável | Ajustar `table.js` |
 
 ## Naming
 
@@ -96,6 +102,7 @@ Nome de prop, variante, camada ou variável fora do padrão.
 | C39 | Naming (Lote 6) | Fixed Bar usa `Show Secondary Action`; o .Footer, `Show Secondary Action Button`. No Bottom Sheet as instâncias se chamam `Header`/`Footer` (sem ponto) | Um nome só | Os dois atributos com o nome do Figma | Registrado para conferir (Gustavo, 02/10). Renomear junto com C25 |
 | C53 | Naming (Lote 7) | `Show Itens per page` / `Nav Itens` (mistura de "Itens" com inglês) · `.Item` usado por Breadcrumb e Tabs (dois sets com o mesmo nome, C25) · `State=Enable` no .Item do Breadcrumb | Padrão do Índice de Propriedades | Atributos em inglês e kebab-case (`show-items-per-page`) | Renomear junto com C25 |
 | C54 | Naming (Lote 8) | Content List `Intent=Switch` usa itens `Intent=Transaction` (não há switch) | Nomes que descrevem o conteúdo | `intent="switch"` gera itens `transaction` | Renomear junto com C25 |
+| C67 | Naming (Tables e File Upload) | `.Table Column` Kind `Default`/`Percentual`/`Icon Buttons` × `.Data Cell` Kind `Text`/`Percentage`/`Action Controls`; slot `Upload itens`; terceiro `.Lead item` (File) | Um nome por conceito | `kind` aceita os dois nomes (default = text, percentual = percentage, icon-buttons = actions) | Renomear junto com C25 |
 
 ## Acessibilidade
 

@@ -61,6 +61,8 @@
 <link rel="stylesheet" href="components/shaped-icon/shaped-icon.css?v=60c54a3a" />
 <link rel="stylesheet" href="components/alert/alert.css?v=2d763203" />
 <link rel="stylesheet" href="components/confirmation-message/confirmation-message.css?v=a44d73c0" />
+<link rel="stylesheet" href="components/dropzone/dropzone.css?v=cf3b77e8" />
+<link rel="stylesheet" href="components/file-lead-item/file-lead-item.css?v=37ca3df3" />
 <link rel="stylesheet" href="components/lead-item/lead-item.css?v=6ea5472a" />
 <link rel="stylesheet" href="components/spinner/spinner.css?v=7539f714" />
 <link rel="stylesheet" href="components/status-dot/status-dot.css?v=d98680a1" />
@@ -71,8 +73,11 @@
 <link rel="stylesheet" href="components/fixed-tab/fixed-tab.css?v=3aea4f6b" />
 <link rel="stylesheet" href="components/scrollable-tab/scrollable-tab.css?v=66fd7d9a" />
 <link rel="stylesheet" href="components/tab-view/tab-view.css?v=aaa8ac21" />
+<link rel="stylesheet" href="components/table-head/table-head.css?v=f94706d2" />
+<link rel="stylesheet" href="components/table-toolbar/table-toolbar.css?v=721c5ba6" />
 <link rel="stylesheet" href="components/tag/tag.css?v=d07bfd11" />
 <link rel="stylesheet" href="components/balance-card/balance-card.css?v=bfa6aafa" />
+<link rel="stylesheet" href="components/table-cell/table-cell.css?v=275f8bc5" />
 <link rel="stylesheet" href="components/text-content/text-content.css?v=a8b65327" />
 <link rel="stylesheet" href="components/list-item/list-item.css?v=910b92a2" />
 <link rel="stylesheet" href="components/text-field/text-field.css?v=b63d246d" />
@@ -95,6 +100,9 @@
 <link rel="stylesheet" href="components/select-number/select-number.css?v=7719ce43" />
 <link rel="stylesheet" href="components/pagination/pagination.css?v=6f551855" />
 <link rel="stylesheet" href="components/selection-list/selection-list.css?v=8cf9bc74" />
+<link rel="stylesheet" href="components/table/table.css?v=5750b544" />
+<link rel="stylesheet" href="components/upload-item/upload-item.css?v=1874213a" />
+<link rel="stylesheet" href="components/upload-list/upload-list.css?v=68d5d0ba" />
 <link rel="stylesheet" href="components/viewport-restriction/viewport-restriction.css?v=687e7664" />
 <link rel="stylesheet" href="components/overlay/overlay.css?v=c5a9ea63" />
 <link rel="stylesheet" href="components/bottom-sheet/bottom-sheet.css?v=8dabfa10" />
@@ -152,7 +160,7 @@
 <script src="scripts/cds-element.js?v=e7310824"></script>
 <script src="scripts/playground-kit.js?v=3d21e8e7"></script>
 <script src="scripts/docs-kit.js?v=7e4fc240"></script>
-<script src="scripts/assets-manifest.js?v=b07c4eeb"></script>
+<script src="scripts/assets-manifest.js?v=da983183"></script>
 <!-- Componentes — GERADO por scripts/build-index.js (ordem de dependência) -->
 <!-- @components:js -->
 <script src="components/backdrop/backdrop.js?v=77d03fb3"></script>
@@ -245,6 +253,10 @@
 <script src="components/alert/alert.playground.js?v=d2c3b4d2"></script>
 <script src="components/confirmation-message/confirmation-message.js?v=34994f3f"></script>
 <script src="components/confirmation-message/confirmation-message.playground.js?v=489d6201"></script>
+<script src="components/dropzone/dropzone.js?v=c6d535ee"></script>
+<script src="components/dropzone/dropzone.playground.js?v=5f6f1e98"></script>
+<script src="components/file-lead-item/file-lead-item.js?v=5310dc78"></script>
+<script src="components/file-lead-item/file-lead-item.playground.js?v=380863a3"></script>
 <script src="components/lead-item/lead-item.js?v=95b0f7b9"></script>
 <script src="components/lead-item/lead-item.playground.js?v=1a80f486"></script>
 <script src="components/spinner/spinner.js?v=1e76d4a3"></script>
@@ -266,10 +278,16 @@
 <script src="components/scrollable-tab/scrollable-tab.playground.js?v=f755e869"></script>
 <script src="components/tab-view/tab-view.js?v=fa130bf8"></script>
 <script src="components/tab-view/tab-view.playground.js?v=308299d4"></script>
+<script src="components/table-head/table-head.js?v=0564dbc7"></script>
+<script src="components/table-head/table-head.playground.js?v=61e312a1"></script>
+<script src="components/table-toolbar/table-toolbar.js?v=5ca39638"></script>
+<script src="components/table-toolbar/table-toolbar.playground.js?v=0133858a"></script>
 <script src="components/tag/tag.js?v=9ae408ec"></script>
 <script src="components/tag/tag.playground.js?v=7bb63fe1"></script>
 <script src="components/balance-card/balance-card.js?v=1c9e7124"></script>
 <script src="components/balance-card/balance-card.playground.js?v=9e00801c"></script>
+<script src="components/table-cell/table-cell.js?v=c1cda8a7"></script>
+<script src="components/table-cell/table-cell.playground.js?v=55617b2b"></script>
 <script src="components/text-content/text-content.js?v=06a64636"></script>
 <script src="components/text-content/text-content.playground.js?v=cd4106f0"></script>
 <script src="components/list-item/list-item.js?v=db703467"></script>
@@ -323,6 +341,12 @@
 <script src="components/pagination/pagination.playground.js?v=5da310eb"></script>
 <script src="components/selection-list/selection-list.js?v=32b4093f"></script>
 <script src="components/selection-list/selection-list.playground.js?v=aa8cdf5b"></script>
+<script src="components/table/table.js?v=e752d57e"></script>
+<script src="components/table/table.playground.js?v=63178970"></script>
+<script src="components/upload-item/upload-item.js?v=ff9810ab"></script>
+<script src="components/upload-item/upload-item.playground.js?v=0b4253a1"></script>
+<script src="components/upload-list/upload-list.js?v=09b55fe8"></script>
+<script src="components/upload-list/upload-list.playground.js?v=2fd24200"></script>
 <script src="components/viewport-restriction/viewport-restriction.js?v=7abc6e22"></script>
 <script src="components/viewport-restriction/viewport-restriction.playground.js?v=2169ea68"></script>
 <script src="components/overlay/overlay.js?v=4c69b472"></script>

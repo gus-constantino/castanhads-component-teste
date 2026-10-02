@@ -90,5 +90,13 @@ window.CDS_EXPECTED = {
   "date-navigation":   { w: 280, h: 40, src: "17465:384" },
   "date-picker":       { w: 320, h: 396, src: "17629:24427 · Single · Days · 5 semanas · com Selected Date" },
   "date-input":        { w: 320, h: 100, src: "17962:70687" },
-  "modal-date-picker": { w: 320, src: "17560:51555 · Single" }
+  "modal-date-picker": { w: 320, src: "17560:51555 · Single" },
+  "table":             { w: 1053, h: 816, src: "13472:5725 · Default · 760 + Pagination 56" },
+  "table-head":        { w: 201, h: 56, src: "13382:1327" },
+  "table-cell":        { w: 201, h: 64, src: "13404:1015 · Text" },
+  "table-toolbar":     { h: 64, src: "13438:14337" },
+  "file-lead-item":    { w: 48, h: 48, src: "15207:13262" },
+  "upload-item":       { w: 320, h: 80, src: "15029:1115 · Uploading" },
+  "dropzone":          { w: 320, h: 165, src: "15386:7230 · Enabled · Desktop" },
+  "upload-list":       { w: 320, h: 344, src: "15465:1365 · 4 × 80 + 3 × 8" }
 };

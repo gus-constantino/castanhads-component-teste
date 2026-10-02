@@ -1,0 +1,2 @@
+/* Upload List · 15465:1365 — 320 · coluna gap 8 */
+cds-upload-list{ display:flex; flex-direction:column; gap:var(--common-sizes-8); width:320px; max-width:100%; }

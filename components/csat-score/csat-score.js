@@ -1,15 +1,15 @@
 /**
  * @deps csat-item
  * <cds-csat-score> — CSAT Score · Rating Score · set 10100:1192 (State Enabled|Disabled × Selected Value None|1–5)
- * 5 .CSAT Item (Muito ruim · Ruim · Medio · Bom · Muito bom, como no Figma) · gap 8 · pad 8 0 · SPACE_BETWEEN.
- * Selected Value=n: os n primeiros ficam Is Active (como estrelas). Fundo: variável Surface/Neutral/primary, de fora da Common (C68).
+ * 5 .CSAT Item (Muito ruim · Ruim · Médio · Bom · Muito bom) de 56 de largura · gap 8 · pad 8 0 · SPACE_BETWEEN · Surface/default.
+ * Selected Value=n: os n primeiros ficam Is Active (como estrelas). Disabled: no Figma, shape/opacity/high (fora da Common, C68); aqui Opacity/medium.
  * Acessibilidade: radiogroup nativo; cada opção anunciada pelo rótulo ("Bom, 4 de 5").
- * Atributos: value (1–5 ou vazio) · disabled · label (nome do grupo · "Avaliação") · labels ("Muito ruim,Ruim,Medio,Bom,Muito bom") · name
+ * Atributos: value (1–5 ou vazio) · disabled · label (nome do grupo · "Avaliação") · labels ("Muito ruim,Ruim,Médio,Bom,Muito bom") · name
  * Evento: cds-change { value }
  */
 (function(){
   "use strict";
-  var uid = 0, LABELS = ["Muito ruim", "Ruim", "Medio", "Bom", "Muito bom"];
+  var uid = 0, LABELS = ["Muito ruim", "Ruim", "Médio", "Bom", "Muito bom"];
   class CdsCsatScore extends CDS.Element {
     static get observedAttributes(){ return ["value","disabled","label","labels","name"]; }
     render(){

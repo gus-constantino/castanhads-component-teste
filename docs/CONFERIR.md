@@ -8,8 +8,8 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 
 | Tipo | Itens |
 |---|---|
-| [Ajuste de texto](#ajuste-de-texto) | 7 |
-| [Ajuste de UI](#ajuste-de-ui) | 22 |
+| [Ajuste de texto](#ajuste-de-texto) | 6 |
+| [Ajuste de UI](#ajuste-de-ui) | 20 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 13 |
 | [Naming](#naming) | 9 |
@@ -28,7 +28,6 @@ Copy, exemplos e descriptions no Figma. Não muda layout nem comportamento.
 | C45 | Checkbox Select Input · texto preenchido | Placeholder da amostra: `$nn Selecionados` (S maiúsculo, sem singular) | Definir o texto: plural/singular e caixa | `{n} Selecionados`, e `1 Selecionado` no singular (atributo `count-text` troca o modelo) | Ajustar o padrão em `checkbox-select-input.js` |
 | C47 | Pagination · ordem do texto da direita | Camadas na ordem `[n▾] páginas de 100`; a description também cita um bug de hover "somente Figma" | Provavelmente `Página [n▾] de 100` | Segue a ordem do Figma | Reordenar em `pagination.js` (build) |
 | C57 | Date Input · Character Counter e máscara | `Show Character Counter` ligado com o texto `-0000`; Mask=Date com placeholder `dd/mm/aaaa`, enquanto o Text Input usa `00/00/0000` para a mesma máscara | Desligar o contador (não há limite) e um placeholder só para Date | Segue o Figma: contador "-0000" e `dd/mm/aaaa` no Date Input | **Débito** (Gustavo, 02/10): remover o Character Counter do Date Input no Figma; aí desligar o padrão em `date-input.js` (`updateCounter`). A máscara `dd/mm/aaaa` × `00/00/0000` segue para alinhar |
-| C69 | CSAT Score · rótulos | `Medio` sem acento (Muito ruim · Ruim · Medio · Bom · Muito bom) | `Médio` | Segue o Figma (atributo `labels` troca) | Trocar o padrão em `csat-score.js` |
 
 ## Ajuste de UI
 
@@ -56,8 +55,6 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C63 | .Lead item (File) · ícone do hover | Kind=View file mostra `hide-line` (olho cortado) no Hovered/Pressed | Ícone de ver (olho aberto) | Segue o Figma: `hide-line` | Só registrado por enquanto (Gustavo, 02/10). Se mudar, trocar o ícone em `file-lead-item.js` |
 | C64 | Upload Item · espaçamentos | Uploading: gap 6 entre o nome e a Progress Line (sem token); pad vertical 8 em Uploading/Success e 0 em Error/Uploaded | Tokens e um padding só | Segue o Figma (6px literal) | **Erro no Figma**, registrado por enquanto (Gustavo, 02/10). Ajustar `upload-item.css` quando corrigir |
 | C65 | Dropzone · estados | Disabled só muda a borda para Border/semi-intense (igual à versão Mobile Enabled), sem opacidade e com o Main Button Enabled; Desktop não tem Hovered nem Pressed; borda dash 4-4 | Disabled distinguível; hover/press no Desktop | Segue o Figma; a borda usa `dashed` do CSS (o traço não fica exatamente 4-4) | Registrado (Gustavo, 02/10). Ajustar `dropzone.css` quando o Figma mudar |
-| C70 | Slider · Hovered | O círculo do thumb vira `Icons/Accent` sobre o thumb `Surface/accent` (quase some) | Contraste visível no hover | Segue o Figma | Ajustar `--_dot` do hover em `slider.css` |
-| C71 | Progress Tracker Item e .CSAT Item · tamanhos | Item sem Link tem 64 de altura com o texto somando 61; o .CSAT Item tem 48 × 82 no set e 56 × 104 no CSAT Score | Tamanhos que saem do conteúdo | Item com altura mínima 64; .CSAT Item ocupa a largura (flex) no Score | Ajustar `progress-tracker-item.css` e `csat-item.css` |
 
 ## Motion
 
@@ -91,7 +88,7 @@ Props, estrutura ou comportamento do componente (camada sem uso, prop sem efeito
 | C59 | Date Picker · comportamento | Sem especificação de: intervalo × data única (o componente não tem a prop), clique antes do início do intervalo, limites (min/max), teclado e anos do Year Selector (a lista começa em 1950) | Definir no Figma | **Exceção** (sem especificação): `mode` single/range; clique antes do início inverte; `min`/`max` desabilitam dias (Disabled); grade do WAI-ARIA com setas/PageUp/PageDown; anos de 1950 até o ano atual + 10 | Mantém assim (Gustavo, 02/10); ele vê depois como verificar. Ajustar `date-picker.js` se algo mudar |
 | C61 | Table · estrutura | Montada por colunas (`.Table Column` com `.Head` + `.Data Cell` no Slot) | Uma tabela por linhas para leitor de tela e teclado | **Exceção** (adaptação para web): `<table>` com `<th scope=col>` e `<td>`; as colunas viram `.columns` e as linhas `.rows` | **Decisão registrada (D62)** a pedido do Gustavo, para o debate no time de design: por linhas é o correto. Argumentos em `docs/TABLE-LINHAS-X-COLUNAS.md` |
 | C66 | Table · comportamento | Sem especificação de ciclo de ordenação, alcance do checkbox do cabeçalho, paginação dos dados e estado vazio sem erro (o Empty só tem a mensagem de falha) | Definir | **Exceção** (sem especificação): Default → Up → Down → Default com `aria-sort`; o cabeçalho marca a página visível (indeterminado quando parcial); paginação no cliente; Empty com `empty-text` editável | Só documentado por enquanto (Gustavo, 02/10). Ajustar `table.js` se o comportamento for desenhado |
-| C68 | CSAT Score · variáveis | Fundo `Surface/Neutral/primary` e Disabled `shape/opacity/high`: variáveis de fora da coleção Common | Tokens Common (`Surface/default`, `Opacity/medium`) | **Exceção** (o código só tem a Common): Surface/default e Opacity/medium | Trocar as variáveis no Figma |
+| C68 | CSAT Score · variáveis | Fundo já em `Surface/default` (ajustado, 02/10); o Disabled ainda usa `shape/opacity/high`, de fora da Common | `Opacity/medium` (ou outro token Common) | Surface/default · Disabled com Opacity/medium | Falta trocar a opacidade do Disabled no Figma; o fundo foi corrigido |
 
 ## Naming
 
@@ -107,7 +104,7 @@ Nome de prop, variante, camada ou variável fora do padrão.
 | C53 | Naming (Lote 7) | `Show Itens per page` / `Nav Itens` (mistura de "Itens" com inglês) · `.Item` usado por Breadcrumb e Tabs (dois sets com o mesmo nome, C25) · `State=Enable` no .Item do Breadcrumb | Padrão do Índice de Propriedades | Atributos em inglês e kebab-case (`show-items-per-page`) | Renomear junto com C25 |
 | C54 | Naming (Lote 8) | Content List `Intent=Switch` usa itens `Intent=Transaction` (não há switch) | Nomes que descrevem o conteúdo | `intent="switch"` gera itens `transaction` | Renomear junto com C25 |
 | C67 | Naming (Tables e File Upload) | `.Table Column` Kind `Default`/`Percentual`/`Icon Buttons` × `.Data Cell` Kind `Text`/`Percentage`/`Action Controls`; slot `Upload itens`; terceiro `.Lead item` (File) | Um nome por conceito | `kind` aceita os dois nomes (default = text, percentual = percentage, icon-buttons = actions) | Renomear junto com C25 |
-| C72 | Naming (Rating Score) | `.Value Item` com State `Default` (selecionado) e `Enable` (não selecionado); `Selected Value` como variante | State Enabled e o valor como prop | `selected` e `value` | Renomear junto com C25 |
+| C72 | Naming (Rating Score) | Selecionado já é `State=Enabled` (corrigido, 02/10); o não selecionado continua `State=Enable` | State Enabled e o valor como prop | `selected` e `value` | Falta renomear `Enable` → `Enabled` na variante não selecionada |
 
 ## Acessibilidade
 
@@ -146,3 +143,6 @@ Frames de documentação no Figma.
 | C56 | Date Picker · datas da amostra: eram ilustrativas do protótipo; o componente segue funcional (seleção pelo clique, bloco só com seleção) (Gustavo) | 02/10 |
 | C58 | Modal Date Picker · largura: resolvido com o Modal abraçando o conteúdo (320 Single, 620 Double) | 02/10 |
 | C60 | Naming · `.Navigation Control` do Datepicker × Nav Control: são building blocks de grupos diferentes, sem problema (Gustavo) | 02/10 |
+| C69 | CSAT Score · rótulo `Médio` com acento: ajustado no Figma e no código | 02/10 |
+| C70 | Slider · Hovered com o círculo em Icons/Accent: é o esperado (Gustavo) | 02/10 |
+| C71 | Tamanhos fixos conferidos: o Progress Tracker Item tem `minHeight 64` (Connector min 20) e o .CSAT Item no Score é 56 Fixed × Fill (o rótulo quebra em 2 linhas). O código segue (CSAT ajustado para 56) | 02/10 |

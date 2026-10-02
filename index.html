@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Castanha DS — Playground</title>
-<meta name="description" content="Playground de componentes do Castanha DS." />
+<title>Castanha DS: Playground de handoff design &lt;&gt; Code</title>
+<meta name="description" content="Castanha DS: playground de handoff design &lt;&gt; code." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Work+Sans:wght@500;700&display=swap" rel="stylesheet" />
@@ -119,16 +119,22 @@
 <link rel="stylesheet" href="components/modal-date-picker/modal-date-picker.css?v=55452764" />
 <!-- /@components:css -->
 <!-- Shell do playground -->
-<link rel="stylesheet" href="styles/playground.css?v=0d0e6b8d" />
+<link rel="stylesheet" href="styles/playground.css?v=958a3e22" />
+<link rel="stylesheet" href="styles/report.css?v=cd27d827" />
 <link rel="stylesheet" href="styles/docs.css?v=924dabfc" />
 </head>
 <body>
 
 <header class="pg-header">
-  <p class="pg-brand">Castanha DS <span>Playground de componentes</span></p>
+  <p class="pg-brand"><a href="#/">Castanha DS:</a> <span>Playground de handoff design &lt;&gt; Code</span></p>
+  <div class="pg-header__actions">
+  <a class="pg-iconbtn" id="report-btn" href="#/relatorio" aria-label="Abrir relatório do projeto" title="Relatório">
+    <span class="cds-icon cds-icon--chart-up-line" aria-hidden="true"></span>
+  </a>
   <button class="pg-iconbtn" id="theme" type="button" aria-label="Ativar tema escuro" aria-pressed="false" title="Alternar tema">
     <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
   </button>
+  </div>
 </header>
 
 <div class="pg-shell">
@@ -163,6 +169,8 @@
     <div id="panel"></div>
   </aside>
 </div>
+
+<main class="pg-report" id="report" aria-label="Relatório do projeto" hidden></main>
 
 <!-- Kit do playground (registro + controles) -->
 <script src="scripts/cds-element.js?v=e7310824"></script>
@@ -387,7 +395,8 @@
 <script src="resources/caju-illustrations/caju-illustrations.js?v=b1539fbd"></script>
 <script src="resources/caju-theme/caju-theme.js?v=fab7270a"></script>
 <!-- /@components:js -->
-<!-- Shell: side menu, rotas, tema, viewport -->
-<script src="scripts/app.js?v=0d451ce1"></script>
+<!-- Shell: side menu, rotas, tema, viewport, relatório -->
+<script src="scripts/report.js?v=15ffd3b1"></script>
+<script src="scripts/app.js?v=4d871e8e"></script>
 </body>
 </html>

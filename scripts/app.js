@@ -1,5 +1,5 @@
 /**
- * Shell do playground: side menu, roteamento por hash (#/id), tema e viewport.
+ * Shell do playground: side menu, roteamento por hash (#/id), tema, viewport e relatório (#/relatorio, scripts/report.js).
  * Os componentes se registram via CDS.register() nos seus *.playground.js.
  */
 (function(){
@@ -122,8 +122,17 @@
     else docsEl.innerHTML = "";
   }
 
-  var mountedId = null;
+  var mountedId = null, reportBtn = $("report-btn"), report = $("report"), lastHash = "#/";
   function onRoute(){
+    // #/relatorio[/tab]: o relatório troca o shell inteiro; o botão volta para o último componente
+    var r = route(), isReport = r[0] === "relatorio" && !!CDS.report;
+    shell.hidden = isReport; report.hidden = !isReport;
+    reportBtn.setAttribute("aria-current", isReport ? "page" : "false");
+    reportBtn.setAttribute("href", isReport ? lastHash : "#/relatorio");
+    reportBtn.setAttribute("aria-label", isReport ? "Voltar aos componentes" : "Abrir relatório do projeto");
+    if (isReport){ CDS.report.show(r[1], r[2]); return; }
+    lastHash = location.hash || "#/";
+    if (mountedId) document.title = currentDef().name + " — Castanha DS";
     var id = currentId();
     if (id !== mountedId){ mount(); mountedId = id; }
     applyTab();

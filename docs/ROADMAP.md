@@ -234,6 +234,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D63 | **Controles de avaliação sobre `<input type="radio">` nativo** (NPS e CSAT: radiogroup com setas) e **Slider com thumbs `role="slider"`** (teclado completo, Range sem cruzar), como pede a description do Slider | 02/10 |
 | D64 | **Caju Card em etapa própria (9d)**: as artes vêm de vetores por Kind e orientação; a fidelidade pede exportar as peças estáticas sem alterar o arquivo do Figma | 02/10 |
 | D65 | **Caju Card = arte em SVG + dados como texto**: cada variante exportada do Figma vira `assets/caju-card/<kind>-<h\|v>-<front\|back>.svg`, inserida inline; número, CVV, validade, código de ativação e 4 últimos dígitos são `tspan[data-field]` trocados pelos atributos. Combinação ausente cai na mais próxima (C74) | 02/10 |
+| D66 | **Relatório como painel** (`#/relatorio`, botão de gráfico no header): lê `ROADMAP`, `CONFERIR` e `ARCHITECTURE` ao abrir, sem cópia; tab Visão geral (números, etapas, divergências por tipo, tratamento D40, pendências, decisões) + uma tab por doc com seções reagrupadas. Página renomeada para "Castanha DS: Playground de handoff design <> Code" | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -307,6 +308,7 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 
 ---
 | 02/10 | **GitHub Pages roda Jekyll e descarta pastas que começam com `_`** (`assets/icons/_glyphs` dava 404 só no Pages; local funcionava). `.nojekyll` na raiz desliga isso. Conferência pós-deploy agora inclui um HEAD em todos os arquivos versionados |
+| 02/10 | O relatório depende do formato dos docs: tabelas com o ID na 1ª coluna (C/D/Q ou data), status com ✅/⏳/🧪 e seções `## N. Título`. Mudar o formato pede ajustar `scripts/report.js` |
 
 ## 8. Status
 

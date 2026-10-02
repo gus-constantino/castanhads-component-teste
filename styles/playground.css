@@ -22,6 +22,12 @@ code{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:.92em; }
 }
 .pg-brand{ display:flex; align-items:baseline; gap:8px; margin:0; font:500 18px/1.2 Roboto, sans-serif; }
 .pg-brand span{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-brand a{ color:inherit; text-decoration:none; }
+@media (max-width:480px){ .pg-brand span{ display:none; } }
+.pg-header__actions{ display:flex; align-items:center; gap:8px; }
+.pg-iconbtn .cds-icon{ width:20px; height:20px; --cds-icon-color:currentColor; }
+.pg-iconbtn[aria-current="page"]{ background:var(--common-colors-accent-opacity-semi-transparent); color:var(--common-colors-icons-accent); }
+.pg-shell[hidden]{ display:none; }
 .pg-iconbtn{
   width:40px; height:40px; flex:0 0 auto; display:grid; place-items:center; cursor:pointer;
   border:0; border-radius:var(--common-border-radius-small);

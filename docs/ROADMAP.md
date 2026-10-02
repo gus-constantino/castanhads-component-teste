@@ -118,6 +118,7 @@ Coluna *Usa*: instâncias aninhadas na 1ª variante (ícones omitidos).
 | Content List | `5488:1482` | 5 | Content List Item + Tag |
 | Selection List Item | `5488:812` | 96 | .Lead Item + .Text Content + Divider |
 | Selection List | `5488:1552` | 2 | Selection List Item |
+| Accordion / Accordion Item (**branch** `R7GDqtUKeNZZUg45M1llyr`) | `24841:33746` / `24673:26248` | 2 / 16 | Accordion Item / Icon + .Text Content + Divider |
 
 ### Complexos
 | Página | Componente | Node | Var. | Usa |
@@ -236,6 +237,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D65 | **Caju Card = arte em SVG + dados como texto**: cada variante exportada do Figma vira `assets/caju-card/<kind>-<h\|v>-<front\|back>.svg`, inserida inline; número, CVV, validade, código de ativação e 4 últimos dígitos são `tspan[data-field]` trocados pelos atributos. Combinação ausente cai na mais próxima (C74) | 02/10 |
 | D66 | **Relatório como painel** (`#/relatorio`, botão de gráfico no header): lê `ROADMAP`, `CONFERIR` e `ARCHITECTURE` ao abrir, sem cópia; título "Saúde da stack Figma"; tab Visão geral só com dados (componentes, variantes, divergências por tipo, tratamento D40, pendências com as resolvidas riscadas no fim, decisões; sem as etapas, que são do time) e sem a seção Preferências (fica só no doc) + uma tab por doc com seções reagrupadas. Página renomeada para "Castanha DS: Playground de handoff design <> Code" | 02/10 |
 | D67 | **Ilustrações por categoria**: `assets/illustrations/<categoria>/<nome>.svg` + `catalog.json` (ordem, nome no Figma, node id, description, tamanho); o nome no código é `<categoria>/<nome>` (o Figma repete nomes entre categorias, C76) e `CDS.illustration()` aceita também só `<nome>`. Banner e Table usam os arquivos oficiais; o Banner ganhou instance swap agrupado | 02/10 |
+| D68 | **Componente de branch do Figma** entra com o link da branch (`/branch/<key>/`) e a marca "branch" no inventário e no playground; quando mergear na main, trocar os links e conferir de novo. Primeiro caso: Accordion + Accordion Item (página Lists) | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -335,4 +337,5 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 9b | ✅ 02/10 — Table (+ .Head · .Data Cell · .Toolbar) · Upload Item · Dropzone · Upload List (+ .Lead item File) · ilustração `empty-state` |
 | 9c | ✅ 02/10 — Slider (Single/Range) · NPS Score (+ .Value Item) · CSAT Score (+ .CSAT Item) · Progress Tracker (+ Item) |
 | 9d | ✅ 02/10 — Caju Card (5 Kinds × Vertical/Horizontal × Frente/Verso × Is Blocked; 12 artes do Figma, dados como texto) |
+| — | ✅ 02/10 — Accordion + Accordion Item (página Lists, **branch** do Figma, D68): botão com `aria-expanded` + região, altura animada, Kind Default/Card, `exclusive` opcional |
 | — | ⏳ Recurso Animações (Q31) — no final |

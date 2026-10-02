@@ -10,11 +10,11 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 6 |
 | [Ajuste de UI](#ajuste-de-ui) | 22 |
-| [Motion](#motion) | 7 |
+| [Motion](#motion) | 8 |
 | [Refactor](#refactor) | 14 |
 | [Naming](#naming) | 10 |
-| [Acessibilidade](#acessibilidade) | 3 |
-| [Documentação](#documentação) | 3 |
+| [Acessibilidade](#acessibilidade) | 4 |
+| [Documentação](#documentação) | 4 |
 
 ## Ajuste de texto
 
@@ -71,6 +71,7 @@ Reactions, durações e curvas.
 | C36 | Modal, Drawer, Bottom Sheet, Popover · motion | Sem reactions de entrada e saída | Motion de abrir/fechar (fade do Backdrop, slide do Drawer e do Sheet) | **Exceção** (sem especificação): abrem e fecham sem animação. Só o retorno do Sheet após arrastar usa `Duration/Medium/02` + `Systemic/accelerate` | Registrado; mantém sem animação (Gustavo, 02/10). Quando houver Motion Styles, aplicar em `overlay.css` e nos CSS de cada um |
 | C42 | Select Inputs · hover e clique | Hover: 150ms `0.7,0,0.8,1` no Async, Creatable e Radio; **instantâneo** no Checkbox; **300ms** no Multi. Clique no Icon Button do Async: 150ms `EASE_OUT` (sem token). A família Text Fields usa 300ms (C01) | Motion Styles por interação, iguais nos cinco | Segue cada um (`select-field.css`, variáveis `--tf-hover-*`) | Mantém como o Figma; **validar e ajustar** (Gustavo, 02/10). Trocar as variáveis em `select-field.css` |
 | C50 | Tabs (.Item) · motion | Hover e press instantâneos; o clique troca o Active em 300ms `0.7,0,0.8,1` (só no Scrollable Tab; o Fixed Tab não tem reaction de clique no Item 1) | Motion Styles por interação, iguais nos dois | Hover/press sem transição; sublinhado em 300ms + `Systemic/accelerate` nos dois | Trocar em `tab-item.css` |
+| C80 | Accordion Item · abrir × fechar | Reactions: abrir em 200ms (Short/04) e fechar em 350ms (Medium/03), ambos Expressive/decelerate. O normal é abrir mais devagar que fechar (o conteúdo novo precisa de tempo para ser lido) | Confirmar se os tempos estão trocados | Segue o Figma: altura animada por `grid-template-rows`, sem animação com `prefers-reduced-motion` | Trocar as durações em `accordion-item.css` se o Figma mudar |
 
 ## Refactor
 
@@ -119,6 +120,7 @@ Contraste, foco e estados que não se distinguem.
 | C15 | Code Input OTP · borda em repouso | `Border/semi-soft` (~1,24:1) | Confirmar com a11y se as células vazias seguem visíveis | Segue o Figma | Trocar o token em `code-input-otp.css` |
 | C23 | Selection Controls e Chips · foco | Foco por teclado não desenhado (padrão global do DS) | Spec do foco global | **Exceção** (sem especificação): outline 2px `Support/system` | Trocar pelo padrão global quando existir |
 | C32 | Balance Card · Hovered · **a11y** | Só o Label muda (`Text/medium` → `Text/intense`); fundo e borda iguais | **Problema de acessibilidade a corrigir:** o estado de hover quase não se distingue (só um tom de texto), e o card não tem estado de foco desenhado (o código usa o outline provisório de C23) | Segue o Figma | Corrigir no Figma (hover com mudança perceptível de fundo ou borda, além da cor) e ajustar `balance-card.css` |
+| C81 | Accordion Item · alvo e semântica | O hover/press é do item inteiro (o fill muda na raiz, inclusive sobre o Slot aberto) e não há indicação de heading para o título | Só o cabeçalho é clicável; o título fica num heading (padrão Accordion do WAI-ARIA) | **Exceção** (adaptação para web): `<button aria-expanded aria-controls>` no cabeçalho e `role=region` no Slot; o hover vem do cabeçalho e pinta o item todo; `heading-level` opcional envolve o botão num heading; Slot recolhido fica `inert` | Documentar no Figma (annotation de acessibilidade) |
 
 ## Documentação
 
@@ -129,6 +131,7 @@ Frames de documentação no Figma.
 | C12 | Doc do Credit Card · Estilos | Card "Is Active" usa `State=Disabled`; "Warning · Enabled" usa `State=Pressed` (frame 24931:8090) | Is Active e Enabled | Segue o Figma: specimens com as props do frame | Ajustar os dois `attrs` em `credit-card-input.docs.js` |
 | C13 | Docs (Credit Card e OTP) · Motion | Ilustração de empty state como placeholder | Demo de motion | **Exceção** (adaptação para web): exemplo interativo | Se o Figma ganhar uma demo, nada muda |
 | C78 | [Caju] Illustrations · descriptions | A description de Análise ("A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações…", com erro de digitação) foi copiada em 8 que não são de análise: `perguntas-frequentes`, `ampulheta`, `foguete`, `kit-medico`, `kit-onboarding`, `malas-viagem`, `mochila` e o próprio `analysis-low-detail`. A maioria das 237 não tem description | Description própria (uso + palavras-chave) em cada ilustração | Mostra a description como está (tooltip e busca da galeria) | Corrigir no Figma e reimportar |
+| C79 | Accordion Item · ícone indicador | A description diz "dropdown-open-line quando expandido, dropdown-close-line quando recolhido", mas as variantes fazem o contrário: Is Collapsed=True usa `dropdown-open-line` (seta para baixo) e False usa `dropdown-close-line` (seta para cima) | Description e variantes iguais (as variantes seguem o padrão comum: seta para baixo = abrir) | Segue as variantes | Corrigir o texto da description |
 
 ## Como usar esta lista
 

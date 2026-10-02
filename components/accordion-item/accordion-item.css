@@ -1,0 +1,62 @@
+/* =====================================================================
+   Accordion Item · Lists · set 24673:26248 — 320 de largura (Fixed no Figma)
+   Default: 57 recolhido (8 + 44 + 4 + Divider 1) · 143 aberto (+ 4 + Slot 82)
+   Card:    96 recolhido (8 + 80 + 8) · 182 aberto (+ 4 + Slot 82, pad 16)
+   Motion (reactions do Figma): hover 150ms Systemic/default · press 200ms Systemic/accelerate
+     abrir 200ms (Short/04) e fechar 350ms (Medium/03), ambos Expressive/decelerate (C80)
+   ===================================================================== */
+cds-accordion-item{ display:block; box-sizing:border-box; width:var(--cds-accordion-width, 320px); max-width:100%; min-width:0; }
+cds-accordion-item [hidden]{ display:none !important; }
+.cds-acc{
+  --_bg:var(--common-colors-surface-default); --_stroke:transparent;
+  display:flex; flex-direction:column; box-sizing:border-box;
+  padding:var(--common-sizes-8) var(--common-sizes-4) 0;
+  background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_stroke);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-default), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-default);
+}
+.cds-acc__heading{ margin:0; font:inherit; }
+.cds-acc__head{
+  box-sizing:border-box; width:100%; min-height:var(--common-sizes-44); margin:0;
+  display:flex; align-items:center; gap:var(--common-sizes-12); padding:0 var(--common-sizes-12) 0 0;
+  border:0; background:none; font:inherit; color:inherit; text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent;
+}
+.cds-acc__head:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; } /* C23 */
+.cds-acc__text{ flex:1 1 auto; }
+.cds-acc__lead, .cds-acc__chev{ flex:0 0 auto; }
+
+/* Slot: altura animada por grid-template-rows (0fr ↔ 1fr); o espaço de 4 até o Container fica dentro da área animada */
+.cds-acc__panel{
+  display:grid; grid-template-rows:1fr; visibility:visible;
+  transition:grid-template-rows var(--common-motion-duration-short-04) var(--common-motion-easing-expressive-decelerate), visibility 0s;
+}
+.cds-acc__inner{ min-height:0; overflow:hidden; }
+.cds-acc__slot{ margin-top:var(--common-sizes-4); }
+[collapsed] > .cds-acc > .cds-acc__panel{
+  grid-template-rows:0fr; visibility:hidden;
+  transition:grid-template-rows var(--common-motion-duration-medium-03) var(--common-motion-easing-expressive-decelerate), visibility 0s var(--common-motion-duration-medium-03);
+}
+.cds-acc__divider{ margin-top:var(--common-sizes-4); }
+
+/* Kind=Card */
+[kind="card"] > .cds-acc{ --_stroke:var(--common-colors-border-semi-soft); padding:var(--common-sizes-8); border-radius:var(--common-border-radius-large); }
+[kind="card"] > .cds-acc .cds-acc__head{ min-height:var(--common-sizes-80); padding:0 var(--common-sizes-16); }
+[kind="card"] > .cds-acc .cds-acc__head:focus-visible{ border-radius:var(--common-border-radius-medium); }
+[kind="card"] > .cds-acc .cds-acc__slot{ padding:var(--common-sizes-16); }
+
+/* Hovered · Pressed (o alvo é o cabeçalho; a cor vale para o item inteiro, como no Figma) */
+.cds-acc:has(> .cds-acc__heading > .cds-acc__head:hover), [state="hovered"] > .cds-acc{ --_bg:var(--common-colors-surface-01); }
+[kind="card"] > .cds-acc:has(> .cds-acc__heading > .cds-acc__head:hover), [kind="card"][state="hovered"] > .cds-acc{ --_stroke:var(--common-colors-border-medium); }
+.cds-acc:has(> .cds-acc__heading > .cds-acc__head:active), [state="pressed"] > .cds-acc{
+  --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
+  transition-duration:var(--common-motion-duration-short-04); transition-timing-function:var(--common-motion-easing-systemic-accelerate);
+}
+[kind="card"] > .cds-acc:has(> .cds-acc__heading > .cds-acc__head:active), [kind="card"][state="pressed"] > .cds-acc{ --_stroke:var(--common-colors-border-intense); }
+
+/* Disabled */
+[disabled] > .cds-acc{ opacity:var(--common-opacity-light); --_bg:var(--common-colors-surface-default); }
+[disabled][kind="card"] > .cds-acc{ --_stroke:var(--common-colors-border-medium); }
+[disabled] > .cds-acc .cds-acc__head{ cursor:default; pointer-events:none; }
+
+@media (prefers-reduced-motion:reduce){
+  .cds-acc, .cds-acc__panel, [collapsed] > .cds-acc > .cds-acc__panel{ transition:none; }
+}

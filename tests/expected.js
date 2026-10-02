@@ -106,5 +106,7 @@ window.CDS_EXPECTED = {
   "csat-item":         { w: 48, h: 82, src: "10100:1155" },
   "progress-tracker-item": { w: 206, h: 117, src: "14415:3778" },
   "progress-tracker":  { w: 200, h: 261, src: "14524:1024 · 64 + 117 + 64 + 2 × 8" },
-  "caju-card":         { w: 216, h: 288, src: "17053:1181 · Físico · Vertical · Front" }
+  "caju-card":         { w: 216, h: 288, src: "17053:1181 · Físico · Vertical · Front" },
+  "accordion-item":    { w: 320, h: 143, src: "24673:26248 · Default · Enabled · aberto (8 + 44 + 4 + 82 + 4 + 1)" },
+  "accordion":         { w: 320, h: 684, src: "24841:33746 · Default · 12 × 57" }
 };

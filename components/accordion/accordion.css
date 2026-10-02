@@ -1,0 +1,5 @@
+/* Accordion · Lists · set 24841:33746 — 320 · Kind=Default gap 0 · Kind=Card gap 8 (Sizes/8) */
+cds-accordion{ display:flex; flex-direction:column; gap:0; box-sizing:border-box; width:var(--cds-accordion-width, 320px); max-width:100%; }
+cds-accordion[kind="card"]{ gap:var(--common-sizes-8); }
+cds-accordion > cds-accordion-item{ width:100%; }
+.cds-accordion__sample{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }

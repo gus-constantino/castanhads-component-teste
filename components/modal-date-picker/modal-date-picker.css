@@ -1,10 +1,8 @@
-/* Modal Date Picker · set 17560:51555 — Single 320 × 532 · Double 620 × 545 (acima do limite de 512 do Modal, C58)
+/* Modal Date Picker · set 17560:51555 — Single 320 · Double 620: o Modal abraça o Date Picker (C58 resolvido)
    O Date Picker ocupa o Slot sem o padding lateral do Modal (ele já tem pad 0 20) */
 cds-modal-date-picker{ display:contents; }
 cds-modal-date-picker[inline]{ display:inline-flex; }
-cds-modal-date-picker .cds-modal{ --cds-modal-width:320px; }
-cds-modal-date-picker[kind="double"] .cds-modal{ width:min(620px, calc(100vw - 32px)); }
-cds-modal-date-picker .cds-overlay__slot{ padding:0; position:static; }
+cds-modal-date-picker .cds-modal .cds-overlay__slot{ padding:0; position:static; } /* vence o pad 0 20 do Slot do Modal */
 cds-modal-date-picker .cds-mdp__restriction{ display:none; }
 /* Common/Is Mobile e Common/Is Tablet: Viewport Restriction cobre o modal inteiro */
 :is([data-viewport="mobile"], [data-viewport="tablet"]) cds-modal-date-picker:not([viewport]) .cds-mdp__restriction,

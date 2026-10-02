@@ -1,6 +1,7 @@
-/* Modal · 16362:3267 — 320 (FIXED no Figma) · adapta ao conteúdo de 272 a 512 via --cds-modal-width · Surface/default · raio medium · Elevation/level 2 */
+/* Modal · 16362:3267 — abraça o conteúdo, sem limite de largura (Gustavo, C34/C58) · min 272 · Surface/default · raio medium · Elevation/level 2
+   --cds-modal-width fixa uma largura quando quem usa precisar */
 .cds-modal{
-  box-sizing:border-box; width:clamp(272px, var(--cds-modal-width, 320px), 512px); max-width:calc(100vw - 32px);
+  box-sizing:border-box; width:var(--cds-modal-width, fit-content); min-width:min(272px, calc(100vw - 32px)); max-width:calc(100vw - 32px);
   max-height:calc(100dvh - 48px); border-radius:var(--common-border-radius-medium); box-shadow:var(--common-elevation-level-2);
 }
 .cds-modal:not(.is-inline){ margin:auto; }

@@ -8,11 +8,11 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 
 | Tipo | Itens |
 |---|---|
-| [Ajuste de texto](#ajuste-de-texto) | 7 |
-| [Ajuste de UI](#ajuste-de-ui) | 17 |
+| [Ajuste de texto](#ajuste-de-texto) | 6 |
+| [Ajuste de UI](#ajuste-de-ui) | 16 |
 | [Motion](#motion) | 7 |
-| [Refactor](#refactor) | 11 |
-| [Naming](#naming) | 8 |
+| [Refactor](#refactor) | 10 |
+| [Naming](#naming) | 7 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 2 |
 
@@ -27,8 +27,7 @@ Copy, exemplos e descriptions no Figma. Não muda layout nem comportamento.
 | C33 | Popover · description | O texto da description começa com uma resposta de chat colada ("Com certeza! Seguindo o mesmo formato conciso…") | Description só com o conteúdo do componente | Nada no código (a doc do playground não usa esse texto) | Ajustar a description no Figma (Gustavo, 02/10: anotado para ajustar) |
 | C45 | Checkbox Select Input · texto preenchido | Placeholder da amostra: `$nn Selecionados` (S maiúsculo, sem singular) | Definir o texto: plural/singular e caixa | `{n} Selecionados`, e `1 Selecionado` no singular (atributo `count-text` troca o modelo) | Ajustar o padrão em `checkbox-select-input.js` |
 | C47 | Pagination · ordem do texto da direita | Camadas na ordem `[n▾] páginas de 100`; a description também cita um bug de hover "somente Figma" | Provavelmente `Página [n▾] de 100` | Segue a ordem do Figma | Reordenar em `pagination.js` (build) |
-| C56 | Date Picker · amostra | Calendário em Janeiro 2026, mas First/Last Day Selected são `13/01/2023` e `24/01/2023`; no Modal Date Picker "None Selected" também mostra as duas datas | Datas da amostra no mesmo ano do calendário; None Selected sem datas | A seleção vem do clique; o bloco "Data Selecionada" só aparece com seleção. Amostra do playground: 13 a 24/01/2026 | Nada a mudar no código |
-| C57 | Date Input · Character Counter e máscara | `Show Character Counter` ligado com o texto `-0000`; Mask=Date com placeholder `dd/mm/aaaa`, enquanto o Text Input usa `00/00/0000` para a mesma máscara | Desligar o contador (não há limite) e um placeholder só para Date | Segue o Figma: contador "-0000" e `dd/mm/aaaa` no Date Input | Trocar o padrão em `date-input.js` (`updateCounter`) e alinhar a máscara Date em `text-field.js` |
+| C57 | Date Input · Character Counter e máscara | `Show Character Counter` ligado com o texto `-0000`; Mask=Date com placeholder `dd/mm/aaaa`, enquanto o Text Input usa `00/00/0000` para a mesma máscara | Desligar o contador (não há limite) e um placeholder só para Date | Segue o Figma: contador "-0000" e `dd/mm/aaaa` no Date Input | **Débito** (Gustavo, 02/10): remover o Character Counter do Date Input no Figma; aí desligar o padrão em `date-input.js` (`updateCounter`). A máscara `dd/mm/aaaa` × `00/00/0000` segue para alinhar |
 
 ## Ajuste de UI
 
@@ -52,7 +51,6 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C46 | Nav Control · Tablet | `Mobile` visível com `Common/Is Mobile`, `Desktop` com `Common/Is Desktop`; no modo Tablet os dois são falsos e nada aparece | Mostrar uma das versões no Tablet | Segue o Figma: no 744 o componente some (`nav-control.css`) | Trocar a regra `[data-viewport="tablet"]` pela versão escolhida |
 | C48 | Breadcrumb · largura | Frame fixo de 434; os itens somam 423 (48 + 5×75) | Hug no conteúdo | Hug (423), como os itens | Nada a mudar se o frame virar Hug |
 | C49 | Tab View · Disabled | Container com `Opacity/medium` (0.4); as outras famílias usam `Opacity/light` (ver C19) | Um valor só | Segue o Figma | Trocar em `tab-view.css` |
-| C58 | Modal Date Picker · largura e altura | Double tem 620 (o Modal pede no máximo 512, C34); Single None Selected tem 532 porque o bloco de datas aparece sem seleção | Alinhar com o limite do Modal | 620 no Double (exceção à regra do Modal); sem seleção o bloco some e o modal fica com 511 | Ajustar `modal-date-picker.css` |
 
 ## Motion
 
@@ -79,12 +77,11 @@ Props, estrutura ou comportamento do componente (camada sem uso, prop sem efeito
 | C11 | Checkbox · Indeterminate | Sem reaction de clique | Definir o que o clique faz | **Exceção** (sem especificação): o clique vai para Selected, como no nativo. Deixar sem ação travaria o controle | Implementar a reaction que for desenhada |
 | C29 | Confirmation Message | Só `Appearance` é prop; título, descrição e ícone (`placeholder-line`) são texto/instância fixos da amostra | Expor `Text Title`, `Text Description` e o ícone como props | Atributos `title`, `description` e `icon` (padrões do Figma) | Manter assim (Gustavo, 02/10). Se o Figma expuser as props com os mesmos nomes, nada muda |
 | C31 | Banner · State=Disabled | `State Overlay` (Neutral/Opacity/Soft/intense) existe, oculto, sem prop nem variável que o ligue (o overlay só aparece em Hovered e Pressed) | Usar o overlay no Disabled ou removê-lo | Ignorado por enquanto: opacity medium, sem overlay | Verificar depois; se o overlay for usado, ativá-lo no Disabled em `banner.css` |
-| C34 | Modal · largura | Componente FIXED em 320; a description pede "adapte ao conteúdo (320→512px)" | Definir se a largura é automática (pelo conteúdo) ou escolhida por quem usa | 320 por padrão; quem usa ajusta por `--cds-modal-width` (preso entre 272 e 512) | **Investigar** (Gustavo, 02/10: mantém o padrão de 320). Se o Figma ganhar prop de tamanho, trocar a variável por atributo em `modal.css` |
 | C35 | Bottom Sheet · viewport | O Viewport Restriction cobre o sheet só com `Common/Is Desktop` (Desktop=true, Tablet=false); a description diz "não para desktop e tablet" | Restrição também no Tablet | Segue a variável: restrito só no desktop; no 744 o sheet aparece | Registrado; mantém o Figma (Gustavo, 02/10). Se o tablet entrar, incluir `tablet` na regra de `bottom-sheet.css` |
 | C44 | Select Inputs · estados sem especificação | Não há estado vazio (sem resultado), carregando (Async), altura máxima da lista nem crescimento do Multi com muitos chips (no Figma o Chips Group de 320 transborda o Text Box de 48) | Desenhar vazio, carregando e o limite da lista | **Exceção** (sem especificação): "Nenhuma opção encontrada" em Caption/Text/medium; `aria-busy` no carregamento, sem spinner; lista até 320px com rolagem; o Multi cresce em linhas | Implementar o que for desenhado em `select-field.js/.css` |
 | C51 | Breadcrumb · conteúdo e semântica | O Item 1 é sempre Truncate (…); **Is Active** está ligado no Item 2 e no Item 6 da amostra, sem regra clara; o Popover (Show Popover) está vazio | Definir o que Is Active significa (página atual?) e o que o Popover lista | **Exceção** (sem especificação): a amostra repete o Figma; com links, o último nível é a página atual (`aria-current`, Is Active) e o Popover lista os níveis escondidos (`collapse`) | Ajustar `breadcrumb.js` (`model()`) |
 | C52 | Pagination · limites | Sem estado das setas na primeira e na última página | Desabilitar nos limites | **Exceção** (sem especificação): ‹ desabilitado na página 1 e › na última | Implementar o que for desenhado em `pagination.js` |
-| C59 | Date Picker · comportamento | Sem especificação de: intervalo × data única (o componente não tem a prop), clique antes do início do intervalo, limites (min/max), teclado e anos do Year Selector (a lista começa em 1950) | Definir no Figma | **Exceção** (sem especificação): `mode` single/range; clique antes do início inverte; `min`/`max` desabilitam dias (Disabled); grade do WAI-ARIA com setas/PageUp/PageDown; anos de 1950 até o ano atual + 10 | Ajustar `date-picker.js` conforme o que for desenhado |
+| C59 | Date Picker · comportamento | Sem especificação de: intervalo × data única (o componente não tem a prop), clique antes do início do intervalo, limites (min/max), teclado e anos do Year Selector (a lista começa em 1950) | Definir no Figma | **Exceção** (sem especificação): `mode` single/range; clique antes do início inverte; `min`/`max` desabilitam dias (Disabled); grade do WAI-ARIA com setas/PageUp/PageDown; anos de 1950 até o ano atual + 10 | Mantém assim (Gustavo, 02/10); ele vê depois como verificar. Ajustar `date-picker.js` se algo mudar |
 
 ## Naming
 
@@ -99,7 +96,6 @@ Nome de prop, variante, camada ou variável fora do padrão.
 | C39 | Naming (Lote 6) | Fixed Bar usa `Show Secondary Action`; o .Footer, `Show Secondary Action Button`. No Bottom Sheet as instâncias se chamam `Header`/`Footer` (sem ponto) | Um nome só | Os dois atributos com o nome do Figma | Registrado para conferir (Gustavo, 02/10). Renomear junto com C25 |
 | C53 | Naming (Lote 7) | `Show Itens per page` / `Nav Itens` (mistura de "Itens" com inglês) · `.Item` usado por Breadcrumb e Tabs (dois sets com o mesmo nome, C25) · `State=Enable` no .Item do Breadcrumb | Padrão do Índice de Propriedades | Atributos em inglês e kebab-case (`show-items-per-page`) | Renomear junto com C25 |
 | C54 | Naming (Lote 8) | Content List `Intent=Switch` usa itens `Intent=Transaction` (não há switch) | Nomes que descrevem o conteúdo | `intent="switch"` gera itens `transaction` | Renomear junto com C25 |
-| C60 | Naming (Datepicker) | `.Navigation Control` do Datepicker tem o mesmo nome do Nav Control do carrossel; `Show week 01–06` e `Selected Date Label` misturam padrões | Nomes distintos e no padrão do Índice | Tags `cds-date-navigation` e `cds-nav-control`; atributos em kebab-case | Renomear junto com C25 |
 
 ## Acessibilidade
 
@@ -134,3 +130,7 @@ Frames de documentação no Figma.
 | C38 | Drawer · Backdrop e fechamento: usa Backdrop (no protótipo ele entra como outro asset ao lado) e **sempre** fecha ao clicar fora ou no Esc (Gustavo). O Drawer ignora `dismissible` | 02/10 |
 | C41 | Content List Item × Selection List Item: padding diferente (`8 4` × `8 16 8 24`) e stroke do Card Pressed (2px × 1px) são intencionais, parte do visual e da compensação de espaços (Gustavo). Código já segue o Figma | 02/10 |
 | C55 | .Transaction Status Icon: building block sem uso, removido do Figma (Gustavo) e do código | 02/10 |
+| C34 | Modal · largura: não há limite, o Modal abraça o conteúdo (Gustavo, resposta no C58). Código: `width: fit-content`, min 272; `--cds-modal-width` fixa quando preciso | 02/10 |
+| C56 | Date Picker · datas da amostra: eram ilustrativas do protótipo; o componente segue funcional (seleção pelo clique, bloco só com seleção) (Gustavo) | 02/10 |
+| C58 | Modal Date Picker · largura: resolvido com o Modal abraçando o conteúdo (320 Single, 620 Double) | 02/10 |
+| C60 | Naming · `.Navigation Control` do Datepicker × Nav Control: são building blocks de grupos diferentes, sem problema (Gustavo) | 02/10 |

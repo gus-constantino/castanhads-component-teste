@@ -226,6 +226,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D55 | **Listas repassam Kind/Intent aos itens**: Content List e Selection List aceitam filhos e, sem eles, geram a amostra de 12 itens do Figma; a Selection List emite um `cds-change { values }` agregado | 02/10 |
 | D56 | **Lote 9 dividido** em 9a (datas), 9b (dados e upload) e 9c (entrada e avaliação) | 02/10 |
 | D57 | **Date Picker = grade do WAI-ARIA** (role grid, foco itinerante no dia, setas/Home/End/PageUp/PageDown); seleção `single` ou `range`; datas em AAAA-MM-DD nos atributos e dd/mm/aaaa na tela. O Modal Date Picker só aplica no Confirmar | 02/10 |
+| D58 | **Modal sem limite de largura**: abraça o conteúdo (min 272); resolve C34 e C58 | 02/10 |
+| D59 | **Amostras do protótipo são ilustrativas**: o código mantém o comportamento funcional (seleção real, textos derivados do estado) em vez de copiar valores de exemplo | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -247,6 +249,14 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | ~~Ícones (274)~~ ✅ | `[Caju] Icons` · página `UI & Caju` | `assets/icons/<categoria>/` + `catalog.json` | **274 importados em 01/10** (12 buckets, incluindo `deprecated`), com palavras-chave da description. Reimportar: ver ARCHITECTURE §8 |
 | Ilustrações (237 + Hero + Cartões) | `[Caju] Illustrations` · página `Caju UI` | `assets/illustrations/` | 0 |
 | Bandeiras Elo, Mastercard e Visa | `.Credit Card Flags` (`4934:771`) | `assets/flags/<kind>.svg` | 3, reconstruídas de `vectorPaths` (o Elo com coordenadas arredondadas); o MCP falha com "no visible layers". Substituir pelos SVGs oficiais, sem mudar código |
+
+## 5.2 Débitos de design (Gustavo)
+
+Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (a coluna "Quando corrigir" do CONFERIR diz onde).
+
+| Item | O que fazer no Figma | No código depois |
+|---|---|---|
+| C57 · Date Input | Remover o Character Counter (hoje ligado com "-0000") | Desligar o padrão em `date-input.js` (`updateCounter`) |
 
 ## 6. Preferências do Gustavo (observadas)
 

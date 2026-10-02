@@ -2,7 +2,7 @@
  * @deps modal date-picker viewport-restriction
  * <cds-modal-date-picker> — Modal Date Picker · Datepicker · set 17560:51555 (Kind × Role None|Single|Range Date Select)
  * Modal (.Header "Selecione uma data", sem Close Button nem Divider) + Date Picker no Slot + .Footer Horizontal
- * (Cancelar · Confirmar). Single 320 / Double 620 de largura (o Modal solto vai até 512, C58).
+ * (Cancelar · Confirmar). Single 320 / Double 620 de largura (o Modal abraça o conteúdo).
  * Só desktop: Viewport Restriction cobre o modal com Common/Is Mobile e Common/Is Tablet (como no Figma).
  * A data só é aplicada no Confirmar; Cancelar, Esc e o Backdrop descartam.
  *
@@ -22,7 +22,7 @@
         this._built = true; this.innerHTML = "";
         this.picker = CDS.create("cds-date-picker");
         this.restrict = CDS.create("cds-viewport-restriction", null, "cds-mdp__restriction");
-        this.modal = CDS.create("cds-modal", { "show-close-button": "false" }, "cds-mdp__modal");
+        this.modal = CDS.create("cds-modal", { "show-close-button": "false", "show-lead-icon": "false" }, "cds-mdp__modal"); // botões sem Lead Icon, como no Figma
         this.modal.appendChild(this.picker); this.modal.appendChild(this.restrict);
         this.appendChild(this.modal);
         this.modal.addEventListener("cds-action", function(e){

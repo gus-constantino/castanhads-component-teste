@@ -6,7 +6,8 @@
  * Só desktop: no Figma, Specific/Drawer/Is Mobile e Is Tablet escondem o painel e mostram um Viewport Restriction.
  * Aqui o modo vem do atributo viewport ou do [data-viewport] mais próximo (seletor de viewport do playground).
  *
- * Atributos: open · inline · dismissible · text-title ("Title") · show-action-buttons · primary-label · secondary-label
+ * Sempre com Backdrop e sempre fecha ao clicar fora ou no Esc (decisão do Gustavo, 02/10 · C38): não aceita dismissible.
+ * Atributos: open · inline · text-title ("Title") · show-action-buttons · primary-label · secondary-label
  *   viewport (desktop|tablet|mobile) · label
  */
 (function(){
@@ -22,6 +23,7 @@
       this.restrictEl = dlg.appendChild(CDS.create("cds-viewport-restriction", null, "cds-drawer__restriction"));
     }
     get titleText(){ return this.text("text-title", "Title"); }
+    get dismissible(){ return true; }
     updatePanel(){
       var f = this.footerEl, self = this;
       this.headerEl.setAttribute("text-title", this.text("text-title", "Title"));

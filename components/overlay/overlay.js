@@ -30,12 +30,12 @@
         this.appendChild(dlg);
         dlg.addEventListener("cds-close", function(e){ if (e.target !== self){ e.stopPropagation(); self.close(); } });
         // Esc: o estado é sincronizado aqui (o evento close do dialog é assíncrono e pode atrasar)
-        dlg.addEventListener("cancel", function(e){ e.preventDefault(); if (self.getAttribute("dismissible") !== "false") self.close(); });
+        dlg.addEventListener("cancel", function(e){ e.preventDefault(); if (self.dismissible) self.close(); });
         // fallback: fechado por fora (form method="dialog", dialog.close() direto)
         dlg.addEventListener("close", function(){ if (self.hasAttribute("open")){ self._closing = true; self.removeAttribute("open"); self._closing = false; self.fireClose(); } });
         // clique no Backdrop (fora do painel) fecha, salvo dismissible="false"
         dlg.addEventListener("click", function(e){
-          if (e.target !== dlg || self.getAttribute("dismissible") === "false" || self.hasAttribute("inline")) return;
+          if (e.target !== dlg || !self.dismissible || self.hasAttribute("inline")) return;
           var r = dlg.getBoundingClientRect();
           if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) self.close();
         });
@@ -53,6 +53,8 @@
     }
     fireClose(){ this.dispatchEvent(new CustomEvent("cds-close", { bubbles: true })); }
     get titleText(){ return this.getAttribute("title"); }
+    // dismissible="false" = padrão Dialog (só fecha por ação). O Drawer sempre fecha (decisão do Gustavo, C38)
+    get dismissible(){ return this.getAttribute("dismissible") !== "false"; }
     show(){ this.setAttribute("open", ""); }
     close(){ if (this.hasAttribute("inline")) return; this.removeAttribute("open"); }
   }

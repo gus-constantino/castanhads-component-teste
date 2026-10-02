@@ -27,7 +27,7 @@
       hc.addEventListener("pointermove", function(e){ if (y0 == null) return; dy = Math.max(0, e.clientY - y0); dlg.style.transform = "translateY(" + dy + "px)"; });
       function end(){
         if (y0 == null) return; y0 = null; dlg.classList.remove("is-dragging"); dlg.style.transform = "";
-        if (dy > dlg.offsetHeight / 3 && self.getAttribute("dismissible") !== "false") self.close();
+        if (dy > dlg.offsetHeight / 3 && self.dismissible) self.close();
       }
       hc.addEventListener("pointerup", end); hc.addEventListener("pointercancel", end);
     }

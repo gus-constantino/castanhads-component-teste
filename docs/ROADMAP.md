@@ -215,6 +215,9 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D44 | **Overlays sobre a plataforma**: Popover na Popover API (`popover="auto"`, `for` = id do gatilho); Modal, Drawer e Bottom Sheet em `<dialog>` com `showModal()` e o Backdrop no `::backdrop`. Specimen no fluxo com `inline` | 02/10 |
 | D45 | **Viewport do Figma por CSS**: Drawer (mobile/tablet) e Bottom Sheet (desktop) trocam o painel pelo Viewport Restriction conforme `[data-viewport]` ou o atributo `viewport` | 02/10 |
 | D46 | **Props de texto com nome de atributo global** ganham prefixo: `Text Title` → `text-title` no .Header e nos overlays (evita o tooltip nativo de `title`) | 02/10 |
+| D47 | **Cache-busting por hash**: o `build-index.js` carimba todo `.js`/`.css` local do `index.html` e do `smoke.html` com `?v=<sha1 do conteúdo>`; só muda a URL do arquivo alterado. Rodar o build antes de cada commit | 02/10 |
+| D48 | **CONFERIR por tipo de ajuste**: Ajuste de texto · Ajuste de UI · Motion · Refactor · Naming · Acessibilidade · Documentação. O número do item não muda | 02/10 |
+| D49 | **Overlays (C37, C38)**: o Modal tem divisores opcionais desligados por padrão (`show-header-divider`, `show-footer-divider`); o Drawer sempre usa Backdrop e sempre fecha ao clicar fora ou no Esc | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -225,7 +228,7 @@ Só perguntas de escopo ou de fonte. Divergências entre o Figma e o esperado fi
 |---|---|---|
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
 | Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
-| Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | Aguardando o Gustavo |
+| Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | **Deixar para o final** (Gustavo, 02/10): entra depois do Lote 9 |
 
 ## 5.1 Débito de export (Gustavo)
 
@@ -250,7 +253,7 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | Data | Aprendizado |
 |---|---|
 | 30/09 | `curl` para `figma.com` é bloqueado nesta sessão; os ícones saem por `exportAsync({format:'SVG_STRING'})` via `use_figma` |
-| 30/09 | GitHub Pages leva ~1 min por build e faz cache; conferir com `?v=N` |
+| 30/09 | GitHub Pages leva ~1 min por build e faz cache; conferir com `?v=N` (resolvido em 02/10 pelo `?v=hash` automático, D47) |
 | 30/09 | O Figma muda o motion por transição (não é um 150ms uniforme); ler `reactions` sempre |
 | 01/10 | Safari falha em `-webkit-mask: var(...)` shorthand → longhand com URL literal |
 | 01/10 | Destaque de seleção aparece sobre caractere mascarado → `::selection` transparente |
@@ -292,3 +295,4 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 6 | ✅ 02/10 — Viewport Restriction · Card · Backdrop (Banner Image consome) · Popover (Drop Button abre, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar + .Header · .Footer · `CDS.position` · `CDS.Overlay` |
 | — | ⏳ Select Inputs (5) sobre TextField + Popover |
 | 7 a 9 | ⏳ |
+| — | ⏳ Recurso Animações (Q31) — no final |

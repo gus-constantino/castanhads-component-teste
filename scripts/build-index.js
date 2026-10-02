@@ -10,12 +10,16 @@
  *    <!-- @components:js -->  … <!-- /@components:js -->
  * Falha se houver dependência inexistente ou ciclo.
  *
+ * Cache-busting: todo .js/.css local citado entre aspas no HTML (inclusive o tests/smoke.js carregado
+ * por script) recebe ?v=<8 primeiros do sha1 do conteúdo>. Só a URL do arquivo que mudou muda.
+ *
  * Recursos de suporte (resources/<id>/<id>.js + .css opcional) entram depois dos componentes:
  * são páginas de doc das libs de apoio ([Caju] Icons, Illustrations…), sem dependências.
  */
 "use strict";
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const ROOT = path.join(__dirname, "..");
 const DIR = path.join(ROOT, "components");
@@ -58,6 +62,22 @@ function blocks(prefix){
   return { css, js };
 }
 
+// ?v=hash em todo .js/.css local (caminhos relativos à raiz; o smoke.html usa <base href="../">)
+const hashes = {};
+function hashOf(rel){
+  if (!(rel in hashes)){
+    const f = path.join(ROOT, rel);
+    hashes[rel] = fs.existsSync(f) ? crypto.createHash("sha1").update(fs.readFileSync(f)).digest("hex").slice(0, 8) : null;
+  }
+  return hashes[rel];
+}
+function stamp(html){
+  return html.replace(/(["'])([\w./-]+\.(?:js|css))(?:\?v=[0-9a-f]+)?\1/g, (m, q, rel) => {
+    const h = hashOf(rel);
+    return h ? `${q}${rel}?v=${h}${q}` : m;
+  });
+}
+
 function rewrite(file, prefix){
   const abs = path.join(ROOT, file);
   if (!fs.existsSync(abs)) return false;
@@ -69,6 +89,7 @@ function rewrite(file, prefix){
     html = html.replace(re, `$1\n${body}\n$2`);
   };
   put("css", b.css); put("js", b.js);
+  html = stamp(html);
   fs.writeFileSync(abs, html);
   return true;
 }

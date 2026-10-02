@@ -8,11 +8,14 @@
  *       um bucket por frame de categoria da página UI & Caju (ui-symbols, security, … , deprecated)
  *   assets/icons/catalog.json         ← ordem do Figma, nome da categoria e palavras-chave (description)
  *   assets/icons/_glyphs/<nome>.svg   ← glifos internos de componentes (não são da lib de ícones)
- *   assets/illustrations/<nome>.svg   ← [Caju] Illustrations (9l54k2iyKGMaiIbsGGmEiM) · 200×200 · colorido
+ *   assets/illustrations/<categoria>/<nome>.svg ← [Caju] Illustrations (9l54k2iyKGMaiIbsGGmEiM) · colorido
+ *       200×200 (página Caju UI) e Hero (673×768, 741×768, 249×132); importadas por scripts/dev/import-illustrations.py
+ *   assets/illustrations/catalog.json ← ordem do Figma, nome original, node id e description
  *
  * Saída:
  *   styles/icons.css            .cds-icon--<nome> { mask-image:url(…) }   (ícone herda a cor do token)
- *   scripts/assets-manifest.js  CDS.assets = { icons:[…], iconBuckets:[…], illustrations:[…] }
+ *   scripts/assets-manifest.js  CDS.assets = { icons:[…], iconBuckets:[…], illustrations:[…], illustrationBuckets:[…] }
+ *       ilustração = { name: "<categoria>/<nome>", label, bucket, src, figma, description, size }
  *
  * Regras: nome de classe = nome do ícone (único). Se um ícone deprecated tem o mesmo nome de um ativo,
  * a classe aponta para o ativo e o deprecated fica só no manifest. Ícone em pasta sem entrada no
@@ -74,16 +77,32 @@ ${buckets.map((b) => {
 `;
 fs.writeFileSync(path.join(ROOT, "styles/icons.css"), css);
 
-const illustrations = svgs(path.join(ROOT, "assets/illustrations")).sort((a, b) => a.localeCompare(b));
+// Ilustrações: categorias do catálogo (ordem do Figma); pasta sem catálogo também entra, para export manual não se perder
+const ILL = path.join(ROOT, "assets/illustrations");
+const illCatPath = path.join(ILL, "catalog.json");
+const illCatalog = fs.existsSync(illCatPath) ? JSON.parse(fs.readFileSync(illCatPath, "utf8")) : { buckets: [] };
+const illDirs = fs.existsSync(ILL) ? fs.readdirSync(ILL, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name) : [];
+const illBuckets = illCatalog.buckets.filter((b) => illDirs.includes(b.id)).map((b) => {
+  const onDisk = new Set(svgs(path.join(ILL, b.id)));
+  const listed = b.items.filter((i) => onDisk.has(i.name));
+  const extra = [...onDisk].filter((n) => !listed.some((i) => i.name === n)).sort().map((n) => ({ name: n }));
+  return { id: b.id, name: b.name, items: listed.concat(extra) };
+});
+illDirs.filter((d) => !illBuckets.some((b) => b.id === d)).sort().forEach((d) => illBuckets.push({ id: d, name: d, items: svgs(path.join(ILL, d)).sort().map((n) => ({ name: n })) }));
+const illustrations = illBuckets.flatMap((b) => b.items.map((i) => ({
+  name: b.id + "/" + i.name, label: i.name, bucket: b.id, src: "assets/illustrations/" + b.id + "/" + encodeURIComponent(i.name) + ".svg",
+  figma: i.figma || i.name, description: i.description || "", size: i.size || "",
+})));
 const manifest = `/* GERADO por scripts/build-assets.js · não editar à mão */
 window.CDS = window.CDS || {};
 CDS.assets = ${JSON.stringify({
   // icons: só os que têm classe (o que o iconSwap lista); iconBuckets: a organização completa
   icons: withClass.filter((e) => !e.deprecated).map((e) => ({ name: e.name, cls: e.cls, bucket: e.bucket, keywords: e.keywords })),
   iconBuckets: buckets.map((b) => ({ id: b.id, name: b.name, deprecated: b.deprecated, glyphs: !!b.glyphs, icons: b.icons.map((i) => i.entry.name) })),
-  illustrations: illustrations.map((n) => ({ name: n, src: "assets/illustrations/" + encodeURIComponent(n) + ".svg" })),
+  illustrations,
+  illustrationBuckets: illBuckets.map((b) => ({ id: b.id, name: b.name, items: b.items.map((i) => b.id + "/" + i.name) })),
 })};
 `;
 fs.writeFileSync(path.join(ROOT, "scripts/assets-manifest.js"), manifest);
 
-console.log(`icons.css: ${withClass.length} ícones (${buckets.map((b) => b.id || "raiz").join(", ")}) · ${dupes.length ? "sem classe (nome repetido): " + dupes.join(", ") + " · " : ""}${illustrations.length} ilustrações`);
+console.log(`icons.css: ${withClass.length} ícones (${buckets.map((b) => b.id || "raiz").join(", ")}) · ${dupes.length ? "sem classe (nome repetido): " + dupes.join(", ") + " · " : ""}${illustrations.length} ilustrações em ${illBuckets.length} categorias`);

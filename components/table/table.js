@@ -43,7 +43,7 @@
         kids.forEach(function(k){ self.toolbar.appendChild(k); });
         this.scroll = box.appendChild(CDS.create("div", null, "cds-table__scroll"));
         this.empty = box.appendChild(CDS.create("div", { role: "status" }, "cds-table__empty"));
-        this.empty.appendChild(CDS.create("img", { src: "assets/illustrations/empty-state.svg", alt: "", width: "200", height: "200" }, "cds-table__ill"));
+        this.empty.appendChild(CDS.create("img", { src: CDS.illustration("notificacoes/empty-state"), alt: "", width: "200", height: "200" }, "cds-table__ill"));
         this.emptyText = this.empty.appendChild(CDS.create("p", null, "cds-table__empty-text"));
         this.retry = this.empty.appendChild(CDS.create("cds-main-button", { kind: "ghost", appearance: "accent", size: "small", "show-lead-icon": "false", "show-trailing-icon": "false" }));
         this.retry.addEventListener("click", function(){ self.dispatchEvent(new CustomEvent("cds-retry", { bubbles: true })); });

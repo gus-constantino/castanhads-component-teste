@@ -6,7 +6,7 @@
  *
  * Atributos:
  *   kind          illustration (fundo sólido + ilustração na lateral) | image (imagem de fundo + Backdrop)
- *   illustration  nome em assets/illustrations (padrão "sino", como no Figma)
+ *   illustration  ilustração do [Caju] Illustrations: "<categoria>/<nome>" ou só o nome (padrão "notificacoes/sino", como no Figma)
  *   src · alt     imagem do Kind=Image
  *   bg            token de cor do fundo no Kind=Illustration (ex.: "decorative-02"); padrão Decorative/01
  *   content       neutral | inversed — Appearance do .Content Banner (padrão: neutral no Illustration, inversed no Image)
@@ -34,8 +34,7 @@
       else {
         var row = el.appendChild(CDS.create("span", null, "cds-banner__row"));
         row.appendChild(cb);
-        var ill = this.getAttribute("illustration") || "sino";
-        row.appendChild(CDS.create("img", { src: "assets/illustrations/" + encodeURIComponent(ill) + ".svg", alt: "", "aria-hidden": "true" }, "cds-banner__ill"));
+        row.appendChild(CDS.create("img", { src: CDS.illustration(this.getAttribute("illustration") || "notificacoes/sino"), alt: "", "aria-hidden": "true" }, "cds-banner__ill"));
       }
       this.appendChild(el);
     }

@@ -1,0 +1,1916 @@
+{
+ "_source": "[Caju] Illustrations · 9l54k2iyKGMaiIbsGGmEiM · páginas Caju UI e Hero (Cartões = componente Caju Card)",
+ "buckets": [
+  {
+   "id": "hub-de-beneficios",
+   "name": "Hub de Benefícios",
+   "items": [
+    {
+     "name": "pet",
+     "figma": "pet",
+     "id": "4147:6080",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "departamento",
+     "figma": "departamento",
+     "id": "4147:6072",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "plano-saude",
+     "figma": "plano-saude",
+     "id": "4147:6071",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "servicos",
+     "figma": "servicos",
+     "id": "4147:6078",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "entretenimento",
+     "figma": "entretenimento",
+     "id": "4147:6076",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "plano-odonto",
+     "figma": "plano-odonto",
+     "id": "4147:6070",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "educacao",
+     "figma": "educacao",
+     "id": "4147:6075",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cajuzinho",
+     "figma": "cajuzinho",
+     "id": "4147:6079",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "alimentacao",
+     "figma": "alimentacao",
+     "id": "4147:6074",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "outros",
+     "figma": "outros",
+     "id": "4147:6077",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "saude",
+     "figma": "saude",
+     "id": "4147:6082",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ofertas",
+     "figma": "ofertas",
+     "id": "4147:6083",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "mobilidade",
+     "figma": "mobilidade",
+     "id": "4147:6081",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "esportes",
+     "figma": "esportes",
+     "id": "4147:6073",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "familia",
+     "figma": "feirinha_hub-benef/familia",
+     "id": "6598:34",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "seguro-vida-previdencia",
+     "figma": "feirinha_hub-benef/seguro-vida-previdencia",
+     "id": "6598:36",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "alimentos",
+   "name": "Alimentos",
+   "items": [
+    {
+     "name": "cafe-bolo",
+     "figma": "cafe-bolo",
+     "id": "4147:7777",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cafe-bolo-aniversario",
+     "figma": "cafe-bolo-aniversario",
+     "id": "4146:2018",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cafe-coador",
+     "figma": "cafe-coador",
+     "id": "4147:7776",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "drink",
+     "figma": "drink",
+     "id": "4250:23",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "autenticacao",
+   "name": "Autenticacao",
+   "items": [
+    {
+     "name": "reconhecimento-default",
+     "figma": "reconhecimento-default",
+     "id": "4148:3220",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "reconhecimento-biometrico",
+     "figma": "reconhecimento-biometrico",
+     "id": "4148:3218",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "reconhecimento-facial",
+     "figma": "reconhecimento-facial",
+     "id": "4160:404",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "verificar-selfie",
+     "figma": "verificar-selfie",
+     "id": "4159:759",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "verificar-id",
+     "figma": "verificar-id",
+     "id": "4148:3225",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "sms",
+     "figma": "sms",
+     "id": "4148:3224",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "email",
+     "figma": "email",
+     "id": "4148:3223",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "codigo",
+     "figma": "codigo",
+     "id": "4148:3222",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "geolocalizacao",
+     "figma": "geolocalizacao",
+     "id": "4148:3221",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ocr",
+     "figma": "ocr",
+     "id": "4148:3227",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ocr-cartao-1",
+     "figma": "autenticacao/ocr-cartao-1",
+     "id": "6480:11",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ocr-cartao-2",
+     "figma": "autenticacao/ocr-cartao-2",
+     "id": "6480:13",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "comunicacao",
+   "name": "Comunicação",
+   "items": [
+    {
+     "name": "perguntas-frequentes",
+     "figma": "perguntas-frequentes",
+     "id": "7111:108",
+     "description": "A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "data-e-hora",
+   "name": "Data e Hora",
+   "items": [
+    {
+     "name": "calendario-celular-pix",
+     "figma": "calendario-celular-pix",
+     "id": "4147:3475",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "calendario-engrenagem",
+     "figma": "calendario-engrenagem",
+     "id": "4147:3474",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "calendario-default",
+     "figma": "calendario-default",
+     "id": "4147:3478",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "calendario-folha",
+     "figma": "calendario-folha",
+     "id": "4147:3477",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "calendario-cartao",
+     "figma": "calendario-cartao",
+     "id": "4147:3476",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "calendario-cartao-voucher",
+     "figma": "calendario-cartao-voucher",
+     "id": "4147:3472",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "calendario-moeda-pilha",
+     "figma": "calendario-moeda-pilha",
+     "id": "4147:3473",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "relogio-despertador",
+     "figma": "relogio-despertador",
+     "id": "4147:7778",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "relogio",
+     "figma": "relogio",
+     "id": "4147:7779",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "dispositivos",
+   "name": "Dispositivos",
+   "items": [
+    {
+     "name": "notebook",
+     "figma": "notebook",
+     "id": "4147:401",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "notebook-relatorios",
+     "figma": "notebook-relatorios",
+     "id": "4147:400",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-cartao-aproximacao",
+     "figma": "celular-cartao-aproximacao",
+     "id": "4147:404",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-cartao",
+     "figma": "celular-cartao",
+     "id": "4147:405",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-logo",
+     "figma": "celular-logo",
+     "id": "4147:403",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-pix-caju",
+     "figma": "celular-pix-caju",
+     "id": "4147:402",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-extrato",
+     "figma": "dispositivos/celular-extrato",
+     "id": "6003:52",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-cartao-virtual-wallet-1",
+     "figma": "celular-cartao-virtual-wallet-1",
+     "id": "6480:17",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-cartao-virtual-wallet-2",
+     "figma": "celular-cartao-virtual-wallet-2",
+     "id": "6480:19",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-cartao-virtual-1",
+     "figma": "celular-cartao-virtual-1",
+     "id": "6480:31",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-cartao-virtual-2",
+     "figma": "celular-cartao-virtual-2",
+     "id": "6480:21",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-check",
+     "figma": "celular-check",
+     "id": "7111:112",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "documentos",
+   "name": "Documentos",
+   "items": [
+    {
+     "name": "socio",
+     "figma": "socio",
+     "id": "4087:10168",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "socio-low-detail",
+     "figma": "socio-low-detail",
+     "id": "6480:33",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "holerite",
+     "figma": "holerite",
+     "id": "4087:10163",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "holerite-pilha-1",
+     "figma": "holerite-pilha-1",
+     "id": "4087:10165",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "holerite-pilha-2",
+     "figma": "holerite-pilha-2",
+     "id": "4087:10178",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "relatorios-1",
+     "figma": "relatorios-1",
+     "id": "4087:10172",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "relatorios-2",
+     "figma": "relatorios-2",
+     "id": "4087:10167",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "relatorio-concluido",
+     "figma": "relatorio-concluido",
+     "id": "4087:10164",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "rg-cnh-frente",
+     "figma": "rg-cnh-frente",
+     "id": "4087:10176",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "rg-cnh-frente-low-detail",
+     "figma": "rg-cnh-frente-low-detail",
+     "id": "6480:37",
+     "description": "documentos; dados",
+     "size": "200×200"
+    },
+    {
+     "name": "rg-cnh-verso",
+     "figma": "rg-cnh-verso",
+     "id": "4087:10174",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "rg-cnh-verso-low-detail",
+     "figma": "rg-cnh-verso-low-detail",
+     "id": "6480:39",
+     "description": "documentos; dados",
+     "size": "200×200"
+    },
+    {
+     "name": "rg-papeis",
+     "figma": "rg-papeis",
+     "id": "4087:10177",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "rg-papeis-low-detail",
+     "figma": "rg-papeis-low-detail",
+     "id": "6480:35",
+     "description": "documentos; dados",
+     "size": "200×200"
+    },
+    {
+     "name": "cracha",
+     "figma": "cracha",
+     "id": "4087:10179",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cracha-digital",
+     "figma": "cracha-digital",
+     "id": "7111:116",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ctps",
+     "figma": "ctps",
+     "id": "4087:10166",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ctps-low-detail",
+     "figma": "ctps-low-detail",
+     "id": "6480:41",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "admissao",
+     "figma": "admissao",
+     "id": "4087:10162",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "planilha-engrenagem",
+     "figma": "planilha-engrenagem",
+     "id": "4087:10170",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "organograma",
+     "figma": "organograma",
+     "id": "4087:10175",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "diretorio-colaboradores",
+     "figma": "diretorio-colaboradores",
+     "id": "4087:10171",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "arquivar-item",
+     "figma": "arquivar-item",
+     "id": "4087:10173",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "desarquivar-item",
+     "figma": "desarquivar-item",
+     "id": "4087:10169",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "extrato",
+     "figma": "documentos/extrato",
+     "id": "6003:40",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "planilha-recebida",
+     "figma": "documentos/planilha-recebida",
+     "id": "6214:1341",
+     "description": "hcm; relatórios",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "financas",
+   "name": "Finanças",
+   "items": [
+    {
+     "name": "moeda-verde-1",
+     "figma": "moeda-verde-1",
+     "id": "4127:37",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-verde-2",
+     "figma": "moeda-verde-2",
+     "id": "4127:44",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-verde-3",
+     "figma": "moeda-verde-3",
+     "id": "4127:40",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-verde-4",
+     "figma": "moeda-verde-4",
+     "id": "4127:34",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-verde-pilha-1",
+     "figma": "moeda-verde-pilha-1",
+     "id": "4127:46",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-verde-pilha-2",
+     "figma": "moeda-verde-pilha-2",
+     "id": "4146:2019",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-vermelha-1",
+     "figma": "moeda-vermelha-1",
+     "id": "4127:38",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-vermelha-2",
+     "figma": "moeda-vermelha-2",
+     "id": "4127:41",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-vermelha-3",
+     "figma": "moeda-vermelha-3",
+     "id": "4127:42",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-vermelha-4",
+     "figma": "moeda-vermelha-4",
+     "id": "4127:35",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-vermelha-pilha",
+     "figma": "moeda-vermelha-pilha",
+     "id": "4127:47",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-verde-pilha-2-1",
+     "figma": "moeda-verde-pilha-2",
+     "id": "4178:602",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-amarela-1",
+     "figma": "moeda-amarela-1",
+     "id": "4127:45",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-amarela-2",
+     "figma": "moeda-amarela-2",
+     "id": "4127:39",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-amarela-3",
+     "figma": "moeda-amarela-3",
+     "id": "4127:36",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-amarela-4",
+     "figma": "moeda-amarela-4",
+     "id": "4127:33",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-amarela-pilha",
+     "figma": "moeda-amarela-pilha",
+     "id": "4127:43",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "moeda-verde-pilha-2-2",
+     "figma": "moeda-verde-pilha-2",
+     "id": "4178:607",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "carteira-cartao-1",
+     "figma": "carteira-cartao-1",
+     "id": "4129:56",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "carteira-cartao-2",
+     "figma": "carteira-cartao-2",
+     "id": "4129:57",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "carteira-moedas",
+     "figma": "carteira-moedas",
+     "id": "4129:55",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-frente",
+     "figma": "cartao-frente",
+     "id": "4130:87",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-frente-perspectiva",
+     "figma": "cartao-frente-perspectiva",
+     "id": "4130:82",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-frente-brilho",
+     "figma": "cartao-frente-brilho",
+     "id": "4130:84",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-verso",
+     "figma": "cartao-verso",
+     "id": "4130:85",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-verso-perspectiva",
+     "figma": "cartao-verso-perspectiva",
+     "id": "4130:86",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-codigo-vertical-1",
+     "figma": "cartao-codigo-vertical-1",
+     "id": "4130:77",
+     "description": "Verificação;",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-codigo-vertical-2",
+     "figma": "cartao-codigo-vertical-2",
+     "id": "4130:78",
+     "description": "Verificação;",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-codigo-horizontal-1",
+     "figma": "cartao-codigo-horizontal-1",
+     "id": "4130:76",
+     "description": "Verificação;",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-codigo-horizontal-2",
+     "figma": "cartao-codigo-horizontal-2",
+     "id": "4130:75",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-multi",
+     "figma": "cartao-multi",
+     "id": "4130:79",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-bilhete-unico",
+     "figma": "cartao-bilhete-unico",
+     "id": "4130:81",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-bilhete-unico-low-detail",
+     "figma": "cartao-bilhete-unico-low-detail",
+     "id": "6480:45",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-voucher",
+     "figma": "cartao-voucher",
+     "id": "4130:80",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartoes-fisico-voucher",
+     "figma": "cartoes-fisico-voucher",
+     "id": "4130:83",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-corporativo-2",
+     "figma": "financas/cartao-corporativo-2",
+     "id": "6003:54",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-customizacao",
+     "figma": "cartao-customizacao",
+     "id": "4130:74",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-customizacao-low-detail",
+     "figma": "cartao-customizacao-low-detail",
+     "id": "6480:43",
+     "description": "hcm; customizações",
+     "size": "200×200"
+    },
+    {
+     "name": "maquininha-laranja",
+     "figma": "maquininha-laranja",
+     "id": "4146:314",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "maquininha-laranja-cartao",
+     "figma": "maquininha-laranja-cartao",
+     "id": "4146:316",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "maquininha-verde",
+     "figma": "maquininha-verde",
+     "id": "4146:317",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "maquininha-verde-cartao",
+     "figma": "maquininha-verde-cartao",
+     "id": "4146:315",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ticket-logo",
+     "figma": "ticket-logo",
+     "id": "4144:514",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ticket-desconto-caju",
+     "figma": "ticket-desconto-caju",
+     "id": "4144:511",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ticket-passagem",
+     "figma": "ticket-passagem",
+     "id": "4144:512",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ticket-desconto",
+     "figma": "ticket-desconto",
+     "id": "4144:513",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-envelope",
+     "figma": "financas/cartao-envelope",
+     "id": "6003:34",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-envelope-aberto",
+     "figma": "financas/cartao-envelope-aberto",
+     "id": "6480:15",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-corporativo-minimalista",
+     "figma": "financas/cartao-corporativo-minimalista",
+     "id": "6214:1346",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-fisico-minimalista",
+     "figma": "financas/cartao-fisico-minimalista",
+     "id": "6214:1347",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-virtual-minimalista",
+     "figma": "financas/cartao-virtual-minimalista",
+     "id": "6214:1344",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-voucher-minimalista",
+     "figma": "financas/cartao-voucher-minimalista",
+     "id": "6214:1345",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-fisico-desbloqueado",
+     "figma": "financas/cartao-fisico-desbloqueado",
+     "id": "6214:1343",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartoes-fisico-virtual",
+     "figma": "financas/cartoes-fisico-virtual",
+     "id": "6214:1342",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-corporativo-carteira",
+     "figma": "financas/cartao-corporativo-carteira",
+     "id": "6480:23",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-virtual-wallet-1",
+     "figma": "financas/cartao-virtual-wallet-1",
+     "id": "6480:25",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-virtual-wallet-2",
+     "figma": "financas/cartao-virtual-wallet-2",
+     "id": "6480:29",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao-virtual-wallet-3",
+     "figma": "financas/cartao-virtual-wallet-3",
+     "id": "6480:27",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "maos",
+   "name": "Mãos",
+   "items": [
+    {
+     "name": "celular-cash",
+     "figma": "celular-cash",
+     "id": "4087:4530",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "celular-cartao",
+     "figma": "celular-cartao",
+     "id": "4087:4528",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cartao",
+     "figma": "cartao",
+     "id": "4087:4529",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "voucher",
+     "figma": "voucher",
+     "id": "4087:4527",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cracha",
+     "figma": "cracha",
+     "id": "4087:4526",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "transferencia-pix",
+     "figma": "transferencia-pix",
+     "id": "4087:4524",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "estalar-dedos",
+     "figma": "estalar-dedos",
+     "id": "4087:4525",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "notificacoes",
+   "name": "Notificações",
+   "items": [
+    {
+     "name": "alert",
+     "figma": "alert",
+     "id": "4148:1051",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "alert-low-detail",
+     "figma": "alert-low-detail",
+     "id": "7111:120",
+     "description": "Ilustrações de alerta chamam atenção de forma visual e rápida, comunicando mensagens importantes com clareza e impacto.",
+     "size": "200×200"
+    },
+    {
+     "name": "success",
+     "figma": "success",
+     "id": "4148:1050",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "success-low-detail",
+     "figma": "success-low-detail",
+     "id": "7111:118",
+     "description": "Ilustrações de sucesso reforçam feedbacks positivos, celebrando conquistas e motivando o usuário a continuar em sua jorn",
+     "size": "200×200"
+    },
+    {
+     "name": "error",
+     "figma": "error",
+     "id": "4148:1049",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "error-low-detail",
+     "figma": "error-low-detail",
+     "id": "7111:109",
+     "description": "Ilustrações de erro comunicam falhas de forma leve e intuitiva, ajudando o usuário a entender e resolver o problema rapi",
+     "size": "200×200"
+    },
+    {
+     "name": "empty-state",
+     "figma": "empty-state",
+     "id": "4148:1048",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "search-not-found",
+     "figma": "search-not-found",
+     "id": "4148:1047",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "analysis",
+     "figma": "analysis",
+     "id": "4148:1046",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "analysis-low-detail",
+     "figma": "analysis-low-detail",
+     "id": "7111:117",
+     "description": "A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d",
+     "size": "200×200"
+    },
+    {
+     "name": "ja-vai",
+     "figma": "ja-vai",
+     "id": "4148:1045",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "sino",
+     "figma": "sino",
+     "id": "4146:2022",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "galo",
+     "figma": "galo",
+     "id": "4146:2021",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "objetos",
+   "name": "Objetos",
+   "items": [
+    {
+     "name": "medalha-1",
+     "figma": "medalha-1",
+     "id": "4146:2017",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "medalha-2",
+     "figma": "medalha-2",
+     "id": "4146:2020",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cadeira-praia",
+     "figma": "cadeira-praia",
+     "id": "4147:399",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cadeira-escritorio",
+     "figma": "cadeira-escritorio",
+     "id": "4147:7780",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "presente-fechado",
+     "figma": "objetos/presente-fechado",
+     "id": "6003:36",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "presente-aberto",
+     "figma": "objetos/presente-aberto",
+     "id": "6003:38",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "presente-sacola",
+     "figma": "objetos/presente-sacola",
+     "id": "6003:48",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "gema-rubi",
+     "figma": "objetos/gema-rubi",
+     "id": "6003:25",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "gema-esmeralda",
+     "figma": "objetos/gema-esmeralda",
+     "id": "6003:31",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "gema-ouro",
+     "figma": "objetos/gema-ouro",
+     "id": "6003:28",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "trofeu",
+     "figma": "objetos/trofeu",
+     "id": "6036:41",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "caixa-moedas",
+     "figma": "objetos/caixa-moedas",
+     "id": "6036:43",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "caixa-beneficios",
+     "figma": "objetos/caixa-beneficios",
+     "id": "6072:21",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ampulheta",
+     "figma": "ampulheta",
+     "id": "7111:111",
+     "description": "A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d",
+     "size": "200×200"
+    },
+    {
+     "name": "compras-celebracao",
+     "figma": "compras-celebracao",
+     "id": "7111:114",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "foguete",
+     "figma": "foguete",
+     "id": "7111:110",
+     "description": "A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d",
+     "size": "200×200"
+    },
+    {
+     "name": "kit-medico",
+     "figma": "kit-medico",
+     "id": "7111:119",
+     "description": "A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d",
+     "size": "200×200"
+    },
+    {
+     "name": "kit-onboarding",
+     "figma": "kit-onboarding",
+     "id": "7111:107",
+     "description": "A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d",
+     "size": "200×200"
+    },
+    {
+     "name": "malas-viagem",
+     "figma": "malas-viagem",
+     "id": "7111:115",
+     "description": "A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d",
+     "size": "200×200"
+    },
+    {
+     "name": "mochila",
+     "figma": "mochila",
+     "id": "7111:113",
+     "description": "A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "personagens",
+   "name": "Personagens",
+   "items": [
+    {
+     "name": "fabio",
+     "figma": "fabio",
+     "id": "4056:1285",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "nadia",
+     "figma": "nadia",
+     "id": "4054:7",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "andre",
+     "figma": "andre",
+     "id": "4056:1284",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "rafa",
+     "figma": "rafa",
+     "id": "4056:1283",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "pamela-2",
+     "figma": "pamela-2",
+     "id": "4061:3977",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "pamela-3",
+     "figma": "pamela-3",
+     "id": "4061:3979",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "pamela-4",
+     "figma": "pamela-4",
+     "id": "4061:3980",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "pamela-5",
+     "figma": "pamela-5",
+     "id": "4061:3978",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "pamela-6",
+     "figma": "pamela-6",
+     "id": "4061:3976",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "pamela-1",
+     "figma": "pamela-1",
+     "id": "4061:3975",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "thiago",
+     "figma": "thiago",
+     "id": "4076:1435",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "sonia",
+     "figma": "sonia",
+     "id": "4076:1430",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "aline",
+     "figma": "aline",
+     "id": "4076:1434",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "karina-3",
+     "figma": "karina-3",
+     "id": "4076:1433",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "karina-1",
+     "figma": "karina-1",
+     "id": "4076:1431",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "karina-2",
+     "figma": "karina-2",
+     "id": "4076:1429",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "vini",
+     "figma": "vini",
+     "id": "4076:1428",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "antonia",
+     "figma": "antonia",
+     "id": "4076:1427",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "thais-pix",
+     "figma": "thais-pix",
+     "id": "4076:1426",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "thais",
+     "figma": "thais",
+     "id": "4076:1425",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "daniel",
+     "figma": "daniel",
+     "id": "4076:1432",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "cris",
+     "figma": "cris",
+     "id": "4085:4131",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "eliana",
+     "figma": "eliana",
+     "id": "4085:4127",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "mabe",
+     "figma": "mabe",
+     "id": "4085:4117",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "sonia-1",
+     "figma": "sonia",
+     "id": "4085:4129",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "enzo",
+     "figma": "enzo",
+     "id": "4085:4125",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "adriana",
+     "figma": "adriana",
+     "id": "4085:4124",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "andrea",
+     "figma": "andrea",
+     "id": "4085:4123",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "jonas",
+     "figma": "jonas",
+     "id": "4085:4121",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "robson",
+     "figma": "robson",
+     "id": "4085:4120",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "felipe-gabriel",
+     "figma": "felipe-gabriel",
+     "id": "4085:4118",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "joana",
+     "figma": "joana",
+     "id": "4193:2",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "sandra",
+     "figma": "sandra",
+     "id": "4085:4126",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "pedro",
+     "figma": "pedro",
+     "id": "4085:4122",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "ademir",
+     "figma": "ademir",
+     "id": "4085:4128",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "maria-clara",
+     "figma": "maria-clara",
+     "id": "4085:4119",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "seguranca",
+   "name": "Segurança",
+   "items": [
+    {
+     "name": "cadeado",
+     "figma": "cadeado",
+     "id": "4147:3471",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "escudo",
+     "figma": "escudo",
+     "id": "4147:3470",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "transporte",
+   "name": "Transporte",
+   "items": [
+    {
+     "name": "aviao",
+     "figma": "aviao",
+     "id": "4147:5827",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "aviao-cartao",
+     "figma": "aviao-cartao",
+     "id": "4147:5826",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "trem",
+     "figma": "trem",
+     "id": "4147:5824",
+     "description": "Metro",
+     "size": "200×200"
+    },
+    {
+     "name": "carro",
+     "figma": "transporte/carro",
+     "id": "6003:50",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "onibus",
+     "figma": "onibus",
+     "id": "4147:5825",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "onibus-interno",
+     "figma": "onibus-interno",
+     "id": "4147:5879",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "logistica-estrada",
+     "figma": "logistica-estrada",
+     "id": "4130:439",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "logistica-estoque",
+     "figma": "logistica-estoque",
+     "id": "4130:438",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "graficos-e-dashboards",
+   "name": "Gráficos e Dashboards",
+   "items": [
+    {
+     "name": "pizza",
+     "figma": "grafico/pizza",
+     "id": "6003:42",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "setores",
+     "figma": "grafico/setores",
+     "id": "6003:44",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "barra",
+     "figma": "grafico/barra",
+     "id": "6003:46",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "objetivo-1",
+     "figma": "graficos/objetivo-1",
+     "id": "6036:37",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "objetivo-2",
+     "figma": "graficos/objetivo-2",
+     "id": "6036:39",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "objetivo-3",
+     "figma": "graficos/objetivo-3",
+     "id": "6036:35",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "interfaces",
+   "name": "Interfaces",
+   "items": [
+    {
+     "name": "lista",
+     "figma": "interface/lista",
+     "id": "6598:26",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "assinatura",
+     "figma": "interface/assinatura",
+     "id": "6598:30",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "nota-fiscal",
+     "figma": "interface/nota-fiscal",
+     "id": "6598:20",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "carrossel",
+     "figma": "interface/carrossel",
+     "id": "6598:32",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "customizacao",
+     "figma": "interface/customizacao",
+     "id": "6598:22",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "planilha",
+     "figma": "interface/planilha",
+     "id": "6598:28",
+     "description": "",
+     "size": "200×200"
+    },
+    {
+     "name": "home",
+     "figma": "interface/home",
+     "id": "6598:24",
+     "description": "",
+     "size": "200×200"
+    }
+   ]
+  },
+  {
+   "id": "hero-sponsor",
+   "name": "Hero · Sponsor",
+   "items": [
+    {
+     "name": "cartao-corporativo",
+     "figma": "sponsor/cartao-corporativo",
+     "description": "",
+     "size": "673×768"
+    },
+    {
+     "name": "cartao-despesas",
+     "figma": "sponsor/cartao-despesas",
+     "description": "",
+     "size": "673×768"
+    },
+    {
+     "name": "cartao-fisico",
+     "figma": "sponsor/cartao-fisico",
+     "description": "",
+     "size": "673×768"
+    },
+    {
+     "name": "empacotamento-beneficios",
+     "figma": "sponsor/empacotamento-beneficios",
+     "description": "",
+     "size": "673×768"
+    },
+    {
+     "name": "login",
+     "figma": "sponsor/login",
+     "description": "",
+     "size": "673×768"
+    },
+    {
+     "name": "recuperacao-senha",
+     "figma": "sponsor/recuperacao-senha",
+     "description": "",
+     "size": "673×768"
+    }
+   ]
+  },
+  {
+   "id": "hero-employee",
+   "name": "Hero · Employee",
+   "items": [
+    {
+     "name": "login",
+     "figma": "employee/login",
+     "description": "",
+     "size": "741×768"
+    },
+    {
+     "name": "splash-screen",
+     "figma": "employee/splash-screen",
+     "description": "",
+     "size": "741×768"
+    }
+   ]
+  },
+  {
+   "id": "hero-hub-de-beneficios",
+   "name": "Hero · Hub de Benefícios",
+   "items": [
+    {
+     "name": "plano-saude",
+     "figma": "plano-saude",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "alimentacao",
+     "figma": "alimentacao",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "educacao",
+     "figma": "educacao",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "seguros-previdencia",
+     "figma": "seguros-previdencia",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "familia",
+     "figma": "familia",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "descontos",
+     "figma": "descontos",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "plano-odonto",
+     "figma": "plano-odonto",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "mobilidade",
+     "figma": "mobilidade",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "cajuzinho",
+     "figma": "cajuzinho",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "familia-2",
+     "figma": "familia-2",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "fitness",
+     "figma": "fitness",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "cultura",
+     "figma": "cultura",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "outros",
+     "figma": "outros",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "home-office",
+     "figma": "home-office",
+     "description": "",
+     "size": "249×132"
+    },
+    {
+     "name": "lazer",
+     "figma": "lazer",
+     "description": "",
+     "size": "249×132"
+    }
+   ]
+  }
+ ]
+}

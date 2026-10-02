@@ -23,6 +23,7 @@
  *   table: { head: [...], rows: [[...]] }
  *   specs: [{ title, rows: [[rótulo, valor], …] }]   cards de ficha técnica (ex.: Motion Style por interação)
  *   iconGallery: { only }              galeria do [Caju] Icons por categoria, com busca por nome e palavra-chave; only: "deprecated" mostra só os deprecated
+ *   illustrationGallery: {}             galeria do [Caju] Illustrations por categoria (imagens com lazy load), busca por nome, categoria e description
  *
  * Exemplos estáticos ficam com `inert` (sem hover, foco ou tab); `live: true` os deixa interativos.
  */
@@ -287,6 +288,71 @@
       search.addEventListener("input", function(){
         var has = !!search.value.trim();
         if (wasQuery && !has) sections.forEach(function(s){ s.det.open = s.first; }); // limpou a busca: volta ao estado inicial
+        wasQuery = has; filter();
+      });
+      toggleAll.addEventListener("click", function(){
+        var open = sections.some(function(s){ return !s.det.hidden && !s.det.open; });
+        sections.forEach(function(s){ if (!s.det.hidden) s.det.open = open; });
+        toggleAll.textContent = open ? "Fechar todas" : "Abrir todas";
+      });
+      filter();
+      return wrap;
+    },
+    illustrationGallery: function(d, v){
+      var A = window.CDS.assets || {}, meta = {};
+      (A.illustrations || []).forEach(function(i){ meta[i.name] = i; });
+      var wrap = el("div", "pg-doc-icons pg-doc-ills");
+      var search = el("input", "pg-text pg-doc-icons__search");
+      search.type = "search"; search.placeholder = "Buscar por nome, categoria ou uso (ex.: cartão, pix, erro)"; search.setAttribute("aria-label", "Buscar ilustração");
+      var tools = el("div", "pg-doc-icons__tools");
+      var count = el("p", "pg-doc-note"); count.setAttribute("aria-live", "polite");
+      var toggleAll = el("button", "pg-doc-link", "Abrir todas"); toggleAll.type = "button";
+      tools.appendChild(count); tools.appendChild(toggleAll);
+      wrap.appendChild(search); wrap.appendChild(tools);
+      var acc = el("div", "pg-doc-acc"), sections = [];
+      var fold = function(s){ return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); };
+      (A.illustrationBuckets || []).forEach(function(b, bi){
+        var det = el("details", "pg-doc-acc__item");
+        var sum = el("summary", "pg-doc-acc__head");
+        sum.appendChild(el("span", "pg-doc-acc__title", b.name));
+        var badge = el("span", "pg-doc-acc__count", String(b.items.length)); sum.appendChild(badge);
+        var chev = el("span", "cds-icon cds-icon--dropdown-open-line pg-doc-acc__chev"); chev.setAttribute("aria-hidden", "true"); sum.appendChild(chev);
+        det.appendChild(sum);
+        var grid = el("ul", "pg-doc-icons__grid pg-doc-ills__grid"), tiles = [];
+        b.items.forEach(function(k){
+          var m = meta[k] || { label: k, src: "" }, li = el("li"), btn = el("button", "pg-doc-icons__tile pg-doc-ills__tile");
+          btn.type = "button"; btn.title = [m.figma, m.size, m.description].filter(Boolean).join(" · ");
+          btn.setAttribute("aria-label", m.label + " — copiar nome");
+          var img = el("img", "pg-doc-ills__img"); img.alt = ""; img.loading = "lazy"; img.decoding = "async"; img.src = m.src;
+          btn.appendChild(img); btn.appendChild(el("span", "pg-doc-icons__name", m.label));
+          btn.addEventListener("click", function(){
+            try { navigator.clipboard.writeText(k); } catch (e) {}
+            count.textContent = "Copiado: " + k;
+          });
+          li.appendChild(btn); grid.appendChild(li);
+          tiles.push({ li: li, text: fold([k, m.figma, b.name, m.description].join(" ")) });
+        });
+        var body = el("div", "pg-doc-acc__body"); body.appendChild(grid); det.appendChild(body);
+        if (bi === 0) det.open = true;
+        acc.appendChild(det);
+        sections.push({ det: det, badge: badge, total: b.items.length, tiles: tiles, first: bi === 0 });
+      });
+      wrap.appendChild(acc);
+      function filter(){
+        var q = fold(search.value.trim()), shown = 0;
+        sections.forEach(function(s){
+          var any = 0;
+          s.tiles.forEach(function(t){ var ok = !q || t.text.indexOf(q) !== -1; t.li.hidden = !ok; if (ok) any++; });
+          s.det.hidden = !any; s.badge.textContent = q ? any + " de " + s.total : String(s.total);
+          if (q) s.det.open = any > 0;
+          shown += any;
+        });
+        count.textContent = shown + " ilustraç" + (shown === 1 ? "ão" : "ões") + (q ? " para “" + search.value.trim() + "”" : " em " + sections.length + " categorias") + ". Clique para copiar o nome (categoria/nome).";
+      }
+      var wasQuery = false;
+      search.addEventListener("input", function(){
+        var has = !!search.value.trim();
+        if (wasQuery && !has) sections.forEach(function(s){ s.det.open = s.first; });
         wasQuery = has; filter();
       });
       toggleAll.addEventListener("click", function(){

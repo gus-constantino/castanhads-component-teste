@@ -12,9 +12,9 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Ajuste de UI](#ajuste-de-ui) | 22 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 14 |
-| [Naming](#naming) | 8 |
+| [Naming](#naming) | 10 |
 | [Acessibilidade](#acessibilidade) | 3 |
-| [Documentação](#documentação) | 2 |
+| [Documentação](#documentação) | 3 |
 
 ## Ajuste de texto
 
@@ -107,6 +107,8 @@ Nome de prop, variante, camada ou variável fora do padrão.
 | C53 | Naming (Lote 7) | `Show Itens per page` / `Nav Itens` (mistura de "Itens" com inglês) · `.Item` usado por Breadcrumb e Tabs (dois sets com o mesmo nome, C25) · `State=Enable` no .Item do Breadcrumb | Padrão do Índice de Propriedades | Atributos em inglês e kebab-case (`show-items-per-page`) | Renomear junto com C25 |
 | C54 | Naming (Lote 8) | Content List `Intent=Switch` usa itens `Intent=Transaction` (não há switch) | Nomes que descrevem o conteúdo | `intent="switch"` gera itens `transaction` | Renomear junto com C25 |
 | C67 | Naming (Tables e File Upload) | `.Table Column` Kind `Default`/`Percentual`/`Icon Buttons` × `.Data Cell` Kind `Text`/`Percentage`/`Action Controls`; slot `Upload itens`; terceiro `.Lead item` (File) | Um nome por conceito | `kind` aceita os dois nomes (default = text, percentual = percentage, icon-buttons = actions) | Renomear junto com C25 |
+| C76 | [Caju] Illustrations · nomes repetidos | Finanças tem três `moeda-verde-pilha-2` (`4146:2019`, `4178:602`, `4178:607`): a 2ª é a pilha **vermelha** e a 3ª a **amarela**. Também repetem `sonia` (Personagens, ×2), `celular-cartao` (Dispositivos e Mãos) e `cracha` (Documentos e Mãos) | Nome único por ilustração (`moeda-vermelha-pilha-2`, `moeda-amarela-pilha-2`, `sonia-2`…) | Segue o export do Figma: arquivos com sufixo `-1`/`-2` (`financas/moeda-verde-pilha-2-1` = vermelha, `-2-2` = amarela, `personagens/sonia-1`); o nome completo é `<categoria>/<nome>`, então os repetidos entre categorias não colidem | Renomear no Figma e reimportar (`scripts/dev/import-illustrations.py`, tirar o mapa `DUP`) |
+| C77 | [Caju] Illustrations · prefixos e categorias | 43 das 237 têm prefixo no nome e os outros não: `financas/` (13), `objetos/` (9), `interface/` (7), `grafico/` (3) × `graficos/` (3), `autenticacao/`, `documentos/`, `dispositivos/`, `transporte/` e `feirinha_hub-benef/`. O frame `Autenticacao` está sem acento | Um padrão só: sem prefixo (a categoria já é o frame) ou prefixo em todas; `Autenticação` | Usa só o último trecho do nome (`grafico/pizza` → `graficos-e-dashboards/pizza`); o nome original fica no `catalog.json` e no tooltip da galeria | Ajustar no Figma; o import já ignora o prefixo |
 
 ## Acessibilidade
 
@@ -126,6 +128,7 @@ Frames de documentação no Figma.
 |---|---|---|---|---|---|
 | C12 | Doc do Credit Card · Estilos | Card "Is Active" usa `State=Disabled`; "Warning · Enabled" usa `State=Pressed` (frame 24931:8090) | Is Active e Enabled | Segue o Figma: specimens com as props do frame | Ajustar os dois `attrs` em `credit-card-input.docs.js` |
 | C13 | Docs (Credit Card e OTP) · Motion | Ilustração de empty state como placeholder | Demo de motion | **Exceção** (adaptação para web): exemplo interativo | Se o Figma ganhar uma demo, nada muda |
+| C78 | [Caju] Illustrations · descriptions | A description de Análise ("A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações…", com erro de digitação) foi copiada em 8 que não são de análise: `perguntas-frequentes`, `ampulheta`, `foguete`, `kit-medico`, `kit-onboarding`, `malas-viagem`, `mochila` e o próprio `analysis-low-detail`. A maioria das 237 não tem description | Description própria (uso + palavras-chave) em cada ilustração | Mostra a description como está (tooltip e busca da galeria) | Corrigir no Figma e reimportar |
 
 ## Como usar esta lista
 

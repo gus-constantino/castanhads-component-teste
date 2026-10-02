@@ -235,6 +235,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D64 | **Caju Card em etapa própria (9d)**: as artes vêm de vetores por Kind e orientação; a fidelidade pede exportar as peças estáticas sem alterar o arquivo do Figma | 02/10 |
 | D65 | **Caju Card = arte em SVG + dados como texto**: cada variante exportada do Figma vira `assets/caju-card/<kind>-<h\|v>-<front\|back>.svg`, inserida inline; número, CVV, validade, código de ativação e 4 últimos dígitos são `tspan[data-field]` trocados pelos atributos. Combinação ausente cai na mais próxima (C74) | 02/10 |
 | D66 | **Relatório como painel** (`#/relatorio`, botão de gráfico no header): lê `ROADMAP`, `CONFERIR` e `ARCHITECTURE` ao abrir, sem cópia; título "Saúde da stack Figma"; tab Visão geral só com dados (componentes, variantes, divergências por tipo, tratamento D40, pendências com as resolvidas riscadas no fim, decisões; sem as etapas, que são do time) e sem a seção Preferências (fica só no doc) + uma tab por doc com seções reagrupadas. Página renomeada para "Castanha DS: Playground de handoff design <> Code" | 02/10 |
+| D67 | **Ilustrações por categoria**: `assets/illustrations/<categoria>/<nome>.svg` + `catalog.json` (ordem, nome no Figma, node id, description, tamanho); o nome no código é `<categoria>/<nome>` (o Figma repete nomes entre categorias, C76) e `CDS.illustration()` aceita também só `<nome>`. Banner e Table usam os arquivos oficiais; o Banner ganhou instance swap agrupado | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -249,12 +250,12 @@ Só perguntas de escopo ou de fonte. Divergências entre o Figma e o esperado fi
 
 ## 5.1 Débito de export (Gustavo)
 
-Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones já foram importados; faltam ilustrações e bandeiras. Exportar do Figma como SVG, com o nome do componente, e rodar `node scripts/build-assets.js`.
+Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones e ilustrações já foram importados; faltam as bandeiras. Exportar do Figma como SVG, com o nome do componente, e rodar `node scripts/build-assets.js`.
 
 | Asset | Origem | Destino | Hoje no repo |
 |---|---|---|---|
 | ~~Ícones (274)~~ ✅ | `[Caju] Icons` · página `UI & Caju` | `assets/icons/<categoria>/` + `catalog.json` | **274 importados em 01/10** (12 buckets, incluindo `deprecated`), com palavras-chave da description. Reimportar: ver ARCHITECTURE §8 |
-| Ilustrações (237 + Hero + Cartões) | `[Caju] Illustrations` · página `Caju UI` | `assets/illustrations/` | 2 (`sino` e `empty-state`, exportadas com os componentes que usam). As artes do Caju Card saíram do próprio componente (12, D65) |
+| ~~Ilustrações (237 + Hero + Cartões)~~ ✅ | `[Caju] Illustrations` · páginas `Caju UI` e `Hero` | `assets/illustrations/<categoria>/` + `catalog.json` | **260 importadas em 02/10** (237 da Caju UI + 23 do Hero, 19 categorias), do export SVG do Gustavo. Cartões = componente Caju Card (D65). Reimportar: ver ARCHITECTURE §8 |
 | Bandeiras Elo, Mastercard e Visa | `.Credit Card Flags` (`4934:771`) | `assets/flags/<kind>.svg` | 3, reconstruídas de `vectorPaths` (o Elo com coordenadas arredondadas); o MCP falha com "no visible layers". Substituir pelos SVGs oficiais, sem mudar código |
 
 ## 5.2 Débitos de design (Gustavo)
@@ -309,6 +310,8 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 ---
 | 02/10 | **GitHub Pages roda Jekyll e descarta pastas que começam com `_`** (`assets/icons/_glyphs` dava 404 só no Pages; local funcionava). `.nojekyll` na raiz desliga isso. Conferência pós-deploy agora inclui um HEAD em todos os arquivos versionados |
 | 02/10 | O relatório depende do formato dos docs: tabelas com o ID na 1ª coluna (C/D/Q ou data), status com ✅/⏳/🧪 e seções `## N. Título`. Mudar o formato pede ajustar `scripts/report.js` |
+| 02/10 | **`curl` é bloqueado pela política da Caju**, não pelo sandbox: `~/.claude/remote-settings.json` tem `deny: Bash(curl *)` e `allowManagedPermissionRulesOnly` (regra local não libera). As URLs do `download_assets` do MCP do Figma não servem aqui; asset grande vem do export do Figma feito pelo Gustavo |
+| 02/10 | O export SVG do Figma vira subpasta quando o nome tem `/` e numera repetidos (`-1`, `-2`) na ordem do documento; o 1º traço do SVG basta para saber qual arquivo é qual nó. Conferir visualmente: as três `moeda-verde-pilha-2` pareciam iguais pelo 1º traço e eram cores diferentes |
 
 ## 8. Status
 

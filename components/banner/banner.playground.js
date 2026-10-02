@@ -18,7 +18,6 @@ CDS.register({
     kit.section(panel, "Texts");
     [["title","Text Title","Label"],["description","Text Description","Description"],["cta","CTA Text Label","Label"]].forEach(function(t){ kit.text(panel, { label: t[1], value: t[2], onInput: function(v){ p.setAttribute(t[0], v); } }); });
     kit.section(panel, "Instance swap");
-    var ills = ((CDS.assets || {}).illustrations || []).map(function(i){ return [i.name, i.name]; });
-    kit.select(panel, { label: "Illustration", value: "sino", options: ills.length ? ills : [["sino","sino"]], hint: ills.length + " ilustração(ões) no repo; as demais entram com o [Caju] Illustrations.", onChange: function(v){ p.setAttribute("illustration", v); } });
+    kit.illustrationSwap(panel, { label: "Illustration", value: "notificacoes/sino", onChange: function(v){ p.setAttribute("illustration", v); } });
   }
 });

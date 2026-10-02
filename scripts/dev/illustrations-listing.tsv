@@ -1,0 +1,237 @@
+Hub de Benefícios	4147:6080	pet	
+Hub de Benefícios	4147:6072	departamento	
+Hub de Benefícios	4147:6071	plano-saude	
+Hub de Benefícios	4147:6078	servicos	
+Hub de Benefícios	4147:6076	entretenimento	
+Hub de Benefícios	4147:6070	plano-odonto	
+Hub de Benefícios	4147:6075	educacao	
+Hub de Benefícios	4147:6079	cajuzinho	
+Hub de Benefícios	4147:6074	alimentacao	
+Hub de Benefícios	4147:6077	outros	
+Hub de Benefícios	4147:6082	saude	
+Hub de Benefícios	4147:6083	ofertas	
+Hub de Benefícios	4147:6081	mobilidade	
+Hub de Benefícios	4147:6073	esportes	
+Hub de Benefícios	6598:34	feirinha_hub-benef/familia	
+Hub de Benefícios	6598:36	feirinha_hub-benef/seguro-vida-previdencia	
+Alimentos	4147:7777	cafe-bolo	
+Alimentos	4146:2018	cafe-bolo-aniversario	
+Alimentos	4147:7776	cafe-coador	
+Alimentos	4250:23	drink	
+Autenticacao	4148:3220	reconhecimento-default	
+Autenticacao	4148:3218	reconhecimento-biometrico	
+Autenticacao	4160:404	reconhecimento-facial	
+Autenticacao	4159:759	verificar-selfie	
+Autenticacao	4148:3225	verificar-id	
+Autenticacao	4148:3224	sms	
+Autenticacao	4148:3223	email	
+Autenticacao	4148:3222	codigo	
+Autenticacao	4148:3221	geolocalizacao	
+Autenticacao	4148:3227	ocr	
+Autenticacao	6480:11	autenticacao/ocr-cartao-1	
+Autenticacao	6480:13	autenticacao/ocr-cartao-2	
+Comunicação	7111:108	perguntas-frequentes	A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d
+Data e Hora	4147:3475	calendario-celular-pix	
+Data e Hora	4147:3474	calendario-engrenagem	
+Data e Hora	4147:3478	calendario-default	
+Data e Hora	4147:3477	calendario-folha	
+Data e Hora	4147:3476	calendario-cartao	
+Data e Hora	4147:3472	calendario-cartao-voucher	
+Data e Hora	4147:3473	calendario-moeda-pilha	
+Data e Hora	4147:7778	relogio-despertador	
+Data e Hora	4147:7779	relogio	
+Dispositivos	4147:401	notebook	
+Dispositivos	4147:400	notebook-relatorios	
+Dispositivos	4147:404	celular-cartao-aproximacao	
+Dispositivos	4147:405	celular-cartao	
+Dispositivos	4147:403	celular-logo	
+Dispositivos	4147:402	celular-pix-caju	
+Dispositivos	6003:52	dispositivos/celular-extrato	
+Dispositivos	6480:17	celular-cartao-virtual-wallet-1	
+Dispositivos	6480:19	celular-cartao-virtual-wallet-2	
+Dispositivos	6480:31	celular-cartao-virtual-1	
+Dispositivos	6480:21	celular-cartao-virtual-2	
+Dispositivos	7111:112	celular-check	
+Documentos	4087:10168	socio	
+Documentos	6480:33	socio-low-detail	
+Documentos	4087:10163	holerite	
+Documentos	4087:10165	holerite-pilha-1	
+Documentos	4087:10178	holerite-pilha-2	
+Documentos	4087:10172	relatorios-1	
+Documentos	4087:10167	relatorios-2	
+Documentos	4087:10164	relatorio-concluido	
+Documentos	4087:10176	rg-cnh-frente	
+Documentos	6480:37	rg-cnh-frente-low-detail	documentos; dados
+Documentos	4087:10174	rg-cnh-verso	
+Documentos	6480:39	rg-cnh-verso-low-detail	documentos; dados
+Documentos	4087:10177	rg-papeis	
+Documentos	6480:35	rg-papeis-low-detail	documentos; dados
+Documentos	4087:10179	cracha	
+Documentos	7111:116	cracha-digital	
+Documentos	4087:10166	ctps	
+Documentos	6480:41	ctps-low-detail	
+Documentos	4087:10162	admissao	
+Documentos	4087:10170	planilha-engrenagem	
+Documentos	4087:10175	organograma	
+Documentos	4087:10171	diretorio-colaboradores	
+Documentos	4087:10173	arquivar-item	
+Documentos	4087:10169	desarquivar-item	
+Documentos	6003:40	documentos/extrato	
+Documentos	6214:1341	documentos/planilha-recebida	hcm; relatórios
+Finanças	4127:37	moeda-verde-1	
+Finanças	4127:44	moeda-verde-2	
+Finanças	4127:40	moeda-verde-3	
+Finanças	4127:34	moeda-verde-4	
+Finanças	4127:46	moeda-verde-pilha-1	
+Finanças	4146:2019	moeda-verde-pilha-2	
+Finanças	4127:38	moeda-vermelha-1	
+Finanças	4127:41	moeda-vermelha-2	
+Finanças	4127:42	moeda-vermelha-3	
+Finanças	4127:35	moeda-vermelha-4	
+Finanças	4127:47	moeda-vermelha-pilha	
+Finanças	4178:602	moeda-verde-pilha-2	
+Finanças	4127:45	moeda-amarela-1	
+Finanças	4127:39	moeda-amarela-2	
+Finanças	4127:36	moeda-amarela-3	
+Finanças	4127:33	moeda-amarela-4	
+Finanças	4127:43	moeda-amarela-pilha	
+Finanças	4178:607	moeda-verde-pilha-2	
+Finanças	4129:56	carteira-cartao-1	
+Finanças	4129:57	carteira-cartao-2	
+Finanças	4129:55	carteira-moedas	
+Finanças	4130:87	cartao-frente	
+Finanças	4130:82	cartao-frente-perspectiva	
+Finanças	4130:84	cartao-frente-brilho	
+Finanças	4130:85	cartao-verso	
+Finanças	4130:86	cartao-verso-perspectiva	
+Finanças	4130:77	cartao-codigo-vertical-1	Verificação;
+Finanças	4130:78	cartao-codigo-vertical-2	Verificação;
+Finanças	4130:76	cartao-codigo-horizontal-1	Verificação;
+Finanças	4130:75	cartao-codigo-horizontal-2	
+Finanças	4130:79	cartao-multi	
+Finanças	4130:81	cartao-bilhete-unico	
+Finanças	6480:45	cartao-bilhete-unico-low-detail	
+Finanças	4130:80	cartao-voucher	
+Finanças	4130:83	cartoes-fisico-voucher	
+Finanças	6003:54	financas/cartao-corporativo-2	
+Finanças	4130:74	cartao-customizacao	
+Finanças	6480:43	cartao-customizacao-low-detail	hcm; customizações
+Finanças	4146:314	maquininha-laranja	
+Finanças	4146:316	maquininha-laranja-cartao	
+Finanças	4146:317	maquininha-verde	
+Finanças	4146:315	maquininha-verde-cartao	
+Finanças	4144:514	ticket-logo	
+Finanças	4144:511	ticket-desconto-caju	
+Finanças	4144:512	ticket-passagem	
+Finanças	4144:513	ticket-desconto	
+Finanças	6003:34	financas/cartao-envelope	
+Finanças	6480:15	financas/cartao-envelope-aberto	
+Finanças	6214:1346	financas/cartao-corporativo-minimalista	
+Finanças	6214:1347	financas/cartao-fisico-minimalista	
+Finanças	6214:1344	financas/cartao-virtual-minimalista	
+Finanças	6214:1345	financas/cartao-voucher-minimalista	
+Finanças	6214:1343	financas/cartao-fisico-desbloqueado	
+Finanças	6214:1342	financas/cartoes-fisico-virtual	
+Finanças	6480:23	financas/cartao-corporativo-carteira	
+Finanças	6480:25	financas/cartao-virtual-wallet-1	
+Finanças	6480:29	financas/cartao-virtual-wallet-2	
+Finanças	6480:27	financas/cartao-virtual-wallet-3	
+Mãos	4087:4530	celular-cash	
+Mãos	4087:4528	celular-cartao	
+Mãos	4087:4529	cartao	
+Mãos	4087:4527	voucher	
+Mãos	4087:4526	cracha	
+Mãos	4087:4524	transferencia-pix	
+Mãos	4087:4525	estalar-dedos	
+Notificações	4148:1051	alert	
+Notificações	7111:120	alert-low-detail	Ilustrações de alerta chamam atenção de forma visual e rápida, comunicando mensagens importantes com clareza e impacto.
+Notificações	4148:1050	success	
+Notificações	7111:118	success-low-detail	Ilustrações de sucesso reforçam feedbacks positivos, celebrando conquistas e motivando o usuário a continuar em sua jorn
+Notificações	4148:1049	error	
+Notificações	7111:109	error-low-detail	Ilustrações de erro comunicam falhas de forma leve e intuitiva, ajudando o usuário a entender e resolver o problema rapi
+Notificações	4148:1048	empty-state	
+Notificações	4148:1047	search-not-found	
+Notificações	4148:1046	analysis	
+Notificações	7111:117	analysis-low-detail	A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d
+Notificações	4148:1045	ja-vai	
+Notificações	4146:2022	sino	
+Notificações	4146:2021	galo	
+Objetos	4146:2017	medalha-1	
+Objetos	4146:2020	medalha-2	
+Objetos	4147:399	cadeira-praia	
+Objetos	4147:7780	cadeira-escritorio	
+Objetos	6003:36	objetos/presente-fechado	
+Objetos	6003:38	objetos/presente-aberto	
+Objetos	6003:48	objetos/presente-sacola	
+Objetos	6003:25	objetos/gema-rubi	
+Objetos	6003:31	objetos/gema-esmeralda	
+Objetos	6003:28	objetos/gema-ouro	
+Objetos	6036:41	objetos/trofeu	
+Objetos	6036:43	objetos/caixa-moedas	
+Objetos	6072:21	objetos/caixa-beneficios	
+Objetos	7111:111	ampulheta	A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d
+Objetos	7111:114	compras-celebracao	
+Objetos	7111:110	foguete	A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d
+Objetos	7111:119	kit-medico	A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d
+Objetos	7111:107	kit-onboarding	A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d
+Objetos	7111:115	malas-viagem	A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d
+Objetos	7111:113	mochila	A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações de Cadastro ou Documentos d
+Personagens	4056:1285	fabio	
+Personagens	4054:7	nadia	
+Personagens	4056:1284	andre	
+Personagens	4056:1283	rafa	
+Personagens	4061:3977	pamela-2	
+Personagens	4061:3979	pamela-3	
+Personagens	4061:3980	pamela-4	
+Personagens	4061:3978	pamela-5	
+Personagens	4061:3976	pamela-6	
+Personagens	4061:3975	pamela-1	
+Personagens	4076:1435	thiago	
+Personagens	4076:1430	sonia	
+Personagens	4076:1434	aline	
+Personagens	4076:1433	karina-3	
+Personagens	4076:1431	karina-1	
+Personagens	4076:1429	karina-2	
+Personagens	4076:1428	vini	
+Personagens	4076:1427	antonia	
+Personagens	4076:1426	thais-pix	
+Personagens	4076:1425	thais	
+Personagens	4076:1432	daniel	
+Personagens	4085:4131	cris	
+Personagens	4085:4127	eliana	
+Personagens	4085:4117	mabe	
+Personagens	4085:4129	sonia	
+Personagens	4085:4125	enzo	
+Personagens	4085:4124	adriana	
+Personagens	4085:4123	andrea	
+Personagens	4085:4121	jonas	
+Personagens	4085:4120	robson	
+Personagens	4085:4118	felipe-gabriel	
+Personagens	4193:2	joana	
+Personagens	4085:4126	sandra	
+Personagens	4085:4122	pedro	
+Personagens	4085:4128	ademir	
+Personagens	4085:4119	maria-clara	
+Segurança	4147:3471	cadeado	
+Segurança	4147:3470	escudo	
+Transporte	4147:5827	aviao	
+Transporte	4147:5826	aviao-cartao	
+Transporte	4147:5824	trem	Metro
+Transporte	6003:50	transporte/carro	
+Transporte	4147:5825	onibus	
+Transporte	4147:5879	onibus-interno	
+Transporte	4130:439	logistica-estrada	
+Transporte	4130:438	logistica-estoque	
+Gráficos e Dashboards	6003:42	grafico/pizza	
+Gráficos e Dashboards	6003:44	grafico/setores	
+Gráficos e Dashboards	6003:46	grafico/barra	
+Gráficos e Dashboards	6036:37	graficos/objetivo-1	
+Gráficos e Dashboards	6036:39	graficos/objetivo-2	
+Gráficos e Dashboards	6036:35	graficos/objetivo-3	
+Interfaces	6598:26	interface/lista	
+Interfaces	6598:30	interface/assinatura	
+Interfaces	6598:20	interface/nota-fiscal	
+Interfaces	6598:32	interface/carrossel	
+Interfaces	6598:22	interface/customizacao	
+Interfaces	6598:28	interface/planilha	
+Interfaces	6598:24	interface/home	

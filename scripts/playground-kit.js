@@ -170,6 +170,20 @@
     return sel;
   }
 
+  /** Instance swap de ilustração — agrupado pela categoria do [Caju] Illustrations (valor = "<categoria>/<nome>"). */
+  function illustrationSwap(panel, o){
+    var A = window.CDS.assets || {}, buckets = A.illustrationBuckets || [], n = (A.illustrations || []).length;
+    var sel = select(panel, { label: o.label || "Illustration (instance swap)", value: o.value, options: [],
+      hint: n + " ilustrações do [Caju] Illustrations em " + buckets.length + " categorias · <a href=\"#/caju-illustrations\">ver biblioteca</a>",
+      onChange: o.onChange });
+    buckets.forEach(function(b){
+      var g = el("optgroup", { label: b.name });
+      b.items.forEach(function(k){ var op = el("option", { value: k, text: k.split("/").pop() }); if (k === o.value) op.selected = true; g.appendChild(op); });
+      sel.appendChild(g);
+    });
+    return sel;
+  }
+
   /**
    * Playground padrão da família Text Fields.
    * o.tag · o.attrs (iniciais) · o.booleans [[attr, rótulo]] · o.texts [[attr, rótulo, valor]] · o.leadIcon (valor do swap)
@@ -301,5 +315,5 @@
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
 })();

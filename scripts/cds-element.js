@@ -65,5 +65,12 @@
     val = val === true ? "" : String(val);
     if (el.getAttribute(name) !== val) el.setAttribute(name, val);
   };
+  /** Ilustração do [Caju] Illustrations → URL. Aceita "<categoria>/<nome>" ou só "<nome>" (a primeira categoria que tiver).
+   *  Sem manifest (ou nome desconhecido), cai em assets/illustrations/<valor>.svg. */
+  CDS.illustration = function(name){
+    var list = (window.CDS.assets || {}).illustrations || [], n = String(name || "");
+    var hit = list.filter(function(i){ return i.name === n; })[0] || list.filter(function(i){ return i.label === n; })[0];
+    return hit ? hit.src : "assets/illustrations/" + n.split("/").map(encodeURIComponent).join("/") + ".svg";
+  };
   CDS.Element = CdsElement;
 })();

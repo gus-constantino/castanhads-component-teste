@@ -230,6 +230,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D59 | **Amostras do protótipo são ilustrativas**: o código mantém o comportamento funcional (seleção real, textos derivados do estado) em vez de copiar valores de exemplo | 02/10 |
 | D60 | **Table como `<table>` de dados**: `.columns` / `.rows` (propriedades), ordenação com `aria-sort`, seleção por checkbox e paginação no cliente com a Pagination; sem dados, a amostra do Figma | 02/10 |
 | D61 | **Stroke INSIDE vira `box-shadow inset` ou `outline` com offset negativo**, nunca `border`: em célula de tabela e em contornos tracejados a borda soma à altura | 02/10 |
+| D62 | **Table por linhas, não por colunas** (registrada a pedido do Gustavo para o debate no time de design): o dado é a linha; ordenar, selecionar, hover e paginar agem sobre linhas; leitor de tela e responsividade dependem disso. No Figma, a largura consistente sai de tokens de largura por coluna numa `.Table Row`. Detalhes: `docs/TABLE-LINHAS-X-COLUNAS.md` | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas

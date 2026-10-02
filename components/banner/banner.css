@@ -25,6 +25,6 @@ cds-banner{ display:block; width:280px; min-width:min(280px, 100%); max-width:10
 cds-banner[kind="image"] .cds-banner{ align-items:flex-end; padding:var(--common-sizes-24); min-height:151px; background:var(--common-colors-surface-inversed); }
 .cds-banner__img{ position:absolute; inset:0; z-index:0; width:100%; height:100%; }
 .cds-banner__img img{ width:100%; height:100%; object-fit:cover; }
-.cds-banner__backdrop{ position:absolute; inset:0; z-index:1; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
+.cds-banner__backdrop{ z-index:1; } /* visual vem do Backdrop (backdrop.css) */
 cds-banner[kind="image"] .cds-banner__content{ position:relative; z-index:1; }
 @media (prefers-reduced-motion:reduce){ .cds-banner::after{ transition:none; } }

@@ -39,5 +39,24 @@
     return n;
   };
 
+  /**
+   * Posiciona um elemento flutuante (position:fixed) junto de uma âncora.
+   * placement: "top" | "bottom" | "bottom-start" | "bottom-end" · gap em px (padrão 8).
+   * Vira para o outro lado se não couber e nunca sai da janela (margem de 8px). Usado por Tooltip, Popover e Selects.
+   */
+  CDS.position = function(anchor, el, opts){
+    opts = opts || {};
+    var gap = opts.gap == null ? 8 : opts.gap, pad = 8, place = opts.placement || "bottom-start";
+    var r = anchor.getBoundingClientRect(), me = el.getBoundingClientRect();
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var top = /^top/.test(place) ? r.top - me.height - gap : r.bottom + gap;
+    if (/^bottom/.test(place) && top + me.height > vh - pad && r.top - me.height - gap >= pad) top = r.top - me.height - gap;
+    if (/^top/.test(place) && top < pad) top = r.bottom + gap;
+    var left = /-end$/.test(place) ? r.right - me.width : /-start$/.test(place) ? r.left : r.left + r.width / 2 - me.width / 2;
+    left = Math.min(Math.max(pad, left), vw - me.width - pad);
+    el.style.position = "fixed"; el.style.margin = "0";
+    el.style.left = Math.round(left) + "px"; el.style.top = Math.round(Math.max(pad, top)) + "px";
+  };
+
   CDS.Element = CdsElement;
 })();

@@ -1,0 +1,3 @@
+/* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
+cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
+.cds-overlay::backdrop{ background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }

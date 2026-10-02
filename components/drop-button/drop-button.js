@@ -20,7 +20,7 @@
       var b = this._btn || document.createElement("button");
       b.className = "cds-btn"; b.type = "button"; b.disabled = this.hasAttribute("disabled");
       var active = this.hasAttribute("active");
-      b.setAttribute("aria-expanded", String(active)); b.setAttribute("aria-haspopup", "true");
+      b.setAttribute("aria-expanded", String(active)); if (!b.hasAttribute("aria-haspopup")) b.setAttribute("aria-haspopup", "true"); // o Popover troca para "dialog"
       b.innerHTML = "";
       this.leadEl = null;
       if (this.flag("show-lead-icon")){ this.leadEl = icon(this.getAttribute("lead-icon") || "placeholder-line"); b.appendChild(this.leadEl); }

@@ -1,5 +1,5 @@
 /**
- * @deps content-banner image
+ * @deps content-banner image backdrop
  * <cds-banner> — Banner · Banner · set 20051:15726
  * Destaque de conteúdo com título, descrição e CTA. O banner inteiro é a área clicável e dispara uma ação
  * (o CTA é só indicação visual, não é focável). Vira <a> com href ou <button> sem href.
@@ -26,7 +26,7 @@
       if (bg && !image) el.style.setProperty("--_banner-bg", "var(--common-colors-" + bg + ")");
       if (image){
         el.appendChild(CDS.create("cds-image", { src: this.getAttribute("src") || "", alt: this.getAttribute("alt") || "" }, "cds-banner__img"));
-        el.appendChild(CDS.create("span", { "aria-hidden": "true" }, "cds-banner__backdrop")); // Backdrop (Lote 6): Surface/inversed · 0.4
+        el.appendChild(CDS.create("cds-backdrop", null, "cds-banner__backdrop")); // nested instance: Backdrop
       }
       var cb = CDS.create("cds-content-banner", { appearance: this.getAttribute("content") || (image ? "inversed" : "neutral") }, "cds-banner__content");
       ["title","description","cta","show-text-title","show-cta"].forEach(function(k){ var v = this.getAttribute(k); if (v != null) cb.setAttribute(k, v); }, this);

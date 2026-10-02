@@ -1,0 +1,10 @@
+/* Popover · 2270:102 — Surface/default · raio large · Elevation/level 3 · pad 8 · Slot raio medium */
+cds-popover{
+  display:flex; box-sizing:border-box; min-width:220px; max-width:min(360px, calc(100vw - 16px));
+  padding:var(--common-sizes-8); border:0; border-radius:var(--common-border-radius-large);
+  background:var(--common-colors-surface-default); color:var(--common-colors-text-intense);
+  box-shadow:var(--common-elevation-level-3); overflow:visible;
+}
+cds-popover[popover]:not(:popover-open){ display:none; }
+cds-popover[popover]{ inset:auto; margin:0; }
+.cds-popover__slot{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; border-radius:var(--common-border-radius-medium); overflow:hidden; }

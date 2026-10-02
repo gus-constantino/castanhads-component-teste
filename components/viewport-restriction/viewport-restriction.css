@@ -1,0 +1,7 @@
+/* Viewport Restriction · 5357:3899 — Feedback/Negative/soft · pad 16 · Caption/Medium Feedback/Negative/intense · 200×200 */
+cds-viewport-restriction{
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  width:200px; height:200px; max-width:100%; padding:var(--common-sizes-16);
+  background:var(--common-colors-feedback-negative-soft); color:var(--common-colors-feedback-negative-intense);
+  font:var(--text-style-caption-medium);
+}

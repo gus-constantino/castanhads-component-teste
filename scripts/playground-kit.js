@@ -232,10 +232,40 @@
   }
 
   /** Liga/desliga um atributo no elemento de preview. */
+  /**
+   * Playground padrão dos overlays (Modal · Drawer · Bottom Sheet).
+   * Mostra o specimen inline (como no Figma) e um botão que abre o overlay de verdade (dialog modal com Backdrop).
+   * o.tag · o.attrs · o.slot() → nós do Slot · o.booleans [[attr, rótulo]] · o.texts [[attr, rótulo, valor]] · o.hint
+   */
+  function overlay(ctx, o){
+    var panel = ctx.panel, attrs = o.attrs || {}, spec, live;
+    function make(extra){ var n = el(o.tag, Object.assign({}, attrs, extra), o.slot()); return n; }
+    spec = make({ inline: true }); live = make({});
+    live.addEventListener("cds-open", function(){ ctx.readout("aberto", false); });
+    live.addEventListener("cds-close", function(){ ctx.readout("fechado", false); });
+    live.addEventListener("cds-action", function(e){ ctx.readout("cds-action · " + e.detail.action, false); live.close(); });
+    ctx.preview.appendChild(spec); ctx.preview.appendChild(live);
+    function set(k, v){ if (v == null) delete attrs[k]; else attrs[k] = v; attr(spec, k, v); attr(live, k, v); }
+    var open = el("button", { type: "button", "class": "pg-text", text: "Abrir de verdade" });
+    open.addEventListener("click", function(){ live.show(); });
+    panel.appendChild(open);
+    if (o.hint) hint(panel, o.hint);
+    if (o.variants) o.variants(panel, set);
+    if (o.booleans && o.booleans.length){
+      section(panel, "Booleans");
+      o.booleans.forEach(function(b){ toggle(panel, { label: b[1], checked: b[2] !== false, hint: b[3], onChange: function(on){ set(b[0], on === (b[2] !== false) ? null : String(on)); } }); });
+    }
+    if (o.texts && o.texts.length){
+      section(panel, "Texts");
+      o.texts.forEach(function(t){ text(panel, { label: t[1], value: t[2], onInput: function(v){ set(t[0], v); } }); });
+    }
+    return { spec: spec, live: live, set: set };
+  }
+
   function attr(node, name, val){
     if (val === null || val === false || val === "") node.removeAttribute(name);
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, selectionControl: selectionControl, textField: textField, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, selectionControl: selectionControl, textField: textField, overlay: overlay, attr: attr };
 })();

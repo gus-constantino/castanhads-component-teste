@@ -1,0 +1,11 @@
+/* Base dos overlays (Modal · Drawer · Bottom Sheet) — <dialog> nativo; o ::backdrop usa o Backdrop (backdrop.css) */
+.cds-overlay{ padding:0; border:0; color:var(--common-colors-text-intense); background:var(--common-colors-surface-default); max-height:100dvh; overflow:visible; }
+.cds-overlay:focus-visible{ outline:none; }
+.cds-overlay.is-inline{ position:relative; inset:auto; margin:0; }
+.cds-overlay[open]{ display:flex; flex-direction:column; }
+.cds-overlay__slot{ flex:1 1 auto; min-height:0; overflow:auto; display:flex; flex-direction:column; }
+.cds-overlay [hidden]{ display:none !important; }
+/* O host não ocupa espaço quando o dialog está na camada de topo; no specimen (inline) ele envolve o painel */
+:is(cds-modal, cds-drawer, cds-bottom-sheet){ display:contents; }
+:is(cds-modal, cds-drawer, cds-bottom-sheet)[inline]{ display:inline-flex; position:relative; max-width:100%; }
+cds-drawer[inline]{ max-width:none; } /* 640 fixo; no preview estreito o painel rola */

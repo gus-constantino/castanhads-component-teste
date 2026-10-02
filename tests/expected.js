@@ -53,5 +53,15 @@ window.CDS_EXPECTED = {
   "banner":            { w: 280, h: 170, src: "20051:15726 · Illustration" },
   "balance-card":      { w: 144, h: 167, src: "17881:1707" },
   "code-input-otp":    { w: 320, src: "24060:7228 · base 320 (6 células)" },
-  "credit-card-input": { w: 320, src: "24614:7155" }
+  "credit-card-input": { w: 320, src: "24614:7155" },
+  "viewport-restriction": { w: 200, h: 200, src: "5357:3899" },
+  "card":              { w: 254, src: "5256:540 · Has Border=False · altura depende do Slot" },
+  "backdrop":          { w: 300, h: 300, src: "13784:3271" },
+  "popover":           { w: 220, src: "2270:102 · min 220" },
+  "header":            { w: 320, h: 73, src: "16362:3241 · 72 + Divider 1" },
+  "footer":            { w: 320, h: 145, src: "16359:1792 · Pilled" },
+  "fixed-bar":         { w: 320, h: 89, src: "24037:2929 · Horizontal" },
+  "modal":             { w: 320, src: "16362:3267 · altura depende do Slot" },
+  "drawer":            { w: 640, h: 720, src: "16456:4381" },
+  "bottom-sheet":      { w: 320, src: "20848:2679 · altura depende do Slot" }
 };

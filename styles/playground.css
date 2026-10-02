@@ -97,7 +97,7 @@ code{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:.92em; }
 .pg-frame-meta{ align-self:stretch; display:flex; justify-content:space-between; gap:8px;
   font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .pg-frame-meta code{ color:var(--common-colors-text-intense); }
-.pg-preview{ width:100%; min-width:0; display:flex; justify-content:center; }
+.pg-preview{ width:100%; min-width:0; display:flex; justify-content:safe center; } /* safe: specimen mais largo que o frame (Drawer 640) transborda à direita, sem cortar o início */
 
 /* Painel de controles */
 .pg-panel{

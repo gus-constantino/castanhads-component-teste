@@ -208,10 +208,13 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D37 | **Side menu em accordion por categoria** (página do Figma): abre a categoria da página atual e as que a pessoa abriu (lembrado no navegador); a busca abre todas as que têm resultado. No mobile (faixa horizontal) fica tudo aberto, sem cabeçalho | 01/10 |
 | D38 | **Família Text Fields sobre `CDS.TextField`** (render incremental): Text Input, Search, Text Area, Password e Credit Card estendem a base; o Quantity reaproveita Label/mensagem (é independente da família, pela annotation). O OTP usa as classes de Label e mensagem da família e mantém as células | 01/10 |
 | D39 | **`.Text Content Mask` como `mask`** no Text Input (text, cpf, cnpj, cnpj-new, telefone, celular, cep, date, currency); o valor guardado é só o dado. O Credit Card usa o mesmo motor de máscara | 01/10 |
-| D40 | **O código segue o Figma como está hoje**, mesmo quando parece errado; quando o Figma corrigir, o código acompanha. Toda divergência vai para `docs/CONFERIR.md` (C01–C25). Exceções: decisão explícita do Gustavo, ausência de especificação e adaptação para web aprovada. Q32 (CEP correto) e Q35 (senha mascarada) ficam como exceções aprovadas | Q33 · 02/10 |
+| D40 | **O código segue o Figma como está hoje**, mesmo quando parece errado; quando o Figma corrigir, o código acompanha. Toda divergência vai para `docs/CONFERIR.md` (C01–C39). Exceções: decisão explícita do Gustavo, ausência de especificação e adaptação para web aprovada. Q32 (CEP correto) e Q35 (senha mascarada) ficam como exceções aprovadas | Q33 · 02/10 |
 | D41 | **Drop Button abre o Popover** (pedido do Gustavo): entra no Lote 6, junto com o Popover | 02/10 |
 | D42 | **Override de instância por variável** também no Shaped Icon (`--cds-shaped-bg`): o Alert e o System Banner usam `Feedback/*/semi-soft` como no Figma, sem mexer no Shaped Icon solto | 02/10 |
 | D43 | **Cards e banners clicáveis** viram `<a>` com `href` e `<button>` sem; o CTA do Banner é só visual (description do Figma) | 02/10 |
+| D44 | **Overlays sobre a plataforma**: Popover na Popover API (`popover="auto"`, `for` = id do gatilho); Modal, Drawer e Bottom Sheet em `<dialog>` com `showModal()` e o Backdrop no `::backdrop`. Specimen no fluxo com `inline` | 02/10 |
+| D45 | **Viewport do Figma por CSS**: Drawer (mobile/tablet) e Bottom Sheet (desktop) trocam o painel pelo Viewport Restriction conforme `[data-viewport]` ou o atributo `viewport` | 02/10 |
+| D46 | **Props de texto com nome de atributo global** ganham prefixo: `Text Title` → `text-title` no .Header e nos overlays (evita o tooltip nativo de `title`) | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -267,6 +270,8 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 01/10 | Montar a doc com o componente real expôs um bug: o Label do Credit Card em Warning não ficava laranja (`Feedback/Warning/semi-intense` no Figma). Doc viva também é teste visual |
 | 01/10 | O mesmo bug do Label em Warning existia no Code Input OTP (`Feedback/Warning/semi-intense` no set 24060:7228): a família de inputs precisa de um teste de cor por Appearance |
 | 01/10 | Link usa motion próprio (150ms com a curva *accelerate* `.7,0,.8,1` no hover), diferente do Hover In dos inputs |
+| 02/10 | Com o painel do navegador oculto, `requestAnimationFrame` não roda e o evento `close` do `<dialog>` atrasa: estado de componente não pode esperar por eles |
+| 02/10 | Description do Figma decide comportamento que as props não mostram: padrão Dialog do Modal (sem Close Button, não fecha fora), 320→512 do Modal, "Mobile only" do Bottom Sheet |
 
 ---
 
@@ -284,4 +289,6 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | — | ✅ 01/10 — 274 ícones do [Caju] Icons em 12 buckets + instance swap agrupado por categoria · biblioteca em Recursos de suporte (accordion por categoria, D36) |
 | 4 | ✅ 01/10 — Text Input · Search · Text Area · Password · [Beta] Quantity sobre `CDS.TextField` · Credit Card realinhado (subclasse) · OTP com Label/mensagem da família |
 | 5 | ✅ 02/10 — Toast · Alert · System Banner · Confirmation Message · Topic · Tooltip · Banner · Balance Card + .Close Toast · .Close Alert · .Lead item · .Content Banner · ilustração `sino` |
-| 6 a 9 | ⏳ |
+| 6 | ✅ 02/10 — Viewport Restriction · Card · Backdrop (Banner Image consome) · Popover (Drop Button abre, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar + .Header · .Footer · `CDS.position` · `CDS.Overlay` |
+| — | ⏳ Select Inputs (5) sobre TextField + Popover |
+| 7 a 9 | ⏳ |

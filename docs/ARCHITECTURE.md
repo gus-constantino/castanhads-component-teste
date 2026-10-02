@@ -77,18 +77,29 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 
 ---
 
-## 5. Análise — rodada 8 (02/10 · Lote 5, Feedback e conteúdo)
+## 5. Análise — rodada 9 (02/10 · Lote 6, Containers e overlays)
+
+| # | Achado | Detalhe | Status |
+|---|---|---|---|
+| A46 | **`CDS.position(anchor, el, {placement, gap})`** | Posicionamento `fixed` compartilhado: abre embaixo ou em cima, inverte se não couber e prende na viewport com 8px de margem. Tooltip e Popover usam | ✅ (resolve A41) |
+| A47 | **Plataforma antes de JS**: Popover API e `<dialog>` | Camada de topo, Esc, clique fora (popover), foco preso e retorno de foco (dialog) vêm do navegador. O código só cuida de estado, posição e eventos | ✅ |
+| A48 | **`CDS.Overlay`** (base de Modal, Drawer, Bottom Sheet) | Captura os filhos como Slot, monta header/slot/footer por ganchos (`buildPanel`/`updatePanel`), `dismissible="false"` = padrão Dialog, `inline` = specimen no fluxo (o smoke mede ele) | ✅ |
+| A49 | **Viewport como variável do Figma** (`Specific/Drawer/Is *`, `Common/Is Desktop`) | Vira CSS por `[data-viewport]` (frame do playground) ou atributo `viewport`; numa página real sem `data-viewport`, o padrão é desktop | ⏳ decidir se a página real deve ler `matchMedia` (backlog P3) |
+| A50 | **Estado não pode depender de rAF nem do evento `close`** | Com a aba oculta (pane do app, aba em segundo plano) os dois atrasam; o Popover não ligava ao gatilho e o Modal ficava com `open` no host | ✅ corrigido; regra registrada no diário |
+| A51 | **Atributo global de HTML como prop** (`title`) | Gera tooltip nativo; o Header e os overlays usam `text-title` (como `role` → `role-kind` no Lote 3) | ✅ |
+| A44 | ~~Backdrop ainda não existe~~ | O Banner Kind=Image consome `<cds-backdrop>`; os overlays usam o mesmo visual no `::backdrop` | ✅ |
+
+### Rodada 8 (02/10 · Lote 5, Feedback e conteúdo)
 
 | # | Achado | Detalhe | Status |
 |---|---|---|---|
 | A38 | **Override por variável virou padrão** (`--cds-icon-color`, agora `--cds-shaped-bg`) | A instância do Figma muda o fundo do Shaped Icon no Alert; o pai define a variável e o componente filho não ganha variante nova | ✅ usar para todo override de instância |
 | A39 | **Conteúdo rico por filhos** (Alert/System Banner) | Os filhos de quem usa são capturados no primeiro `build` e viram o Text Content; sem filhos, vale o atributo `text` | ✅ padrão para "pode ter negrito e link" |
 | A40 | **Área clicável inteira** (Banner, Balance Card) | `<a>` com `href`, `<button>` sem; um só alvo focável, sem botão aninhado | ✅ |
-| A41 | **Primeiro elemento flutuante** (Tooltip com `for`) | `position:fixed` calculado no `show()`, vira para baixo se não couber em cima. O Popover (Lote 6) deve reaproveitar o posicionamento, de preferência com Popover API/anchor positioning | ⏳ extrair para `CDS.position` no Lote 6 |
+| A41 | **Primeiro elemento flutuante** (Tooltip com `for`) | `position:fixed` calculado no `show()`, vira para baixo se não couber em cima | ✅ virou `CDS.position` (A46) |
 | A42 | **Ilustração maior que 20 KB** | `scripts/dev/extract-svg.py` junta pedaços `@@SVG` do transcript | ✅ receita para o [Caju] Illustrations |
 | A43 | **Smoke mede o playground** | Os padrões do playground têm de ser os do Figma; o Balance Card com textos de exemplo mediu 151 em vez de 144 | ✅ regra: exemplos ficam no hint, não no default |
 | A45 | **Ler overrides da instância, não só as props** | No `.Content Banner` Inversed a prop do Icon é `Neutral`, mas a instância sobrescreve o fill para `Icons/inversed`. O extrator agora precisa ler a cor resolvida do vetor (`boundVariables.fills`) além de `componentProperties` | ✅ regra no extrator |
-| A44 | **Backdrop ainda não existe** | O Banner Kind=Image desenha o próprio backdrop (Surface/inversed · 0.4) | ⏳ consumir o componente no Lote 6 |
 
 ### Rodada 7 (01/10 · Lote 4, Text Fields)
 
@@ -187,9 +198,7 @@ Medições no código atual:
 |---|---|---|---|---|
 | ✅ | ~~`build-index.js` com `@deps` e ordenação topológica~~ | A1 | feito | rodada de arquitetura |
 | ✅ | ~~`CDS.Element` + migração dos 24~~ | A2 | feito | rodada de arquitetura |
-| **P1** | Render incremental para interativos (criar o DOM uma vez e atualizar atributos), começando pelo Text Input | A3 | por componente | Lote 5 | 12 componentes (4 building blocks) · `--cds-shaped-bg` · Alert com conteúdo rico por filhos · Tooltip com gatilho (`for`) · ilustração `sino` via `extract-svg.py` | Os defaults do playground são o contrato do smoke: exemplo bonito vai para o hint. Override de instância do Figma = variável CSS no pai, nunca variante nova no filho |
-| Regra Figma-primeiro | `docs/CONFERIR.md` (C01–C25) · motion dos Text Fields por variáveis `--tf-*` (main 300ms; Credit Card sobrescreve com Motion Styles) · Drop Button Pressed Inversed, Badge do Filter e specimens da doc revertidos ao Figma | Isolar o valor divergente numa variável ou numa regra só (`--tf-*`, última regra do `drop-button.css`) deixa a correção futura em uma linha. A coluna "Quando corrigir" do CONFERIR aponta o lugar |
-| Lote 4 |
+| **P1** | Render incremental para interativos (criar o DOM uma vez e atualizar atributos), começando pelo Text Input | A3 | por componente | Lote 4 |
 | ✅ | ~~Motion por token~~ | A4 | feito | rodada de arquitetura |
 | ✅ | ~~`--cds-icon-color`~~ | A6 | feito | rodada de arquitetura |
 | ✅ | ~~Smoke test~~ | A7 | feito | rodada de arquitetura |
@@ -203,6 +212,8 @@ Medições no código atual:
 | **P3** | Extrator do frame `[Documentação]` → `.docs.js` (estrutura estável: seções por nome) | A17 | ~1h | se a doc virar padrão |
 | **P3** | `tools/figma/extract.js`: versionar os extratores (matriz de variantes, tree+diff, export SVG) para colar sem reescrever | A8 | ~30min | quando houver folga |
 | **P3** | Revisar px literais e mapear o que tem token | A5 | ~30min | Lote 5 |
+| **P3** | Overlays e Badge numa página real: ler o viewport por `matchMedia` quando não houver `[data-viewport]` (hoje o padrão é desktop) | A49 | ~30min | Lote 7 |
+| **P3** | Smoke: abrir os overlays de verdade (`show()`), checar `:modal`, foco no primeiro controle e fechamento por Esc/Backdrop | A48 | ~30min | Select Inputs |
 | **P3** | TypeScript com `esbuild` gerando `dist/`, mantendo o Pages sem build (commit do bundle) | A10 | ~2h | depois de ~40 componentes |
 
 ---
@@ -220,6 +231,9 @@ Medições no código atual:
 | Lote 2 | Icon Button vira componente e substitui o botão desenhado à mão em OTP e Credit Card · base `.cds-btn` compartilhada entre Main e Drop | Componente consumido por outros tem que carregar antes: a ordem no `index.html` virou dependência implícita (→ P1 `build-index.js`) |
 | Lote 3 | Primeiras **bases de família**: `CDS.SelectionControl` (JS + CSS) e `.cds-chip` (CSS + `CDS.chipIcon`) · primeiro render incremental · um arquivo definindo 3 tags (Groups) · `kit.selectionControl` (um playground parametrizado para 3 componentes) · evento cancelável `cds-remove` | Manter o `<input>` nativo e só atualizar atributos dá teclado, foco e leitor de tela de graça. A base de família reduz cada variante a poucas linhas. Props com nome de atributo global de HTML precisam de prefixo (`role` → `role-kind`) |
 | Lote 4 | `CDS.TextField` (build/update) + `text-field.css` · 5 componentes novos · Credit Card vira subclasse · OTP usa Label/mensagem da família · `kit.textField` · máscaras do `.Text Content Mask` | Base com ganchos pequenos > herança profunda: cada membro sobrescreve 2–3 métodos. Testar comportamento (máscara, foco, clamp) por script no navegador pega o que a medida do smoke não pega |
+| Lote 5 | 12 componentes (4 building blocks) · `--cds-shaped-bg` · Alert com conteúdo rico por filhos · Tooltip com gatilho (`for`) · ilustração `sino` via `extract-svg.py` | Os defaults do playground são o contrato do smoke: exemplo bonito vai para o hint. Override de instância do Figma = variável CSS no pai, nunca variante nova no filho |
+| Regra Figma-primeiro | `docs/CONFERIR.md` (C01–C25) · motion dos Text Fields por variáveis `--tf-*` (main 300ms; Credit Card sobrescreve com Motion Styles) · Drop Button Pressed Inversed, Badge do Filter e specimens da doc revertidos ao Figma | Isolar o valor divergente numa variável ou numa regra só (`--tf-*`, última regra do `drop-button.css`) deixa a correção futura em uma linha. A coluna "Quando corrigir" do CONFERIR aponta o lugar |
+| Lote 6 | `CDS.position` (Tooltip e Popover) · Popover sobre a Popover API nativa (`for` liga o gatilho; Drop Button sincroniza Is Active) · `CDS.Overlay` sobre `<dialog>` + `showModal()` (Modal, Drawer, Bottom Sheet) com o Backdrop no `::backdrop` · `inline` para specimens · Viewport Restriction por `viewport`/`[data-viewport]` · `CDS.Footer` como base do Fixed Bar · `kit.overlay` | Com o painel do navegador oculto, `requestAnimationFrame` não roda e o evento `close` do `<dialog>` atrasa: estado de componente não pode depender deles (o bind do Popover passou a ser síncrono; o `close()` do overlay atualiza o atributo e dispara `cds-close` na hora). `title` é atributo global (tooltip nativo sobre o painel inteiro): props de texto viram `text-title` |
 | Recursos de suporte | `resources/<id>/` · `CDS.register({ resource:true })` · seção própria no side menu · `iconGallery` em accordion (`<details>`) · Icon sem doc da lib | Separar *quem desenha* (lib de apoio) de *quem aplica* (componente) deixa claro onde atualizar cada coisa. `<details>` resolve accordion sem JS de acessibilidade |
 | Ícones | 274 SVGs em 12 buckets + `catalog.json` · `build-assets` com buckets, deprecated e `_glyphs` · `kit.iconSwap` com `<optgroup>` · bloco `iconGallery` + `icon.docs.js` | Edição de arquivo por fatia (`s[a:b]`) precisa checar `a < b`: com a ordem invertida a fatia sai vazia e `replace("", novo)` insere o texto entre todos os caracteres (aconteceu no kit; restaurado do git). Sempre `assert` na âncora |
 | Motion Styles | `--motion-*-01-*` com alias para o primitivo; bloco `specs` (fichas) no kit; `<wbr>` em `código` longo | Tabela larga não funciona em doc responsiva: ficha por item escala melhor. Servidor local cacheia JS (sem headers): forçar `fetch(..., {cache:'reload'})` antes de recarregar |

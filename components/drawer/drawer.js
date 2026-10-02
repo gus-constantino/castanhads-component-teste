@@ -1,0 +1,33 @@
+/**
+ * @deps overlay header footer viewport-restriction
+ * <cds-drawer> — Drawer · Drawers · componente 16456:4381
+ * Painel lateral que abre da direita. 640 de largura (min 640) · pad 0 20 · Elevation/level 1.
+ * Header (pad 12 0 · Title Body/Bold · Close Button) + Slot + Action Buttons (pad 20 0 · gap 8 · botões até 320).
+ * Só desktop: no Figma, Specific/Drawer/Is Mobile e Is Tablet escondem o painel e mostram um Viewport Restriction.
+ * Aqui o modo vem do atributo viewport ou do [data-viewport] mais próximo (seletor de viewport do playground).
+ *
+ * Atributos: open · inline · dismissible · text-title ("Title") · show-action-buttons · primary-label · secondary-label
+ *   viewport (desktop|tablet|mobile) · label
+ */
+(function(){
+  "use strict";
+  class CdsDrawer extends CDS.Overlay {
+    static get observedAttributes(){ return CDS.Overlay.observedAttributes.concat(["text-title","show-action-buttons","primary-label","secondary-label","viewport"]); }
+    get panelClass(){ return "cds-drawer"; }
+    buildPanel(dlg, slot){
+      var p = this.panelEl = dlg.appendChild(CDS.create("div", null, "cds-drawer__panel"));
+      this.headerEl = p.appendChild(CDS.create("cds-header", { "show-divider": "false" }));
+      p.appendChild(slot);
+      this.footerEl = p.appendChild(CDS.create("cds-footer", { kind: "horizontal", "show-divider": "false" }));
+      this.restrictEl = dlg.appendChild(CDS.create("cds-viewport-restriction", null, "cds-drawer__restriction"));
+    }
+    get titleText(){ return this.text("text-title", "Title"); }
+    updatePanel(){
+      var f = this.footerEl, self = this;
+      this.headerEl.setAttribute("text-title", this.text("text-title", "Title"));
+      f.hidden = !this.flag("show-action-buttons");
+      ["primary-label","secondary-label"].forEach(function(a){ if (self.hasAttribute(a)) f.setAttribute(a, self.getAttribute(a)); else f.removeAttribute(a); });
+    }
+  }
+  CdsDrawer.define("cds-drawer");
+})();

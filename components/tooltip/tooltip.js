@@ -43,11 +43,7 @@
     show(){
       var t = this._trigger; if (!t) return;
       this.hidden = false;
-      var r = t.getBoundingClientRect(), me = this.getBoundingClientRect(), gap = 8;
-      var below = this.getAttribute("placement") === "bottom" || r.top - me.height - gap < 0;
-      var left = Math.min(Math.max(8, r.left + r.width / 2 - me.width / 2), window.innerWidth - me.width - 8);
-      this.style.left = left + "px";
-      this.style.top = (below ? r.bottom + gap : r.top - me.height - gap) + "px";
+      CDS.position(t, this, { placement: this.getAttribute("placement") === "bottom" ? "bottom" : "top" });
     }
   }
   CdsTooltip.define("cds-tooltip");

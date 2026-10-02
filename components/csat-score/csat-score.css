@@ -1,0 +1,5 @@
+/* CSAT Score · set 10100:1192 — 320 × 120 · pad 8 0 · gap 8 · SPACE_BETWEEN
+   Fundo e Disabled usam variáveis de fora da Common (Surface/Neutral/primary · shape/opacity/high, C68): aqui Surface/default e Opacity/medium */
+cds-csat-score{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-8); box-sizing:border-box; width:320px; max-width:100%; min-height:120px;
+  padding:var(--common-sizes-8) 0; background:var(--common-colors-surface-default); }
+cds-csat-score[disabled]{ opacity:var(--common-opacity-medium); }

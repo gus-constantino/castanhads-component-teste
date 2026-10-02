@@ -98,5 +98,12 @@ window.CDS_EXPECTED = {
   "file-lead-item":    { w: 48, h: 48, src: "15207:13262" },
   "upload-item":       { w: 320, h: 80, src: "15029:1115 · Uploading" },
   "dropzone":          { w: 320, h: 165, src: "15386:7230 · Enabled · Desktop" },
-  "upload-list":       { w: 320, h: 344, src: "15465:1365 · 4 × 80 + 3 × 8" }
+  "upload-list":       { w: 320, h: 344, src: "15465:1365 · 4 × 80 + 3 × 8" },
+  "slider":            { w: 320, h: 44, src: "20056:11908 · Single" },
+  "nps-score":         { w: 320, h: 72, src: "10100:848" },
+  "nps-value-item":    { w: 24, h: 24, src: "10100:1137" },
+  "csat-score":        { w: 320, h: 120, src: "10100:1192" },
+  "csat-item":         { w: 48, h: 82, src: "10100:1155" },
+  "progress-tracker-item": { w: 206, h: 117, src: "14415:3778" },
+  "progress-tracker":  { w: 200, h: 261, src: "14524:1024 · 64 + 117 + 64 + 2 × 8" }
 };

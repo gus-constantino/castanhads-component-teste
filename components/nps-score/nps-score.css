@@ -1,0 +1,3 @@
+/* NPS Score · set 10100:848 — 320 × 72 · gap 4 · pad 24 0 · centralizado · Disabled Opacity/medium */
+cds-nps-score{ display:flex; align-items:center; justify-content:center; gap:var(--common-sizes-4); box-sizing:border-box; width:320px; max-width:100%; padding:var(--common-sizes-24) 0; background:var(--common-colors-surface-default); }
+cds-nps-score[disabled]{ opacity:var(--common-opacity-medium); }

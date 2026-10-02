@@ -231,6 +231,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D60 | **Table como `<table>` de dados**: `.columns` / `.rows` (propriedades), ordenação com `aria-sort`, seleção por checkbox e paginação no cliente com a Pagination; sem dados, a amostra do Figma | 02/10 |
 | D61 | **Stroke INSIDE vira `box-shadow inset` ou `outline` com offset negativo**, nunca `border`: em célula de tabela e em contornos tracejados a borda soma à altura | 02/10 |
 | D62 | **Table por linhas, não por colunas** (registrada a pedido do Gustavo para o debate no time de design): o dado é a linha; ordenar, selecionar, hover e paginar agem sobre linhas; leitor de tela e responsividade dependem disso. No Figma, a largura consistente sai de tokens de largura por coluna numa `.Table Row`. Detalhes: `docs/TABLE-LINHAS-X-COLUNAS.md` | 02/10 |
+| D63 | **Controles de avaliação sobre `<input type="radio">` nativo** (NPS e CSAT: radiogroup com setas) e **Slider com thumbs `role="slider"`** (teclado completo, Range sem cruzar), como pede a description do Slider | 02/10 |
+| D64 | **Caju Card em etapa própria (9d)**: as artes vêm de vetores por Kind e orientação; a fidelidade pede exportar as peças estáticas sem alterar o arquivo do Figma | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -324,5 +326,6 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 8 | ✅ 02/10 — Content List · Selection List (os itens entraram com os Selects, D50; o .Transaction Status Icon saiu do Figma, C55) |
 | 9a | ✅ 02/10 — Date Picker · Modal Date Picker · Date Input + .Day · .Week · .Navigation Control (Datepicker) |
 | 9b | ✅ 02/10 — Table (+ .Head · .Data Cell · .Toolbar) · Upload Item · Dropzone · Upload List (+ .Lead item File) · ilustração `empty-state` |
-| 9c | ⏳ Slider · NPS Score · CSAT Score · Progress Tracker · Caju Card |
+| 9c | ✅ 02/10 — Slider (Single/Range) · NPS Score (+ .Value Item) · CSAT Score (+ .CSAT Item) · Progress Tracker (+ Item) |
+| 9d | ⏳ Caju Card (21 variantes: artes por Kind, frente e verso; exportar as peças estáticas e sobrepor os dados como texto) |
 | — | ⏳ Recurso Animações (Q31) — no final |

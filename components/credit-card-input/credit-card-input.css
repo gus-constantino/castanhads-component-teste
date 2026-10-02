@@ -2,6 +2,12 @@
    Credit Card Input · CDS-1607 · branch NHkGUvBfNMNTLnsxKtAmWa · set 24614:7155
    Membro da família Text Fields: tudo vem de text-field.css; aqui só o que é do branch.
    ===================================================================== */
+/* Branch: Motion Styles por interação (Hover In/01 · Pressed/01 · Selected In/01) */
+cds-credit-card-input.cds-tf{
+  --tf-hover-d:var(--motion-hover-duration);   --tf-hover-e:var(--motion-hover-easing);
+  --tf-press-d:var(--motion-press-duration);   --tf-press-e:var(--motion-press-easing);
+  --tf-active-d:var(--motion-active-duration); --tf-active-e:var(--motion-active-easing);
+}
 cds-credit-card-input .cds-tf__lead{ width:var(--common-sizes-24); height:var(--common-sizes-24); } /* 24×24 intencional (bandeira) */
 cds-credit-card-input .cds-tf__control{ font-variant-numeric:tabular-nums; }
 /* Branch: no Warning o Hovered mantém Surface/01 e o Label fica em Feedback/Warning/semi-intense */

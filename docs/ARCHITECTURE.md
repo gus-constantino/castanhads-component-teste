@@ -174,7 +174,8 @@ Medições no código atual:
 |---|---|---|---|---|
 | ✅ | ~~`build-index.js` com `@deps` e ordenação topológica~~ | A1 | feito | rodada de arquitetura |
 | ✅ | ~~`CDS.Element` + migração dos 24~~ | A2 | feito | rodada de arquitetura |
-| **P1** | Render incremental para interativos (criar o DOM uma vez e atualizar atributos), começando pelo Text Input | A3 | por componente | Lote 4 |
+| **P1** | Render incremental para interativos (criar o DOM uma vez e atualizar atributos), começando pelo Text Input | A3 | por componente | Regra Figma-primeiro | `docs/CONFERIR.md` (C01–C25) · motion dos Text Fields por variáveis `--tf-*` (main 300ms; Credit Card sobrescreve com Motion Styles) · Drop Button Pressed Inversed, Badge do Filter e specimens da doc revertidos ao Figma | Isolar o valor divergente numa variável ou numa regra só (`--tf-*`, última regra do `drop-button.css`) deixa a correção futura em uma linha. A coluna "Quando corrigir" do CONFERIR aponta o lugar |
+| Lote 4 |
 | ✅ | ~~Motion por token~~ | A4 | feito | rodada de arquitetura |
 | ✅ | ~~`--cds-icon-color`~~ | A6 | feito | rodada de arquitetura |
 | ✅ | ~~Smoke test~~ | A7 | feito | rodada de arquitetura |

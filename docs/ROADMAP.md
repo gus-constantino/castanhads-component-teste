@@ -149,7 +149,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | **3** | Selection Controls | Checkbox (+Group) · Radio (+Group) · Switch (+Group) · Input Chips · Filter Chips · Chips Group | — |
 | **4** | Text fields | Text Input · Search · Text Area · Password · [Beta] Quantity · **realinhar Credit Card e OTP à família** | .Text Content Mask |
 | **5** | Feedback e conteúdo | Toast · Alert · System Banner · Confirmation Message · Topic · Tooltip · Banner · Balance Card | .Close Toast · .Close Alert · .Lead item (Topic) · .Content Banner |
-| **6** | Containers e overlays | Viewport Restriction · Card · Backdrop · Popover · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar → em seguida os 5 Select Inputs | .Header (×2) · .Footer |
+| **6** | Containers e overlays | Viewport Restriction · Card · Backdrop · Popover (**+ Drop Button abrindo o Popover**, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar → em seguida os 5 Select Inputs | .Header (×2) · .Footer |
 | **7** | Navegação | Breadcrumb · Fixed Tab · Scrollable Tab · Tab View · Nav Control · Pagination | .Item (×2) · .Item Nav Control · .Select Number |
 | **8** | Listas | Content List Item · Content List · Selection List Item · Selection List | .Lead Item · .Trailing Item · .Transaction Status Icon |
 | **9** | Complexos | Date Picker · Modal Date Picker · Date Input · Table · File Upload (3) · Slider · NPS · CSAT · Progress Tracker · Caju Card | .Day · .Week · .Navigation Control · .Head · .Data Cell · .Table Column · .Toolbar · .Lead item (File) · .Value Item · .CSAT Item |
@@ -161,7 +161,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 4. Ler reactions (motion por transição) e nested instances (exposed ou fixa).
 5. Construir `components/<id>/` (css · js · playground) **consumindo** os building blocks já existentes; `extends CDS.Element`, `@deps` no JSDoc, `node scripts/build-index.js`.
 6. Testar em servidor local: estados, teclado, dark, 360px. Registrar o tamanho em `tests/expected.js` e rodar `tests/smoke.html` (tudo verde).
-7. Publicar e registrar no §7 (Aprendizados) e no §5 (dúvidas novas).
+7. Publicar e registrar no §7 (Aprendizados), no §5 (dúvidas de escopo) e em **`docs/CONFERIR.md`** (tudo que no Figma parece errado: implementar como está e abrir um item).
 8. **Atualizar `docs/ARCHITECTURE.md`**: diário (§7), nova rodada da análise (§5) e backlog (§6).
 
 ---
@@ -208,36 +208,19 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D37 | **Side menu em accordion por categoria** (página do Figma): abre a categoria da página atual e as que a pessoa abriu (lembrado no navegador); a busca abre todas as que têm resultado. No mobile (faixa horizontal) fica tudo aberto, sem cabeçalho | 01/10 |
 | D38 | **Família Text Fields sobre `CDS.TextField`** (render incremental): Text Input, Search, Text Area, Password e Credit Card estendem a base; o Quantity reaproveita Label/mensagem (é independente da família, pela annotation). O OTP usa as classes de Label e mensagem da família e mantém as células | 01/10 |
 | D39 | **`.Text Content Mask` como `mask`** no Text Input (text, cpf, cnpj, cnpj-new, telefone, celular, cep, date, currency); o valor guardado é só o dado. O Credit Card usa o mesmo motor de máscara | 01/10 |
+| D40 | **O código segue o Figma como está hoje**, mesmo quando parece errado; quando o Figma corrigir, o código acompanha. Toda divergência vai para `docs/CONFERIR.md` (C01–C25). Exceções: decisão explícita do Gustavo, ausência de especificação e adaptação para web aprovada. Q32 (CEP correto) e Q35 (senha mascarada) ficam como exceções aprovadas | Q33 · 02/10 |
+| D41 | **Drop Button abre o Popover** (pedido do Gustavo): entra no Lote 6, junto com o Popover | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
+
+Só perguntas de escopo ou de fonte. Divergências entre o Figma e o esperado ficam em **[`docs/CONFERIR.md`](CONFERIR.md)** (o código segue o Figma, D40).
 
 | # | Dúvida | Proposta |
 |---|---|---|
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
 | Q9 | **Caju Card**: as artes de cartão (Físico/Virtual/Voucher/Corporativo) vêm da página `Cartões` das Ilustrações? | Confirmar no Lote 9 |
-| Q11 | **Currency Largest com valor oculto** usa Heading/Small (38px de altura) para o "R$", e com valor usa Title/Medium (36px). Intencional? | Implementado como no Figma |
-| Q13 | **Disabled inconsistente entre botões:** Main/Drop/Filter usam `Opacity/light` (0.32), Icon Button usa `Opacity/medium` (0.4) | Implementado como no Figma |
-| Q14 | **Ghost Inversed Disabled** (Main, Drop, Icon Button) troca o texto/ícone para `Text/intense`/`Icons/intense` (escuro sobre fundo escuro) | Parece erro; implementado como no Figma |
-| Q15 | **Neutral diverge entre Main, Drop e Icon Button** (hover: `Neutral/Solid/medium` × `Neutral/Opacity/Intense/semi-transparent` × `Neutral/Solid/semi-soft`; pressed do Ghost: `Surface/01` × sem fundo × `Neutral/Solid/medium`) | Implementado por componente; vale alinhar a família |
-| Q16 | **Drop Button `Default, Inversed, Pressed`** está quebrada (sem fundo, padding 0, raio 0) | Usei o Pressed do Main Button |
-| Q17 | **Badge dentro do Filter button no Mobile:** no Figma é a pílula de 16px; pela regra do próprio Badge (Viewport) vira ponto de 8px | Segui a regra do Badge |
-| Q19 | **Indeterminate sem reaction:** o clique no Checkbox Indeterminate não tem transição no Figma | Segui o nativo: o clique vai para Selected |
-| Q22 | **Specimens da doc do Credit Card com props trocadas:** o card "Is Active" usa `State=Disabled` e o "Warning · Enabled" usa `State=Pressed` (frame 24931:8090) | Renderizei pelo rótulo (Is Active e Enabled) |
-| Q23 | **Motion da doc** usa a ilustração de empty state (caixa) como placeholder | Troquei por um exemplo interativo |
-| Q24 | **Variáveis `Commom/Colors/...`** (com "m") nos Tags do `.Prop-type` da doc — outra coleção ou erro de digitação? | Usei os tokens `Common/*` equivalentes |
-| Q27 | **Borda em repouso do OTP (`Border/semi-soft`, ~1,24:1)** ficou mais sutil que o `#999` anterior; o handoff pede confirmar com a11y se as células vazias seguem visíveis | Registrado; fora do corpo da doc |
-| Q29 | **Icon Button dentro do Credit Card** (branch NHkG…) tem hover em 300ms `EASE_OUT`, que não é Motion Style (devia ser `Hover In/01`) | Gustavo corrige no Figma; o código já usa o motion do Icon Button da lib, nada muda aqui |
-| Q30 | **Naming no [Caju] Icons:** `Database`, `Code` e `Mouse` com maiúscula; `login`, `undo`, `redo`, `wallet`, `savings` sem sufixo `-line`; `stop-filled` × `play-fill` (`-filled` × `-fill`); `dark-mode-line` duplicado (ativo e deprecated); frame `Guide & Maintanance` (typo) | Arquivos em minúsculo; o resto como no Figma |
 | Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | Aguardando o Gustavo |
-| Q32 | **CEP no `.Text Content Mask`** mostra `0000-000` (e `0000-00` na instância); CEP tem 8 dígitos | Implementei `00000-000` |
-| Q33 | **Motion dos Text Fields da main:** reactions em 300ms (curva do Pressed em tudo), não os Motion Styles por interação que o Credit Card e o OTP usam | Usei os Motion Styles (`Hover In/01`, `Pressed/01`, `Selected In/01`) na família inteira |
-| Q34 | **Warning Hovered sem fill** no Text Input (Text Box sem preenchimento); o Quantity mantém `Surface/default` | Warning não muda o fundo no hover (exceto o Credit Card, que segue o branch) |
-| Q35 | **Password: `Show Content` padrão `True`** no Figma (senha visível por padrão) | Implementei mascarado por padrão; `show-content="true"` mostra |
-| Q36 | **Label no Warning diverge na família:** main (Text Input, Search, Text Area, Password, Quantity) mantém `Text/intense`; branches do Credit Card e do OTP usam `Feedback/Warning/semi-intense` | Cada um segue a sua fonte (D25); vale alinhar no Figma |
-| Q37 | **CNPJ New** de exemplo `12ABC6780001X5`: sem pontuação e com letra nos dígitos verificadores | Aceito 14 letras/dígitos, sem pontuação, como no Figma |
-| Q38 | **Text Area** tem `Show Trailing Item` sem elemento correspondente; **Quantity** `Is Active` não muda o stroke | Prop sem efeito no Text Area; Quantity como no Figma |
-| Q10 | **Achados de naming** (🟡, não corrigir sem você): `showItem03`–`06` em minúsculo (Breadcrumb) · `Chechbox` (Selection List Item) · `State=Enable` (.Item do Breadcrumb e .Value Item) · `.Lead Item` × `.Lead item` (dois blocos) · dois `.Header` e dois `.Item` com o mesmo nome · Filter button em minúsculo | Registrar e seguir; abrir follow-up se quiser |
 
 ## 5.1 Débito de export (Gustavo)
 

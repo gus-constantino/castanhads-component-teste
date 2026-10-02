@@ -54,3 +54,9 @@ Abra com um servidor estático (os arquivos são separados):
 ```bash
 python3 -m http.server 8765
 ```
+
+## Documentos
+
+- `docs/ROADMAP.md` — lotes, decisões, dúvidas de escopo e status
+- `docs/ARCHITECTURE.md` — arquitetura, análise por rodada, backlog e receitas
+- `docs/CONFERIR.md` — divergências Figma × esperado: o código segue o Figma e a lista guarda o que ajustar quando o Figma mudar

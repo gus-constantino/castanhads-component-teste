@@ -1,6 +1,6 @@
 /* Documentação — Credit Card Input
    Fonte: frame [Documentação] Credit Card Input · branch NHkGUvBfNMNTLnsxKtAmWa · node 24931:7981
-   Só dados: o kit (scripts/docs-kit.js) monta as tabs. Frames ocultos no Figma (Casos de exceção,
+   Só dados: o kit (scripts/docs-kit.js) monta as tabs. Specimens seguem o frame do Figma, inclusive as props trocadas (CONFERIR.md). Frames ocultos no Figma (Casos de exceção,
    Do's com lorem ipsum) ficaram de fora. */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
@@ -62,12 +62,12 @@ CDS.docs["credit-card-input"] = {
         { label: "Enabled", attrs: { label: "Label" } },
         { label: "Hovered", attrs: { label: "Label", state: "hovered" } },
         { label: "Pressed", attrs: { label: "Label", state: "pressed" } },
-        { label: "Is Active", attrs: { label: "Label", "is-active": true } }
+        { label: "Is Active", attrs: { label: "Label", disabled: true } }
       ] } },
       { specimens: { title: "Appearance × State", items: [
         { label: "Neutral · Enabled", attrs: { label: "Label" } },
         { label: "Neutral · Disabled", attrs: { label: "Label", disabled: true } },
-        { label: "Warning · Enabled", attrs: { label: "Label", appearance: "warning" } },
+        { label: "Warning · Enabled", attrs: { label: "Label", appearance: "warning", state: "pressed" } },
         { label: "Warning · Disabled", attrs: { label: "Label", appearance: "warning", disabled: true } }
       ] } }
     ] },

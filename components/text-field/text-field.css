@@ -3,9 +3,14 @@
    Label Content · Text Box (48 · pad 0 16 · gap 8 · raio small · stroke INSIDE) · Trailing Content
    Estados: Hovered Surface/01 + Border/medium · Pressed Border/semi-intense 2px ·
             Is Active Border/semi-intense 1px · Disabled opacity medium + Border/medium
-   Motion: Motion Styles (Hover In/01 · Pressed/01 · Selected In/01). A main usa 300ms (Q33).
+   Motion: como na main hoje — 300ms (Duration/Medium/02) + Easing/Systemic/accelerate em hover, press e click
+   (CONFERIR.md · C-motion-tf). O Credit Card e o OTP (branches) usam os Motion Styles e sobrescrevem --tf-*.
    ===================================================================== */
 .cds-tf{
+  /* motion por interação (o Credit Card sobrescreve com os Motion Styles do branch) */
+  --tf-hover-d:var(--common-motion-duration-medium-02);  --tf-hover-e:var(--common-motion-easing-systemic-accelerate);
+  --tf-press-d:var(--common-motion-duration-medium-02);  --tf-press-e:var(--common-motion-easing-systemic-accelerate);
+  --tf-active-d:var(--common-motion-duration-medium-02); --tf-active-e:var(--common-motion-easing-systemic-accelerate);
   display:flex; flex-direction:column; align-items:stretch; gap:var(--common-sizes-4);
   width:320px; max-width:100%;
   opacity:var(--common-opacity-opaque);
@@ -24,7 +29,7 @@
   --_stroke-w:var(--common-border-width-hairline);
   --_stroke-c:var(--common-colors-border-semi-soft);
   --_bg:var(--common-colors-surface-default);
-  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+  --_dur:var(--tf-hover-d); --_ease:var(--tf-hover-e);
   display:flex; align-items:center; gap:var(--common-sizes-8);
   min-height:var(--common-sizes-48); padding:0 var(--common-sizes-16);
   border-radius:var(--common-border-radius-small);
@@ -45,54 +50,54 @@
 .cds-tf__warn{ --_icon-color:var(--common-colors-feedback-warning-semi-intense); width:var(--common-sizes-16); height:var(--common-sizes-16); }
 
 /* Estados forçados (state="hovered|pressed" · is-active) = props State / Is Active do Figma, para specimens */
-/* State=Hovered — Hover In/01 */
+/* State=Hovered */
 .cds-tf__box:hover,
 .cds-tf[state="hovered"] .cds-tf__box{
   --_bg:var(--common-colors-surface-01);
   --_stroke-c:var(--common-colors-border-medium);
-  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+  --_dur:var(--tf-hover-d); --_ease:var(--tf-hover-e);
 }
-/* State=Pressed — Pressed/01 */
+/* State=Pressed */
 .cds-tf__box:active,
 .cds-tf[state="pressed"] .cds-tf__box{
   --_bg:var(--common-colors-surface-default);
   --_stroke-w:var(--common-border-width-thin);
   --_stroke-c:var(--common-colors-border-semi-intense);
-  --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
+  --_dur:var(--tf-press-d); --_ease:var(--tf-press-e);
 }
-/* Is Active=True — Selected In/01 */
+/* Is Active=True */
 .cds-tf__box:focus-within,
 .cds-tf[is-active] .cds-tf__box{
   --_bg:var(--common-colors-surface-default);
   --_stroke-w:var(--common-border-width-hairline);
   --_stroke-c:var(--common-colors-border-semi-intense);
-  --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
+  --_dur:var(--tf-active-d); --_ease:var(--tf-active-e);
 }
 .cds-tf__box:focus-within:hover{
   --_bg:var(--common-colors-surface-01);
   --_stroke-c:var(--common-colors-border-medium);
-  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+  --_dur:var(--tf-hover-d); --_ease:var(--tf-hover-e);
 }
 .cds-tf__box:focus-within:active{
   --_bg:var(--common-colors-surface-default);
   --_stroke-w:var(--common-border-width-thin);
   --_stroke-c:var(--common-colors-border-semi-intense);
-  --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
+  --_dur:var(--tf-press-d); --_ease:var(--tf-press-e);
 }
 .cds-tf__box.is-tapped:focus-within{
   --_bg:var(--common-colors-surface-default);
   --_stroke-w:var(--common-border-width-hairline);
   --_stroke-c:var(--common-colors-border-semi-intense);
-  --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
+  --_dur:var(--tf-active-d); --_ease:var(--tf-active-e);
 }
 /* State=Disabled — Border/medium (Is Active=False), container com Opacity/medium */
 .cds-tf[disabled]:not([is-active]) .cds-tf__box{ --_stroke-c:var(--common-colors-border-medium); }
 
-/* Appearance=Warning — stroke warning em todos os estados; no Hovered o fundo não muda (Figma: sem fill, Q34) */
+/* Appearance=Warning — stroke warning em todos os estados; no Hovered o Text Box fica sem fill, como no Figma (CONFERIR.md) */
 .cds-tf[appearance="warning"] .cds-tf__box,
 .cds-tf[appearance="warning"][disabled] .cds-tf__box{ --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
 .cds-tf[appearance="warning"] .cds-tf__box:hover,
-.cds-tf[appearance="warning"][state="hovered"] .cds-tf__box{ --_bg:var(--common-colors-surface-default); }
+.cds-tf[appearance="warning"][state="hovered"] .cds-tf__box{ --_bg:transparent; }
 
 /* Trailing Content — Supporting/Error Message (Caption/Regular) + Character Counter (Disclaimer/Regular) */
 .cds-tf__foot{ display:flex; align-items:flex-start; gap:var(--common-sizes-4); min-height:var(--common-sizes-24); }

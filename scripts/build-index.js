@@ -15,6 +15,11 @@
  *
  * Recursos de suporte (resources/<id>/<id>.js + .css opcional) entram depois dos componentes:
  * são páginas de doc das libs de apoio ([Caju] Icons, Illustrations…), sem dependências.
+ *
+ * Pacotes (desempenho): em vez de ~250 <script>/<link> separados, o HTML carrega dist/cds.css e dist/cds.js,
+ * a concatenação dos mesmos arquivos na mesma ordem (sem transpilar nada: o fonte continua sendo o arquivo da pasta).
+ * Cada .js entra num try/catch com o nome do arquivo, para um erro não derrubar os seguintes (como era com
+ * arquivos separados). Rodar este script depois de qualquer mudança (já era a regra por causa do ?v=hash).
  */
 "use strict";
 const fs = require("fs");
@@ -47,6 +52,25 @@ while (ready.length){
   users[c].forEach((u) => { if (--indeg[u] === 0) ready.push(u); });
 }
 if (order.length !== comps.length) throw new Error("ciclo de dependências entre: " + comps.filter((c) => !order.includes(c)).join(", "));
+
+// Lista única de arquivos (ordem de dependência): usada pelos pacotes
+function files(){
+  const css = order.filter((id) => fs.existsSync(path.join(DIR, id, id + ".css"))).map((id) => `components/${id}/${id}.css`)
+    .concat(resources.filter((id) => fs.existsSync(path.join(RES, id, id + ".css"))).map((id) => `resources/${id}/${id}.css`));
+  const js = [];
+  order.forEach((id) => ["", ".playground", ".docs"].forEach((k) => { const f = `components/${id}/${id}${k}.js`; if (fs.existsSync(path.join(ROOT, f))) js.push(f); }));
+  resources.forEach((id) => js.push(`resources/${id}/${id}.js`));
+  return { css, js };
+}
+function bundle(){
+  const f = files(), DIST = path.join(ROOT, "dist");
+  if (!fs.existsSync(DIST)) fs.mkdirSync(DIST);
+  const head = (n) => `/* GERADO por scripts/build-index.js · ${n} arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */\n`;
+  fs.writeFileSync(path.join(DIST, "cds.css"), head(f.css.length) + f.css.map((r) => `/* ==== ${r} ==== */\n` + fs.readFileSync(path.join(ROOT, r), "utf8").trim()).join("\n\n") + "\n");
+  fs.writeFileSync(path.join(DIST, "cds.js"), head(f.js.length) + f.js.map((r) =>
+    `/* ==== ${r} ==== */\ntry {\n${fs.readFileSync(path.join(ROOT, r), "utf8").trim()}\n} catch (e) { console.error("[cds] ${r}", e); }`).join("\n\n") + "\n");
+  return f;
+}
 
 function blocks(prefix){
   const css = order.filter((id) => fs.existsSync(path.join(DIR, id, id + ".css")))
@@ -88,13 +112,14 @@ function rewrite(file, prefix){
     if (!re.test(html)) throw new Error(`${file} sem os marcadores @components:${name}`);
     html = html.replace(re, `$1\n${body}\n$2`);
   };
-  put("css", b.css); put("js", b.js);
+  put("css", `<link rel="stylesheet" href="${prefix}dist/cds.css" />`); put("js", `<script src="${prefix}dist/cds.js"></script>`);
   html = stamp(html);
   fs.writeFileSync(abs, html);
   return true;
 }
 
+const bundled = bundle();
 rewrite("index.html", "");
 const smoke = rewrite("tests/smoke.html", ""); // smoke.html usa <base href="../">
-console.log(`${order.length} componentes em ordem de dependência → index.html${smoke ? " + tests/smoke.html" : ""}`);
+console.log(`${order.length} componentes em ordem de dependência → index.html${smoke ? " + tests/smoke.html" : ""} · dist/cds.css (${bundled.css.length}) + dist/cds.js (${bundled.js.length})`);
 console.log(order.map((id) => deps[id].length ? `${id} ← ${deps[id].join(", ")}` : id).join("\n"));

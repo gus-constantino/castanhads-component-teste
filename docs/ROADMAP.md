@@ -239,6 +239,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D67 | **Ilustrações por categoria**: `assets/illustrations/<categoria>/<nome>.svg` + `catalog.json` (ordem, nome no Figma, node id, description, tamanho); o nome no código é `<categoria>/<nome>` (o Figma repete nomes entre categorias, C76) e `CDS.illustration()` aceita também só `<nome>`. Banner e Table usam os arquivos oficiais; o Banner ganhou instance swap agrupado | 02/10 |
 | D68 | **Componente de branch do Figma** entra com o link da branch (`/branch/<key>/`) e a marca "branch" no inventário e no playground; quando mergear na main, trocar os links e conferir de novo. Primeiro caso: Accordion + Accordion Item (página Lists) | 02/10 |
 | D69 | **A UI do playground usa o próprio DS** (`docs/PLANO-UI-DS.md`): componente do DS onde existir e token em todo valor visual, em 7 fases publicadas uma a uma. Escolha única → Filter Chips; categorias do menu → Accordion Item (Gustavo) | 02/10 |
+| D70 | **Pacotes para carregar rápido**: `build-index.js` gera `dist/cds.css` e `dist/cds.js` (todos os componentes, playgrounds, docs e recursos concatenados na ordem de dependência, cada `.js` num `try/catch` com o nome do arquivo). O HTML passa de ~250 requisições para 14. Fonte continua sendo o arquivo de cada pasta; `dist/` é gerado e vai para o repo (o Pages não tem build) | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -316,6 +317,7 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 02/10 | **`curl` é bloqueado pela política da Caju**, não pelo sandbox: `~/.claude/remote-settings.json` tem `deny: Bash(curl *)` e `allowManagedPermissionRulesOnly` (regra local não libera). As URLs do `download_assets` do MCP do Figma não servem aqui; asset grande vem do export do Figma feito pelo Gustavo |
 | 02/10 | O export SVG do Figma vira subpasta quando o nome tem `/` e numera repetidos (`-1`, `-2`) na ordem do documento; o 1º traço do SVG basta para saber qual arquivo é qual nó. Conferir visualmente: as três `moeda-verde-pilha-2` pareciam iguais pelo 1º traço e eram cores diferentes |
 | 02/10 | Primeira escrita no Figma (C79), com aprovação explícita e só na branch: trocar um trecho exato da description e conferir que o resto ficou igual. Regra continua: sem aprovação, Figma é só leitura |
+| 02/10 | Lentidão era o **primeiro carregamento**: ~250 arquivos separados e o navegador falando HTTP/1.1 com o Pages (6 conexões por vez). Trocar de componente já era instantâneo (3–21 ms). Concatenar resolveu sem precisar de build no navegador |
 
 ## 8. Status
 

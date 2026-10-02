@@ -1,0 +1,3 @@
+/* .Lead Item (Lists) · set 5488:640 — Avatar 40 · Icon 20 · Image 40 raio extra-small */
+cds-list-lead-item{ flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; }
+cds-list-lead-item[kind="image"] > cds-image{ width:var(--common-sizes-40); height:var(--common-sizes-40); border-radius:var(--common-border-radius-extra-small); overflow:hidden; }

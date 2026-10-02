@@ -1,0 +1,8 @@
+/* Content List Item · set 5488:675 — base em list-item.css
+   Kind=Default: Container pad 8 4 (o Selection List Item usa 8 16 8 24 · C41) · Kind=Card: 16 16 16 24
+   Card Pressed: stroke 2px (Border/Width/thin) Accent/Solid/medium */
+cds-content-list-item > .cds-li > .cds-li__container{ padding:var(--common-sizes-8) var(--common-sizes-4); }
+cds-content-list-item[kind="card"] > .cds-li > .cds-li__container{ padding:var(--common-sizes-16) var(--common-sizes-16) var(--common-sizes-16) var(--common-sizes-24); }
+cds-content-list-item[kind="card"] > .cds-li:active, cds-content-list-item[kind="card"][state="pressed"] > .cds-li{ --_stroke-w:var(--common-border-width-thin); }
+cds-content-list-item .cds-li__currency{ flex:0 0 auto; margin-left:auto; text-align:right; align-items:flex-end; }
+cds-content-list-item .cds-li__tag, cds-content-list-item .cds-li__nav{ flex:0 0 auto; }

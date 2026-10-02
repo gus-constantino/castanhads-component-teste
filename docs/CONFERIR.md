@@ -8,10 +8,10 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 
 | Tipo | Itens |
 |---|---|
-| [Ajuste de texto](#ajuste-de-texto) | 3 |
-| [Ajuste de UI](#ajuste-de-ui) | 11 |
-| [Motion](#motion) | 5 |
-| [Refactor](#refactor) | 7 |
+| [Ajuste de texto](#ajuste-de-texto) | 4 |
+| [Ajuste de UI](#ajuste-de-ui) | 14 |
+| [Motion](#motion) | 6 |
+| [Refactor](#refactor) | 8 |
 | [Naming](#naming) | 5 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 2 |
@@ -25,6 +25,7 @@ Copy, exemplos e descriptions no Figma. Não muda layout nem comportamento.
 | C02 | `.Text Content Mask` · CEP | Placeholder `0000-000` (e `0000-00` na instância do Text Input) | CEP tem 8 dígitos: `00000-000` | **Exceção** (Gustavo, 02/10): implementado o correto, `00000-000` | Nada a mudar no código; só conferir a mask no Figma |
 | C06 | `.Text Content Mask` · CNPJ New | Exemplo `12ABC6780001X5`, sem pontuação e com letra nos dígitos verificadores | Formato oficial do CNPJ alfanumérico (pontuação e DV numérico) | Segue o Figma: 14 letras/dígitos, sem pontuação | Trocar o padrão em `CDS.TextField.masks["cnpj-new"]` |
 | C33 | Popover · description | O texto da description começa com uma resposta de chat colada ("Com certeza! Seguindo o mesmo formato conciso…") | Description só com o conteúdo do componente | Nada no código (a doc do playground não usa esse texto) | Ajustar a description no Figma (Gustavo, 02/10: anotado para ajustar) |
+| C45 | Checkbox Select Input · texto preenchido | Placeholder da amostra: `$nn Selecionados` (S maiúsculo, sem singular) | Definir o texto: plural/singular e caixa | `{n} Selecionados`, e `1 Selecionado` no singular (atributo `count-text` troca o modelo) | Ajustar o padrão em `checkbox-select-input.js` |
 
 ## Ajuste de UI
 
@@ -43,6 +44,9 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C21 | Main, Drop e Icon Button · Neutral | Hover e Pressed diferentes nos três | Alinhar a família | Segue cada componente | Ajustar o CSS de cada um |
 | C27 | Banner · Kind=Illustration | `.Content Banner` (127 de altura) dentro de um Container fixo de 122: o texto transborda 5px para cima | Container acompanhar o conteúdo | Segue o Figma: linha com 122px e conteúdo alinhado embaixo | Registrado; **não alterar por enquanto** (Gustavo, 02/10). Depois: trocar `height:122px` por `min-height` em `banner.css` |
 | C28 | Toast · Mobile | Frame `Toast mobile` sem raio, sobre todos os elementos da tela; Description em frame fixo de 44px (2 linhas de Caption dão 42) | Decisão da liderança (o toast fica por cima de tudo no mobile); não é o ideal, verificar depois | Segue o Figma: sem raio no mobile; texto com a altura natural (42) | Rever com a liderança; se mudar, ajustar o raio e o posicionamento em `toast.css` |
+| C40 | Selection List Item · Is Active com interação | Hovered + Is Active volta a `Surface/01` (perde o Accent); Pressed + Is Active (Default) volta a `Surface/default` | Manter o fundo de selecionado (Accent) com hover/press por cima | Segue o Figma | Trocar as 4 regras de `[is-active]` em `selection-list-item.css` |
+| C41 | Content List Item × Selection List Item · padding e stroke | Content List Item Kind=Default: Container pad `8 4`; o Selection List Item usa `8 16 8 24`. Card Pressed: stroke 2px no Content, 1px no Selection | Um padrão só na família de listas | Segue cada componente | Ajustar `content-list-item.css` ou `list-item.css` |
+| C43 | Select Inputs · distância do Popover | Async: 8px abaixo do Text Box. Radio e Checkbox: 4px. Async creatable: sobrepõe 4px (y 68, box até 72). Multi: começa em y 40, cobrindo o Text Box | Uma distância só, sem cobrir o campo | **Exceção (a confirmar):** Async 8, Radio/Checkbox 4 como no Figma; Creatable e Multi em 4, porque sobrepor tapa o campo enquanto se digita | Ajustar `popoverGap` em cada membro |
 
 ## Motion
 
@@ -55,6 +59,7 @@ Reactions, durações e curvas.
 | C22 | Switch · motion | 300ms (`Duration/Medium/02`) | Gustavo vai ajustar | Segue o Figma | Trocar a duração em `switch.css` |
 | C30 | .Close Toast | Tem os variants Hovered e Pressed, mas as reactions são só `ON_CLICK` (não há transição de hover) | Reactions de hover/press como no .Close Alert | Hover e Pressed por CSS (150ms · Systemic/accelerate), como os variants | Nada a mudar |
 | C36 | Modal, Drawer, Bottom Sheet, Popover · motion | Sem reactions de entrada e saída | Motion de abrir/fechar (fade do Backdrop, slide do Drawer e do Sheet) | **Exceção** (sem especificação): abrem e fecham sem animação. Só o retorno do Sheet após arrastar usa `Duration/Medium/02` + `Systemic/accelerate` | Registrado; mantém sem animação (Gustavo, 02/10). Quando houver Motion Styles, aplicar em `overlay.css` e nos CSS de cada um |
+| C42 | Select Inputs · hover e clique | Hover: 150ms `0.7,0,0.8,1` no Async, Creatable e Radio; **instantâneo** no Checkbox; **300ms** no Multi. Clique no Icon Button do Async: 150ms `EASE_OUT` (sem token). A família Text Fields usa 300ms (C01) | Motion Styles por interação, iguais nos cinco | Segue cada um (`select-field.css`, variáveis `--tf-hover-*`) | Trocar as variáveis em `select-field.css` |
 
 ## Refactor
 
@@ -69,6 +74,7 @@ Props, estrutura ou comportamento do componente (camada sem uso, prop sem efeito
 | C31 | Banner · State=Disabled | `State Overlay` (Neutral/Opacity/Soft/intense) existe, oculto, sem prop nem variável que o ligue (o overlay só aparece em Hovered e Pressed) | Usar o overlay no Disabled ou removê-lo | Ignorado por enquanto: opacity medium, sem overlay | Verificar depois; se o overlay for usado, ativá-lo no Disabled em `banner.css` |
 | C34 | Modal · largura | Componente FIXED em 320; a description pede "adapte ao conteúdo (320→512px)" | Definir se a largura é automática (pelo conteúdo) ou escolhida por quem usa | 320 por padrão; quem usa ajusta por `--cds-modal-width` (preso entre 272 e 512) | **Investigar** (Gustavo, 02/10: mantém o padrão de 320). Se o Figma ganhar prop de tamanho, trocar a variável por atributo em `modal.css` |
 | C35 | Bottom Sheet · viewport | O Viewport Restriction cobre o sheet só com `Common/Is Desktop` (Desktop=true, Tablet=false); a description diz "não para desktop e tablet" | Restrição também no Tablet | Segue a variável: restrito só no desktop; no 744 o sheet aparece | Registrado; mantém o Figma (Gustavo, 02/10). Se o tablet entrar, incluir `tablet` na regra de `bottom-sheet.css` |
+| C44 | Select Inputs · estados sem especificação | Não há estado vazio (sem resultado), carregando (Async), altura máxima da lista nem crescimento do Multi com muitos chips (no Figma o Chips Group de 320 transborda o Text Box de 48) | Desenhar vazio, carregando e o limite da lista | **Exceção** (sem especificação): "Nenhuma opção encontrada" em Caption/Text/medium; `aria-busy` no carregamento, sem spinner; lista até 320px com rolagem; o Multi cresce em linhas | Implementar o que for desenhado em `select-field.js/.css` |
 
 ## Naming
 

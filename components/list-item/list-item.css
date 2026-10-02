@@ -1,0 +1,39 @@
+/* =====================================================================
+   Base das listas (Selection List Item 5488:812 · Content List Item 5488:675)
+   Raiz: coluna gap 4 · Surface/default · Container H gap 12 min 44 · Divider Soft no fim (Kind=Default)
+   Kind=Card: raio large · stroke 1px Border/semi-soft INSIDE · pad vertical 16 · min 80 · sem Divider
+   States: Hovered Surface/01 (+ Card Border/medium) · Pressed Accent/Solid/soft (+ Card Accent/Solid/medium)
+           Disabled Opacity/light (+ Card Border/medium)
+   Motion: hover 150ms (Duration/Short/03) + Easing/Systemic/accelerate (reaction ON_HOVER do Figma)
+   ===================================================================== */
+cds-selection-list-item, cds-content-list-item{ display:block; min-width:0; }
+cds-selection-list-item [hidden], cds-content-list-item [hidden]{ display:none !important; }
+.cds-li{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-c:transparent; --_stroke-w:var(--common-border-width-hairline);
+  box-sizing:border-box; width:100%; margin:0; padding:0; border:0; font:inherit; color:inherit; text-align:left; text-decoration:none;
+  display:flex; flex-direction:column; gap:var(--common-sizes-4);
+  background:var(--_bg); box-shadow:inset 0 0 0 var(--_stroke-w) var(--_stroke-c);
+  cursor:pointer; -webkit-tap-highlight-color:transparent;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-li:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; } /* C23 */
+.cds-li__container{ display:flex; align-items:center; gap:var(--common-sizes-12); min-height:var(--common-sizes-44); padding:var(--common-sizes-8) var(--common-sizes-16) var(--common-sizes-8) var(--common-sizes-24); }
+.cds-li__items{ flex:1 1 auto; min-width:0; display:flex; align-items:center; gap:var(--common-sizes-4); }
+.cds-li__text{ flex:1 1 auto; }
+
+/* Hovered */
+.cds-li:hover, [state="hovered"] > .cds-li, .cds-li.is-current{ --_bg:var(--common-colors-surface-01); }
+/* Pressed */
+.cds-li:active, [state="pressed"] > .cds-li{ --_bg:var(--common-colors-accent-solid-soft); }
+/* Disabled */
+[disabled] > .cds-li{ opacity:var(--common-opacity-light); cursor:default; pointer-events:none; }
+
+/* Kind=Card */
+[kind="card"] > .cds-li{ --_stroke-c:var(--common-colors-border-semi-soft); border-radius:var(--common-border-radius-large); }
+[kind="card"] > .cds-li > .cds-li__container{ min-height:var(--common-sizes-80); padding-top:var(--common-sizes-16); padding-bottom:var(--common-sizes-16); }
+[kind="card"] > .cds-li:hover, [kind="card"][state="hovered"] > .cds-li, [kind="card"] > .cds-li.is-current,
+[kind="card"][disabled] > .cds-li{ --_stroke-c:var(--common-colors-border-medium); }
+[kind="card"] > .cds-li:active, [kind="card"][state="pressed"] > .cds-li{ --_stroke-c:var(--common-colors-accent-solid-medium); }
+
+@media (prefers-reduced-motion:reduce){ .cds-li{ transition:none; } }

@@ -207,6 +207,40 @@
   }
 
   /**
+   * Playground padrão dos Select Inputs (sobre o textField).
+   * o.tag · o.node (Figma) · o.async (oferece .loadOptions simulado) · o.note (hint) · o.nestedOption (título da opção)
+   */
+  var SAMPLE_OPTIONS = ["Alimentação","Refeição","Mobilidade","Saúde","Educação","Cultura","Home office","Auxílio"];
+  function selectField(ctx, o){
+    var p = textField(ctx, {
+      tag: o.tag,
+      attrs: { label: "Label", supporting: "Supporting Message", error: "Error Message" },
+      variants: function(panel, p, set){ if (o.note) hint(panel, o.note); },
+      booleans: [["show-label","Show Label"],["show-required","Show Required"],["show-lead-icon","Show Lead Icon"],["show-trailing-item","Show Trailing Item"],["show-supporting-content","Show Supporting Content"]],
+      texts: [["label","Text Label","Label"],["required-text","Required Text","(Obrigatório)"],["supporting","Supporting Message","Supporting Message"],["error","Error Message","Error Message"],["placeholder","Placeholder","",""]],
+      leadIcon: "placeholder-line",
+      extra: function(panel, p){
+        section(panel, "Opções");
+        text(panel, { label: "Opções", value: SAMPLE_OPTIONS.join(", "), hint: "Separadas por vírgula. No código: filhos <code>&lt;option&gt;</code> ou <code>.options</code>.",
+          onInput: function(v){ p.options = v.split(",").map(function(x){ return x.trim(); }).filter(Boolean); } });
+        if (o.async){
+          toggle(panel, { label: "Simular .loadOptions (600ms)", checked: false, onChange: function(on){
+            p.loadOptions = on ? function(q){ return new Promise(function(res){ setTimeout(function(){ var n = q.toLowerCase(); res(p.options.filter(function(x){ return x.label.toLowerCase().indexOf(n) >= 0; })); }, 600); }); } : null;
+          } });
+        }
+      },
+      nested: function(p){ return [
+        { title: "Popover", exposed: false, note: "Is Active=True abre o Popover com as opções; a largura acompanha o campo.", props: function(){ return [["Aberto", String(p.isOpen)], ["Opções visíveis", String(p._shown ? p._shown.length : 0)]]; } },
+        { title: o.nestedOption || "Selection List Item", exposed: false, note: "Show Lead Item, Show Divider e Show Description desligados.", props: function(){ return [["Trailing Item", p.optionTrailing], ["Selecionados", p.values.length ? p.values.join(", ") : "—"]]; } },
+        { title: "Icon Button", exposed: false, note: "Ghost · Neutral · Medium · dropdown-open-line ↔ dropdown-close-line. Fora da ordem de tab (o foco é o campo).", props: function(){ return [["Icon", p.toggleBtn ? p.toggleBtn.getAttribute("icon") : ""]]; } }
+      ]; }
+    });
+    p.options = SAMPLE_OPTIONS;
+    p.addEventListener("cds-change", function(){ ctx.readout(p.value ? p.value.split(",").join(" · ") : "—", false); });
+    return p;
+  }
+
+  /**
    * Playground padrão dos Selection Controls (Checkbox · Radio Button · Switch).
    * o.tag · o.statuses [[valor, rótulo]] · o.extraHint
    */
@@ -267,5 +301,5 @@
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, selectionControl: selectionControl, textField: textField, overlay: overlay, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
 })();

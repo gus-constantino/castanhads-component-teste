@@ -58,5 +58,12 @@
     el.style.left = Math.round(left) + "px"; el.style.top = Math.round(Math.max(pad, top)) + "px";
   };
 
+  /** setAttribute só quando o valor muda (null remove). Mesmo valor também dispara attributeChangedCallback,
+   *  e um filho pode re-renderizar com estado velho no meio da atualização do pai. */
+  CDS.attr = function(el, name, val){
+    if (val == null || val === false){ if (el.hasAttribute(name)) el.removeAttribute(name); return; }
+    val = val === true ? "" : String(val);
+    if (el.getAttribute(name) !== val) el.setAttribute(name, val);
+  };
   CDS.Element = CdsElement;
 })();

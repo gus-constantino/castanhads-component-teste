@@ -38,6 +38,7 @@
 <link rel="stylesheet" href="components/input-chip/input-chip.css?v=247524e2" />
 <link rel="stylesheet" href="components/chips-group/chips-group.css?v=e0664bbb" />
 <link rel="stylesheet" href="components/link/link.css?v=db20475e" />
+<link rel="stylesheet" href="components/list-lead-item/list-lead-item.css?v=03b55b8d" />
 <link rel="stylesheet" href="components/main-button/main-button.css?v=5cc76a8d" />
 <link rel="stylesheet" href="components/drop-button/drop-button.css?v=115ecd6f" />
 <link rel="stylesheet" href="components/footer/footer.css?v=46b38563" />
@@ -59,6 +60,7 @@
 <link rel="stylesheet" href="components/tag/tag.css?v=d07bfd11" />
 <link rel="stylesheet" href="components/balance-card/balance-card.css?v=bfa6aafa" />
 <link rel="stylesheet" href="components/text-content/text-content.css?v=a8b65327" />
+<link rel="stylesheet" href="components/list-item/list-item.css?v=910b92a2" />
 <link rel="stylesheet" href="components/text-field/text-field.css?v=b63d246d" />
 <link rel="stylesheet" href="components/code-input-otp/code-input-otp.css?v=90c1f389" />
 <link rel="stylesheet" href="components/credit-card-input/credit-card-input.css?v=aae76a89" />
@@ -70,6 +72,10 @@
 <link rel="stylesheet" href="components/toast/toast.css?v=8d25e163" />
 <link rel="stylesheet" href="components/tooltip/tooltip.css?v=a062e41c" />
 <link rel="stylesheet" href="components/topic/topic.css?v=dae1209a" />
+<link rel="stylesheet" href="components/trailing-item/trailing-item.css?v=12739450" />
+<link rel="stylesheet" href="components/content-list-item/content-list-item.css?v=1d4b4b8a" />
+<link rel="stylesheet" href="components/selection-list-item/selection-list-item.css?v=f3806f68" />
+<link rel="stylesheet" href="components/select-field/select-field.css?v=256786d6" />
 <link rel="stylesheet" href="components/viewport-restriction/viewport-restriction.css?v=687e7664" />
 <link rel="stylesheet" href="components/overlay/overlay.css?v=c5a9ea63" />
 <link rel="stylesheet" href="components/bottom-sheet/bottom-sheet.css?v=8dabfa10" />
@@ -96,8 +102,8 @@
 <div id="out">Rodando…</div>
 <div id="stage" aria-hidden="true"></div>
 
-<script src="scripts/cds-element.js?v=fba8c0be"></script>
-<script src="scripts/playground-kit.js?v=53838f70"></script>
+<script src="scripts/cds-element.js?v=e7310824"></script>
+<script src="scripts/playground-kit.js?v=3d21e8e7"></script>
 <script src="scripts/assets-manifest.js?v=b07c4eeb"></script>
 <!-- @components:js -->
 <script src="components/backdrop/backdrop.js?v=77d03fb3"></script>
@@ -149,6 +155,8 @@
 <script src="components/chips-group/chips-group.playground.js?v=1122222e"></script>
 <script src="components/link/link.js?v=c7f01497"></script>
 <script src="components/link/link.playground.js?v=82309e94"></script>
+<script src="components/list-lead-item/list-lead-item.js?v=3dcf417b"></script>
+<script src="components/list-lead-item/list-lead-item.playground.js?v=d36f9405"></script>
 <script src="components/main-button/main-button.js?v=0f7048ce"></script>
 <script src="components/main-button/main-button.playground.js?v=85abeea9"></script>
 <script src="components/drop-button/drop-button.js?v=58e0a4ae"></script>
@@ -190,6 +198,7 @@
 <script src="components/balance-card/balance-card.playground.js?v=9e00801c"></script>
 <script src="components/text-content/text-content.js?v=06a64636"></script>
 <script src="components/text-content/text-content.playground.js?v=cd4106f0"></script>
+<script src="components/list-item/list-item.js?v=db703467"></script>
 <script src="components/text-field/text-field.js?v=a8c8b153"></script>
 <script src="components/code-input-otp/code-input-otp.js?v=4d1749c5"></script>
 <script src="components/code-input-otp/code-input-otp.playground.js?v=ce7a29c9"></script>
@@ -213,6 +222,23 @@
 <script src="components/tooltip/tooltip.playground.js?v=9e6bd5d6"></script>
 <script src="components/topic/topic.js?v=5e43844e"></script>
 <script src="components/topic/topic.playground.js?v=dd9521d0"></script>
+<script src="components/trailing-item/trailing-item.js?v=d2c951bd"></script>
+<script src="components/trailing-item/trailing-item.playground.js?v=7ee0af70"></script>
+<script src="components/content-list-item/content-list-item.js?v=604e32e4"></script>
+<script src="components/content-list-item/content-list-item.playground.js?v=4f00b420"></script>
+<script src="components/selection-list-item/selection-list-item.js?v=bfe50ac3"></script>
+<script src="components/selection-list-item/selection-list-item.playground.js?v=a0c2fb35"></script>
+<script src="components/select-field/select-field.js?v=cccc2984"></script>
+<script src="components/async-creatable-select-input/async-creatable-select-input.js?v=53a95eed"></script>
+<script src="components/async-creatable-select-input/async-creatable-select-input.playground.js?v=d185bff1"></script>
+<script src="components/async-select-input/async-select-input.js?v=b57bb411"></script>
+<script src="components/async-select-input/async-select-input.playground.js?v=f95acf03"></script>
+<script src="components/checkbox-select-input/checkbox-select-input.js?v=30f5d176"></script>
+<script src="components/checkbox-select-input/checkbox-select-input.playground.js?v=f0ff8b5a"></script>
+<script src="components/multi-select-input/multi-select-input.js?v=e3fd72a3"></script>
+<script src="components/multi-select-input/multi-select-input.playground.js?v=c0176a68"></script>
+<script src="components/radio-select-input/radio-select-input.js?v=a6eab257"></script>
+<script src="components/radio-select-input/radio-select-input.playground.js?v=dea33fb8"></script>
 <script src="components/viewport-restriction/viewport-restriction.js?v=7abc6e22"></script>
 <script src="components/viewport-restriction/viewport-restriction.playground.js?v=2169ea68"></script>
 <script src="components/overlay/overlay.js?v=4c69b472"></script>
@@ -227,7 +253,7 @@
 <script src="resources/caju-illustrations/caju-illustrations.js?v=b1539fbd"></script>
 <script src="resources/caju-theme/caju-theme.js?v=fab7270a"></script>
 <!-- /@components:js -->
-<script src="tests/expected.js?v=344d3395"></script>
+<script src="tests/expected.js?v=225475aa"></script>
 <script>
   // Espera fontes e estilos para medir o layout final
   window.addEventListener("load", function(){ (document.fonts ? document.fonts.ready : Promise.resolve()).then(function(){

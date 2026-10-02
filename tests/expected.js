@@ -63,5 +63,14 @@ window.CDS_EXPECTED = {
   "fixed-bar":         { w: 320, h: 89, src: "24037:2929 · Horizontal" },
   "modal":             { w: 320, src: "16362:3267 · altura depende do Slot" },
   "drawer":            { w: 640, h: 720, src: "16456:4381" },
-  "bottom-sheet":      { w: 320, src: "20848:2679 · altura depende do Slot" }
+  "bottom-sheet":      { w: 320, src: "20848:2679 · altura depende do Slot" },
+  "trailing-item":     { w: 48, h: 48, src: "5488:647 · Checkbox" },
+  "list-lead-item":    { w: 40, h: 40, src: "5488:640 · Avatar" },
+  "selection-list-item": { w: 320, h: 69, src: "5488:812 · Default · Chechbox · 64 + 4 + Divider 1" },
+  "content-list-item": { w: 320, h: 69, src: "5488:675 · Default · Default" },
+  "async-select-input": { w: 320, h: 100, src: "11030:7644" },
+  "async-creatable-select-input": { w: 320, h: 100, src: "11018:5694" },
+  "radio-select-input": { w: 320, h: 100, src: "11143:3056" },
+  "checkbox-select-input": { w: 320, h: 100, src: "11143:4833" },
+  "multi-select-input": { w: 320, h: 100, src: "13795:4984" }
 };

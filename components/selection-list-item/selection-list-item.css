@@ -1,0 +1,9 @@
+/* Selection List Item · set 5488:812 — base em list-item.css
+   Is Active=True: Accent/Solid/soft · Card stroke Accent/Solid/semi-soft (Hovered: Border/medium · Pressed: Accent/Solid/medium)
+   Como no Figma hoje (CONFERIR C40): Hovered + Is Active volta a Surface/01; Pressed + Is Active (Default) volta a Surface/default */
+cds-selection-list-item[is-active] > .cds-li{ --_bg:var(--common-colors-accent-solid-soft); }
+cds-selection-list-item[kind="card"][is-active] > .cds-li{ --_stroke-c:var(--common-colors-accent-solid-semi-soft); }
+cds-selection-list-item[is-active] > .cds-li:hover, cds-selection-list-item[is-active][state="hovered"] > .cds-li, cds-selection-list-item[is-active] > .cds-li.is-current{ --_bg:var(--common-colors-surface-01); }
+cds-selection-list-item[kind="card"][is-active] > .cds-li:hover, cds-selection-list-item[kind="card"][is-active][state="hovered"] > .cds-li{ --_stroke-c:var(--common-colors-border-medium); }
+cds-selection-list-item[is-active] > .cds-li:active, cds-selection-list-item[is-active][state="pressed"] > .cds-li{ --_bg:var(--common-colors-surface-default); }
+cds-selection-list-item[kind="card"][is-active] > .cds-li:active, cds-selection-list-item[kind="card"][is-active][state="pressed"] > .cds-li{ --_stroke-c:var(--common-colors-accent-solid-medium); }

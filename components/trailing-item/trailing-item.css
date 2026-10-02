@@ -1,0 +1,4 @@
+/* .Trailing Item · set 5488:647 — 48×48 centralizado; Kind=Tag no tamanho do Tag */
+cds-trailing-item{ flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; min-width:var(--common-sizes-48); height:var(--common-sizes-48); }
+cds-trailing-item[kind="tag"]{ min-width:0; height:auto; align-self:flex-start; }
+cds-trailing-item .cds-sc__label{ display:none; }

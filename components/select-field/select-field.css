@@ -1,0 +1,34 @@
+/* =====================================================================
+   Select Inputs — base em text-field.css (mesma anatomia do Text Input)
+   Text Box: pad 0 0 0 16 (o Icon Button Ghost Medium de 48 encosta à direita) · Is Active = popover aberto
+   Popover (2270:102) com a largura do campo; opções = Selection List Item / Content List Item
+   ===================================================================== */
+.cds-tf--select .cds-tf__box{ padding-right:0; }
+.cds-tf--select .cds-tf__control[readonly]{ cursor:pointer; caret-color:transparent; }
+.cds-tf--select .cds-tf__control[readonly]:disabled{ cursor:default; }
+/* Is Active=True — popover aberto */
+.cds-tf--select.is-open .cds-tf__box{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--tf-active-d); --_ease:var(--tf-active-e);
+}
+.cds-tf--select[appearance="warning"].is-open .cds-tf__box{ --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
+
+.cds-sel__popover{ min-width:0; }
+.cds-sel__list{ display:flex; flex-direction:column; max-height:min(320px, 50vh); overflow-y:auto; overscroll-behavior:contain; } /* altura máxima: sem especificação (C44) */
+.cds-sel__option{ flex:0 0 auto; }
+.cds-sel__empty{ padding:var(--common-sizes-12) var(--common-sizes-16); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+
+/* Multi: chips (Input Chips) antes do campo, quebrando linha */
+.cds-tf--multi .cds-tf__content{ flex-wrap:wrap; padding:var(--common-sizes-4) 0; row-gap:var(--common-sizes-4); }
+.cds-tf--multi .cds-tf__control{ min-width:var(--common-sizes-80); }
+.cds-sel__chips{ display:contents; }
+.cds-sel__chip{ display:flex; }
+
+/* Motion por membro, como nas reactions do Figma (C42): hover 150ms nos quatro, instantâneo no Checkbox, 300ms no Multi */
+cds-async-select-input.cds-tf, cds-async-creatable-select-input.cds-tf, cds-radio-select-input.cds-tf{
+  --tf-hover-d:var(--common-motion-duration-short-03); --tf-hover-e:var(--common-motion-easing-systemic-accelerate);
+}
+cds-checkbox-select-input.cds-tf{ --tf-hover-d:var(--common-motion-duration-short-00); }
+cds-multi-select-input.cds-tf{ --tf-hover-d:var(--common-motion-duration-medium-02); --tf-hover-e:var(--common-motion-easing-systemic-accelerate); }

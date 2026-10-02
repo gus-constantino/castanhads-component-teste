@@ -151,7 +151,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | **5** | Feedback e conteúdo | Toast · Alert · System Banner · Confirmation Message · Topic · Tooltip · Banner · Balance Card | .Close Toast · .Close Alert · .Lead item (Topic) · .Content Banner |
 | **6** | Containers e overlays | Viewport Restriction · Card · Backdrop (**o Banner Kind=Image passa a consumir**) · Popover (**+ Drop Button abrindo o Popover**, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar → em seguida os 5 Select Inputs | .Header (×2) · .Footer |
 | **7** | Navegação | Breadcrumb · Fixed Tab · Scrollable Tab · Tab View · Nav Control · Pagination | .Item (×2) · .Item Nav Control · .Select Number |
-| **8** | Listas | Content List Item · Content List · Selection List Item · Selection List | .Lead Item · .Trailing Item · .Transaction Status Icon |
+| **8** | Listas | ~~Content List Item~~ · Content List · ~~Selection List Item~~ · Selection List (os itens foram antecipados para os Select Inputs, D50) | ~~.Lead Item~~ · ~~.Trailing Item~~ · .Transaction Status Icon |
 | **9** | Complexos | Date Picker · Modal Date Picker · Date Input · Table · File Upload (3) · Slider · NPS · CSAT · Progress Tracker · Caju Card | .Day · .Week · .Navigation Control · .Head · .Data Cell · .Table Column · .Toolbar · .Lead item (File) · .Value Item · .CSAT Item |
 
 ### Processo por componente (checklist)
@@ -218,6 +218,9 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D47 | **Cache-busting por hash**: o `build-index.js` carimba todo `.js`/`.css` local do `index.html` e do `smoke.html` com `?v=<sha1 do conteúdo>`; só muda a URL do arquivo alterado. Rodar o build antes de cada commit | 02/10 |
 | D48 | **CONFERIR por tipo de ajuste**: Ajuste de texto · Ajuste de UI · Motion · Refactor · Naming · Acessibilidade · Documentação. O número do item não muda | 02/10 |
 | D49 | **Overlays (C37, C38)**: o Modal tem divisores opcionais desligados por padrão (`show-header-divider`, `show-footer-divider`); o Drawer sempre usa Backdrop e sempre fecha ao clicar fora ou no Esc | 02/10 |
+| D50 | **Listas antecipadas para os Selects** (Gustavo): Selection List Item, Content List Item, .Trailing Item e .Lead Item (Lists) entram completos agora, porque são as opções dos Select Inputs no Figma. O Lote 8 fica com Content List, Selection List e .Transaction Status Icon | 02/10 |
+| D51 | **Select Inputs = combobox do WAI-ARIA**: o foco fica no `<input role="combobox">`, opções `role="option"` num `role="listbox"` dentro do Popover (`popover="manual"`), opção atual em `aria-activedescendant`. Opções por `<option>` filhos ou `.options`; Async aceita `.loadOptions(query)` | 02/10 |
+| D52 | **Linha de lista sem `<label>` aninhado**: com Checkbox/Radio/Switch no trailing, a linha repassa o clique ao input nativo, que recebe o nome do Label por `aria-labelledby`; sem controle, a linha é `<button aria-pressed>` (Selection) ou `<button>`/`<a>` (Content) | 02/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 
 ## 5. Dúvidas abertas
@@ -275,6 +278,8 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 01/10 | Link usa motion próprio (150ms com a curva *accelerate* `.7,0,.8,1` no hover), diferente do Hover In dos inputs |
 | 02/10 | Com o painel do navegador oculto, `requestAnimationFrame` não roda e o evento `close` do `<dialog>` atrasa: estado de componente não pode esperar por eles |
 | 02/10 | Description do Figma decide comportamento que as props não mostram: padrão Dialog do Modal (sem Close Button, não fecha fora), 320→512 do Modal, "Mobile only" do Bottom Sheet |
+| 02/10 | `setAttribute` com o mesmo valor também dispara `attributeChangedCallback`: o pai repassando atributos ao filho na ordem errada fez o filho re-renderizar com o status velho (um radio remarcava e o navegador desmarcava o outro do grupo). Daí o `CDS.attr` |
+| 02/10 | Em aba oculta, além de rAF e do `close` do dialog, o `setTimeout` é estrangulado e `blur()` não dispara `focusout`: fechar lista por foco usa `focusout` + `relatedTarget` |
 
 ---
 
@@ -293,6 +298,6 @@ Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones
 | 4 | ✅ 01/10 — Text Input · Search · Text Area · Password · [Beta] Quantity sobre `CDS.TextField` · Credit Card realinhado (subclasse) · OTP com Label/mensagem da família |
 | 5 | ✅ 02/10 — Toast · Alert · System Banner · Confirmation Message · Topic · Tooltip · Banner · Balance Card + .Close Toast · .Close Alert · .Lead item · .Content Banner · ilustração `sino` |
 | 6 | ✅ 02/10 — Viewport Restriction · Card · Backdrop (Banner Image consome) · Popover (Drop Button abre, D41) · Modal · Drawer · Bottom Sheet · [Beta] Fixed Bar + .Header · .Footer · `CDS.position` · `CDS.Overlay` |
-| — | ⏳ Select Inputs (5) sobre TextField + Popover |
+| 6b | ✅ 02/10 — Async · Async creatable · Radio · Checkbox · Multi Select Input sobre `CDS.SelectField` (TextField + Popover, padrão combobox) · antecipados do Lote 8: Selection List Item · Content List Item · .Trailing Item · .Lead Item (Lists) sobre `CDS.ListItem` (D50) |
 | 7 a 9 | ⏳ |
 | — | ⏳ Recurso Animações (Q31) — no final |

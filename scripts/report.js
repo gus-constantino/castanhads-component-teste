@@ -216,6 +216,27 @@
     bars(p4, cl, { tone: "components", total: pg.length });
     if (rest.length) p4.appendChild(el("p", "rp-panel__foot", "+ " + rest.length + " páginas com até " + rest[0].value + " componente(s): " + esc(rest.map(function(d){ return d.label; }).join(", "))));
 
+    // Publicação na lib do Figma (scripts/figma-status.js, lido via MCP com getPublishStatusAsync)
+    var FS = CDS.figmaStatus || { items: {} }, byId = {}, pubN = {};
+    (CDS.playgrounds || []).forEach(function(c){ byId[c.id] = c.name; });
+    Object.keys(FS.items).forEach(function(id){ (pubN[FS.items[id]] = pubN[FS.items[id]] || []).push(byId[id] || id); });
+    var PUBS = [["current", "Publicado no Figma", "Publicado na lib sem alterações pendentes."],
+      ["changed", "Publicado com alterações pendentes", "Publicado, mas o arquivo tem alterações que ainda não foram publicadas."],
+      ["unpublished-comp", "Não publicado", "Componente que ainda não está publicado na lib."],
+      ["branch", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main."],
+      ["unpublished-block", "Não publicado · building block", "Building blocks (nome com ponto) ficam fora da publicação de propósito."]];
+    var blocks = {}; (CDS.playgrounds || []).forEach(function(c){ if (c.block) blocks[c.name] = true; });
+    var un = pubN.unpublished || []; pubN["unpublished-comp"] = un.filter(function(n){ return !blocks[n]; }); pubN["unpublished-block"] = un.filter(function(n){ return blocks[n]; });
+    var pubTotal = Object.keys(FS.items).length;
+    var p5 = panel(grid, "Publicação na lib do Figma", (pubN.current || []).length + " de " + pubTotal + " em dia com a lib · leitura de " + FS.checked, "rp-panel--wide");
+    bars(p5, PUBS.map(function(pt){
+      var names = (pubN[pt[0]] || []).slice().sort(function(a, b){ return a.localeCompare(b, "pt-BR"); });
+      var list = names.length <= 8 ? names.join(", ") : "Ex.: " + names.slice(0, 6).join(", ") + "…";
+      return { label: pt[1], value: names.length, desc: pt[2] + (names.length ? " " + list + "." : "") };
+    }), { total: pubTotal });
+    var pend = pubN["unpublished-comp"].concat(pubN.branch || []);
+    if (pend.length) p5.appendChild(el("p", "rp-panel__foot", "Fora da lib: " + esc(pend.join(", ")) + ". Lido no Figma via MCP (<code>getPublishStatusAsync</code>); o status de cada componente aparece numa Tag ao lado do título."));
+
     // Últimas decisões
     var dec = rows(sec(road, function(s){ return s.num === "4"; }).lines).filter(function(r){ return /^D\d+/.test(r[0]); })
       .sort(function(a, b){ return parseInt(a[0].slice(1), 10) - parseInt(b[0].slice(1), 10); });
@@ -226,8 +247,8 @@
       li.appendChild(el("p", "rp-list__text", "<strong>" + esc(r[0]) + "</strong> · " + esc(plain(r[1]).replace(/^(.{180}).+$/, "$1…"))));
       if (r[2]) li.appendChild(el("p", "rp-list__note", esc(plain(r[2]))));
     });
-    // Ordem (Gustavo, 02/10): Componentes · Adaptações para código · Débitos e melhorias · Decisões
-    [p4, p3, p2, p6].forEach(function(p){ grid.appendChild(p.closest("cds-card")); });
+    // Ordem (Gustavo, 02/10): Componentes · Adaptações para código · Publicação no Figma · Débitos e melhorias · Decisões
+    [p4, p3, p5, p2, p6].forEach(function(p){ grid.appendChild(p.closest("cds-card")); });
     // Tooltips da legenda (precisam do item já no documento)
     if (CDS.kit) [].forEach.call(leg.children, function(li){ if (li._tip) CDS.kit.tip(li, li._tip[3], { label: li._tip[1].replace(/ \(.*$/, ""), container: leg.parentNode }); });
     p6.appendChild(dsLink("rp-more", "Ver decisões", "#/relatorio/roadmap/" + slug(sec(road, function(s){ return s.num === "4"; }).title)));

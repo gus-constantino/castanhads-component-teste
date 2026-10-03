@@ -127,7 +127,7 @@
     return [
       { label: "Componentes no playground", value: comps, sub: "+ " + (pg.length - comps) + " building blocks" },
       { label: "Variantes do Figma cobertas", value: variants.toLocaleString("pt-BR"), sub: "em " + sets + " sets da lib" },
-      { label: "Divergências em aberto", value: openC, sub: solved + " já resolvidas" },
+      { label: "Débitos e melhorias mapeados", value: openC, sub: solved + " já resolvidos" },
       { label: "Decisões registradas", value: dec, sub: qs ? qs + " dúvida(s) em aberto" : "Sem dúvidas em aberto" }
     ];
   }
@@ -165,7 +165,7 @@
     // Divergências por tipo
     var open = conf.sections.filter(function(s){ return TYPES.indexOf(s.title) !== -1; });
     var total = open.reduce(function(a, s){ return a + items(s.lines).length; }, 0);
-    var p2 = panel(grid, "Divergências Figma", total + " em aberto, por tipo de ajuste");
+    var p2 = panel(grid, "Débitos e melhorias mapeados", total + " em aberto, por tipo de ajuste", "rp-panel--wide");
     bars(p2, open.map(function(s){ return { label: s.title, value: items(s.lines).length, href: "#/relatorio/conferir/" + slug(s.title) }; })
       .sort(function(a, b){ return b.value - a.value; }));
 
@@ -173,7 +173,7 @@
     var all = [].concat.apply([], open.map(function(s){ return rows(s.lines).filter(function(r){ return /^(~~)?C\d+/.test(r[0]); }); }));
     var kinds = { exc: 0, deb: 0, seg: 0 };
     all.forEach(function(r){ var code = r[4] || "", act = r[5] || ""; if (/débito|erro no figma/i.test(act)) kinds.deb++; else if (/exceção/i.test(code)) kinds.exc++; else kinds.seg++; });
-    var p3 = panel(grid, "Como o código tratou", "Regra D40: o código segue o Figma e registra a divergência");
+    var p3 = panel(grid, "Adaptações para código", "Regra D40: o código segue o Figma; o que muda é exceção aprovada ou débito registrado");
     var parts = [["seg", "Segue o Figma", kinds.seg], ["exc", "Exceção aprovada (web, sem especificação ou decisão)", kinds.exc], ["deb", "Débito ou erro no Figma", kinds.deb]];
     var donut = p3.appendChild(el("div", "rp-donut"));
     var acc = 0, stops = parts.map(function(pt){ var a = acc; acc += pt[2] / (all.length || 1) * 360; return "var(--rp-c-" + pt[0] + ") " + a + "deg " + acc + "deg"; });
@@ -189,31 +189,8 @@
     var p4 = panel(grid, "Componentes por página do Figma", pg.length + " componentes em " + Object.keys(cats).length + " páginas");
     var cl = Object.keys(cats).map(function(k){ return { label: k, value: cats[k] }; }).sort(function(a, b){ return b.value - a.value || a.label.localeCompare(b.label, "pt-BR"); });
     var rest = cl.length > 8 ? cl.splice(8) : []; // painel curto: as 8 maiores; o resto vira uma linha de texto
-    bars(p4, cl, { tone: "neutral" });
+    bars(p4, cl, { tone: "components" });
     if (rest.length) p4.appendChild(el("p", "rp-panel__foot", "+ " + rest.length + " páginas com até " + rest[0].value + " componente(s): " + esc(rest.map(function(d){ return d.label; }).join(", "))));
-
-    // Pendências: abertas primeiro; as já resolvidas nos registros (✅ ou riscadas) vão riscadas para o fim
-    var p5 = panel(grid, "Pendências", "O que depende de decisão ou de ajuste no Figma");
-    var pend = [];
-    function isDone(r){ return /✅|~~/.test(r.join(" ")); }
-    rows(sec(road, function(s){ return s.num === "5"; }).lines).forEach(function(r){
-      var d = isDone(r), q = plain(r[1]), k = q.indexOf("?") + 1; // resolvida: "pergunta? resposta" → pergunta riscada + resposta na nota
-      pend.push({ tag: "Dúvida", id: r[0], text: d && k ? q.slice(0, k) : q, note: d ? "Resolvida: " + (k ? q.slice(k).trim() : plain(r[2] || "")) : plain(r[2] || ""), done: d });
-    });
-    rows(sec(road, function(s){ return s.num === "5.2"; }).lines).forEach(function(r){ pend.push({ tag: "Débito de design", id: r[0].split(" ")[0], text: plain(r[1]), note: plain(r[0].split("·")[1] || "").trim(), done: isDone(r) }); });
-    rows(sec(road, function(s){ return s.num === "5.1"; }).lines).forEach(function(r){
-      var d = isDone(r); pend.push({ tag: "Débito de export", id: "", text: plain(r[0]).replace(/\s*✅/, ""), note: (d ? "Resolvido: " : "Hoje: ") + plain(r[3] || "").split(/[.;(]/)[0], done: d });
-    });
-    pend.sort(function(a, b){ return a.done - b.done; });
-    if (!pend.some(function(x){ return !x.done; })) pend.unshift({ tag: "", text: "Nada em aberto.", done: false });
-    var pl = p5.appendChild(el("ul", "rp-list"));
-    pend.forEach(function(x){
-      var li = pl.appendChild(el("li", x.done ? "is-done" : null));
-      if (x.tag) li.appendChild(el("span", "rp-tag", esc(x.done ? "Resolvido · " + x.tag : x.tag)));
-      var body = (x.id ? "<strong>" + esc(x.id) + "</strong> · " : "") + esc(x.text);
-      li.appendChild(el("p", "rp-list__text", x.done ? "<del>" + body + "</del>" : body));
-      if (x.note) li.appendChild(el("p", "rp-list__note", esc(x.note)));
-    });
 
     // Últimas decisões
     var dec = rows(sec(road, function(s){ return s.num === "4"; }).lines).filter(function(r){ return /^D\d+/.test(r[0]); })
@@ -225,6 +202,8 @@
       li.appendChild(el("p", "rp-list__text", "<strong>" + esc(r[0]) + "</strong> · " + esc(plain(r[1]).replace(/^(.{180}).+$/, "$1…"))));
       if (r[2]) li.appendChild(el("p", "rp-list__note", esc(plain(r[2]))));
     });
+    // Ordem (Gustavo, 02/10): Componentes · Adaptações para código · Débitos e melhorias · Decisões
+    [p4, p3, p2, p6].forEach(function(p){ grid.appendChild(p); });
     var more = p6.appendChild(el("a", "rp-more", "Ver decisões")); more.href = "#/relatorio/roadmap/" + slug(sec(road, function(s){ return s.num === "4"; }).title);
   }
   function goTo(section){
@@ -250,13 +229,14 @@
     kpiEl = root.appendChild(el("div", "rp-kpis"));
     // Scrollable Tab do DS (teclado e foco itinerante vêm do componente)
     var wrap = root.appendChild(el("div", "pg-tabs rp-tabs"));
-    tabsEl = wrap.appendChild(document.createElement("cds-scrollable-tab"));
+    tabsEl = document.createElement("cds-scrollable-tab");
     tabsEl.setAttribute("label", "Registros");
     TABS.forEach(function(tab){
       var it = document.createElement("cds-tab-item");
       it.setAttribute("label", tab.title); it.id = "rp-tab-" + tab.id; it.dataset.tab = tab.id;
       tabsEl.appendChild(it);
     });
+    wrap.appendChild(tabsEl); // só depois das abas: conectado vazio, o componente desenha a amostra do Figma (6 "Label")
     tabsEl.addEventListener("cds-change", function(e){ e.stopPropagation(); var t = TABS[e.detail.index - 1]; if (t) location.hash = "#/relatorio/" + t.id; });
     bodyEl = root.appendChild(el("div", "rp-body"));
     bodyEl.setAttribute("role", "tabpanel");

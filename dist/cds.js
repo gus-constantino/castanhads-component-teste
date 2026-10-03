@@ -128,7 +128,7 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11271-154",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-24); border-radius:var(--common-border-radius-medium);" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-24);" });
     var p = kit.el("cds-caju-brand", { kind: "default" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     // Fundo sugerido pela description: atente-se à cor do fundo
@@ -136,7 +136,7 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Kind", value: "default", options: [["default","Default"],["inversed","Inversed"],["full-red","Full Red"],["full-white","Full White"],["full-black","Full Black"]],
       hint: "Inversed e Full White ganham fundo escuro/vermelho no preview, como pede a description.",
-      onChange: function(v){ p.setAttribute("kind", v); stage.style.background = BG[v]; } });
+      onChange: function(v){ p.setAttribute("kind", v); kit.surface(ctx.preview, BG[v]); } });
     kit.section(panel, "Booleans");
     kit.toggle(panel, { label: "Show Typography", checked: true, onChange: function(on){ kit.attr(p, "show-typography", on ? null : "false"); } });
   }
@@ -348,13 +348,13 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5301-2173",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium);" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16);" });
     var p = kit.el("cds-currency", { value: "100,00", symbol: "R$", appearance: "neutral", size: "small" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "neutral", options: [["neutral","Neutral"],["inversed","Inversed"]],
-      onChange: function(v){ set("appearance", v); stage.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+      onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.seg(panel, { label: "Size", value: "small", options: [["small","Small"],["medium","Medium"],["large","Large"],["largest","Largest"]], onChange: function(v){ set("size", v); } });
     kit.toggle(panel, { label: "Show Value", checked: true, onChange: function(on){ set("show-value", on ? null : "false"); } });
     kit.section(panel, "Texts");
@@ -634,7 +634,7 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=2278-92",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium);" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16);" });
     var p = kit.el("cds-avatar", { kind: "default", appearance: "neutral", size: "small", label: "AA", src: "assets/brand/sample-photo.svg" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
@@ -642,7 +642,7 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Kind", value: "default", options: [["default","Default"],["initial","Initial"],["image","Image"]], onChange: function(v){ set("kind", v); } });
     kit.seg(panel, { label: "Appearance", value: "neutral", options: [["neutral","Neutral"],["inversed","Inversed"]],
-      hint: "Inversed é para fundo escuro: o preview ganha fundo inverso.", onChange: function(v){ set("appearance", v); stage.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+      hint: "Inversed é para fundo escuro: o preview ganha fundo inverso.", onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.seg(panel, { label: "Size", value: "small", options: [["small","Small 40"],["medium","Medium 48"],["large","Large 64"]], onChange: function(v){ set("size", v); } });
     kit.section(panel, "Texts");
     kit.text(panel, { label: "Text Label (Initial)", value: "AA", onInput: function(v){ p.setAttribute("label", v); } });
@@ -843,8 +843,8 @@ CDS.register({
   id: "close-toast", name: ".Close Toast", category: "Feedback", block: true, figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5219-558",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var wrap = kit.el("div", { style: "background:var(--common-colors-surface-inversed);padding:var(--common-sizes-16);border-radius:var(--common-border-radius-small)" });
-    var p = kit.el("cds-close-toast", { label: "Fechar mensagem" }); wrap.appendChild(p); ctx.preview.appendChild(wrap);
+    var wrap = kit.el("div", { style: "padding:var(--common-sizes-16)" });
+    var p = kit.el("cds-close-toast", { label: "Fechar mensagem" }); wrap.appendChild(p); ctx.preview.appendChild(wrap); kit.surface(ctx.preview, "var(--common-colors-surface-inversed)");
     kit.section(panel, "Variants");
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ kit.attr(p, "disabled", on); } });
     kit.hint(panel, "Hovered e Pressed são interação. Mostrado sobre Surface/inversed, como dentro do Toast.");
@@ -936,12 +936,12 @@ CDS.register({
   id: "content-banner", name: ".Content Banner", category: "Banner", block: true, figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=20028-15153",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var wrap = kit.el("div", { style: "padding:var(--common-sizes-24);border-radius:var(--common-border-radius-large);background:var(--common-colors-decorative-01)" });
-    var p = kit.el("cds-content-banner", {}); wrap.appendChild(p); ctx.preview.appendChild(wrap);
+    var wrap = kit.el("div", { style: "padding:var(--common-sizes-24)" });
+    var p = kit.el("cds-content-banner", {}); wrap.appendChild(p); ctx.preview.appendChild(wrap); kit.surface(ctx.preview, "var(--common-colors-decorative-01)");
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "neutral", options: [["neutral","Neutral"],["inversed","Inversed"]], onChange: function(v){
       kit.attr(p, "appearance", v === "neutral" ? null : v);
-      wrap.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : "var(--common-colors-decorative-01)";
+      kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : "var(--common-colors-decorative-01)");
     } });
     kit.section(panel, "Booleans");
     [["show-text-title","Show Text Title"],["show-cta","Show CTA"]].forEach(function(b){ kit.toggle(panel, { label: b[1], checked: true, onChange: function(on){ kit.attr(p, b[0], on ? null : "false"); } }); });
@@ -1175,7 +1175,7 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4464-636",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium);" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16);" });
     var p = kit.el("cds-icon-button", { icon: "placeholder-line", kind: "default", appearance: "accent", size: "medium", label: "Ação" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
@@ -1184,7 +1184,7 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Kind", value: "default", options: [["default","Default"],["ghost","Ghost"]], onChange: function(v){ set("kind", v); } });
     kit.seg(panel, { label: "Appearance", value: "accent", options: [["accent","Accent"],["neutral","Neutral"],["inversed","Inversed"]],
-      onChange: function(v){ set("appearance", v); stage.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+      onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.seg(panel, { label: "Size", value: "medium", options: [["medium","Medium 48"],["small","Small 40"]], onChange: function(v){ set("size", v); } });
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
     kit.hint(panel, "Hovered e Pressed são estados de interação.");
@@ -1651,13 +1651,13 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4926-213",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-8) var(--common-sizes-16); border-radius:var(--common-border-radius-medium);" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-8) var(--common-sizes-16);" });
     var p = kit.el("cds-link", { label: "Link content", href: "#/link", appearance: "neutral" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "neutral", options: [["neutral","Neutral"],["accent","Accent"],["inversed","Inversed"]],
-      onChange: function(v){ set("appearance", v); stage.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+      onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
     kit.hint(panel, "Hovered (sublinhado) e Pressed (Label/Bold + sublinhado) são estados de interação.");
     kit.section(panel, "Booleans");
@@ -1767,7 +1767,7 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4464-427",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); max-width:100%;" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16); max-width:100%;" });
     var p = kit.el("cds-main-button", { label: "Label", kind: "default", appearance: "accent", size: "medium" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
@@ -1776,7 +1776,7 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Kind", value: "default", options: [["default","Default"],["ghost","Ghost"]], onChange: function(v){ set("kind", v); } });
     kit.seg(panel, { label: "Appearance", value: "accent", options: [["accent","Accent"],["neutral","Neutral"],["inversed","Inversed"]],
-      onChange: function(v){ set("appearance", v); stage.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+      onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.seg(panel, { label: "Size", value: "medium", options: [["medium","Medium 48"],["small","Small 40"]], onChange: function(v){ set("size", v); } });
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
     kit.hint(panel, "Hovered e Pressed (texto em Bold) são interação. Largura mínima segue a Viewport: 136 · 220 (744) · 328 (360).");
@@ -2115,7 +2115,7 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=6955-6985",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); max-width:100%;" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16); max-width:100%;" });
     var p = kit.el("cds-drop-button", { label: "Label", kind: "default", appearance: "accent", size: "medium" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
@@ -2125,7 +2125,7 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Kind", value: "default", options: [["default","Default"],["ghost","Ghost"]], onChange: function(v){ set("kind", v); } });
     kit.seg(panel, { label: "Appearance", value: "accent", options: [["accent","Accent"],["neutral","Neutral"],["inversed","Inversed"]],
-      onChange: function(v){ set("appearance", v); stage.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+      onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.seg(panel, { label: "Size", value: "medium", options: [["medium","Medium 48"],["small","Small 40"]], onChange: function(v){ set("size", v); } });
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
     activeSw = kit.toggle(panel, { label: "Is Active (aberto)", onChange: function(on){ set("active", on); } });
@@ -2274,10 +2274,10 @@ try {
 CDS.register({
   id: "nav-control-item", name: ".Item Nav Control", category: "Navigation", block: true, figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=19188-379",
   mount: function(ctx){
-    var kit = ctx.kit, panel = ctx.panel, wrap = kit.el("div", { style: "padding:var(--common-sizes-8);border-radius:var(--common-border-radius-small)" });
+    var kit = ctx.kit, panel = ctx.panel, wrap = kit.el("div", { style: "padding:var(--common-sizes-8)" });
     var p = kit.el("cds-nav-control-item", {}); wrap.appendChild(p); ctx.preview.appendChild(wrap);
     kit.section(panel, "Variants");
-    kit.seg(panel, { label: "Appearance", value: "accent", options: [["accent","Accent"],["inversed","Inversed"]], onChange: function(v){ kit.attr(p, "appearance", v === "accent" ? null : v); wrap.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+    kit.seg(panel, { label: "Appearance", value: "accent", options: [["accent","Accent"],["inversed","Inversed"]], onChange: function(v){ kit.attr(p, "appearance", v === "accent" ? null : v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.toggle(panel, { label: "Is Active", checked: false, onChange: function(on){ kit.attr(p, "is-active", on); } });
   }
 });
@@ -2342,12 +2342,12 @@ try {
 CDS.register({
   id: "nav-control", name: "Nav Control", category: "Navigation", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=19560-3280",
   mount: function(ctx){
-    var kit = ctx.kit, panel = ctx.panel, wrap = kit.el("div", { style: "padding:var(--common-sizes-16);border-radius:var(--common-border-radius-medium)" });
+    var kit = ctx.kit, panel = ctx.panel, wrap = kit.el("div", { style: "padding:var(--common-sizes-16)" });
     var p = kit.el("cds-nav-control", {}); wrap.appendChild(p); ctx.preview.appendChild(wrap);
     p.addEventListener("cds-change", function(e){ ctx.readout("Item " + e.detail.current + " (" + e.detail.direction + ")", false); });
     kit.hint(panel, "Só leitura: os indicadores não são clicáveis. No desktop as setas avançam em círculo. Viewport 360 = só indicadores; 744 = nada aparece (Is Mobile e Is Desktop falsos no Figma, C46).");
     kit.section(panel, "Variants");
-    kit.seg(panel, { label: "Appearance", value: "accent", options: [["accent","Accent"],["inversed","Inversed"]], hint: "Inversed vai sobre Surface/accent ou Surface/inversed (description).", onChange: function(v){ kit.attr(p, "appearance", v === "accent" ? null : v); wrap.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+    kit.seg(panel, { label: "Appearance", value: "accent", options: [["accent","Accent"],["inversed","Inversed"]], hint: "Inversed vai sobre Surface/accent ou Surface/inversed (description).", onChange: function(v){ kit.attr(p, "appearance", v === "accent" ? null : v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.range(panel, { label: "Total", min: 2, max: 10, value: 10, onInput: function(v){ p.setAttribute("total", v); } });
   }
 });
@@ -5064,8 +5064,12 @@ CDS.register({
     var sepWrap = kit.el("div", { "class": "pg-ctrl" });
     sepWrap.appendChild(kit.el("span", { "class": "pg-lbl", text: "Show Separator — depois de qual dígito" }));
     var allNone = kit.el("div", { "class": "pg-actions" });
-    kit.action(allNone, { label: "Marcar todos", onClick: function(){ sepOn = []; for (var i = 1; i < n(); i++) sepOn.push(i); buildSep(); applySeps(); } });
-    kit.action(allNone, { label: "Limpar", onClick: function(){ sepOn = []; buildSep(); applySeps(); } });
+    // Um botão só (Main Button Default · Neutral · Small): "Limpar" com todos marcados, senão "Marcar todos"
+    var allBtn = kit.button(allNone, { label: "Marcar todos", onClick: function(){
+      var all = sepOn.length === n() - 1;
+      sepOn = []; if (!all) for (var i = 1; i < n(); i++) sepOn.push(i);
+      buildSep(); applySeps();
+    } });
     sepWrap.appendChild(allNone);
     // multisseleção de verdade: Filter Chips (cada um liga/desliga)
     chips = kit.el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: "Separador depois do dígito", "class": "pg-choice" });
@@ -5077,6 +5081,7 @@ CDS.register({
     function applySeps(){
       sepOn = sepOn.filter(function(x){ return x < n(); }).sort(function(a, b){ return a - b; });
       set("separators", sepOn.length ? sepOn.join(",") : "none");
+      if (allBtn) allBtn.setAttribute("label", sepOn.length === n() - 1 ? "Limpar" : "Marcar todos");
     }
     function buildSep(){
       chips.innerHTML = "";

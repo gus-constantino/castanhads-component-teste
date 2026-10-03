@@ -27,7 +27,7 @@
   try { openCats = JSON.parse(localStorage.getItem("cds-pg-nav-open") || "{}") || {}; } catch (e) { openCats = {}; }
   function saveOpen(){ try { localStorage.setItem("cds-pg-nav-open", JSON.stringify(openCats)); } catch (e) {} }
   function navGroup(label, items, open, onToggle){
-    var acc = kit.el("cds-accordion-item", { "class": "pg-nav-cat", label: label, description: items.length + (items.length === 1 ? " componente" : " componentes"), "show-lead-item": "false", collapsed: !open });
+    var acc = kit.el("cds-accordion-item", { "class": "pg-nav-cat", label: label, description: items.length + (items.length === 1 ? " componente" : " componentes"), "show-lead-item": "false", "show-divider": "false", collapsed: !open });
     var ul = kit.el("ul", { "class": "pg-nav" });
     items.forEach(function(c){ ul.appendChild(link(c)); });
     acc.appendChild(ul); // Slot: entra antes de conectar
@@ -36,6 +36,28 @@
   }
   function searchText(){ return String(search.value || "").trim(); }
   narrow.addEventListener("change", function(){ buildNav(searchText()); });
+
+  // Menu redimensionável: alça na borda (arrastar ou setas do teclado), 200–400px, lembrada no navegador
+  (function(){
+    var side = document.querySelector(".pg-sidebar"), MIN = 200, MAX = 400, STEP = 16, KEY = "cds-pg-sidebar-w";
+    var grip = kit.el("div", { "class": "pg-resizer", role: "separator", "aria-orientation": "vertical", "aria-label": "Largura do menu", tabindex: "0", "aria-valuemin": MIN, "aria-valuemax": MAX });
+    shell.appendChild(grip); // fixo na borda do menu (o menu tem rolagem própria)
+    function apply(w){ w = Math.max(MIN, Math.min(MAX, Math.round(w))); shell.style.setProperty("--pg-sidebar-w", w + "px"); grip.setAttribute("aria-valuenow", String(w)); return w; }
+    var saved = 0; try { saved = parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) {}
+    var cur = apply(saved || side.getBoundingClientRect().width || 232);
+    function save(){ try { localStorage.setItem(KEY, String(cur)); } catch (e) {} }
+    grip.addEventListener("pointerdown", function(e){
+      e.preventDefault(); grip.setPointerCapture(e.pointerId); grip.classList.add("is-dragging");
+      var x0 = e.clientX, w0 = cur;
+      function move(ev){ cur = apply(w0 + ev.clientX - x0); }
+      function up(){ grip.removeEventListener("pointermove", move); grip.removeEventListener("pointerup", up); grip.classList.remove("is-dragging"); save(); }
+      grip.addEventListener("pointermove", move); grip.addEventListener("pointerup", up);
+    });
+    grip.addEventListener("keydown", function(e){
+      var d = e.key === "ArrowRight" ? STEP : e.key === "ArrowLeft" ? -STEP : e.key === "Home" ? MIN - cur : e.key === "End" ? MAX - cur : 0;
+      if (!d) return; e.preventDefault(); cur = apply(cur + d); save();
+    });
+  })();
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
@@ -134,6 +156,7 @@
     var def = list.filter(function(c){ return c.id === currentId(); })[0];
     buildTabs(def.id);
     preview.innerHTML = ""; panel.innerHTML = "";
+    kit.surface(preview, null); // cada componente começa na superfície padrão
     title.textContent = def.name;
     document.title = def.name + " — Castanha DS";
     links.innerHTML = "";

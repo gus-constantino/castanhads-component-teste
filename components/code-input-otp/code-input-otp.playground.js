@@ -42,8 +42,12 @@ CDS.register({
     var sepWrap = kit.el("div", { "class": "pg-ctrl" });
     sepWrap.appendChild(kit.el("span", { "class": "pg-lbl", text: "Show Separator — depois de qual dígito" }));
     var allNone = kit.el("div", { "class": "pg-actions" });
-    kit.action(allNone, { label: "Marcar todos", onClick: function(){ sepOn = []; for (var i = 1; i < n(); i++) sepOn.push(i); buildSep(); applySeps(); } });
-    kit.action(allNone, { label: "Limpar", onClick: function(){ sepOn = []; buildSep(); applySeps(); } });
+    // Um botão só (Main Button Default · Neutral · Small): "Limpar" com todos marcados, senão "Marcar todos"
+    var allBtn = kit.button(allNone, { label: "Marcar todos", onClick: function(){
+      var all = sepOn.length === n() - 1;
+      sepOn = []; if (!all) for (var i = 1; i < n(); i++) sepOn.push(i);
+      buildSep(); applySeps();
+    } });
     sepWrap.appendChild(allNone);
     // multisseleção de verdade: Filter Chips (cada um liga/desliga)
     chips = kit.el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: "Separador depois do dígito", "class": "pg-choice" });
@@ -55,6 +59,7 @@ CDS.register({
     function applySeps(){
       sepOn = sepOn.filter(function(x){ return x < n(); }).sort(function(a, b){ return a - b; });
       set("separators", sepOn.length ? sepOn.join(",") : "none");
+      if (allBtn) allBtn.setAttribute("label", sepOn.length === n() - 1 ? "Limpar" : "Marcar todos");
     }
     function buildSep(){
       chips.innerHTML = "";

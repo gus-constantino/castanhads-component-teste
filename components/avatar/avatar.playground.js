@@ -4,7 +4,7 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=2278-92",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium);" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16);" });
     var p = kit.el("cds-avatar", { kind: "default", appearance: "neutral", size: "small", label: "AA", src: "assets/brand/sample-photo.svg" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
@@ -12,7 +12,7 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Kind", value: "default", options: [["default","Default"],["initial","Initial"],["image","Image"]], onChange: function(v){ set("kind", v); } });
     kit.seg(panel, { label: "Appearance", value: "neutral", options: [["neutral","Neutral"],["inversed","Inversed"]],
-      hint: "Inversed é para fundo escuro: o preview ganha fundo inverso.", onChange: function(v){ set("appearance", v); stage.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+      hint: "Inversed é para fundo escuro: o preview ganha fundo inverso.", onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.seg(panel, { label: "Size", value: "small", options: [["small","Small 40"],["medium","Medium 48"],["large","Large 64"]], onChange: function(v){ set("size", v); } });
     kit.section(panel, "Texts");
     kit.text(panel, { label: "Text Label (Initial)", value: "AA", onInput: function(v){ p.setAttribute("label", v); } });

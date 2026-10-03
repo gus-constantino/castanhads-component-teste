@@ -4,13 +4,13 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4926-213",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-8) var(--common-sizes-16); border-radius:var(--common-border-radius-medium);" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-8) var(--common-sizes-16);" });
     var p = kit.el("cds-link", { label: "Link content", href: "#/link", appearance: "neutral" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Appearance", value: "neutral", options: [["neutral","Neutral"],["accent","Accent"],["inversed","Inversed"]],
-      onChange: function(v){ set("appearance", v); stage.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+      onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
     kit.hint(panel, "Hovered (sublinhado) e Pressed (Label/Bold + sublinhado) são estados de interação.");
     kit.section(panel, "Booleans");

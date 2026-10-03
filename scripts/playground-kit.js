@@ -294,6 +294,14 @@
     return p;
   }
 
+  /** Superfície do preview: pinta o frame inteiro (a caixa com "Viewport" e "Valor"), não um retângulo em volta.
+   *  Fundo Inversed/Accent troca o texto do frame para Text/inversed. null volta ao padrão. */
+  function surface(preview, bg){
+    var frame = preview && (preview.closest(".pg-frame") || preview.parentNode); if (!frame) return;
+    frame.style.background = bg || "";
+    frame.classList.toggle("is-dark", !!bg && /inversed|accent/.test(bg));
+  }
+
   /** Liga/desliga um atributo no elemento de preview. */
   /**
    * Playground padrão dos overlays (Modal · Drawer · Bottom Sheet).
@@ -328,5 +336,5 @@
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, action: action, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, action: action, surface: surface, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
 })();

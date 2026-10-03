@@ -4,7 +4,7 @@ CDS.register({
   figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4464-636",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium);" });
+    var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16);" });
     var p = kit.el("cds-icon-button", { icon: "placeholder-line", kind: "default", appearance: "accent", size: "medium", label: "Ação" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
@@ -13,7 +13,7 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Kind", value: "default", options: [["default","Default"],["ghost","Ghost"]], onChange: function(v){ set("kind", v); } });
     kit.seg(panel, { label: "Appearance", value: "accent", options: [["accent","Accent"],["neutral","Neutral"],["inversed","Inversed"]],
-      onChange: function(v){ set("appearance", v); stage.style.background = v === "inversed" ? "var(--common-colors-surface-inversed)" : ""; } });
+      onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.seg(panel, { label: "Size", value: "medium", options: [["medium","Medium 48"],["small","Small 40"]], onChange: function(v){ set("size", v); } });
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
     kit.hint(panel, "Hovered e Pressed são estados de interação.");

@@ -1,13 +1,19 @@
 /* Documentação — Credit Card Input
-   Fonte: frame [Documentação] Credit Card Input · branch NHkGUvBfNMNTLnsxKtAmWa · node 24931:7981
-   Só dados: o kit (scripts/docs-kit.js) monta as tabs. Specimens seguem o frame do Figma, inclusive as props trocadas (CONFERIR.md). Frames ocultos no Figma (Casos de exceção,
-   Do's com lorem ipsum) ficaram de fora. */
+   Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 7057:23774 · frame [Documentação] Credit Card Input (7057:27369)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
+   Oculto no Figma e de fora: comparação "Text Input vs Credit Card Input", subtítulos Viewport/Accent de Estilos, "Casos de exceção"
+   (lorem ipsum), os 3 Do/Don'ts com lorem ipsum e a nota de reduced motion.
+   Gaps: o Don't "Senha" usa valor com letras (aBC123@@), que a máscara só de dígitos não aceita: aparece como placeholder.
+   O Component Display de Motion é uma ilustração (não o componente) e a linha "—" da tabela de Motion ficaram de fora. */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 CDS.docs["credit-card-input"] = {
   tag: "cds-credit-card-input",
   base: { value: "1234567890123456", supporting: "Supporting Message", error: "Error Message" },
-  source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/NHkGUvBfNMNTLnsxKtAmWa/-CastanhaDS--Components?node-id=24931-7981",
+  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=7057-23774",
+  // Capa (frame [Header] do Figma), acima das tabs
+  cover: { description: "Campo para inserir o número de um cartão de crédito.",
+    attrs: { label: "Número do cartão de crédito", "show-required": false, supporting: "Mensagem de apoio" } },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
       { h2: "Sobre" },
@@ -25,19 +31,13 @@ CDS.docs["credit-card-input"] = {
       { h3: "Utilize para:" },
       { ul: ["Informar o número do cartão num checkout / pagamento", "Cadastrar ou atualizar um cartão salvo", "Validar os dados de um cartão antes de concluir a transação"] },
       { h3: "Não utilize para:" },
-      { ul: ["Validade ou CVV — use campos próprios", "Texto ou números genéricos — use o Text Input", "Senha ou PIN — use o Password Input ou o Code Input OTP"] },
-      { h3: "Text Input vs Credit Card Input" },
-      { p: "O Text Input recebe texto livre de comprimento variável. O Credit Card Input é especializado no número de cartão — máscara em grupos, bandeira e comprimento conhecido; use-o só para o número do cartão." },
-      { compare: [
-        { title: "Text Input", empty: "Text Input entra no Lote 4" },
-        { title: "Credit Card Input", attrs: { label: "Número do cartão" } }
-      ] }
+      { ul: ["Validade ou CVV — use campos próprios", "Texto ou números genéricos — use o Text Input", "Senha ou PIN — use o Password Input ou o Code Input OTP"] }
     ] },
 
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
       { anatomy: {
-        attrs: { label: "Número do cartão", "show-required": true },
+        attrs: { label: "Número do cartão" },
         markers: [
           { n: 1, target: ".cds-tf__label", side: "left" },
           { n: 2, target: ".cds-tf__box", side: "left" },
@@ -59,15 +59,15 @@ CDS.docs["credit-card-input"] = {
     { id: "estilos", title: "Estilos", blocks: [
       { h2: "Estilos" },
       { specimens: { title: "Estados do campo", items: [
-        { label: "Enabled", attrs: { label: "Label" } },
-        { label: "Hovered", attrs: { label: "Label", state: "hovered" } },
-        { label: "Pressed", attrs: { label: "Label", state: "pressed" } },
-        { label: "Is Active", attrs: { label: "Label", disabled: true } }
+        { label: "Enabled", attrs: { label: "Label", value: "" } },
+        { label: "Hovered", attrs: { label: "Label", value: "", state: "hovered" } },
+        { label: "Pressed", attrs: { label: "Label", value: "", state: "pressed" } },
+        { label: "Is Active", attrs: { label: "Label", value: "", placeholder: "", "is-active": true } }
       ] } },
       { specimens: { title: "Appearance × State", items: [
         { label: "Neutral · Enabled", attrs: { label: "Label" } },
         { label: "Neutral · Disabled", attrs: { label: "Label", disabled: true } },
-        { label: "Warning · Enabled", attrs: { label: "Label", appearance: "warning", state: "pressed" } },
+        { label: "Warning · Enabled", attrs: { label: "Label", appearance: "warning" } },
         { label: "Warning · Disabled", attrs: { label: "Label", appearance: "warning", disabled: true } }
       ] } }
     ] },
@@ -84,7 +84,7 @@ CDS.docs["credit-card-input"] = {
       ] },
       { h3: "Ordem de leitura" },
       { ol: ["Label do campo", "Indicador obrigatório, quando presente", "Campo de número do cartão (valor ou placeholder)", "Ícone de apoio (Icon Button), quando presente", "Mensagem de apoio ou de erro"] },
-      { h2: "Contraste (WCAG)" },
+      { h3: "Contraste (WCAG)" },
       { ol: [
         "Texto (Label, valor, apoio): 8,2:1 a 17:1 — AA e AAA.",
         "Warning (#974602) sobre o fundo: 6,4:1 — AA.",
@@ -109,11 +109,13 @@ CDS.docs["credit-card-input"] = {
       { dodont: [
         { kind: "do", attrs: { label: "Número do cartão de crédito", "show-required": false, "show-supporting-content": false, "show-trailing-item": false },
           text: "Número de cartão mascarado em grupos (#### #### #### ####)." },
-        { kind: "dont", attrs: { label: "Senha", supporting: "Digite sua senha", "show-trailing-item": false },
+        // Figma: valor "aBC123@@" (preenchido); a máscara só aceita dígitos, então aparece como placeholder
+        { kind: "dont", attrs: { label: "Senha", value: "", placeholder: "aBC123@@" },
           text: "CPF, telefone ou texto livre — use o Text Input." },
-        { kind: "do", attrs: { label: "Número do cartão de crédito", "show-required": false, supporting: "Mensagem de apoio", "show-trailing-item": false },
+        { kind: "do", attrs: { label: "Código de verificação", "show-required": false, supporting: "Mensagem de apoio" },
           text: "Utilize a mensagem de suporte e o Trailing Item para contextualizar o usuário." },
-        { kind: "dont", attrs: { label: "CVV", "show-supporting-content": false }, style: "width:138px",
+        { kind: "dont", attrs: { label: "CVV", value: "123", "show-required": false, "show-lead-icon": false, "show-supporting-content": false },
+          style: "width:calc(var(--common-sizes-120) + var(--common-sizes-14))",
           text: "Validade ou CVV neste campo — use campos próprios." }
       ] }
     ] },
@@ -121,12 +123,10 @@ CDS.docs["credit-card-input"] = {
     { id: "motion", title: "Motion", blocks: [
       { h2: "Motion" },
       { p: "As transições de estado do campo usam os Motion Styles do Castanha (modo Normal)." },
-      { display: { attrs: { label: "Número do cartão", "show-required": false, value: "" }, live: true } },
-      { note: "Exemplo interativo: passe o mouse, pressione e foque o campo para ver cada transição." },
       { specs: [
-        { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
-        { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
-        { title: "Pressed → Is Active", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"]] }
+        { title: "Hover In", rows: [["Easing", "`0.7, 0, 0.5, 1`"], ["Duration", "150ms"]] },
+        { title: "Pressed", rows: [["Easing", "`0.7, 0, 0.8, 1`"], ["Duration", "200ms"]] },
+        { title: "Selected In", rows: [["Easing", "`0.4, 0, 0.1, 1`"], ["Duration", "350ms"]] }
       ] }
     ] }
   ]

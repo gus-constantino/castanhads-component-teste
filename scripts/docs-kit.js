@@ -7,7 +7,7 @@
  *     tag: "cds-credit-card-input",       // componente usado nos exemplos
  *     base: { label: "…" },               // atributos comuns a todos os exemplos
  *     source: "https://figma…",           // frame [Documentação] no Figma
- *     cover: { attrs },                   // opcional: capa acima das tabs (frame [Header])
+ *     cover: { description, attrs | examples: [attrs…] | image, tall }   // opcional: capa acima das tabs (frame [Header])
  *     tabs: [{ id: "uso", title: "Uso", blocks: [ { h2: "Sobre" }, { p: "…" }, … ] }]
  *   };
  *
@@ -17,7 +17,7 @@
  *   cards: [[título, texto], …]           grade de princípios
  *   display: { attrs, live }              caixa de exibição com um exemplo
  *   compare: [{ title, attrs | empty }]   exemplos lado a lado
- *   anatomy: { attrs, markers: [{ n, target, side }], legend: [...] }
+ *   anatomy: { attrs, markers: [{ n, target, side: left|right|top|bottom, align: "start", long: true }], legend: [...] }
  *   props: [{ name, type, icon, nested: [{ name, type, values }] }]
  *   specimens: { title, min, items: [{ label, attrs }] }   min = largura mínima da coluna
  *   guides: [{ attrs, title, text }]
@@ -28,6 +28,7 @@
  *   illustrationGallery: {}             galeria do [Caju] Illustrations por categoria (imagens com lazy load), busca por nome, categoria e description
  *
  * Em display, compare, guides e dodont, `attrs` pode ser uma lista (vários exemplos na mesma caixa).
+ * attrs especiais: `_tag` (outro componente), `_text` (texto), `_children: [attrs…]` (filhos montados antes de conectar).
  * Props aceitam `values` (lista sob o nome, ex.: opções da Variant ou o Padrão do texto).
  * Exemplos estáticos ficam com `inert` (sem hover, foco ou tab); `live: true` os deixa interativos.
  */
@@ -71,13 +72,18 @@
     return l;
   }
 
+  // attrs especiais: _tag (outro componente do DS no lugar de doc.tag; não herda doc.base), _text (texto do elemento),
+  // _children: [attrs, …] (filhos, ex.: Accordion Item dentro do Accordion; entram antes de conectar o pai)
   function example(doc, attrs, live){
-    var c = document.createElement(doc.tag), all = Object.assign({}, doc.base || {}, attrs || {});
+    var a = attrs || {}, tag = a._tag || doc.tag;
+    var c = document.createElement(tag), all = Object.assign({}, a._tag ? {} : doc.base || {}, a);
     Object.keys(all).forEach(function(k){
       var v = all[k];
-      if (v == null) return;
+      if (v == null || k.charAt(0) === "_") return;
       c.setAttribute(k, v === true ? "" : v === false ? "false" : v); // false → "false" (booleans do Figma ligados por padrão)
     });
+    if (a._text != null) c.textContent = a._text;
+    (a._children || []).forEach(function(ch){ c.appendChild(example({ tag: ch._tag || "div" }, ch, true)); });
     if (!live) c.inert = true;
     return c;
   }
@@ -109,6 +115,7 @@
       var part = (b.legend || [])[m.n - 1];
       if (part && window.CDS.kit) CDS.kit.lazyTip(num, String(part).replace(/`/g, ""), { focus: false, container: wrap }); // fora do marcador: o transform dele quebraria o position:fixed do Tooltip
       mk.appendChild(el("span", "pg-doc-mark__line"));
+      if (m.long) mk.classList.add("is-long"); // seta mais longa: número abaixo/acima de outro marcador vizinho
       stage.appendChild(mk);
       return { m: m, el: mk };
     });
@@ -131,7 +138,10 @@
         mk.hidden = false; mk.style.left = mk.style.top = mk.style.right = "";
         if (x.m.side === "left"){ mk.style.right = (s.right - r.left + gap) + "px"; mk.style.top = (r.top - s.top + r.height / 2) + "px"; }
         else if (x.m.side === "right"){ mk.style.left = (r.right - s.left + gap) + "px"; mk.style.top = (r.top - s.top + r.height / 2) + "px"; }
-        else { mk.style.left = (r.left - s.left + Math.min(r.width / 2, 56)) + "px"; mk.style.top = (r.bottom - s.top + gap) + "px"; }
+        // top/bottom: align "start" encosta a seta na borda esquerda da parte (para não colidir com outra no centro)
+        var bx = x.m.align === "start" ? r.left - s.left + 4 : r.left - s.left + Math.min(r.width / 2, 56);
+        if (x.m.side === "top"){ mk.style.left = bx + "px"; mk.style.top = (r.top - s.top - gap) + "px"; }
+        else if (x.m.side === "bottom"){ mk.style.left = bx + "px"; mk.style.top = (r.bottom - s.top + gap) + "px"; }
       });
     }
     requestAnimationFrame(function(){ requestAnimationFrame(place); });
@@ -451,9 +461,18 @@
     root.innerHTML = "";
     root.hidden = !(doc && doc.cover);
     if (root.hidden) return;
-    // moldura interna = frame do Figma (Surface/default, raio big), não um componente: só tokens
-    var frame = el("div", "pg-cover__frame");
-    frame.appendChild(example(doc, doc.cover.attrs, true)); // exemplo vivo: hover e pressed funcionam na capa
+    var cv = doc.cover;
+    root.classList.toggle("is-image", !!cv.image);
+    if (cv.image){
+      // capa com mockup de produto (imagem exportada do [Header] inteiro, já com fundo e forma)
+      var img = el("img", "pg-cover__img"); img.decoding = "async"; img.alt = cv.alt || "";
+      img.onerror = function(){ root.hidden = true; }; // PNG ainda não exportado: sem capa até o arquivo existir
+      img.src = cv.image;
+      root.appendChild(img); return;
+    }
+    // moldura interna = frame do Figma (Surface/default), não um componente: só tokens
+    var frame = el("div", "pg-cover__frame" + (cv.tall ? " is-tall" : ""));
+    (cv.examples || [cv.attrs]).forEach(function(a){ frame.appendChild(example(doc, a, true)); }); // exemplos vivos
     root.appendChild(frame);
   };
 

@@ -1,13 +1,21 @@
 /* Documentação — Code Input OTP
-   Fonte: frame [Documentação] Code Input OTP · branch PfeMbrThCwzwJFFo2GiAbW · node 24764:9893
-   Só dados: o kit (scripts/docs-kit.js) monta as tabs. Acessibilidade está oculta no frame: a tab vem das annotations
-   de Accessibility do set e do handoff de dev (Q26). Casos de exceção e Do's extras (ocultos) ficaram de fora. */
+   Fonte: [CastanhaDS] Component use documentation · seção 7057:17597 · frame [Documentação] Code Input OTP (7057:17641)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Substitui a doc legada (branch PfeMbrThCwzwJFFo2GiAbW, node 24764:9893).
+   Ocultos no Figma: comparação "Text Input vs Code Input OTP" (de fora), Acessibilidade (só placeholder "Tópico 1 / Ordem de leitura" → tab com nota),
+   "Casos de exceção" (lorem ipsum, de fora) e 3 Do/Don'ts extras (lorem ipsum, de fora).
+   Gaps: Estados da célula no Figma são de um `.Value Box` isolado (o componente tem no mínimo 3 células); Motion traz uma ilustração no lugar do exemplo
+   (aqui: exemplo vivo do componente) e uma linha "—" vazia na tabela (de fora). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 CDS.docs["code-input-otp"] = {
   tag: "cds-code-input",
   base: { length: "6", supporting: "Supporting Message", error: "Error Message" },
-  source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/PfeMbrThCwzwJFFo2GiAbW/-CastanhaDS--Components?node-id=24764-9893",
+  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=7057-17597",
+  // Capa (frame [Header] do Figma): Neutral preenchido + Warning com Hidden Values
+  cover: { description: "Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador.", examples: [
+    { label: "Código de autenticação", "show-required": false, value: "483920" },
+    { label: "Código de autenticação", "show-required": false, value: "483920", appearance: "warning", masked: true }
+  ] },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
       { h2: "Sobre" },
@@ -45,9 +53,9 @@ CDS.docs["code-input-otp"] = {
       { h2: "Propriedades" },
       { props: [
         { name: "Value Box", type: "Variant" },
-        { name: "Visibility Action", icon: "hide-line", nested: [{ name: "Appearance", type: "Variant", values: ["Neutral", "Warning"] }] }
+        { name: "Visibility Action", icon: "go-line", nested: [{ name: "Appearance", type: "Variant", values: ["Neutral", "Warning"] }] }
       ] },
-      { note: "Quantidade de células, tipo (numérico/alfanumérico), separadores e máscara podem ser testados na tab Playground." }
+      { note: "Todas as props podem ser testadas na tab Playground." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
@@ -58,7 +66,7 @@ CDS.docs["code-input-otp"] = {
         { label: "Pressed", attrs: { length: "3", value: "A1b", state: "pressed", "show-label": false, "show-supporting-content": false, "show-trailing-item": false } },
         { label: "Is Active", attrs: { length: "3", value: "A1b", "is-active": true, "show-label": false, "show-supporting-content": false, "show-trailing-item": false } }
       ] } },
-      { note: "No Figma os estados são do `.Value Box` (uma célula). Aqui o estado forçado vale para todas as células de um campo de 3." },
+      { note: "No Figma os estados são de um `.Value Box` (uma célula, valor A). Aqui o estado forçado vale para todas as células de um campo de 3, o mínimo do componente." },
       { specimens: { title: "Appearance × State", items: [
         { label: "Neutral · Enabled", attrs: { label: "Label", value: "1A2b3#" } },
         { label: "Neutral · Disabled", attrs: { label: "Label", value: "1A2b3#", disabled: true } },
@@ -68,38 +76,8 @@ CDS.docs["code-input-otp"] = {
     ] },
 
     { id: "acessibilidade", title: "Acessibilidade", blocks: [
-      { h2: "Leitor de tela" },
-      { h3: "Como é anunciado" },
-      { ol: [
-        "As células formam um grupo (`role=\"group\"`) com o rótulo do campo. ex.: Código de verificação.",
-        "Cada célula é um campo de 1 caractere com nome de posição. ex.: dígito 1 de 6.",
-        "No Warning, as células ficam com `aria-invalid` e a `Error Message` é associada por `aria-describedby`.",
-        "A `Error Message` é anunciada por região dinâmica quando aparece.",
-        "A Visibility Action é um toggle (`aria-pressed`): Mostrar código quando mascarado, Ocultar código quando visível.",
-        "O estado desabilitado é anunciado como indisponível (`aria-disabled`) e todas as células saem da tabulação."
-      ] },
-      { h3: "Ordem de leitura" },
-      { ol: ["Label do campo", "Indicador obrigatório, quando presente", "Células, da primeira à última", "Visibility Action, quando presente", "Mensagem de apoio ou de erro"] },
-      { h2: "Teclado e preenchimento" },
-      { ul: [
-        "Digitar avança o foco para a próxima célula; Backspace volta.",
-        "Setas, Home e End navegam entre as células.",
-        "Colar distribui o código entre as células.",
-        "Um único ponto de tabulação entra e sai do conjunto.",
-        "A primeira célula tem `autocomplete=\"one-time-code\"`, para o autofill de SMS.",
-        "No tipo numérico, `inputmode=\"numeric\"` abre o teclado de números.",
-        "Foco visível segue o padrão global do Castanha; não é variant do componente."
-      ] },
-      { h2: "Contraste (WCAG)" },
-      { ol: [
-        "Dígito, Label e mensagem de apoio: 8,24:1 a 16,96:1 — AA e AAA.",
-        "Warning (#974602) sobre o fundo: 6,41:1 — AA.",
-        "Borda ativa (`Border/intense`): 16,96:1.",
-        "Borda em repouso (`Border/semi-soft`) e hover (`Border/medium`): abaixo de 3:1. A célula se distingue pela fileira e pelo dígito.",
-        "Erro comunicado por borda e texto, nunca só por cor (1.4.1).",
-        "Estado desabilitado: isento do critério 1.4.3."
-      ] },
-      { note: "Fonte: annotations de Accessibility do set 24060:7228 e seção Acessibilidade do handoff de dev (`HANDOFF_CodeInputOTP_DEV.md`). A seção está oculta no frame de documentação do Figma." }
+      { h2: "Acessibilidade" },
+      { note: "Sem conteúdo no Figma para esta seção." }
     ] },
 
     { id: "diretrizes", title: "Diretrizes", blocks: [
@@ -117,7 +95,7 @@ CDS.docs["code-input-otp"] = {
       { dodont: [
         { kind: "do", attrs: { label: "Código de autenticação", "show-required": false, value: "904271", separators: "3" },
           text: "Código curto, numérico ou alfanumérico (ex.: 6 dígitos de SMS)." },
-        { kind: "dont", attrs: { label: "Senha", value: "482913", masked: true },
+        { kind: "dont", attrs: { label: "Senha", value: "145290", masked: true },
           text: "Senha ou texto livre — use Password Input ou Text Input." },
         { kind: "do", attrs: { label: "Código de verificação", "show-required": false, value: "516203", separators: "3" },
           text: "Código de verificação curto (2FA, confirmação)." },
@@ -132,10 +110,11 @@ CDS.docs["code-input-otp"] = {
       { display: { attrs: { label: "Código", "show-required": false }, live: true } },
       { note: "Exemplo interativo: passe o mouse, pressione e foque uma célula para ver cada transição." },
       { specs: [
-        { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
-        { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
-        { title: "Pressed → Is Active", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"]] }
-      ] }
+        { title: "Hover In", rows: [["Easing", "`0.7, 0, 0.5, 1`"], ["Duration", "150ms"]] },
+        { title: "Pressed", rows: [["Easing", "`0.7, 0, 0.8, 1`"], ["Duration", "200ms"]] },
+        { title: "Selected In", rows: [["Easing", "`0.4, 0, 0.1, 1`"], ["Duration", "350ms"]] }
+      ] },
+      { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (a `.Motion Styles` não tem modo Reduced tokenizado — tratamento no código)." }
     ] }
   ]
 };

@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 220 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 227 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -4573,6 +4573,140 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/accordion-item/accordion-item.playground.js", e); }
 
+/* ==== components/accordion-item/accordion-item.docs.js ==== */
+try {
+/* Documentação — Accordion Item
+   Fonte: [CastanhaDS] Component use documentation · seção 7073:28317 · frame [Documentação] Accordion Item (7073:30979)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
+   Capa: o [Header] (7073:28385) é único para Accordion e Accordion Item e mostra um Accordion (12 itens, o 2º aberto);
+   aqui ele aparece igual, via _tag "cds-accordion" + _children.
+   Oculto no Figma e de fora: comparação "Content List Item vs Accordion Item" (Uso), títulos "Viewport"/"Accent" (Estilos),
+   Acessibilidade (só placeholder "Tópico 1 / Ordem de leitura"), "Casos de exceção" (lorem ipsum), nota de Reduced motion
+   e os 3 Do/Don'ts lorem ipsum.
+   Gaps: o Slot vazio do Figma tem 82px; no código um Slot vazio não ocupa altura. As etiquetas de tipo das props no Figma
+   dizem todas "Variant"; aqui seguem o componente (Show Lead Item/Show Divider = Boolean, Slot = Slot → "Swap component"). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+(function(){
+  // itens do [Header]: 4 perguntas repetidas 3 vezes (12 itens), só o 2º aberto, sem Lead Item, Divider nem Description
+  var faq = ["Como funciona o reembolso?", "Quando recebo o benefício?", "Posso transferir o saldo?", "Onde uso o cartão?"];
+  var headerItems = [];
+  for (var i = 0; i < 12; i++) headerItems.push({ _tag: "cds-accordion-item", label: faq[i % 4], collapsed: i !== 1 || null, "show-description": false, "show-lead-item": false, "show-divider": false });
+
+  CDS.docs["accordion-item"] = {
+    tag: "cds-accordion-item",
+    base: {},
+    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=7073-28317",
+    // Capa (frame [Header] Accordion, compartilhado com a doc do Accordion): moldura alta e cortada embaixo
+    cover: { description: "Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido.", tall: true,
+      attrs: { _tag: "cds-accordion", _children: headerItems } },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido. Faz parte da família Accordion Lists — vários itens são arranjados pelo conjunto Accordion." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Disclosure item, accordion panel, painel expansível, expander, seção retrátil." },
+        { h3: "Princípios" },
+        { cards: [
+          ["Revelar sob demanda", "O conteúdo extra fica no Slot, oculto até a pessoa expandir — reduz a carga visual e deixa a leitura previsível."],
+          ["Título claro e curto", "O header (Label + Description) resume o que há dentro, pra pessoa prever o conteúdo antes de abrir."],
+          ["Estado além da cor", "O chevron (open/close) e a revelação do conteúdo sinalizam expandido ou recolhido — não dependa só de cor."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Utilize o Accordion Item para organizar conteúdo extenso em seções que a pessoa abre sob demanda, agrupando informação secundária sem tirá-la da página." },
+        { h3: "Utilize para:" },
+        { ul: ["Perguntas frequentes (FAQ)", "Detalhes de um pedido ou resumo expansível", "Formulários longos agrupados por tema ou etapa"] },
+        { h3: "Não utilize para:" },
+        { ul: ["Informação essencial que deve estar sempre visível", "Navegação entre páginas ou seções — use Link ou Botão", "Alternar um estado imediato — use Switch"] }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: {
+          attrs: {},
+          markers: [
+            { n: 1, target: ".cds-acc__lead", side: "left" },
+            { n: 2, target: ".cds-acc__text", side: "bottom" },
+            { n: 3, target: ".cds-acc__chev", side: "right" },
+            { n: 4, target: ".cds-acc__panel", side: "bottom" },
+            { n: 5, target: ".cds-acc__divider", side: "bottom" }
+          ],
+          legend: ["Lead Item (opcional)", "Label + Description", "Ícone indicador (chevron)", "Slot (conteúdo revelado)", "Divider (opcional)"]
+        } },
+        { h2: "Composição do componente" },
+        { p: "O Accordion Item é composto por um header — .Lead Item (opcional), .Text Content (Label + Description) e o ícone indicador (dropdown-open/close-line) — mais o Slot que recebe o conteúdo revelado e um Divider opcional. Vários itens são arranjados pelo conjunto Accordion." },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "State", type: "Variant" },
+          { name: "Kind", type: "Variant", values: ["Default", "Card"] },
+          { name: "Is Collapsed", type: "Variant" },
+          { name: "Show Lead Item", type: "Boolean" },
+          { name: "Show Divider", type: "Boolean" },
+          { name: "Slot", type: "Swap component" }
+        ] },
+        { note: "Todas as props podem ser testadas na tab Playground." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Estilos" },
+        { specimens: { title: "Estados do item", items: [
+          { label: "Enabled", attrs: {} },
+          { label: "Hovered", attrs: { state: "hovered" } },
+          { label: "Pressed", attrs: { state: "pressed" } },
+          { label: "Disabled", attrs: { disabled: true } }
+        ] } },
+        { specimens: { title: "Kind × State", items: [
+          { label: "Default · Enabled", attrs: {} },
+          { label: "Default · Disabled", attrs: { disabled: true } },
+          { label: "Card · Enabled", attrs: { kind: "card" } },
+          { label: "Card · Disabled", attrs: { kind: "card", disabled: true } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Acessibilidade" },
+        { note: "Sem conteúdo no Figma para esta seção." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes" },
+        { guides: [
+          { attrs: { collapsed: true }, title: "Use para conteúdo secundário, não essencial",
+            text: "O accordion esconde conteúdo atrás de um clique. Reserve-o para informação complementar; o que é essencial deve ficar sempre visível." },
+          { attrs: {}, title: "Sinalize o estado além da cor",
+            text: "O chevron (aberto/fechado) e a revelação do conteúdo indicam o estado — não dependa só de cor pra mostrar se está expandido." },
+          { attrs: {}, title: "Títulos curtos e escaneáveis",
+            text: "Escreva labels curtos e descritivos; a pessoa precisa prever o conteúdo de cada seção antes de abrir." }
+        ] },
+        { h2: "Do's and Don'ts" },
+        { h3: "Conteúdo" },
+        { dodont: [
+          { kind: "do", attrs: { collapsed: true, "lead-icon": "support-line", label: "Perguntas frequentes", "show-description": false },
+            text: "Seção de conteúdo secundário que pode ficar recolhida (FAQ, detalhes de um pedido)." },
+          { kind: "dont", attrs: { collapsed: true, "lead-icon": "balance-line", label: "Saldo disponível", description: "R$ 1.240,00" },
+            text: "Informação essencial — mantenha sempre visível, não esconda atrás de um clique." },
+          { kind: "do", attrs: { collapsed: true, "lead-icon": "file-text-error-line", label: "Política de cancelamento", description: "Resumo em uma linha" },
+            text: "Título curto que resume o conteúdo da seção." },
+          { kind: "dont", attrs: { collapsed: true, "lead-icon": "settings-line", label: "Ir para Configurações", "show-description": false },
+            text: "Como navegação entre páginas ou seções — use Link ou Botão." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "As transições de estado do Accordion Item usam os Motion Styles do Castanha (modo Normal)." },
+        { specs: [
+          { title: "Hover In/01", rows: [["Motion Style", "`Motion Style/Hover In/01`"], ["Easing", "0.7, 0, 0.5, 1"], ["Duration", "150ms"]] },
+          { title: "Pressed/01", rows: [["Motion Style", "`Motion Style/Pressed/01`"], ["Easing", "0.7, 0, 0.8, 1"], ["Duration", "200ms"]] },
+          { title: "Selected In/01", rows: [["Motion Style", "`Motion Style/Selected In/01`"], ["Easing", "0.4, 0, 0.1, 1"], ["Duration", "350ms"]] },
+          { title: "Selected Out/01", rows: [["Motion Style", "`Motion Style/Selected Out/01`"], ["Easing", "0.4, 0, 0.1, 1"], ["Duration", "200ms"]] }
+        ] }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/accordion-item/accordion-item.docs.js", e); }
+
 /* ==== components/accordion/accordion.js ==== */
 try {
 /**
@@ -4637,6 +4771,127 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/accordion/accordion.playground.js", e); }
+
+/* ==== components/accordion/accordion.docs.js ==== */
+try {
+/* Documentação — Accordion
+   Fonte: [CastanhaDS] Component use documentation · seção 7073:28317 · frame [Documentação] Accordion (7073:31441)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Sem filhos, o <cds-accordion> desenha a amostra do Figma
+   (12 itens "Label/Description" recolhidos), igual às instâncias da doc; com textos próprios, os itens vão em _children.
+   Oculto no Figma e de fora: comparação "Content List vs Accordion" (Uso), props State/Is Collapsed/Show Lead Item/Show Divider/Slot
+   (só Kind está visível), "Estados do item" e os specimens Disabled (Estilos), Acessibilidade (só placeholder), "Casos de exceção"
+   (lorem ipsum), nota de Reduced motion e os 3 Do/Don'ts lorem ipsum.
+   Gaps: o [Header] tem o Accordion com 544 de largura; no código ele tem 320 (Fixed no Figma do componente).
+   Nos Do/Don'ts o Figma repete 4 títulos 3 vezes (12 itens, cortados); aqui cada exemplo mostra os 4 títulos uma vez. */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+(function(){
+  // Accordion Items com os títulos dados (sem Description, como no Figma); opts: atributos comuns aos itens
+  function items(labels, opts, open){
+    return labels.map(function(l, i){
+      return Object.assign({ _tag: "cds-accordion-item", label: l, collapsed: i === open ? null : true, "show-description": false }, opts);
+    });
+  }
+  var faq = ["Como funciona o reembolso?", "Quando recebo o benefício?", "Posso transferir o saldo?", "Onde uso o cartão?"];
+  var noLeadNoDiv = { "show-lead-item": false, "show-divider": false };
+
+  CDS.docs["accordion"] = {
+    tag: "cds-accordion",
+    base: {},
+    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=7073-28317",
+    // Capa (frame [Header] Accordion): 12 itens (4 perguntas × 3), o 2º aberto; moldura alta e cortada embaixo
+    cover: { description: "O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda.", tall: true,
+      attrs: { _children: items(faq.concat(faq, faq), noLeadNoDiv, 1) } },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda. Faz parte das Accordion Lists, no padrão de Content Lists e Selection Lists." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Accordion, lista expansível, grupo de seções retráteis, accordion group." },
+        { h3: "Princípios" },
+        { cards: [
+          ["Revelar sob demanda", "O conteúdo extra fica no Slot, oculto até a pessoa expandir — reduz a carga visual e deixa a leitura previsível."],
+          ["Título claro e curto", "O header (Label + Description) resume o que há dentro, pra pessoa prever o conteúdo antes de abrir."],
+          ["Estado além da cor", "O chevron (open/close) e a revelação do conteúdo sinalizam expandido ou recolhido — não dependa só de cor."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Utilize o Accordion para agrupar conteúdo extenso em seções expansíveis, mostrando só os títulos até a pessoa abrir cada uma." },
+        { h3: "Utilize para:" },
+        { ul: ["Perguntas frequentes (FAQ)", "Detalhes de um pedido ou resumo expansível", "Formulários longos agrupados por tema ou etapa"] },
+        { h3: "Não utilize para:" },
+        { ul: ["Informação essencial que deve estar sempre visível", "Navegação entre páginas ou seções — use Link ou Botão", "Alternar um estado imediato — use Switch"] }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: {
+          attrs: {},
+          markers: [
+            { n: 1, target: "cds-accordion-item:first-child", side: "left" },
+            { n: 2, target: "cds-accordion-item:first-child .cds-acc__divider", side: "right" }
+          ],
+          legend: ["Accordion Item (seções empilhadas)", "Espaçamento entre as seções"]
+        } },
+        { h2: "Composição do componente" },
+        { p: "O Accordion distribui vários Accordion Items no frame Items, com Kind Default (linhas) ou Card (cartões). Cada item traz seu header + Slot; o conjunto cuida do empilhamento e do espaçamento." },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Kind", type: "Variant", values: ["Default", "Card"] }
+        ] },
+        { note: "Todas as props podem ser testadas na tab Playground." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Estilos" },
+        { specimens: { title: "Kind", items: [
+          { label: "Default", attrs: {} },
+          { label: "Card", attrs: { kind: "card" } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Acessibilidade" },
+        { note: "Sem conteúdo no Figma para esta seção." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes" },
+        { guides: [
+          { attrs: {}, title: "Use para conteúdo secundário, não essencial",
+            text: "O accordion esconde conteúdo atrás de um clique. Reserve-o para informação complementar; o que é essencial deve ficar sempre visível." },
+          { attrs: {}, title: "Controle de abertura",
+            text: "Defina se o conjunto permite vários itens abertos ao mesmo tempo ou só um por vez — abra um por vez quando as seções competem pela mesma atenção." },
+          { attrs: {}, title: "Títulos curtos e escaneáveis",
+            text: "Escreva labels curtos e descritivos; a pessoa precisa prever o conteúdo de cada seção antes de abrir." }
+        ] },
+        { h2: "Do's and Don'ts" },
+        { h3: "Conteúdo" },
+        { dodont: [
+          { kind: "do", attrs: { _children: items(faq, noLeadNoDiv) },
+            text: "Seção de conteúdo secundário que pode ficar recolhida (FAQ, detalhes de um pedido)." },
+          { kind: "dont", attrs: { _children: items(["Saldo: R$ 1.240,00", "Ir para Configurações", "Fatura do mês", "Sair da conta"], { "show-lead-item": false }) },
+            text: "Informação essencial — mantenha sempre visível, não esconda atrás de um clique." },
+          { kind: "do", attrs: { _children: items(["Política de cancelamento", "Como alterar meus dados", "Benefícios inclusos", "Suporte e contato"], { "show-lead-item": false }) },
+            text: "Título curto que resume o conteúdo da seção." },
+          { kind: "dont", attrs: { _children: items(["Abrir extrato", "Ir para o início", "Ver perfil", "Configurações"], noLeadNoDiv) },
+            text: "Como navegação entre páginas ou seções — use Link ou Botão." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "As transições de cada seção do Accordion seguem os Motion Styles do Castanha (modo Normal)." },
+        { specs: [
+          { title: "Hover In/01", rows: [["Motion Style", "`Motion Style/Hover In/01`"], ["Easing", "0.7, 0, 0.5, 1"], ["Duration", "150ms"]] },
+          { title: "Pressed/01", rows: [["Motion Style", "`Motion Style/Pressed/01`"], ["Easing", "0.7, 0, 0.8, 1"], ["Duration", "200ms"]] },
+          { title: "Selected In/01", rows: [["Motion Style", "`Motion Style/Selected In/01`"], ["Easing", "0.4, 0, 0.1, 1"], ["Duration", "350ms"]] },
+          { title: "Selected Out/01", rows: [["Motion Style", "`Motion Style/Selected Out/01`"], ["Easing", "0.4, 0, 0.1, 1"], ["Duration", "200ms"]] }
+        ] }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/accordion/accordion.docs.js", e); }
 
 /* ==== components/list-item/list-item.js ==== */
 try {
@@ -5303,15 +5558,23 @@ CDS.register({
 /* ==== components/code-input-otp/code-input-otp.docs.js ==== */
 try {
 /* Documentação — Code Input OTP
-   Fonte: frame [Documentação] Code Input OTP · branch PfeMbrThCwzwJFFo2GiAbW · node 24764:9893
-   Só dados: o kit (scripts/docs-kit.js) monta as tabs. Acessibilidade está oculta no frame: a tab vem das annotations
-   de Accessibility do set e do handoff de dev (Q26). Casos de exceção e Do's extras (ocultos) ficaram de fora. */
+   Fonte: [CastanhaDS] Component use documentation · seção 7057:17597 · frame [Documentação] Code Input OTP (7057:17641)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Substitui a doc legada (branch PfeMbrThCwzwJFFo2GiAbW, node 24764:9893).
+   Ocultos no Figma: comparação "Text Input vs Code Input OTP" (de fora), Acessibilidade (só placeholder "Tópico 1 / Ordem de leitura" → tab com nota),
+   "Casos de exceção" (lorem ipsum, de fora) e 3 Do/Don'ts extras (lorem ipsum, de fora).
+   Gaps: Estados da célula no Figma são de um `.Value Box` isolado (o componente tem no mínimo 3 células); Motion traz uma ilustração no lugar do exemplo
+   (aqui: exemplo vivo do componente) e uma linha "—" vazia na tabela (de fora). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 CDS.docs["code-input-otp"] = {
   tag: "cds-code-input",
   base: { length: "6", supporting: "Supporting Message", error: "Error Message" },
-  source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/PfeMbrThCwzwJFFo2GiAbW/-CastanhaDS--Components?node-id=24764-9893",
+  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=7057-17597",
+  // Capa (frame [Header] do Figma): Neutral preenchido + Warning com Hidden Values
+  cover: { description: "Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador.", examples: [
+    { label: "Código de autenticação", "show-required": false, value: "483920" },
+    { label: "Código de autenticação", "show-required": false, value: "483920", appearance: "warning", masked: true }
+  ] },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
       { h2: "Sobre" },
@@ -5349,9 +5612,9 @@ CDS.docs["code-input-otp"] = {
       { h2: "Propriedades" },
       { props: [
         { name: "Value Box", type: "Variant" },
-        { name: "Visibility Action", icon: "hide-line", nested: [{ name: "Appearance", type: "Variant", values: ["Neutral", "Warning"] }] }
+        { name: "Visibility Action", icon: "go-line", nested: [{ name: "Appearance", type: "Variant", values: ["Neutral", "Warning"] }] }
       ] },
-      { note: "Quantidade de células, tipo (numérico/alfanumérico), separadores e máscara podem ser testados na tab Playground." }
+      { note: "Todas as props podem ser testadas na tab Playground." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
@@ -5362,7 +5625,7 @@ CDS.docs["code-input-otp"] = {
         { label: "Pressed", attrs: { length: "3", value: "A1b", state: "pressed", "show-label": false, "show-supporting-content": false, "show-trailing-item": false } },
         { label: "Is Active", attrs: { length: "3", value: "A1b", "is-active": true, "show-label": false, "show-supporting-content": false, "show-trailing-item": false } }
       ] } },
-      { note: "No Figma os estados são do `.Value Box` (uma célula). Aqui o estado forçado vale para todas as células de um campo de 3." },
+      { note: "No Figma os estados são de um `.Value Box` (uma célula, valor A). Aqui o estado forçado vale para todas as células de um campo de 3, o mínimo do componente." },
       { specimens: { title: "Appearance × State", items: [
         { label: "Neutral · Enabled", attrs: { label: "Label", value: "1A2b3#" } },
         { label: "Neutral · Disabled", attrs: { label: "Label", value: "1A2b3#", disabled: true } },
@@ -5372,38 +5635,8 @@ CDS.docs["code-input-otp"] = {
     ] },
 
     { id: "acessibilidade", title: "Acessibilidade", blocks: [
-      { h2: "Leitor de tela" },
-      { h3: "Como é anunciado" },
-      { ol: [
-        "As células formam um grupo (`role=\"group\"`) com o rótulo do campo. ex.: Código de verificação.",
-        "Cada célula é um campo de 1 caractere com nome de posição. ex.: dígito 1 de 6.",
-        "No Warning, as células ficam com `aria-invalid` e a `Error Message` é associada por `aria-describedby`.",
-        "A `Error Message` é anunciada por região dinâmica quando aparece.",
-        "A Visibility Action é um toggle (`aria-pressed`): Mostrar código quando mascarado, Ocultar código quando visível.",
-        "O estado desabilitado é anunciado como indisponível (`aria-disabled`) e todas as células saem da tabulação."
-      ] },
-      { h3: "Ordem de leitura" },
-      { ol: ["Label do campo", "Indicador obrigatório, quando presente", "Células, da primeira à última", "Visibility Action, quando presente", "Mensagem de apoio ou de erro"] },
-      { h2: "Teclado e preenchimento" },
-      { ul: [
-        "Digitar avança o foco para a próxima célula; Backspace volta.",
-        "Setas, Home e End navegam entre as células.",
-        "Colar distribui o código entre as células.",
-        "Um único ponto de tabulação entra e sai do conjunto.",
-        "A primeira célula tem `autocomplete=\"one-time-code\"`, para o autofill de SMS.",
-        "No tipo numérico, `inputmode=\"numeric\"` abre o teclado de números.",
-        "Foco visível segue o padrão global do Castanha; não é variant do componente."
-      ] },
-      { h2: "Contraste (WCAG)" },
-      { ol: [
-        "Dígito, Label e mensagem de apoio: 8,24:1 a 16,96:1 — AA e AAA.",
-        "Warning (#974602) sobre o fundo: 6,41:1 — AA.",
-        "Borda ativa (`Border/intense`): 16,96:1.",
-        "Borda em repouso (`Border/semi-soft`) e hover (`Border/medium`): abaixo de 3:1. A célula se distingue pela fileira e pelo dígito.",
-        "Erro comunicado por borda e texto, nunca só por cor (1.4.1).",
-        "Estado desabilitado: isento do critério 1.4.3."
-      ] },
-      { note: "Fonte: annotations de Accessibility do set 24060:7228 e seção Acessibilidade do handoff de dev (`HANDOFF_CodeInputOTP_DEV.md`). A seção está oculta no frame de documentação do Figma." }
+      { h2: "Acessibilidade" },
+      { note: "Sem conteúdo no Figma para esta seção." }
     ] },
 
     { id: "diretrizes", title: "Diretrizes", blocks: [
@@ -5421,7 +5654,7 @@ CDS.docs["code-input-otp"] = {
       { dodont: [
         { kind: "do", attrs: { label: "Código de autenticação", "show-required": false, value: "904271", separators: "3" },
           text: "Código curto, numérico ou alfanumérico (ex.: 6 dígitos de SMS)." },
-        { kind: "dont", attrs: { label: "Senha", value: "482913", masked: true },
+        { kind: "dont", attrs: { label: "Senha", value: "145290", masked: true },
           text: "Senha ou texto livre — use Password Input ou Text Input." },
         { kind: "do", attrs: { label: "Código de verificação", "show-required": false, value: "516203", separators: "3" },
           text: "Código de verificação curto (2FA, confirmação)." },
@@ -5436,10 +5669,11 @@ CDS.docs["code-input-otp"] = {
       { display: { attrs: { label: "Código", "show-required": false }, live: true } },
       { note: "Exemplo interativo: passe o mouse, pressione e foque uma célula para ver cada transição." },
       { specs: [
-        { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
-        { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
-        { title: "Pressed → Is Active", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"]] }
-      ] }
+        { title: "Hover In", rows: [["Easing", "`0.7, 0, 0.5, 1`"], ["Duration", "150ms"]] },
+        { title: "Pressed", rows: [["Easing", "`0.7, 0, 0.8, 1`"], ["Duration", "200ms"]] },
+        { title: "Selected In", rows: [["Easing", "`0.4, 0, 0.1, 1`"], ["Duration", "350ms"]] }
+      ] },
+      { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (a `.Motion Styles` não tem modo Reduced tokenizado — tratamento no código)." }
     ] }
   ]
 };
@@ -5592,15 +5826,21 @@ CDS.register({
 /* ==== components/credit-card-input/credit-card-input.docs.js ==== */
 try {
 /* Documentação — Credit Card Input
-   Fonte: frame [Documentação] Credit Card Input · branch NHkGUvBfNMNTLnsxKtAmWa · node 24931:7981
-   Só dados: o kit (scripts/docs-kit.js) monta as tabs. Specimens seguem o frame do Figma, inclusive as props trocadas (CONFERIR.md). Frames ocultos no Figma (Casos de exceção,
-   Do's com lorem ipsum) ficaram de fora. */
+   Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 7057:23774 · frame [Documentação] Credit Card Input (7057:27369)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
+   Oculto no Figma e de fora: comparação "Text Input vs Credit Card Input", subtítulos Viewport/Accent de Estilos, "Casos de exceção"
+   (lorem ipsum), os 3 Do/Don'ts com lorem ipsum e a nota de reduced motion.
+   Gaps: o Don't "Senha" usa valor com letras (aBC123@@), que a máscara só de dígitos não aceita: aparece como placeholder.
+   O Component Display de Motion é uma ilustração (não o componente) e a linha "—" da tabela de Motion ficaram de fora. */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 CDS.docs["credit-card-input"] = {
   tag: "cds-credit-card-input",
   base: { value: "1234567890123456", supporting: "Supporting Message", error: "Error Message" },
-  source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/NHkGUvBfNMNTLnsxKtAmWa/-CastanhaDS--Components?node-id=24931-7981",
+  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=7057-23774",
+  // Capa (frame [Header] do Figma), acima das tabs
+  cover: { description: "Campo para inserir o número de um cartão de crédito.",
+    attrs: { label: "Número do cartão de crédito", "show-required": false, supporting: "Mensagem de apoio" } },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
       { h2: "Sobre" },
@@ -5618,19 +5858,13 @@ CDS.docs["credit-card-input"] = {
       { h3: "Utilize para:" },
       { ul: ["Informar o número do cartão num checkout / pagamento", "Cadastrar ou atualizar um cartão salvo", "Validar os dados de um cartão antes de concluir a transação"] },
       { h3: "Não utilize para:" },
-      { ul: ["Validade ou CVV — use campos próprios", "Texto ou números genéricos — use o Text Input", "Senha ou PIN — use o Password Input ou o Code Input OTP"] },
-      { h3: "Text Input vs Credit Card Input" },
-      { p: "O Text Input recebe texto livre de comprimento variável. O Credit Card Input é especializado no número de cartão — máscara em grupos, bandeira e comprimento conhecido; use-o só para o número do cartão." },
-      { compare: [
-        { title: "Text Input", empty: "Text Input entra no Lote 4" },
-        { title: "Credit Card Input", attrs: { label: "Número do cartão" } }
-      ] }
+      { ul: ["Validade ou CVV — use campos próprios", "Texto ou números genéricos — use o Text Input", "Senha ou PIN — use o Password Input ou o Code Input OTP"] }
     ] },
 
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
       { anatomy: {
-        attrs: { label: "Número do cartão", "show-required": true },
+        attrs: { label: "Número do cartão" },
         markers: [
           { n: 1, target: ".cds-tf__label", side: "left" },
           { n: 2, target: ".cds-tf__box", side: "left" },
@@ -5652,15 +5886,15 @@ CDS.docs["credit-card-input"] = {
     { id: "estilos", title: "Estilos", blocks: [
       { h2: "Estilos" },
       { specimens: { title: "Estados do campo", items: [
-        { label: "Enabled", attrs: { label: "Label" } },
-        { label: "Hovered", attrs: { label: "Label", state: "hovered" } },
-        { label: "Pressed", attrs: { label: "Label", state: "pressed" } },
-        { label: "Is Active", attrs: { label: "Label", disabled: true } }
+        { label: "Enabled", attrs: { label: "Label", value: "" } },
+        { label: "Hovered", attrs: { label: "Label", value: "", state: "hovered" } },
+        { label: "Pressed", attrs: { label: "Label", value: "", state: "pressed" } },
+        { label: "Is Active", attrs: { label: "Label", value: "", placeholder: "", "is-active": true } }
       ] } },
       { specimens: { title: "Appearance × State", items: [
         { label: "Neutral · Enabled", attrs: { label: "Label" } },
         { label: "Neutral · Disabled", attrs: { label: "Label", disabled: true } },
-        { label: "Warning · Enabled", attrs: { label: "Label", appearance: "warning", state: "pressed" } },
+        { label: "Warning · Enabled", attrs: { label: "Label", appearance: "warning" } },
         { label: "Warning · Disabled", attrs: { label: "Label", appearance: "warning", disabled: true } }
       ] } }
     ] },
@@ -5677,7 +5911,7 @@ CDS.docs["credit-card-input"] = {
       ] },
       { h3: "Ordem de leitura" },
       { ol: ["Label do campo", "Indicador obrigatório, quando presente", "Campo de número do cartão (valor ou placeholder)", "Ícone de apoio (Icon Button), quando presente", "Mensagem de apoio ou de erro"] },
-      { h2: "Contraste (WCAG)" },
+      { h3: "Contraste (WCAG)" },
       { ol: [
         "Texto (Label, valor, apoio): 8,2:1 a 17:1 — AA e AAA.",
         "Warning (#974602) sobre o fundo: 6,4:1 — AA.",
@@ -5702,11 +5936,13 @@ CDS.docs["credit-card-input"] = {
       { dodont: [
         { kind: "do", attrs: { label: "Número do cartão de crédito", "show-required": false, "show-supporting-content": false, "show-trailing-item": false },
           text: "Número de cartão mascarado em grupos (#### #### #### ####)." },
-        { kind: "dont", attrs: { label: "Senha", supporting: "Digite sua senha", "show-trailing-item": false },
+        // Figma: valor "aBC123@@" (preenchido); a máscara só aceita dígitos, então aparece como placeholder
+        { kind: "dont", attrs: { label: "Senha", value: "", placeholder: "aBC123@@" },
           text: "CPF, telefone ou texto livre — use o Text Input." },
-        { kind: "do", attrs: { label: "Número do cartão de crédito", "show-required": false, supporting: "Mensagem de apoio", "show-trailing-item": false },
+        { kind: "do", attrs: { label: "Código de verificação", "show-required": false, supporting: "Mensagem de apoio" },
           text: "Utilize a mensagem de suporte e o Trailing Item para contextualizar o usuário." },
-        { kind: "dont", attrs: { label: "CVV", "show-supporting-content": false }, style: "width:138px",
+        { kind: "dont", attrs: { label: "CVV", value: "123", "show-required": false, "show-lead-icon": false, "show-supporting-content": false },
+          style: "width:calc(var(--common-sizes-120) + var(--common-sizes-14))",
           text: "Validade ou CVV neste campo — use campos próprios." }
       ] }
     ] },
@@ -5714,12 +5950,10 @@ CDS.docs["credit-card-input"] = {
     { id: "motion", title: "Motion", blocks: [
       { h2: "Motion" },
       { p: "As transições de estado do campo usam os Motion Styles do Castanha (modo Normal)." },
-      { display: { attrs: { label: "Número do cartão", "show-required": false, value: "" }, live: true } },
-      { note: "Exemplo interativo: passe o mouse, pressione e foque o campo para ver cada transição." },
       { specs: [
-        { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
-        { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
-        { title: "Pressed → Is Active", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"]] }
+        { title: "Hover In", rows: [["Easing", "`0.7, 0, 0.5, 1`"], ["Duration", "150ms"]] },
+        { title: "Pressed", rows: [["Easing", "`0.7, 0, 0.8, 1`"], ["Duration", "200ms"]] },
+        { title: "Selected In", rows: [["Easing", "`0.4, 0, 0.1, 1`"], ["Duration", "350ms"]] }
       ] }
     ] }
   ]
@@ -5927,6 +6161,136 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/password-input/password-input.playground.js", e); }
 
+/* ==== components/password-input/password-input.docs.js ==== */
+try {
+/* Documentação — Password Input
+   Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 4054:50 · frame [Documentação] Password input (4054:88)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Capa = mockup com imagem (frame [Header] 4054:686).
+   Oculto no Figma: Acessibilidade (4054:332) — só placeholder ("Tópico 1" / "Ordem de leitura"), então ficou de fora (note na tab).
+   Motion ainda é placeholder (lorem ipsum / "Especificação").
+   Diretrizes e Do/Don't no Figma são imagens: os exemplos usam o componente real com os textos padrão do componente (CONFERIR).
+   O set do Figma desta doc usa Required "*" e contador "-0000"; o código segue a lib atual ("(Obrigatório)"). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["password-input"] = {
+  tag: "cds-password-input",
+  base: { label: "Label", supporting: "Supporting Message", error: "Error Message", "character-counter": "0000" },
+  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=4054-50",
+  // Capa (frame [Header] do Figma): mockup com imagem de tela de produto
+  cover: { description: "O Password Input é um campo de entrada específico para senhas.", image: "assets/docs/covers/password-input.png", alt: "Tela de produto com um Password Input" },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { h2: "Sobre" },
+      { p: "O Password Input é um campo de entrada específico para senhas. Ele inclui controle de visibilidade do conteúdo, mensagens de apoio, contador de caracteres e ícones opcionais para reforçar contexto ou ação." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Campo de Senha, Input de Senha." },
+      { h3: "Princípios" },
+      { cards: [
+        ["Privacidade do conteúdo", "Garante que a senha permaneça protegida durante a digitação."],
+        ["Controle e clareza", "Permite alternar entre mostrar e ocultar a senha de forma direta."],
+        ["Consistência e orientação", "Mantém alinhamento visual e funcional com os demais inputs do sistema."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use quando o fluxo exigir entrada de informação sensível que deve ser mascarada e conferida com segurança." },
+      { h3: "Utilize para:" },
+      { ul: ["Fluxos de login, alteração de senha e campos sensíveis.", "Situações em que a pessoa usuária precisa controlar a visualização da senha."] },
+      { h3: "Não utilize para:" },
+      { ul: ["Informações não sensíveis que não exigem mascaramento.", "Códigos rápidos ou segmentados, como OTP e PIN (Code input)."] },
+      { h3: "Password Input vs Text Input" },
+      { p: "O Password Input mascara o conteúdo e oferece controle de visibilidade, enquanto o Text Input exibe tudo abertamente." },
+      { compare: [
+        { title: "Este é um Password Input", attrs: { label: "Senha de 4 dígitos", value: "P@ssword", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false } },
+        { title: "Este é um Text input", attrs: { _tag: "cds-text-input", label: "Novo número de celular com DDD", placeholder: "(00) 00000-0000", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false } }
+      ] },
+      { h3: "Password Input vs Code input" },
+      { p: "O Password Input é contínuo e adequado para senhas completas, enquanto Code input é segmentado e pensado para verificações rápidas." },
+      { compare: [
+        { title: "Este é um Password input", attrs: { label: "Senha", placeholder: "Digite a senha", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false } },
+        { title: "Este é um Code input", attrs: { _tag: "cds-code-input", type: "numeric", value: "10835", separators: "none", "show-label": false, "show-supporting-content": false, "show-trailing-item": false } }
+      ] }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: {
+        attrs: {},
+        markers: [
+          { n: 1, target: ".cds-tf__lead", side: "left" },
+          { n: 2, target: ".cds-tf__label", side: "left" },     // Figma: de cima (Down); o kit não tem lado de cima
+          { n: 3, target: ".cds-tf__control", side: "bottom" }, // Figma: de cima (Down)
+          { n: 4, target: ".cds-tf__box", side: "right" },      // Figma: de cima (Down)
+          { n: 5, target: "cds-icon-button", side: "top" },   // Figma: Right; à direita cruzava o 4
+          { n: 6, target: ".cds-tf__counter", side: "right" },
+          { n: 7, target: ".cds-tf__msg", side: "left" }
+        ],
+        legend: ["Lead icon", "Text label", "Text placeholder", "Container", "Trailling item", "Counter", "Text supporting message"]
+      } },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Style", type: "Variant", values: ["Neutral", "Warning"] },
+        { name: "State", type: "Variant", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
+        { name: "Is Active", type: "Boolean" },
+        { name: "Is Filled", type: "Boolean" },
+        { name: "Show Content", type: "Boolean" },
+        { name: "Show Label", type: "Boolean" },
+        { name: "Label content", type: "Text", values: ["Padrão: Label"] },
+        { name: "Show Required Asterisk", type: "Boolean" },
+        { name: "Show Lead Icon", type: "Boolean" },
+        { name: "Placeholder content", type: "Text", values: ["Padrão: Placeholder"] },
+        { name: "Show Trailling Item", type: "Boolean" },
+        { name: "Show Supporting Content", type: "Boolean" },
+        { name: "Supporting Message", type: "Text", values: ["Padrão: Supporting Message"] },
+        { name: "Show Character Counter", type: "Boolean" },
+        { name: "Character Counter", type: "Text", values: ["Padrão: 0000"] }
+      ] },
+      { note: "Todas as props podem ser testadas na tab Playground." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Estilos" },
+      { specimens: { title: "Neutral", items: [
+        { label: "Enabled", attrs: {} },
+        { label: "Hovered", attrs: { state: "hovered" } },
+        { label: "Pressed", attrs: { state: "pressed" } },
+        { label: "Disabled", attrs: { disabled: true } }
+      ] } },
+      { specimens: { title: "Warning", items: [
+        { label: "Enabled", attrs: { appearance: "warning" } },
+        { label: "Hovered", attrs: { appearance: "warning", state: "hovered" } },
+        { label: "Pressed", attrs: { appearance: "warning", state: "pressed" } },
+        { label: "Disabled", attrs: { appearance: "warning", disabled: true } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Acessibilidade" },
+      { note: "Sem conteúdo no Figma para esta seção." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes" },
+      { guides: [
+        { attrs: [{ label: "Senha", value: "P@ssword", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false }, { label: "Confirmar a senha", value: "P@ssword", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false }], title: "Use mensagens de apoio para orientar requisitos",
+          text: "Forneça instruções claras sobre a criação da senha para evitar tentativas e erros." }
+      ] },
+      { note: "No Figma, os exemplos de comparação, diretriz e Do's and Don'ts são telas de produto; aqui são os componentes reais com os mesmos textos (sem o resto da tela). A lista de requisitos da senha da diretriz não tem componente equivalente." },
+      { h2: "Do's and Don'ts" },
+      { dodont: [
+        { kind: "do", attrs: { label: "Digite sua senha de 4 números", value: "123a", supporting: "A senha deve conter somente números", "show-required": false, "show-lead-icon": false, "show-character-counter": false },
+          text: "Use a mensagem de apoio para orientar previamente que os detalhes e restrições para a criação da senha." },
+        { kind: "dont", attrs: { label: "Digite sua senha de 4 números", value: "123a", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false },
+          text: "Não deixe para informar essa restrição apenas após um erro ou no envio do formulário." }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { alert: { appearance: "warning", label: "Especificação pendente", text: "O frame de Motion do Password Input no Figma ainda está com texto de exemplo (lorem ipsum e \"Especificação\"). A tabela de Motion tokens por estado entra quando o time publicar a especificação." } }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/password-input/password-input.docs.js", e); }
+
 /* ==== components/quantity-input/quantity-input.js ==== */
 try {
 /**
@@ -6082,6 +6446,154 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/quantity-input/quantity-input.playground.js", e); }
 
+/* ==== components/quantity-input/quantity-input.docs.js ==== */
+try {
+/* Documentação — [Beta] Quantity Input
+   Fonte: [CastanhaDS] Component use documentation · seção 6945:5832 · frame [Documentação] Quantity Input (6945:4705)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
+   Oculto no Figma: Composição do componente (tem conteúdo real → entra na Anatomia); Acessibilidade (só placeholder
+   "Tópico 1 / Ordem de leitura" → fica de fora, tab com nota); Frame 7 "Casos de exceção" das Diretrizes (lorem ipsum → de fora).
+   Gaps: o componente não tem prefixo de unidade (exemplo "R$ 5,00" fora) e lê "1.250" como 1,25 (Don't usa 1250);
+   anatomia: marcador 2 (Required Asterisk) vem de cima no Figma e aqui fica à direita.
+   Motion ainda é placeholder no Figma. */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["quantity-input"] = {
+  tag: "cds-quantity-input",
+  base: {},
+  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6945-5832",
+  // Capa (frame [Header] Quantity input do Figma), acima das tabs
+  cover: { description: "O Quantity Input é um campo numérico com controles de incremento e decremento.",
+    attrs: { label: "Quantidade de ingressos", value: "1", "show-required": false, supporting: "Máximo de 6 ingressos por compra." } },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { h2: "Sobre" },
+      { p: "O Quantity Input é um campo numérico com controles de incremento e decremento. É utilizado para ajustar valores em passos previsíveis, pelos botões ou por digitação direta. O conteúdo aceita número puro ou acompanhado de unidade, como porcentagem, quantidade ou valor monetário." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Number input, numeric stepper, counter, seletor de quantidade, contador." },
+      { h3: "Princípios" },
+      { cards: [
+        ["Previsibilidade", "Cada acionamento altera o valor na mesma medida, e a faixa aceita é conhecida antes da interação."],
+        ["Controle compartilhado", "A pessoa usuária ajusta pelos botões quando a variação é pequena e digita quando quer chegar direto ao valor."],
+        ["Limite visível", "Ao atingir o mínimo ou o máximo, o controle correspondente fica indisponível, comunicando a fronteira sem recorrer a mensagem de erro."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use o Quantity Input quando for necessário ajustar um valor numérico dentro de uma faixa conhecida, especialmente quando a pessoa usuária altera poucas unidades por vez e precisa acompanhar o valor atual enquanto ajusta." },
+      { h3: "Utilize para:" },
+      { ul: ["Quantidade de itens em uma solicitação", "Número de dias, parcelas ou ciclos", "Nível de zoom ou escala", "Ajustes finos em torno de um valor padrão"] },
+      { h3: "Não utilize para:" },
+      { ul: ["Seleção entre opções pré-definidas (use Select input)", "Saltos grandes dentro de faixas amplas (use Text input)", "Valores apenas de leitura (use Currency)", "Entrada de texto ou códigos (use Text input ou Code input)"] },
+      { h3: "Text input vs Quantity Input" },
+      { p: "Use o Quantity Input quando o valor varia em passos previsíveis e a pessoa usuária ajusta poucas unidades por vez — especialmente quando acompanhar o valor durante o ajuste faz parte da tarefa. O Text input é indicado para valores numéricos sem faixa definida ou com variação ampla, desde que digitar seja o caminho natural de preenchimento." },
+      { compare: [
+        { title: "Este é um Text input", attrs: { _tag: "cds-text-input", label: "Quantidade", "show-required": false, "show-supporting-content": false } },
+        { title: "Este é um Quantity Input", attrs: { label: "Quantidade", value: "3", "show-required": false, "show-supporting-content": false } }
+      ] }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: {
+        attrs: { label: "Label", value: "1", supporting: "Supporting Message" },
+        markers: [
+          { n: 1, target: ".cds-tf__label > span:first-child", side: "left" },
+          { n: 2, target: ".cds-tf__label > span:last-child", side: "top" },   // Figma: de cima (Down)
+          { n: 3, target: ".cds-qty__row > cds-icon-button:first-child", side: "left" },
+          { n: 4, target: ".cds-qty__box", side: "bottom", align: "start", long: true }, // Figma: Right; à direita cruzava o +
+          { n: 5, target: ".cds-qty__control", side: "bottom" },
+          { n: 6, target: ".cds-qty__row > cds-icon-button:last-child", side: "right" },
+          { n: 7, target: ".cds-qty__msg", side: "left" }
+        ],
+        legend: ["Label Content", "Required Asterisk", "Decrement Button", "Text Box", "Quantity Value", "Increment Button", "Supporting Message"]
+      } },
+      { h2: "Composição do componente" },
+      { p: "O controle é formado pelos botões de decremento e incremento e pelo campo de valor, que são obrigatórios. Label, indicação de obrigatório e mensagem de apoio são opcionais e controlados por `Show Label`, `Show Required` e `Show Supporting Content`." },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Kind", type: "Variant", values: ["Default", "Ghost"] },
+        { name: "Appearance", type: "Variant", values: ["Neutral", "Warning"] },
+        { name: "State", type: "Variant", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
+        { name: "Is Active", type: "Boolean" },
+        { name: "Show Label", type: "Boolean" },
+        { name: "Text Label", type: "Text", values: ["Padrão: Label"] },
+        { name: "Show Required", type: "Boolean" },
+        { name: "Required Text", type: "Text", values: ["Padrão: (Obrigatório)"] },
+        { name: "Quantity Value", type: "Text", values: ["Padrão: 1"] },
+        { name: "Show Supporting Content", type: "Boolean" },
+        { name: "Supporting Message", type: "Text", values: ["Padrão: Supporting Message"] },
+        { name: "Error Message", type: "Text", values: ["Padrão: Error Message"] }
+      ] },
+      { note: "Todas as props podem ser testadas na tab Playground." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Estilos" },
+      { specimens: { title: "Kind: Default", items: [
+        { label: "Enabled", attrs: { label: "Label", supporting: "Supporting Message" } },
+        { label: "Hovered", attrs: { label: "Label", supporting: "Supporting Message", state: "hovered" } },
+        { label: "Pressed", attrs: { label: "Label", supporting: "Supporting Message", state: "pressed" } },
+        { label: "Disabled", attrs: { label: "Label", supporting: "Supporting Message", disabled: true } }
+      ] } },
+      { specimens: { title: "Kind: Ghost", items: [
+        { label: "Enabled", attrs: { kind: "ghost", label: "Label", supporting: "Supporting Message" } },
+        { label: "Hovered", attrs: { kind: "ghost", label: "Label", supporting: "Supporting Message", state: "hovered" } },
+        { label: "Pressed", attrs: { kind: "ghost", label: "Label", supporting: "Supporting Message", state: "pressed" } },
+        { label: "Disabled", attrs: { kind: "ghost", label: "Label", supporting: "Supporting Message", disabled: true } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Acessibilidade" },
+      { note: "Sem conteúdo no Figma para esta seção." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes" },
+      { guides: [
+        { attrs: { label: "Dias de antecedência", value: "15", min: "10", max: "30", "show-required": false, supporting: "Entre 10 e 30 dias" }, title: "Informe a faixa aceita antes do erro",
+          text: "Use a mensagem de apoio para comunicar o mínimo e o máximo. Explicar a faixa evita o estranhamento quando o valor digitado é ajustado automaticamente." },
+        { attrs: { label: "Quantidade", value: "10", min: "10", "show-required": false, supporting: "Mínimo de 10 unidades" }, title: "Indique o limite pelo controle",
+          text: "Ao atingir o mínimo ou o máximo, deixe o controle correspondente indisponível e mantenha o outro ativo." },
+        { attrs: [
+            { value: "1", "show-label": false, "show-supporting-content": false },
+            { value: "2", "show-label": false, "show-supporting-content": false },
+            { value: "3", "show-label": false, "show-supporting-content": false }
+          ], title: "Mantenha o passo constante",
+          text: "O incremento e o decremento alteram o valor sempre na mesma medida. Passo variável quebra a previsibilidade do controle." },
+        { attrs: { kind: "ghost", value: "100", suffix: "%", "show-label": false, "show-supporting-content": false }, title: "Escreva a unidade junto do valor",
+          text: "O conteúdo do campo é texto e aceita o número sozinho ou acompanhado de unidade, desde que o caráter seja numérico. A unidade fica no próprio campo, nunca em elemento separado. Siga a formatação da casa: 100%, R$ 5,00, 1.000." },
+        { attrs: [
+            { value: "2", "show-label": false, "show-supporting-content": false },
+            { kind: "ghost", value: "2", "show-label": false, "show-supporting-content": false }
+          ], title: "Escolha o Kind pelo contexto",
+          text: "Use Default em formulários, onde o preenchimento dos controles reforça a área acionável ao lado do campo. Use Ghost em barras de ferramentas e superfícies densas, onde o preenchimento competiria com os elementos vizinhos." }
+      ] },
+      { note: "O exemplo com prefixo de unidade (R$ 5,00) do Figma não aparece: o componente do playground só aceita unidade depois do valor (`suffix`)." },
+      { h2: "Do's and Don'ts" },
+      { h3: "Conteúdo" },
+      { dodont: [
+        { kind: "do", attrs: { label: "Dias de antecedência", value: "15", "show-required": false, supporting: "Entre 10 e 30 dias" },
+          text: "Informe o mínimo e o máximo na mensagem de apoio." },
+        { kind: "dont", attrs: { label: "Dias de antecedência", value: "15", "show-required": false, "show-supporting-content": false },
+          text: "Não deixe a pessoa usuária descobrir o limite só quando o valor é corrigido sozinho." }
+      ] },
+      { h3: "Escolha do componente" },
+      { dodont: [
+        { kind: "do", attrs: { label: "Quantidade", value: "3", "show-required": false, "show-supporting-content": false },
+          text: "Use para ajustes de poucas unidades por vez." },
+        { kind: "dont", attrs: { label: "Quantidade", value: "1250", "show-required": false, "show-supporting-content": false },
+          text: "Não use quando a pessoa usuária precisa saltar dezenas ou centenas de unidades. Use o Text input." }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { alert: { appearance: "warning", label: "Especificação pendente", text: "O frame de Motion do Quantity Input no Figma ainda está com texto de exemplo (lorem ipsum e \"Especificação\"). A tabela de Motion tokens por estado entra quando o time publicar a especificação." } }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/quantity-input/quantity-input.docs.js", e); }
+
 /* ==== components/search-input/search-input.js ==== */
 try {
 /**
@@ -6210,6 +6722,128 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/text-area/text-area.playground.js", e); }
 
+/* ==== components/text-area/text-area.docs.js ==== */
+try {
+/* Documentação — Text Area Input
+   Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 4944:309 · frame [Documentação] Text area (4944:347)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
+   Capa: o [Header] (4944:937) é um mockup mobile (tela Pix Copia e Cola) → imagem em assets/docs/covers/text-area.png.
+   Oculto no Figma: Acessibilidade (4944:591) — só placeholder ("Tópico 1" / "Ordem de leitura"), por isso a tab fica com nota.
+   Motion ainda é placeholder no Figma (lorem ipsum + "Especificação").
+   Gaps: o Text Area da doc tem props State (Default/Hover/Active-focus/Filled), Disabled, Error, Show support text, Show counter e Counter;
+   no código viram state="hovered", is-active, value, disabled, appearance="warning", show-supporting-content, show-character-counter e character-counter.
+   Os Do/Don'ts no Figma são imagens (prints de tela); aqui são recriados só com os campos (sem o título "Pagar boleto" da tela). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["text-area"] = {
+  tag: "cds-text-area",
+  base: { "show-required": false },
+  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=4944-309",
+  // Capa (frame [Header] do Figma), acima das tabs
+  cover: {
+    description: "O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários.",
+    image: "assets/docs/covers/text-area.png",
+    alt: "Tela Pix Copia e Cola com um Text Area para inserir ou colar o código"
+  },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { h2: "Sobre" },
+      { p: "O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Textarea, Campo de texto longo, Input text area" },
+      { h3: "Princípios" },
+      { cards: [
+        ["Clareza", "Facilita a escrita e leitura de conteúdos extensos."],
+        ["Orientação", "Usa label e placeholder para indicar o que deve ser preenchido."],
+        ["Feedback", "Oferece suporte visual por texto auxiliar, contador e estado de erro."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use o Text Area quando for necessário coletar informações abertas e extensas, que não se adequam a campos de uma única linha, garantindo espaço suficiente para leitura, escrita e revisão do conteúdo digitado." },
+      { h3: "Utilize para:" },
+      { ul: ["Descrições longas.", "Comentários e feedbacks.", "Observações ou justificativas.", "Informações abertas sem limite rígido de palavras."] },
+      { h3: "Não utilize para:" },
+      { ul: ["Entradas curtas ou objetivas.", "Dados estruturados como datas ou valores.", "Quando um Input de uma linha atende a necessidade."] },
+      { h3: "Text Area vs Text input" },
+      { p: "O Text input é indicado para textos curtos e objetivos, enquanto o Text Area deve ser usado quando a pessoa usuária precisa escrever conteúdos mais longos, com múltiplas linhas e maior flexibilidade de visualização." },
+      { compare: [
+        { title: "Este é um Text area", attrs: { label: "Descrição da solicitação", placeholder: "Explique o contexto ou a situação" } },
+        { title: "Este é um Text input", attrs: { _tag: "cds-text-input", label: "Título da solicitação", placeholder: "Digite o título", "show-required": false, "show-lead-icon": false } }
+      ] }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: {
+        attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000" },
+        markers: [
+          { n: 1, target: ".cds-tf__label", side: "left" },
+          { n: 2, target: ".cds-tf__control", side: "left" },
+          { n: 3, target: ".cds-tf__box", side: "right" },
+          { n: 4, target: ".cds-tf__msg", side: "left" },
+          { n: 5, target: ".cds-tf__counter", side: "right" }
+        ],
+        legend: ["Text area label", "Placeholder", "Text area container", "Support text", "Counter"]
+      } },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "State", type: "Variant", values: ["Default", "Hover", "Active/focus", "Filled"] },
+        { name: "Disabled", type: "Boolean" },
+        { name: "Error", type: "Boolean" },
+        { name: "Label", type: "Text", values: ["Padrão: Label"] },
+        { name: "Placeholder", type: "Text", values: ["Padrão: Placeholder"] },
+        { name: "Show support text", type: "Boolean" },
+        { name: "Show counter", type: "Boolean" },
+        { name: "Counter", type: "Text", values: ["Padrão: 000/000"] }
+      ] },
+      { note: "Todas as props podem ser testadas na tab Playground." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Estilos" },
+      { specimens: { title: "Kind", items: [
+        { label: "Default", attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000" } },
+        { label: "Hover", attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000", state: "hovered" } },
+        { label: "Active/focus", attrs: { label: "Label", placeholder: "", supporting: "Support text", "character-counter": "000/000", "is-active": true } },
+        { label: "Filled", attrs: { label: "Label", value: "Placeholder", supporting: "Support text", "character-counter": "000/000" } },
+        { label: "Disabled", attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000", disabled: true } },
+        { label: "Error", attrs: { label: "Label", placeholder: "Placeholder", error: "Error text", "character-counter": "000/000", appearance: "warning" } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Acessibilidade" },
+      { note: "Sem conteúdo no Figma para esta seção." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes" },
+      { guides: [
+        { attrs: { label: "Descrição", "show-required": true, "required-text": "(obrigatório)", placeholder: "Digite uma descrição do plano" }, title: "Uso de label e suporte",
+          text: "Sempre utilize label clara e objetiva acima do campo e, quando necessário, complemente com texto de suporte para orientar o preenchimento, indicar limites ou explicar o conteúdo esperado." },
+        { attrs: { label: "Descrição", value: "Grupo para empresas de São Paulo", maxlength: "255" }, title: "Contador de caracteres",
+          text: "Utilize o contador quando houver limite máximo de caracteres, ajudando a pessoa usuária a acompanhar o quanto ainda pode ser digitado e evitando frustrações no envio." }
+      ] },
+      { h2: "Do's and Don'ts" },
+      { h3: "Conteúdo" },
+      { dodont: [
+        { kind: "do", attrs: { value: "237933.8128600392.7681589000.0633 0898380000000200" },
+          text: "Use o Text Area para textos extensos que exigem múltiplas linhas e facilitam a visualização, leitura e edição do conteúdo pela pessoa usuária." },
+        { kind: "dont", attrs: [
+            { _tag: "cds-text-input", label: "Nome", "required-text": "(obrigatório)", placeholder: "Digite o nome", "show-lead-icon": false },
+            { _tag: "cds-text-input", label: "Descrição", "required-text": "(obrigatório)", placeholder: "Descreva em detalhes o plano a ser seguido", "show-lead-icon": false }
+          ],
+          text: "Não use Input Text para textos longos ou descritivos, pois ele limita a visualização do conteúdo e dificulta a revisão do que foi digitado." }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { alert: { appearance: "warning", label: "Especificação pendente", text: "O frame de Motion do Text Area no Figma ainda está com texto de exemplo (lorem ipsum e \"Especificação\"). A tabela de Motion Styles por estado entra quando o time publicar a especificação." } }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/text-area/text-area.docs.js", e); }
+
 /* ==== components/text-input/text-input.js ==== */
 try {
 /**
@@ -6272,6 +6906,142 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/text-input/text-input.playground.js", e); }
+
+/* ==== components/text-input/text-input.docs.js ==== */
+try {
+/* Documentação — Text Input
+   Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 5308:2266 · frame [Documentação] Text input (5308:2304)
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Capa = mockup com imagem do frame [Header] Text input (5308:2902).
+   Oculto no Figma: Acessibilidade (5308:2548), só com placeholder ("Tópico 1" / "Ordem de leitura") → tab com nota de sem conteúdo.
+   Gaps: o Text Input do Figma tem Clear Button e Required Asterisk; o código não tem Clear Button (marcador 5 da anatomia ficou de fora)
+   e o Required vira "*" via required-text. Diretrizes e Do/Don't no Figma são imagens de mockup: aqui são recriados com o componente.
+   Motion ainda é placeholder (lorem ipsum / "Especificação"). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["text-input"] = {
+  tag: "cds-text-input",
+  base: { label: "Label", "required-text": "*", supporting: "Supporting Message", "character-counter": "-0000" },
+  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=5308-2266",
+  // Capa (frame [Header] do Figma): mockup de produto, imagem exportada à parte
+  cover: {
+    description: "O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária.",
+    image: "assets/docs/covers/text-input.png",
+    alt: "Tela de produto com um formulário usando Text Input"
+  },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { h2: "Sobre" },
+      { p: "O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária. É utilizado para capturar qualquer informação digitável em linha única." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Campo de texto, campo de entrada, input de texto." },
+      { h3: "Princípios" },
+      { cards: [
+        ["Clareza", "O campo deve comunicar de forma objetiva o que se espera que a pessoa usuária insira, por meio de label, placeholder e mensagens auxiliares consistentes."],
+        ["Previsibilidade", "O comportamento deve seguir padrões conhecidos de interação (foco, erro, sucesso, desabilitado), reduzindo esforço cognitivo e evitando surpresas."],
+        ["Feedback imediato", "Validações, erros e estados devem ser apresentados de forma contextual e no momento adequado, apoiando a pessoa usuária na conclusão da tarefa."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use o Text Input quando for necessário coletar uma informação textual curta e específica em um formulário ou fluxo, especialmente quando a pessoa usuária precisa digitar manualmente o conteúdo e não há uma lista pré-definida de opções que possa ser apresentada por meio de seleção." },
+      { h3: "Utilize para:" },
+      { ul: ["Inserção de nome, sobrenome ou apelido", "E-mail", "CPF, CNPJ ou outros identificadores", "Código promocional", "Informações curtas de identificação"] },
+      { h3: "Não utilize para:" },
+      { ul: ["Seleção entre opções pré-definidas (use Select input ou Selection List)", "Respostas longas e descritivas (use Text Area)", "Escolhas múltiplas com visualização de alternativas simultâneas", "Filtros rápidos de navegação"] },
+      { h3: "Text Area vs Text input" },
+      { p: "O Text input é indicado para textos curtos e objetivos, enquanto o Text Area deve ser usado quando a pessoa usuária precisa escrever conteúdos mais longos, com múltiplas linhas e maior flexibilidade de visualização." },
+      { compare: [
+        { title: "Este é um Text area", attrs: { _tag: "cds-text-area", label: "Descrição da solicitação", placeholder: "Explique o contexto ou a situação",
+            "show-required": false, "show-supporting-content": false, "show-character-counter": false } },
+        { title: "Este é um Text input", attrs: { label: "Título da solicitação", placeholder: "Digite o título",
+            "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false } }
+      ] }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: {
+        attrs: { value: "Hello" },
+        markers: [
+          { n: 1, target: ".cds-tf__label > span:first-child", side: "left" },
+          { n: 2, target: ".cds-tf__req", side: "top" },        // Figma: seta de cima (Down)
+          { n: 3, target: ".cds-tf__lead", side: "left" },
+          { n: 4, target: ".cds-tf__control", side: "right" },  // Figma: seta de cima (Down)
+          { n: 5, target: ".cds-tf__msg", side: "left" },       // Figma: 6
+          { n: 6, target: ".cds-tf__counter", side: "bottom" }  // Figma: 7
+        ],
+        legend: ["Label Content", "Required Asterisk", "Lead Icon", "Text Content", "Supporting Message", "Character Counter"]
+      } },
+      { note: "O Figma também marca o Clear Button (5), que o Text Input do playground ainda não tem." },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Style", type: "Variant", values: ["Neutral", "Warning"] },
+        { name: "State", type: "Variant", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
+        { name: "Is filled", type: "Boolean" },
+        { name: "Is active", type: "Boolean" },
+        { name: "Show label content", type: "Boolean" },
+        { name: "Label content", type: "Text", values: ["Padrão: Label"] },
+        { name: "Show required asterisk", type: "Boolean" },
+        { name: "Show lead icon", type: "Boolean" },
+        { name: "Text content", type: "Text", values: ["Padrão: Hello"] },
+        { name: "Show clear button", type: "Boolean" },
+        { name: "Show supporting message", type: "Boolean" },
+        { name: "Supporting message", type: "Text", values: ["Padrão: Supporting message"] },
+        { name: "Show character counter", type: "Boolean" },
+        { name: "Character counter value", type: "Text", values: ["Padrão: -0000"] }
+      ] },
+      { note: "Todas as props podem ser testadas na tab Playground (exceto Show clear button, que ainda não existe no código)." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Estilos" },
+      { specimens: { title: "Kind · Accent", items: [
+        { label: "Enabled", attrs: {} },
+        { label: "Hovered", attrs: { state: "hovered" } },
+        { label: "Pressed", attrs: { state: "pressed" } },
+        { label: "Disabled", attrs: { disabled: true } },
+        { label: "Is filled", attrs: { value: "Hello" } },
+        { label: "Is active", attrs: { "is-active": true } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Acessibilidade" },
+      { note: "Sem conteúdo no Figma para esta seção." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes" },
+      { guides: [
+        { attrs: { label: "Titular da conta", placeholder: "Insira o nome completo do titular", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false },
+          title: "Escreva labels claras e específicas",
+          text: "Prefira labels objetivas que descrevam exatamente o dado esperado, evitando termos genéricos como “Informação” ou “Digite aqui”." },
+        { attrs: { label: "Insira o CPF ou CNPJ", placeholder: "000.000.000-00", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false },
+          title: "Evite depender apenas de placeholder",
+          text: "O placeholder não substitui o label. Ele deve complementar a orientação, oferecendo exemplo de formato quando necessário." },
+        { attrs: { label: "Insira a chave Pix", value: "abc", appearance: "warning", error: "Insira um formato de chave válido.", "show-required": false, "show-lead-icon": false, "show-character-counter": false },
+          title: "Valide no momento certo",
+          text: "Apresente mensagens de erro de forma contextual, preferencialmente após interação da pessoa usuária, evitando bloquear a digitação prematuramente." },
+        { attrs: { label: "CPF", mask: "cpf", value: "12345678910", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false },
+          title: "Defina tipo e máscara corretamente",
+          text: "Sempre que possível, utilize o tipo apropriado (ex: e-mail, número) e máscaras coerentes para reduzir erros e facilitar o preenchimento." }
+      ] },
+      { note: "No Figma, os exemplos das diretrizes e dos Do's and Don'ts são imagens de tela; aqui são o Text Input real com os mesmos textos (sem o título da tela)." },
+      { h2: "Do's and Don'ts" },
+      { h3: "Conteúdo" },
+      { dodont: [
+        { kind: "do", attrs: { label: "Insira a chave Pix", value: "abc", appearance: "warning", error: "Insira um formato de chave válido.", "show-required": false, "show-lead-icon": false, "show-character-counter": false },
+          text: "Sempre forneça mensagem de erro específica" },
+        { kind: "dont", attrs: { label: "Insira a chave Pix", value: "abc", appearance: "warning", error: "Campo inválido", "show-required": false, "show-lead-icon": false, "show-character-counter": false },
+          text: "Não exiba erro genérico como “Campo inválido” sem contexto" }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { alert: { appearance: "warning", label: "Especificação pendente", text: "O frame de Motion do Text Input no Figma ainda está com texto de exemplo (lorem ipsum e \"Especificação\" para Easing e Duration de Enabled, Hovered, Pressed e Loading). A tabela de Motion Styles por estado entra quando o time publicar a especificação." } }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/text-input/text-input.docs.js", e); }
 
 /* ==== components/toast/toast.js ==== */
 try {
@@ -7220,6 +7990,138 @@ CDS.register({
   mount: function(ctx){ ctx.kit.selectField(ctx, { tag: "cds-radio-select-input", note: "Escolha única sem busca: clique, Enter, Espaço ou seta abrem a lista." }); }
 });
 } catch (e) { console.error("[cds] components/radio-select-input/radio-select-input.playground.js", e); }
+
+/* ==== components/radio-select-input/radio-select-input.docs.js ==== */
+try {
+/* Documentação — Select Input (escrita no Radio Select Input, o Select básico de escolha única)
+   Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 5074:492 · frame [Documentação] Select input (5074:530)
+   A doc do Figma cobre a família inteira ("uma ou mais opções") e usa o set legado "Select Input" (remoto, 3863:22690:
+   Style Neutral|Negative · State · IsFilled? · ShowLabel · ShowSupport text). No playground ela fica no radio-select-input.
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
+   Oculto no Figma: Acessibilidade (só placeholder "Tópico 1 / Ordem de leitura") → tab com nota, sem conteúdo.
+   Gaps: Anatomia B (Popover + Selection list abertos) não é mostrada; State Focused sem estado forçado no código;
+   Diretrizes e Do/Don'ts são imagens no Figma (recriadas só com o campo, sem botões nem lista aberta).
+   Setas 4 e 5 da anatomia trocaram de lado para não cruzar. Motion ainda é placeholder no Figma. */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["radio-select-input"] = {
+  tag: "cds-radio-select-input",
+  base: { label: "Label", placeholder: "Placeholder", supporting: "Support text", error: "Support text", "show-lead-icon": false },
+  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=5074-492",
+  // Capa (frame [Header] Select input, 5074:1128): mockup de tela de produto
+  cover: { description: "O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida.", image: "assets/docs/covers/radio-select-input.png", alt: "Tela de Benefícios com o painel Filtrar aberto: o Select input Categoria mostra a lista de opções (Alimentação, Bem-estar, Cultura, Educação)." },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { h2: "Sobre" },
+      { p: "O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Dropdown, Select, Lista suspensa." },
+      { h3: "Princípios" },
+      { cards: [
+        ["Clareza", "O componente deve comunicar de forma imediata quais opções estão disponíveis e qual valor está selecionado, evitando ambiguidades ou interpretações incorretas."],
+        ["Previsibilidade", "O comportamento do Select input deve seguir padrões conhecidos, garantindo que a pessoa usuária saiba o que esperar ao interagir com o componente."],
+        ["Eficiência", "A seleção deve exigir o mínimo de esforço possível, permitindo escolhas rápidas e reduzindo a necessidade de correções ou retrabalho."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use o Select input quando houver um conjunto conhecido e limitado de opções e quando for importante garantir padronização da resposta sem exigir digitação livre, seja para seleção única ou múltipla." },
+      { h3: "Utilize para:" },
+      { ul: ["Selecionar uma ou múltiplas opções entre valores pré-definidos", "Garantir consistência e validação de dados", "Reduzir esforço cognitivo em escolhas comuns"] },
+      { h3: "Não utilize para:" },
+      { ul: ["Listas muito longas sem agrupamento ou busca", "Entradas abertas ou valores personalizados", "Comparação direta entre muitas opções"] },
+      { h3: "Select input vs Selection list / Selection list item" },
+      { p: "O Select input é indicado quando é necessário economizar espaço e apresentar as opções apenas no momento da interação. Ao ser ativado, ele utiliza a Selection list internamente para exibir as opções disponíveis." },
+      { p: "A Selection list e Selection list item, por sua vez, são mais adequadas quando as opções precisam estar sempre visíveis, facilitando leitura, comparação e tomada de decisão direta, sem depender de um campo de entrada." },
+      { compare: [
+        { title: "Este é um Select input", attrs: { label: "Destinatário", placeholder: "Selecione uma opção", "show-supporting-content": false } },
+        { title: "Esta é uma Selection list", attrs: { _tag: "cds-selection-list", label: "Benefícios", _children: [
+          { _tag: "cds-selection-list-item", label: "Plano odontológico", "show-description": false },
+          { _tag: "cds-selection-list-item", label: "Vale-alimentação", "show-description": false },
+          { _tag: "cds-selection-list-item", label: "Vale-transporte", "show-description": false },
+          { _tag: "cds-selection-list-item", label: "Gympass", "show-description": false },
+          { _tag: "cds-selection-list-item", label: "Psicologia Viva", "show-description": false }
+        ] } }
+      ] },
+      { note: "No Figma, o Select input da comparação aparece aberto (Active), com a lista de opções; aqui ele aparece fechado. Abra a lista na tab Playground." }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: {
+        attrs: {},
+        markers: [
+          { n: 1, target: ".cds-tf__label", side: "left" },
+          { n: 2, target: ".cds-tf__control", side: "left" },
+          { n: 3, target: ".cds-tf__msg", side: "bottom" },
+          { n: 4, target: ".cds-tf__box", side: "right" },        // Figma: seta de baixo (Top) (CONFERIR)
+          { n: 5, target: "cds-icon-button", side: "bottom" }   // Figma: Left (CONFERIR)
+        ],
+        legend: ["Title label", "Placeholder", "Support text", "Input container", "Dropdown icon button"]
+      } },
+      { p: "A. Enabled: Title label, Placeholder, Support text, Input container e Dropdown icon button." },
+      { p: "B. Active: Popover (6) e Selection list (7)." },
+      { note: "O estado Active (B), com o Popover e a Selection list abertos, não é mostrado na anatomia: abra a lista na tab Playground." },
+      { h2: "Composição do componente" },
+      { p: "O Select input é composto por um campo colapsado (trigger) e pela exibição da Selection list para apresentar as opções." },
+      { p: "Quando o Select estiver no modo ativo (aberto), tanto o campo quanto os Selection list items devem refletir esse estado por meio de ajustes visuais e comportamentais consistentes — como foco, destaque da opção selecionada e feedback de interação — garantindo coerência entre os dois componentes." },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Style", type: "Variant", values: ["Neutral", "Negative"] },
+        { name: "State", type: "Variant", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
+        { name: "Is Filled?", type: "Boolean" },
+        { name: "Show Label", type: "Boolean" },
+        { name: "Label", type: "Text", values: ["Padrão: Label"] },
+        { name: "Placeholder", type: "Text", values: ["Padrão: Placeholder"] },
+        { name: "Show Support text", type: "Boolean" },
+        { name: "Support text", type: "Text", values: ["Padrão: Support text"] }
+      ] },
+      { note: "No código, Style=Negative corresponde a appearance=\"warning\". Todas as props podem ser testadas na tab Playground." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Estilos" },
+      { specimens: { title: "Accent", items: [
+        { label: "Enabled", attrs: {} },
+        { label: "Hovered", attrs: { state: "hovered" } },
+        { label: "Pressed", attrs: { state: "pressed" } },
+        { label: "Actived", attrs: { "is-active": true } },
+        { label: "Disabled", attrs: { disabled: true } },
+        { label: "Negative enabled", attrs: { appearance: "warning" } },
+        { label: "Negative actived", attrs: { appearance: "warning", "is-active": true } }
+      ] } },
+      { note: "O Figma também mostra o estado Focused, que o código não força para exibição: ele aparece ao focar o campo (mesmo visual de Actived). Nos estados Actived, a lista aberta não é mostrada." }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Acessibilidade" },
+      { note: "Sem conteúdo no Figma para esta seção." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes" },
+      { guides: [
+        { attrs: { label: "Carteira correta para debitar a compra", placeholder: "Selecione uma opção", "show-supporting-content": false }, title: "Label e suporte",
+          text: "Use labels claros e objetivos e complemente com support text apenas quando necessário para explicar regras, contexto ou consequências da escolha." },
+        { attrs: { label: "Destinatário", placeholder: "Selecione uma opção", "show-supporting-content": false }, title: "Placeholder",
+          text: "Utilize o placeholder como instrução inicial, não como substituto do label." }
+      ] },
+      { h2: "Do's and Don'ts" },
+      { h3: "Conteúdo" },
+      { dodont: [
+        { kind: "do", attrs: { label: "Destinatário", placeholder: "", "show-supporting-content": false, "is-active": true },
+          text: "Mantenha a ordem lógica ou semântica da lista" },
+        { kind: "dont", attrs: { label: "Selecione o país", placeholder: "", "show-supporting-content": false, "is-active": true },
+          text: "Não use Select para listas excessivamente longas sem busca" }
+      ] },
+      { note: "No Figma, os exemplos de Diretrizes e Do's and Don'ts são imagens com a lista de opções aberta (e botões de ação nas diretrizes); aqui aparece só o campo." }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { alert: { appearance: "warning", label: "Especificação pendente", text: "O frame de Motion do Select input no Figma ainda está com texto de exemplo (lorem ipsum e \"Especificação\"). A tabela de Motion Styles por estado entra quando o time publicar a especificação." } }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/radio-select-input/radio-select-input.docs.js", e); }
 
 /* ==== components/select-number/select-number.js ==== */
 try {

@@ -137,12 +137,23 @@
   function plain(s){ return s.replace(/\*\*|~~|`/g, "").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1"); }
 
   // ---------- Visão geral (dashboard) ----------
+  // Card do DS (Has Border): o corpo entra antes de conectar (o Card leva os filhos para o Slot só no 1º render)
+  function card(cls){ var c = el("cds-card", cls); c.setAttribute("has-border", "true"); return c; }
   function panel(parent, title, sub, cls){
-    var p = parent.appendChild(el("section", "rp-panel" + (cls ? " " + cls : "")));
+    var c = card("rp-panel" + (cls ? " " + cls : "")), p = c.appendChild(el("div", "rp-panel__body"));
     var h = p.appendChild(el("div", "rp-panel__head"));
     h.appendChild(el("h2", "rp-panel__title", title));
     if (sub) h.appendChild(el("p", "rp-panel__sub", sub));
+    parent.appendChild(c);
     return p;
+  }
+  // Contador = Tag do DS (Neutral, sem ícone)
+  function countTag(n){ var t = el("cds-tag", "rp-count"); t.setAttribute("label", String(n)); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false"); return t; }
+  // Link do DS
+  function dsLink(cls, label, href, external){
+    var l = el("cds-link", cls); l.setAttribute("label", label); l.setAttribute("href", href); l.setAttribute("appearance", "neutral");
+    if (external){ l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); }
+    return l;
   }
   function bars(parent, data, opts){
     var max = Math.max.apply(null, data.map(function(d){ return d.value; }).concat([1]));
@@ -152,9 +163,9 @@
       var row = li.appendChild(el(d.href ? "a" : "div", "rp-bar"));
       if (d.href) row.href = d.href;
       row.appendChild(el("span", "rp-bar__label", esc(d.label)));
-      var track = row.appendChild(el("span", "rp-bar__track"));
-      var fill = track.appendChild(el("span", "rp-bar__fill" + (opts && opts.tone ? " is-" + opts.tone : "")));
-      fill.style.width = (d.value / max * 100) + "%";
+      // Progress Line do DS (decorativa: o rótulo e o número já estão na linha)
+      var pl = row.appendChild(el("cds-progress-line", "rp-bar__line" + (opts && opts.tone ? " is-" + opts.tone : "")));
+      pl.setAttribute("percent", String(Math.round(d.value / max * 1000) / 10)); pl.setAttribute("aria-hidden", "true");
       row.appendChild(el("span", "rp-bar__value", String(d.value)));
     });
   }
@@ -203,8 +214,8 @@
       if (r[2]) li.appendChild(el("p", "rp-list__note", esc(plain(r[2]))));
     });
     // Ordem (Gustavo, 02/10): Componentes · Adaptações para código · Débitos e melhorias · Decisões
-    [p4, p3, p2, p6].forEach(function(p){ grid.appendChild(p); });
-    var more = p6.appendChild(el("a", "rp-more", "Ver decisões")); more.href = "#/relatorio/roadmap/" + slug(sec(road, function(s){ return s.num === "4"; }).title);
+    [p4, p3, p2, p6].forEach(function(p){ grid.appendChild(p.closest("cds-card")); });
+    p6.appendChild(dsLink("rp-more", "Ver decisões", "#/relatorio/roadmap/" + slug(sec(road, function(s){ return s.num === "4"; }).title)));
   }
   function goTo(section){
     if (!section) return;
@@ -262,7 +273,7 @@
     var toc = bodyEl.appendChild(el("nav", "rp-toc")); toc.setAttribute("aria-label", "Seções");
     var content = bodyEl.appendChild(el("div", "rp-content"));
     var intro = blocks(doc.intro);
-    if (intro){ var s0 = content.appendChild(el("section", "rp-section rp-intro", intro)); s0.id = "rp-" + id + "-sobre"; }
+    if (intro){ var s0 = card("rp-section rp-intro"); s0.appendChild(el("div", "rp-md", intro)); s0.id = "rp-" + id + "-sobre"; content.appendChild(s0); }
     var used = [];
     var groups = tab.groups.map(function(g){
       var secs = g[1].map(function(k){ return doc.sections.filter(function(s){ return (s.num || s.title) === k; })[0]; }).filter(Boolean);
@@ -279,16 +290,16 @@
         var sid = "rp-" + id + "-" + slug(s.title), count = items(s.lines).length;
         var li = ul.appendChild(el("li")), a = li.appendChild(el("a", null, inline(s.title)));
         a.href = "#" + sid; a.dataset.section = sid;
-        if (count) a.appendChild(el("span", "rp-count", String(count)));
-        var sec = content.appendChild(el("section", "rp-section"));
+        if (count) a.appendChild(countTag(count));
+        var sec = card("rp-section");
         sec.id = sid; sec.dataset.slug = slug(s.title);
         var h = sec.appendChild(el("h3", "rp-section__title", inline(s.title)));
-        if (count) h.appendChild(el("span", "rp-count", String(count)));
+        if (count) h.appendChild(countTag(count));
         sec.appendChild(el("div", "rp-md", blocks(s.lines)));
+        content.appendChild(sec);
       });
     });
-    var src = toc.appendChild(el("a", "rp-src", "Ver no GitHub"));
-    src.href = REPO + tab.file; src.target = "_blank"; src.rel = "noopener";
+    toc.appendChild(dsLink("rp-src", "Ver no GitHub", REPO + tab.file, true));
     filter();
   }
 
@@ -323,10 +334,11 @@
         docs = {}; DOCS.forEach(function(t, i){ docs[t.id] = parse(texts[i]); });
         kpiEl.innerHTML = "";
         kpis(docs).forEach(function(k){
-          var c = kpiEl.appendChild(el("div", "rp-kpi"));
+          var c = card("rp-kpi");
           c.appendChild(el("p", "rp-kpi__label", k.label));
           c.appendChild(el("p", "rp-kpi__value", String(k.value)));
           c.appendChild(el("p", "rp-kpi__sub", k.sub));
+          kpiEl.appendChild(c);
         });
         current = id; renderTab(id); goTo(section);
       }).catch(function(err){ bodyEl.innerHTML = '<p class="rp-meta">Não foi possível ler os registros (' + esc(String(err.message || err)) + ").</p>"; });

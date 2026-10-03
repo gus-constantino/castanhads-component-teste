@@ -715,14 +715,15 @@ cds-breadcrumb{ display:block; min-width:0; }
 /* =====================================================================
    Progress Line · Progress Indicators · set 2322:4006
    Trilho 6px Surface/01 pill · barra Surface/accent pill · largura fluida
+   Quem usa pode trocar as cores por token: --cds-progress-color (barra) e --cds-progress-track (trilho)
    ===================================================================== */
 cds-progress-line{
   display:block; width:100%; min-width:var(--common-sizes-40); height:var(--common-sizes-6);
-  border-radius:var(--common-border-radius-pill); background:var(--common-colors-surface-01); overflow:hidden;
+  border-radius:var(--common-border-radius-pill); background:var(--cds-progress-track, var(--common-colors-surface-01)); overflow:hidden;
 }
 cds-progress-line > .cds-pl__bar{
   display:block; height:100%; width:var(--_pct, 0%);
-  border-radius:var(--common-border-radius-pill); background:var(--common-colors-surface-accent);
+  border-radius:var(--common-border-radius-pill); background:var(--cds-progress-color, var(--common-colors-surface-accent));
 }
 
 /* ==== components/progress-tracker-item/progress-tracker-item.css ==== */

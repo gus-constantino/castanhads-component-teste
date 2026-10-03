@@ -22,7 +22,7 @@
    Fundo e forma são só decorativos: hex do Figma por decisão do Gustavo (02/10), sem token equivalente (C91).
    Aqui: mesma proporção, raios escalados (extra-large / large), moldura com mínimo para caber o componente. */
 .pg-cover{
-  --pg-cover-bg:#f7f3ed; /* decorativo (C91) */
+  --pg-cover-bg:#f7f3ed; /* decorativo (C91); fica claro também no tema escuro, por enquanto */
   display:grid; place-items:center; aspect-ratio:1632 / 668; min-height:calc(var(--common-sizes-200) + var(--common-sizes-80));
   margin:var(--common-sizes-24) var(--common-sizes-32) 0; overflow:hidden;
   background:var(--pg-cover-bg) url("../assets/brand/cover-cashew.svg") center / cover no-repeat;

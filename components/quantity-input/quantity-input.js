@@ -6,7 +6,10 @@
  * os dois Icon Button · Neutral · Medium, Kind Default ou Ghost (variante do conjunto, não dos botões).
  *
  * Atributos: kind (default|ghost) · appearance · disabled · value (padrão 1) · min · max · step (padrão 1)
- *   suffix (unidade junto ao valor, ex.: "%") · label · required-text · supporting · error
+ *   prefix (antes do valor, ex.: "R$") · suffix (depois, ex.: "%") · decimals (casas fixas, ex.: 2 → "5,00")
+ *   label · required-text · supporting · error
+ *   Exibição em pt-BR com separador de milhar ("1.250"); a digitação também é lida em pt-BR
+ *   (prefix, decimals e milhar: exceção aprovada pelo Gustavo em 02/10 — a lib não tem essas props, C100)
  *   show-label · show-required · show-supporting-content · decrement-label · increment-label
  * Comportamento (annotations): valor inválido não bloqueia a digitação; fora da faixa vira Warning;
  *   ao sair do campo, ajusta para o limite mais próximo e anuncia; no limite, o botão correspondente fica
@@ -17,9 +20,11 @@
   "use strict";
   var el = CDS.TextField.el, uid = 0;
   function num(v, d){ var n = parseFloat(String(v).replace(",", ".")); return isFinite(n) ? n : d; }
+  // texto digitado em pt-BR: "1.250,5" → 1250.5 (ponto = milhar, vírgula = decimal)
+  function numBR(v, d){ return num(String(v).replace(/\s/g, "").replace(/\./g, ""), d); }
 
   class CdsQuantityInput extends CDS.Element {
-    static get observedAttributes(){ return ["kind","appearance","disabled","value","min","max","step","suffix","label","required-text","supporting","error","show-label","show-required","show-supporting-content","decrement-label","increment-label","state","is-active"]; }
+    static get observedAttributes(){ return ["kind","appearance","disabled","value","min","max","step","prefix","suffix","decimals","label","required-text","supporting","error","show-label","show-required","show-supporting-content","decrement-label","increment-label","state","is-active"]; }
     constructor(){ super(); this._id = "cds-qty-" + (++uid); this._value = null; }
     get min(){ return num(this.getAttribute("min"), -Infinity); }
     get max(){ return num(this.getAttribute("max"), Infinity); }
@@ -49,7 +54,7 @@
 
       this.dec.addEventListener("click", function(){ self.stepBy(-1); });
       this.inc.addEventListener("click", function(){ self.stepBy(1); });
-      ctrl.addEventListener("input", function(){ self._typed = true; self._value = num(ctrl.value.replace(self.suffixText, ""), self._value); self.update(true); });
+      ctrl.addEventListener("input", function(){ self._typed = true; self._value = numBR(ctrl.value.replace(self.prefixText, "").replace(self.suffixText, ""), self._value); self.update(true); });
       ctrl.addEventListener("keydown", function(e){
         if (e.key === "ArrowUp"){ e.preventDefault(); self.stepBy(1); }
         if (e.key === "ArrowDown"){ e.preventDefault(); self.stepBy(-1); }
@@ -58,6 +63,7 @@
       box.addEventListener("mousedown", function(e){ if (e.target !== ctrl){ e.preventDefault(); ctrl.focus(); } });
     }
     get suffixText(){ return this.getAttribute("suffix") || ""; }
+    get prefixText(){ var p = this.getAttribute("prefix"); return p ? p + "\u00a0" : ""; }
     stepBy(dir){
       var v = this._value + dir * this.step;
       v = Math.min(this.max, Math.max(this.min, v));
@@ -71,7 +77,11 @@
       this.update(); this.emit();
     }
     emit(){ this.dispatchEvent(new CustomEvent("cds-change", { detail: { value: this._value }, bubbles: true })); }
-    format(v){ return String(v).replace(".", ",") + this.suffixText; }
+    format(v){
+      var d = parseInt(this.getAttribute("decimals"), 10), fixed = isFinite(d) && d >= 0;
+      var txt = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: fixed ? d : 0, maximumFractionDigits: fixed ? d : 6 }).format(v);
+      return this.prefixText + txt + this.suffixText;
+    }
     get outOfRange(){ return this._value < this.min || this._value > this.max; }
 
     update(typing){
@@ -87,6 +97,7 @@
       this.classList.toggle("is-warning", warning);
       var ctrl = this.control;
       if (!typing) ctrl.value = this.format(this._value);
+      ctrl.style.width = (Math.max(1, ctrl.value.length) + 1) + "ch"; // a caixa acompanha o texto (mínimo 72 no CSS)
       ctrl.disabled = this.hasAttribute("disabled");
       ctrl.setAttribute("aria-valuenow", String(this._value));
       ctrl.setAttribute("aria-valuetext", this.format(this._value));

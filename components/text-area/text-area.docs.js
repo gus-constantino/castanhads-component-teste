@@ -4,8 +4,8 @@
    Capa: o [Header] (4944:937) é um mockup mobile (tela Pix Copia e Cola) → imagem em assets/docs/covers/text-area.png.
    Oculto no Figma: Acessibilidade (4944:591) — só placeholder ("Tópico 1" / "Ordem de leitura"), por isso a tab fica com nota.
    Motion ainda é placeholder no Figma (lorem ipsum + "Especificação").
-   Gaps: o Text Area da doc tem props State (Default/Hover/Active-focus/Filled), Disabled, Error, Show support text, Show counter e Counter;
-   no código viram state="hovered", is-active, value, disabled, appearance="warning", show-supporting-content, show-character-counter e character-counter.
+   A doc do Figma usa um set legado (State Default/Hover/Active-focus/Filled, Error…); Propriedades e Estilos seguem o set do código,
+   Text Area Input 10110:3028 (decisão do Gustavo, C98).
    Os Do/Don'ts no Figma são imagens (prints de tela); aqui são recriados só com os campos (sem o título "Pagar boleto" da tela). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
@@ -60,27 +60,39 @@ CDS.docs["text-area"] = {
       } },
       { h2: "Propriedades" },
       { props: [
-        { name: "State", type: "Variant", values: ["Default", "Hover", "Active/focus", "Filled"] },
-        { name: "Disabled", type: "Boolean" },
-        { name: "Error", type: "Boolean" },
-        { name: "Label", type: "Text", values: ["Padrão: Label"] },
-        { name: "Placeholder", type: "Text", values: ["Padrão: Placeholder"] },
-        { name: "Show support text", type: "Boolean" },
-        { name: "Show counter", type: "Boolean" },
-        { name: "Counter", type: "Text", values: ["Padrão: 000/000"] }
+        { name: "Appearance", type: "Variant", values: ["Neutral", "Warning"] },
+        { name: "State", type: "Variant", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
+        { name: "Is Filled", type: "Variant", values: ["False", "True"] },
+        { name: "Is Active", type: "Variant", values: ["False", "True"] },
+        { name: "Text Label", type: "Text", values: ["Padrão: Label"] },
+        { name: "Placeholder Content", type: "Text", values: ["Padrão: Placeholder"] },
+        { name: "Text Content", type: "Text", values: ["Padrão: Hello"] },
+        { name: "Required Text", type: "Text", values: ["Padrão: (Obrigatório)"] },
+        { name: "Supporting Message", type: "Text", values: ["Padrão: Supporting Message"] },
+        { name: "Error Message", type: "Text", values: ["Padrão: Error Message"] },
+        { name: "Character Counter Value", type: "Text", values: ["Padrão: -0000"] },
+        { name: "Show Label", type: "Boolean" },
+        { name: "Show Required", type: "Boolean" },
+        { name: "Show Supporting Content", type: "Boolean" },
+        { name: "Show Character Counter", type: "Boolean" },
+        { name: "Show Trailing Item", type: "Boolean" },
+        { name: "Show Caret", type: "Boolean" }
       ] },
       { note: "Todas as props podem ser testadas na tab Playground." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
       { h2: "Estilos" },
-      { specimens: { title: "Kind", items: [
-        { label: "Default", attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000" } },
-        { label: "Hover", attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000", state: "hovered" } },
-        { label: "Active/focus", attrs: { label: "Label", placeholder: "", supporting: "Support text", "character-counter": "000/000", "is-active": true } },
-        { label: "Filled", attrs: { label: "Label", value: "Placeholder", supporting: "Support text", "character-counter": "000/000" } },
-        { label: "Disabled", attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000", disabled: true } },
-        { label: "Error", attrs: { label: "Label", placeholder: "Placeholder", error: "Error text", "character-counter": "000/000", appearance: "warning" } }
+      { specimens: { title: "Estados", items: [
+        { label: "Enabled", attrs: { label: "Label", "show-required": true } },
+        { label: "Hovered", attrs: { label: "Label", "show-required": true, state: "hovered" } },
+        { label: "Pressed", attrs: { label: "Label", "show-required": true, state: "pressed" } },
+        { label: "Disabled", attrs: { label: "Label", "show-required": true, disabled: true } }
+      ] } },
+      { specimens: { title: "Is Active · Is Filled · Appearance", items: [
+        { label: "Is Active", attrs: { label: "Label", "show-required": true, "is-active": true } },
+        { label: "Is Filled", attrs: { label: "Label", "show-required": true, value: "Hello" } },
+        { label: "Warning", attrs: { label: "Label", "show-required": true, value: "Hello", appearance: "warning" } }
       ] } }
     ] },
 

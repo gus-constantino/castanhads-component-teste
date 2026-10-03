@@ -2,7 +2,8 @@
    Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 5308:2266 · frame [Documentação] Text input (5308:2304)
    Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Capa = mockup com imagem do frame [Header] Text input (5308:2902).
    Oculto no Figma: Acessibilidade (5308:2548), só com placeholder ("Tópico 1" / "Ordem de leitura") → tab com nota de sem conteúdo.
-   Gaps: o Text Input do Figma tem Clear Button e Required Asterisk; o código não tem Clear Button (marcador 5 da anatomia ficou de fora)
+   Clear Button (prop "Show clear button" e item 5 da anatomia) é legado da doc: a lib atual (5743:325) não tem; ignorado (C96).
+   Gaps: Required Asterisk
    e o Required vira "*" via required-text. Diretrizes e Do/Don't no Figma são imagens de mockup: aqui são recriados com o componente.
    Motion ainda é placeholder (lorem ipsum / "Especificação"). */
 window.CDS = window.CDS || {};
@@ -59,7 +60,6 @@ CDS.docs["text-input"] = {
         ],
         legend: ["Label Content", "Required Asterisk", "Lead Icon", "Text Content", "Supporting Message", "Character Counter"]
       } },
-      { note: "O Figma também marca o Clear Button (5), que o Text Input do playground ainda não tem." },
       { h2: "Propriedades" },
       { props: [
         { name: "Style", type: "Variant", values: ["Neutral", "Warning"] },
@@ -71,13 +71,12 @@ CDS.docs["text-input"] = {
         { name: "Show required asterisk", type: "Boolean" },
         { name: "Show lead icon", type: "Boolean" },
         { name: "Text content", type: "Text", values: ["Padrão: Hello"] },
-        { name: "Show clear button", type: "Boolean" },
         { name: "Show supporting message", type: "Boolean" },
         { name: "Supporting message", type: "Text", values: ["Padrão: Supporting message"] },
         { name: "Show character counter", type: "Boolean" },
         { name: "Character counter value", type: "Text", values: ["Padrão: -0000"] }
       ] },
-      { note: "Todas as props podem ser testadas na tab Playground (exceto Show clear button, que ainda não existe no código)." }
+      { note: "Todas as props podem ser testadas na tab Playground." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [

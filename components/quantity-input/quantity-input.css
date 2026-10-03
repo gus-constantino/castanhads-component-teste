@@ -3,8 +3,8 @@
    Motion: 300ms + Systemic/accelerate, herdado da base (como na main) */
 cds-quantity-input.cds-tf{ width:auto; }
 .cds-qty__row{ display:flex; align-items:center; gap:var(--common-sizes-8); }
-.cds-qty__box{ flex:0 0 auto; min-width:var(--common-sizes-72); width:var(--common-sizes-72); padding:0 var(--common-sizes-16); justify-content:center; }
-.cds-qty__control{ text-align:center; width:100%; font-variant-numeric:tabular-nums; }
+.cds-qty__box{ flex:0 0 auto; min-width:var(--common-sizes-72); width:auto; /* Figma: mínimo 72; cresce com prefixo/unidade (C100) */ padding:0 var(--common-sizes-16); justify-content:center; }
+.cds-qty__control{ text-align:center; width:100%; min-width:0; font-variant-numeric:tabular-nums; }
 /* Is Active=True sem mudança de stroke (matriz do Figma) */
 cds-quantity-input .cds-qty__box:focus-within:not(:hover):not(:active){ --_stroke-c:var(--common-colors-border-semi-soft); }
 cds-quantity-input.is-warning .cds-qty__box,

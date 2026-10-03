@@ -3,8 +3,8 @@
    Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
    Oculto no Figma: Composição do componente (tem conteúdo real → entra na Anatomia); Acessibilidade (só placeholder
    "Tópico 1 / Ordem de leitura" → fica de fora, tab com nota); Frame 7 "Casos de exceção" das Diretrizes (lorem ipsum → de fora).
-   Gaps: o componente não tem prefixo de unidade (exemplo "R$ 5,00" fora) e lê "1.250" como 1,25 (Don't usa 1250);
-   anatomia: marcador 2 (Required Asterisk) vem de cima no Figma e aqui fica à direita.
+   Prefixo (R$), casas decimais e milhar ("1.250") entraram no componente (C100, aprovado);
+   anatomia: 2 vem de cima (como no Figma); 4 embaixo e 6 à direita para não cruzar o + (C100).
    Motion ainda é placeholder no Figma. */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
@@ -110,7 +110,8 @@ CDS.docs["quantity-input"] = {
             { value: "3", "show-label": false, "show-supporting-content": false }
           ], title: "Mantenha o passo constante",
           text: "O incremento e o decremento alteram o valor sempre na mesma medida. Passo variável quebra a previsibilidade do controle." },
-        { attrs: { kind: "ghost", value: "100", suffix: "%", "show-label": false, "show-supporting-content": false }, title: "Escreva a unidade junto do valor",
+        { attrs: [{ kind: "ghost", value: "100", suffix: "%", "show-label": false, "show-supporting-content": false },
+                   { kind: "ghost", value: "5", prefix: "R$", decimals: "2", "show-label": false, "show-supporting-content": false }], title: "Escreva a unidade junto do valor",
           text: "O conteúdo do campo é texto e aceita o número sozinho ou acompanhado de unidade, desde que o caráter seja numérico. A unidade fica no próprio campo, nunca em elemento separado. Siga a formatação da casa: 100%, R$ 5,00, 1.000." },
         { attrs: [
             { value: "2", "show-label": false, "show-supporting-content": false },
@@ -118,7 +119,6 @@ CDS.docs["quantity-input"] = {
           ], title: "Escolha o Kind pelo contexto",
           text: "Use Default em formulários, onde o preenchimento dos controles reforça a área acionável ao lado do campo. Use Ghost em barras de ferramentas e superfícies densas, onde o preenchimento competiria com os elementos vizinhos." }
       ] },
-      { note: "O exemplo com prefixo de unidade (R$ 5,00) do Figma não aparece: o componente do playground só aceita unidade depois do valor (`suffix`)." },
       { h2: "Do's and Don'ts" },
       { h3: "Conteúdo" },
       { dodont: [

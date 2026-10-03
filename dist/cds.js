@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 227 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 226 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -6301,7 +6301,10 @@ try {
  * os dois Icon Button · Neutral · Medium, Kind Default ou Ghost (variante do conjunto, não dos botões).
  *
  * Atributos: kind (default|ghost) · appearance · disabled · value (padrão 1) · min · max · step (padrão 1)
- *   suffix (unidade junto ao valor, ex.: "%") · label · required-text · supporting · error
+ *   prefix (antes do valor, ex.: "R$") · suffix (depois, ex.: "%") · decimals (casas fixas, ex.: 2 → "5,00")
+ *   label · required-text · supporting · error
+ *   Exibição em pt-BR com separador de milhar ("1.250"); a digitação também é lida em pt-BR
+ *   (prefix, decimals e milhar: exceção aprovada pelo Gustavo em 02/10 — a lib não tem essas props, C100)
  *   show-label · show-required · show-supporting-content · decrement-label · increment-label
  * Comportamento (annotations): valor inválido não bloqueia a digitação; fora da faixa vira Warning;
  *   ao sair do campo, ajusta para o limite mais próximo e anuncia; no limite, o botão correspondente fica
@@ -6312,9 +6315,11 @@ try {
   "use strict";
   var el = CDS.TextField.el, uid = 0;
   function num(v, d){ var n = parseFloat(String(v).replace(",", ".")); return isFinite(n) ? n : d; }
+  // texto digitado em pt-BR: "1.250,5" → 1250.5 (ponto = milhar, vírgula = decimal)
+  function numBR(v, d){ return num(String(v).replace(/\s/g, "").replace(/\./g, ""), d); }
 
   class CdsQuantityInput extends CDS.Element {
-    static get observedAttributes(){ return ["kind","appearance","disabled","value","min","max","step","suffix","label","required-text","supporting","error","show-label","show-required","show-supporting-content","decrement-label","increment-label","state","is-active"]; }
+    static get observedAttributes(){ return ["kind","appearance","disabled","value","min","max","step","prefix","suffix","decimals","label","required-text","supporting","error","show-label","show-required","show-supporting-content","decrement-label","increment-label","state","is-active"]; }
     constructor(){ super(); this._id = "cds-qty-" + (++uid); this._value = null; }
     get min(){ return num(this.getAttribute("min"), -Infinity); }
     get max(){ return num(this.getAttribute("max"), Infinity); }
@@ -6344,7 +6349,7 @@ try {
 
       this.dec.addEventListener("click", function(){ self.stepBy(-1); });
       this.inc.addEventListener("click", function(){ self.stepBy(1); });
-      ctrl.addEventListener("input", function(){ self._typed = true; self._value = num(ctrl.value.replace(self.suffixText, ""), self._value); self.update(true); });
+      ctrl.addEventListener("input", function(){ self._typed = true; self._value = numBR(ctrl.value.replace(self.prefixText, "").replace(self.suffixText, ""), self._value); self.update(true); });
       ctrl.addEventListener("keydown", function(e){
         if (e.key === "ArrowUp"){ e.preventDefault(); self.stepBy(1); }
         if (e.key === "ArrowDown"){ e.preventDefault(); self.stepBy(-1); }
@@ -6353,6 +6358,7 @@ try {
       box.addEventListener("mousedown", function(e){ if (e.target !== ctrl){ e.preventDefault(); ctrl.focus(); } });
     }
     get suffixText(){ return this.getAttribute("suffix") || ""; }
+    get prefixText(){ var p = this.getAttribute("prefix"); return p ? p + "\u00a0" : ""; }
     stepBy(dir){
       var v = this._value + dir * this.step;
       v = Math.min(this.max, Math.max(this.min, v));
@@ -6366,7 +6372,11 @@ try {
       this.update(); this.emit();
     }
     emit(){ this.dispatchEvent(new CustomEvent("cds-change", { detail: { value: this._value }, bubbles: true })); }
-    format(v){ return String(v).replace(".", ",") + this.suffixText; }
+    format(v){
+      var d = parseInt(this.getAttribute("decimals"), 10), fixed = isFinite(d) && d >= 0;
+      var txt = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: fixed ? d : 0, maximumFractionDigits: fixed ? d : 6 }).format(v);
+      return this.prefixText + txt + this.suffixText;
+    }
     get outOfRange(){ return this._value < this.min || this._value > this.max; }
 
     update(typing){
@@ -6382,6 +6392,7 @@ try {
       this.classList.toggle("is-warning", warning);
       var ctrl = this.control;
       if (!typing) ctrl.value = this.format(this._value);
+      ctrl.style.width = (Math.max(1, ctrl.value.length) + 1) + "ch"; // a caixa acompanha o texto (mínimo 72 no CSS)
       ctrl.disabled = this.hasAttribute("disabled");
       ctrl.setAttribute("aria-valuenow", String(this._value));
       ctrl.setAttribute("aria-valuetext", this.format(this._value));
@@ -6425,7 +6436,7 @@ CDS.register({
     kit.seg(panel, { label: "Appearance", value: "neutral", options: [["neutral","Neutral"],["warning","Warning"]], hint: "Também vira Warning sozinho quando o valor digitado sai da faixa.", onChange: function(v){ set("appearance", v === "neutral" ? null : v); } });
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
     kit.section(panel, "Faixa e unidade");
-    [["min","Mínimo","0"],["max","Máximo","10"],["step","Passo","1"],["suffix","Unidade (sufixo)","","ex.: %"],["value","Value","1"]].forEach(function(t){
+    [["min","Mínimo","0"],["max","Máximo","10"],["step","Passo","1"],["prefix","Prefixo","","ex.: R$"],["suffix","Unidade (sufixo)","","ex.: %"],["decimals","Casas decimais","","ex.: 2"],["value","Value","1"]].forEach(function(t){
       kit.text(panel, { label: t[1], value: t[2], placeholder: t[3], onInput: function(v){ set(t[0], v === "" ? null : v); readout(); } });
     });
     kit.hint(panel, "Digitar fora da faixa não bloqueia; ao sair do campo, ajusta para o limite e anuncia. Setas ↑/↓ mudam pelo passo.");
@@ -6453,8 +6464,8 @@ try {
    Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
    Oculto no Figma: Composição do componente (tem conteúdo real → entra na Anatomia); Acessibilidade (só placeholder
    "Tópico 1 / Ordem de leitura" → fica de fora, tab com nota); Frame 7 "Casos de exceção" das Diretrizes (lorem ipsum → de fora).
-   Gaps: o componente não tem prefixo de unidade (exemplo "R$ 5,00" fora) e lê "1.250" como 1,25 (Don't usa 1250);
-   anatomia: marcador 2 (Required Asterisk) vem de cima no Figma e aqui fica à direita.
+   Prefixo (R$), casas decimais e milhar ("1.250") entraram no componente (C100, aprovado);
+   anatomia: 2 vem de cima (como no Figma); 4 embaixo e 6 à direita para não cruzar o + (C100).
    Motion ainda é placeholder no Figma. */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
@@ -6560,7 +6571,8 @@ CDS.docs["quantity-input"] = {
             { value: "3", "show-label": false, "show-supporting-content": false }
           ], title: "Mantenha o passo constante",
           text: "O incremento e o decremento alteram o valor sempre na mesma medida. Passo variável quebra a previsibilidade do controle." },
-        { attrs: { kind: "ghost", value: "100", suffix: "%", "show-label": false, "show-supporting-content": false }, title: "Escreva a unidade junto do valor",
+        { attrs: [{ kind: "ghost", value: "100", suffix: "%", "show-label": false, "show-supporting-content": false },
+                   { kind: "ghost", value: "5", prefix: "R$", decimals: "2", "show-label": false, "show-supporting-content": false }], title: "Escreva a unidade junto do valor",
           text: "O conteúdo do campo é texto e aceita o número sozinho ou acompanhado de unidade, desde que o caráter seja numérico. A unidade fica no próprio campo, nunca em elemento separado. Siga a formatação da casa: 100%, R$ 5,00, 1.000." },
         { attrs: [
             { value: "2", "show-label": false, "show-supporting-content": false },
@@ -6568,7 +6580,6 @@ CDS.docs["quantity-input"] = {
           ], title: "Escolha o Kind pelo contexto",
           text: "Use Default em formulários, onde o preenchimento dos controles reforça a área acionável ao lado do campo. Use Ghost em barras de ferramentas e superfícies densas, onde o preenchimento competiria com os elementos vizinhos." }
       ] },
-      { note: "O exemplo com prefixo de unidade (R$ 5,00) do Figma não aparece: o componente do playground só aceita unidade depois do valor (`suffix`)." },
       { h2: "Do's and Don'ts" },
       { h3: "Conteúdo" },
       { dodont: [
@@ -6730,8 +6741,8 @@ try {
    Capa: o [Header] (4944:937) é um mockup mobile (tela Pix Copia e Cola) → imagem em assets/docs/covers/text-area.png.
    Oculto no Figma: Acessibilidade (4944:591) — só placeholder ("Tópico 1" / "Ordem de leitura"), por isso a tab fica com nota.
    Motion ainda é placeholder no Figma (lorem ipsum + "Especificação").
-   Gaps: o Text Area da doc tem props State (Default/Hover/Active-focus/Filled), Disabled, Error, Show support text, Show counter e Counter;
-   no código viram state="hovered", is-active, value, disabled, appearance="warning", show-supporting-content, show-character-counter e character-counter.
+   A doc do Figma usa um set legado (State Default/Hover/Active-focus/Filled, Error…); Propriedades e Estilos seguem o set do código,
+   Text Area Input 10110:3028 (decisão do Gustavo, C98).
    Os Do/Don'ts no Figma são imagens (prints de tela); aqui são recriados só com os campos (sem o título "Pagar boleto" da tela). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
@@ -6786,27 +6797,39 @@ CDS.docs["text-area"] = {
       } },
       { h2: "Propriedades" },
       { props: [
-        { name: "State", type: "Variant", values: ["Default", "Hover", "Active/focus", "Filled"] },
-        { name: "Disabled", type: "Boolean" },
-        { name: "Error", type: "Boolean" },
-        { name: "Label", type: "Text", values: ["Padrão: Label"] },
-        { name: "Placeholder", type: "Text", values: ["Padrão: Placeholder"] },
-        { name: "Show support text", type: "Boolean" },
-        { name: "Show counter", type: "Boolean" },
-        { name: "Counter", type: "Text", values: ["Padrão: 000/000"] }
+        { name: "Appearance", type: "Variant", values: ["Neutral", "Warning"] },
+        { name: "State", type: "Variant", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
+        { name: "Is Filled", type: "Variant", values: ["False", "True"] },
+        { name: "Is Active", type: "Variant", values: ["False", "True"] },
+        { name: "Text Label", type: "Text", values: ["Padrão: Label"] },
+        { name: "Placeholder Content", type: "Text", values: ["Padrão: Placeholder"] },
+        { name: "Text Content", type: "Text", values: ["Padrão: Hello"] },
+        { name: "Required Text", type: "Text", values: ["Padrão: (Obrigatório)"] },
+        { name: "Supporting Message", type: "Text", values: ["Padrão: Supporting Message"] },
+        { name: "Error Message", type: "Text", values: ["Padrão: Error Message"] },
+        { name: "Character Counter Value", type: "Text", values: ["Padrão: -0000"] },
+        { name: "Show Label", type: "Boolean" },
+        { name: "Show Required", type: "Boolean" },
+        { name: "Show Supporting Content", type: "Boolean" },
+        { name: "Show Character Counter", type: "Boolean" },
+        { name: "Show Trailing Item", type: "Boolean" },
+        { name: "Show Caret", type: "Boolean" }
       ] },
       { note: "Todas as props podem ser testadas na tab Playground." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
       { h2: "Estilos" },
-      { specimens: { title: "Kind", items: [
-        { label: "Default", attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000" } },
-        { label: "Hover", attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000", state: "hovered" } },
-        { label: "Active/focus", attrs: { label: "Label", placeholder: "", supporting: "Support text", "character-counter": "000/000", "is-active": true } },
-        { label: "Filled", attrs: { label: "Label", value: "Placeholder", supporting: "Support text", "character-counter": "000/000" } },
-        { label: "Disabled", attrs: { label: "Label", placeholder: "Placeholder", supporting: "Support text", "character-counter": "000/000", disabled: true } },
-        { label: "Error", attrs: { label: "Label", placeholder: "Placeholder", error: "Error text", "character-counter": "000/000", appearance: "warning" } }
+      { specimens: { title: "Estados", items: [
+        { label: "Enabled", attrs: { label: "Label", "show-required": true } },
+        { label: "Hovered", attrs: { label: "Label", "show-required": true, state: "hovered" } },
+        { label: "Pressed", attrs: { label: "Label", "show-required": true, state: "pressed" } },
+        { label: "Disabled", attrs: { label: "Label", "show-required": true, disabled: true } }
+      ] } },
+      { specimens: { title: "Is Active · Is Filled · Appearance", items: [
+        { label: "Is Active", attrs: { label: "Label", "show-required": true, "is-active": true } },
+        { label: "Is Filled", attrs: { label: "Label", "show-required": true, value: "Hello" } },
+        { label: "Warning", attrs: { label: "Label", "show-required": true, value: "Hello", appearance: "warning" } }
       ] } }
     ] },
 
@@ -6913,7 +6936,8 @@ try {
    Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 5308:2266 · frame [Documentação] Text input (5308:2304)
    Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Capa = mockup com imagem do frame [Header] Text input (5308:2902).
    Oculto no Figma: Acessibilidade (5308:2548), só com placeholder ("Tópico 1" / "Ordem de leitura") → tab com nota de sem conteúdo.
-   Gaps: o Text Input do Figma tem Clear Button e Required Asterisk; o código não tem Clear Button (marcador 5 da anatomia ficou de fora)
+   Clear Button (prop "Show clear button" e item 5 da anatomia) é legado da doc: a lib atual (5743:325) não tem; ignorado (C96).
+   Gaps: Required Asterisk
    e o Required vira "*" via required-text. Diretrizes e Do/Don't no Figma são imagens de mockup: aqui são recriados com o componente.
    Motion ainda é placeholder (lorem ipsum / "Especificação"). */
 window.CDS = window.CDS || {};
@@ -6970,7 +6994,6 @@ CDS.docs["text-input"] = {
         ],
         legend: ["Label Content", "Required Asterisk", "Lead Icon", "Text Content", "Supporting Message", "Character Counter"]
       } },
-      { note: "O Figma também marca o Clear Button (5), que o Text Input do playground ainda não tem." },
       { h2: "Propriedades" },
       { props: [
         { name: "Style", type: "Variant", values: ["Neutral", "Warning"] },
@@ -6982,13 +7005,12 @@ CDS.docs["text-input"] = {
         { name: "Show required asterisk", type: "Boolean" },
         { name: "Show lead icon", type: "Boolean" },
         { name: "Text content", type: "Text", values: ["Padrão: Hello"] },
-        { name: "Show clear button", type: "Boolean" },
         { name: "Show supporting message", type: "Boolean" },
         { name: "Supporting message", type: "Text", values: ["Padrão: Supporting message"] },
         { name: "Show character counter", type: "Boolean" },
         { name: "Character counter value", type: "Text", values: ["Padrão: -0000"] }
       ] },
-      { note: "Todas as props podem ser testadas na tab Playground (exceto Show clear button, que ainda não existe no código)." }
+      { note: "Todas as props podem ser testadas na tab Playground." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
@@ -7990,138 +8012,6 @@ CDS.register({
   mount: function(ctx){ ctx.kit.selectField(ctx, { tag: "cds-radio-select-input", note: "Escolha única sem busca: clique, Enter, Espaço ou seta abrem a lista." }); }
 });
 } catch (e) { console.error("[cds] components/radio-select-input/radio-select-input.playground.js", e); }
-
-/* ==== components/radio-select-input/radio-select-input.docs.js ==== */
-try {
-/* Documentação — Select Input (escrita no Radio Select Input, o Select básico de escolha única)
-   Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 5074:492 · frame [Documentação] Select input (5074:530)
-   A doc do Figma cobre a família inteira ("uma ou mais opções") e usa o set legado "Select Input" (remoto, 3863:22690:
-   Style Neutral|Negative · State · IsFilled? · ShowLabel · ShowSupport text). No playground ela fica no radio-select-input.
-   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
-   Oculto no Figma: Acessibilidade (só placeholder "Tópico 1 / Ordem de leitura") → tab com nota, sem conteúdo.
-   Gaps: Anatomia B (Popover + Selection list abertos) não é mostrada; State Focused sem estado forçado no código;
-   Diretrizes e Do/Don'ts são imagens no Figma (recriadas só com o campo, sem botões nem lista aberta).
-   Setas 4 e 5 da anatomia trocaram de lado para não cruzar. Motion ainda é placeholder no Figma. */
-window.CDS = window.CDS || {};
-CDS.docs = CDS.docs || {};
-CDS.docs["radio-select-input"] = {
-  tag: "cds-radio-select-input",
-  base: { label: "Label", placeholder: "Placeholder", supporting: "Support text", error: "Support text", "show-lead-icon": false },
-  source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=5074-492",
-  // Capa (frame [Header] Select input, 5074:1128): mockup de tela de produto
-  cover: { description: "O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida.", image: "assets/docs/covers/radio-select-input.png", alt: "Tela de Benefícios com o painel Filtrar aberto: o Select input Categoria mostra a lista de opções (Alimentação, Bem-estar, Cultura, Educação)." },
-  tabs: [
-    { id: "uso", title: "Uso", blocks: [
-      { h2: "Sobre" },
-      { p: "O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida." },
-      { h3: "Nomes alternativos comuns" },
-      { p: "Dropdown, Select, Lista suspensa." },
-      { h3: "Princípios" },
-      { cards: [
-        ["Clareza", "O componente deve comunicar de forma imediata quais opções estão disponíveis e qual valor está selecionado, evitando ambiguidades ou interpretações incorretas."],
-        ["Previsibilidade", "O comportamento do Select input deve seguir padrões conhecidos, garantindo que a pessoa usuária saiba o que esperar ao interagir com o componente."],
-        ["Eficiência", "A seleção deve exigir o mínimo de esforço possível, permitindo escolhas rápidas e reduzindo a necessidade de correções ou retrabalho."]
-      ] },
-      { h2: "Quando usar" },
-      { p: "Use o Select input quando houver um conjunto conhecido e limitado de opções e quando for importante garantir padronização da resposta sem exigir digitação livre, seja para seleção única ou múltipla." },
-      { h3: "Utilize para:" },
-      { ul: ["Selecionar uma ou múltiplas opções entre valores pré-definidos", "Garantir consistência e validação de dados", "Reduzir esforço cognitivo em escolhas comuns"] },
-      { h3: "Não utilize para:" },
-      { ul: ["Listas muito longas sem agrupamento ou busca", "Entradas abertas ou valores personalizados", "Comparação direta entre muitas opções"] },
-      { h3: "Select input vs Selection list / Selection list item" },
-      { p: "O Select input é indicado quando é necessário economizar espaço e apresentar as opções apenas no momento da interação. Ao ser ativado, ele utiliza a Selection list internamente para exibir as opções disponíveis." },
-      { p: "A Selection list e Selection list item, por sua vez, são mais adequadas quando as opções precisam estar sempre visíveis, facilitando leitura, comparação e tomada de decisão direta, sem depender de um campo de entrada." },
-      { compare: [
-        { title: "Este é um Select input", attrs: { label: "Destinatário", placeholder: "Selecione uma opção", "show-supporting-content": false } },
-        { title: "Esta é uma Selection list", attrs: { _tag: "cds-selection-list", label: "Benefícios", _children: [
-          { _tag: "cds-selection-list-item", label: "Plano odontológico", "show-description": false },
-          { _tag: "cds-selection-list-item", label: "Vale-alimentação", "show-description": false },
-          { _tag: "cds-selection-list-item", label: "Vale-transporte", "show-description": false },
-          { _tag: "cds-selection-list-item", label: "Gympass", "show-description": false },
-          { _tag: "cds-selection-list-item", label: "Psicologia Viva", "show-description": false }
-        ] } }
-      ] },
-      { note: "No Figma, o Select input da comparação aparece aberto (Active), com a lista de opções; aqui ele aparece fechado. Abra a lista na tab Playground." }
-    ] },
-
-    { id: "anatomia", title: "Anatomia", blocks: [
-      { h2: "Anatomia" },
-      { anatomy: {
-        attrs: {},
-        markers: [
-          { n: 1, target: ".cds-tf__label", side: "left" },
-          { n: 2, target: ".cds-tf__control", side: "left" },
-          { n: 3, target: ".cds-tf__msg", side: "bottom" },
-          { n: 4, target: ".cds-tf__box", side: "right" },        // Figma: seta de baixo (Top) (CONFERIR)
-          { n: 5, target: "cds-icon-button", side: "bottom" }   // Figma: Left (CONFERIR)
-        ],
-        legend: ["Title label", "Placeholder", "Support text", "Input container", "Dropdown icon button"]
-      } },
-      { p: "A. Enabled: Title label, Placeholder, Support text, Input container e Dropdown icon button." },
-      { p: "B. Active: Popover (6) e Selection list (7)." },
-      { note: "O estado Active (B), com o Popover e a Selection list abertos, não é mostrado na anatomia: abra a lista na tab Playground." },
-      { h2: "Composição do componente" },
-      { p: "O Select input é composto por um campo colapsado (trigger) e pela exibição da Selection list para apresentar as opções." },
-      { p: "Quando o Select estiver no modo ativo (aberto), tanto o campo quanto os Selection list items devem refletir esse estado por meio de ajustes visuais e comportamentais consistentes — como foco, destaque da opção selecionada e feedback de interação — garantindo coerência entre os dois componentes." },
-      { h2: "Propriedades" },
-      { props: [
-        { name: "Style", type: "Variant", values: ["Neutral", "Negative"] },
-        { name: "State", type: "Variant", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
-        { name: "Is Filled?", type: "Boolean" },
-        { name: "Show Label", type: "Boolean" },
-        { name: "Label", type: "Text", values: ["Padrão: Label"] },
-        { name: "Placeholder", type: "Text", values: ["Padrão: Placeholder"] },
-        { name: "Show Support text", type: "Boolean" },
-        { name: "Support text", type: "Text", values: ["Padrão: Support text"] }
-      ] },
-      { note: "No código, Style=Negative corresponde a appearance=\"warning\". Todas as props podem ser testadas na tab Playground." }
-    ] },
-
-    { id: "estilos", title: "Estilos", blocks: [
-      { h2: "Estilos" },
-      { specimens: { title: "Accent", items: [
-        { label: "Enabled", attrs: {} },
-        { label: "Hovered", attrs: { state: "hovered" } },
-        { label: "Pressed", attrs: { state: "pressed" } },
-        { label: "Actived", attrs: { "is-active": true } },
-        { label: "Disabled", attrs: { disabled: true } },
-        { label: "Negative enabled", attrs: { appearance: "warning" } },
-        { label: "Negative actived", attrs: { appearance: "warning", "is-active": true } }
-      ] } },
-      { note: "O Figma também mostra o estado Focused, que o código não força para exibição: ele aparece ao focar o campo (mesmo visual de Actived). Nos estados Actived, a lista aberta não é mostrada." }
-    ] },
-
-    { id: "acessibilidade", title: "Acessibilidade", blocks: [
-      { h2: "Acessibilidade" },
-      { note: "Sem conteúdo no Figma para esta seção." }
-    ] },
-
-    { id: "diretrizes", title: "Diretrizes", blocks: [
-      { h2: "Diretrizes" },
-      { guides: [
-        { attrs: { label: "Carteira correta para debitar a compra", placeholder: "Selecione uma opção", "show-supporting-content": false }, title: "Label e suporte",
-          text: "Use labels claros e objetivos e complemente com support text apenas quando necessário para explicar regras, contexto ou consequências da escolha." },
-        { attrs: { label: "Destinatário", placeholder: "Selecione uma opção", "show-supporting-content": false }, title: "Placeholder",
-          text: "Utilize o placeholder como instrução inicial, não como substituto do label." }
-      ] },
-      { h2: "Do's and Don'ts" },
-      { h3: "Conteúdo" },
-      { dodont: [
-        { kind: "do", attrs: { label: "Destinatário", placeholder: "", "show-supporting-content": false, "is-active": true },
-          text: "Mantenha a ordem lógica ou semântica da lista" },
-        { kind: "dont", attrs: { label: "Selecione o país", placeholder: "", "show-supporting-content": false, "is-active": true },
-          text: "Não use Select para listas excessivamente longas sem busca" }
-      ] },
-      { note: "No Figma, os exemplos de Diretrizes e Do's and Don'ts são imagens com a lista de opções aberta (e botões de ação nas diretrizes); aqui aparece só o campo." }
-    ] },
-
-    { id: "motion", title: "Motion", blocks: [
-      { h2: "Motion" },
-      { alert: { appearance: "warning", label: "Especificação pendente", text: "O frame de Motion do Select input no Figma ainda está com texto de exemplo (lorem ipsum e \"Especificação\"). A tabela de Motion Styles por estado entra quando o time publicar a especificação." } }
-    ] }
-  ]
-};
-} catch (e) { console.error("[cds] components/radio-select-input/radio-select-input.docs.js", e); }
 
 /* ==== components/select-number/select-number.js ==== */
 try {

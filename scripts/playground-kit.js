@@ -38,7 +38,20 @@
   }
 
   /** Título de grupo (Variants · Booleans · Texts…) */
-  function section(panel, title){ panel.appendChild(el("h3", { "class": "pg-sub", text: title })); }
+  // Seções com explicação: Icon Button de informação (Ghost · Neutral · Small) + Tooltip do DS — funciona com mouse, foco e toque
+  var SECTION_INFO = {
+    "Nested instances": { label: "O que são nested instances?", text: "Componentes do DS usados dentro deste (ex.: o Icon dentro do Tag). Aqui você vê as propriedades de cada um ao vivo. \"Exposta\": no Figma, a prop aparece no componente pai. \"Fixa\": não dá para trocar por fora." }
+  };
+  function section(panel, title){
+    var h = panel.appendChild(el("h3", { "class": "pg-sub" + (SECTION_INFO[title] ? " has-info" : "") }, [el("span", { text: title })]));
+    var info = SECTION_INFO[title]; if (!info) return h;
+    var bid = id("info");
+    h.appendChild(el("cds-icon-button", { id: bid, kind: "ghost", appearance: "neutral", size: "small", icon: "information-line", label: info.label }));
+    var tip = el("cds-tooltip", { id: bid + "-tip", "for": bid, placement: "bottom", "show-label": "true", label: title });
+    tip.setAttribute("text", info.text); // kit.el usa "text" como conteúdo; aqui é atributo do Tooltip
+    h.appendChild(tip);
+    return h;
+  }
 
   function hint(parent, text){ var h = el("div", { "class": "pg-hint", html: text }); parent.appendChild(h); return h; }
 

@@ -169,7 +169,7 @@
       if (d.href) row.href = d.href;
       row.appendChild(el("span", "rp-bar__label", esc(d.label)));
       // Progress Line do DS (decorativa: o rótulo e o número já estão na linha)
-      var pl = row.appendChild(el("cds-progress-line", "rp-bar__line" + (opts && opts.tone ? " is-" + opts.tone : "")));
+      var pl = row.appendChild(el("cds-progress-line", "rp-bar__line" + (d.tone || (opts && opts.tone) ? " is-" + (d.tone || opts.tone) : "")));
       pl.setAttribute("percent", String(Math.round(d.value / max * 1000) / 10)); pl.setAttribute("aria-hidden", "true");
       row.appendChild(el("span", "rp-bar__value", String(d.value)));
       // Tooltip da linha: valor e % do total; nos débitos, o que entra naquele tipo (1ª frase da seção no Conferir)
@@ -220,11 +220,12 @@
     var FS = CDS.figmaStatus || { items: {} }, byId = {}, pubN = {};
     (CDS.playgrounds || []).forEach(function(c){ byId[c.id] = c.name; });
     Object.keys(FS.items).forEach(function(id){ (pubN[FS.items[id]] = pubN[FS.items[id]] || []).push(byId[id] || id); });
-    var PUBS = [["current", "Publicado no Figma", "Publicado na lib sem alterações pendentes."],
-      ["changed", "Publicado com alterações pendentes", "Publicado, mas o arquivo tem alterações que ainda não foram publicadas."],
-      ["unpublished-comp", "Não publicado", "Componente que ainda não está publicado na lib."],
-      ["branch", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main."],
-      ["unpublished-block", "Não publicado · building block", "Building blocks (nome com ponto) ficam fora da publicação de propósito."]];
+    // 4º item = cor da Tag do mesmo status no título do componente (scripts/app.js)
+    var PUBS = [["current", "Publicado no Figma", "Publicado na lib sem alterações pendentes.", "positive"],
+      ["changed", "Publicado com alterações pendentes", "Publicado, mas o arquivo tem alterações que ainda não foram publicadas.", "informative"],
+      ["unpublished-comp", "Não publicado", "Componente que ainda não está publicado na lib.", "negative"],
+      ["branch", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main.", "warning"],
+      ["unpublished-block", "Não publicado · building block", "Building blocks (nome com ponto) ficam fora da publicação de propósito.", "neutral"]];
     var blocks = {}; (CDS.playgrounds || []).forEach(function(c){ if (c.block) blocks[c.name] = true; });
     var un = pubN.unpublished || []; pubN["unpublished-comp"] = un.filter(function(n){ return !blocks[n]; }); pubN["unpublished-block"] = un.filter(function(n){ return blocks[n]; });
     var pubTotal = Object.keys(FS.items).length;
@@ -232,7 +233,7 @@
     bars(p5, PUBS.map(function(pt){
       var names = (pubN[pt[0]] || []).slice().sort(function(a, b){ return a.localeCompare(b, "pt-BR"); });
       var list = names.length <= 8 ? names.join(", ") : "Ex.: " + names.slice(0, 6).join(", ") + "…";
-      return { label: pt[1], value: names.length, desc: pt[2] + (names.length ? " " + list + "." : "") };
+      return { label: pt[1], value: names.length, tone: "pub-" + pt[3], desc: pt[2] + (names.length ? " " + list + "." : "") };
     }), { total: pubTotal });
     var pend = pubN["unpublished-comp"].concat(pubN.branch || []);
     if (pend.length) p5.appendChild(el("p", "rp-panel__foot", "Fora da lib: " + esc(pend.join(", ")) + ". Lido no Figma via MCP (<code>getPublishStatusAsync</code>); o status de cada componente aparece numa Tag ao lado do título."));

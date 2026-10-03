@@ -90,6 +90,12 @@ a.rp-bar:hover{ background:var(--common-colors-surface-01); }
 /* Barras = Progress Line do DS com as cores do relatório (Charts/*, Accent) */
 .rp-bar__line{ --cds-progress-color:var(--rp-bar); --cds-progress-track:var(--rp-bar-track); }
 .rp-bar__line.is-components{ --cds-progress-color:var(--rp-bar-comp); --cds-progress-track:var(--rp-bar-comp-track); }
+/* Publicação na lib: mesmas cores da Tag de status (Feedback/<cor>/medium na barra, Feedback/<cor>/soft no trilho = fundo da Tag) */
+.rp-bar__line.is-pub-positive{ --cds-progress-color:var(--common-colors-feedback-positive-medium); --cds-progress-track:var(--common-colors-feedback-positive-soft); }
+.rp-bar__line.is-pub-informative{ --cds-progress-color:var(--common-colors-feedback-informative-medium); --cds-progress-track:var(--common-colors-feedback-informative-soft); }
+.rp-bar__line.is-pub-negative{ --cds-progress-color:var(--common-colors-feedback-negative-medium); --cds-progress-track:var(--common-colors-feedback-negative-soft); }
+.rp-bar__line.is-pub-warning{ --cds-progress-color:var(--common-colors-feedback-warning-medium); --cds-progress-track:var(--common-colors-feedback-warning-soft); }
+.rp-bar__line.is-pub-neutral{ --cds-progress-color:var(--common-colors-neutral-solid-medium); --cds-progress-track:var(--common-colors-neutral-solid-semi-soft); }
 a.rp-bar:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-border-intense); outline-offset:var(--common-border-width-hairline); }
 .rp-bar__label{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .rp-bar__value{ text-align:right; font:var(--text-style-caption-medium); }

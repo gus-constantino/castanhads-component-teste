@@ -175,7 +175,9 @@
   // ---------- Viewport (global) ----------
   // data-viewport espelha a collection Viewport do Figma (Desktop/Tablet/Mobile); componentes leem via CSS
   function setViewport(w){
-    frame.dataset.viewport = w === "360" ? "mobile" : w === "744" ? "tablet" : "desktop";
+    // categoria pela largura, nas faixas da coleção Viewport (as mesmas dos tokens de grid): ≤599 Mobile · ≤1023 Tablet
+    var n = parseInt(w, 10);
+    frame.dataset.viewport = w === "fluid" || !n ? "desktop" : n <= 599 ? "mobile" : n <= 1023 ? "tablet" : "desktop";
     if (w === "fluid"){ frame.style.width = "100%"; frame.style.maxWidth = "calc(3 * var(--common-sizes-200))"; vpOut.textContent = "fluido"; }
     else { frame.style.width = w + "px"; frame.style.maxWidth = "none"; vpOut.textContent = w + "px"; }
   }
@@ -190,11 +192,28 @@
     function paint(){ opts.forEach(function(o){ var on = o[0] === cur, b = btns[o[0]]; b.setAttribute("kind", on ? "default" : "ghost"); b.setAttribute("appearance", on ? "accent" : "neutral"); b.setAttribute("pressed", String(on)); }); }
     opts.forEach(function(o){
       var b = btns[o[0]] = kit.el("cds-icon-button", { id: "vp-" + o[0], size: "small", icon: o[1], label: "Viewport " + o[2] });
-      b.addEventListener("click", function(){ cur = o[0]; setViewport(cur); paint(); });
+      b.addEventListener("click", function(){ cur = o[0]; setViewport(cur); field.value = ""; paint(); });
       row.appendChild(b);
       var tip = kit.el("cds-tooltip", { id: "vp-tip-" + o[0], "for": "vp-" + o[0], placement: "bottom", "show-label": "false" });
       tip.setAttribute("text", o[2]); // kit.el usa "text" como conteúdo; aqui é atributo do Tooltip
       row.appendChild(tip);
+    });
+    // Largura personalizada: Text Input do DS (só números, 240–1920 px); com valor válido nenhum ícone fica marcado
+    var MIN = 240, MAX = 1920, timer = 0;
+    var field = kit.el("cds-text-input", { label: "Largura personalizada (px)", "show-label": "false", placeholder: "px", "show-lead-icon": "false", "show-required": "false", "show-supporting-content": "false", "class": "pg-vp-field" });
+    row.appendChild(field);
+    setTimeout(function(){ if (field.control){ field.control.inputMode = "numeric"; field.control.maxLength = 4; } }, 0);
+    field.addEventListener("cds-change", function(e){
+      e.stopPropagation();
+      var raw = String(field.value || ""), digits = raw.replace(/\D/g, "").slice(0, 4);
+      if (digits !== raw) field.value = digits; // limpa o que não é número e segue com os dígitos (trocar por script não dispara evento)
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        var n = parseInt(digits, 10);
+        if (!n){ if (cur === "custom"){ cur = "fluid"; setViewport(cur); paint(); } return; }
+        if (n < MIN || n > MAX) return; // fora da faixa: espera a pessoa terminar de digitar
+        cur = "custom"; setViewport(String(n)); paint();
+      }, 350);
     });
     paint();
   })();

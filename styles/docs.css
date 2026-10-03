@@ -17,23 +17,31 @@
 @media (max-width:1100px){ .pg-shell.is-doc{ grid-template-columns:minmax(0,1fr); } }
 @media (max-width:760px){ .pg-tabs{ margin:var(--common-sizes-8) var(--common-sizes-16) 0; } }
 
-/* ---------- Capa (frame [Header] do Figma, adaptado) ----------
-   Figma: 1632×668, raio 64, Surface/03 (legado, sem token; Surface/01 some no fundo da página → Accent/Solid/soft provisório, C91) + forma decorativa do caju (sem asset, C91);
-   moldura interna 608×370, Surface/default, raio 40. Aqui: altura menor, raio big, sem a forma decorativa. */
+/* ---------- Capa (frame [Header] do Figma) ----------
+   Figma: 1632×668, raio 64, fundo Surface/03 (#f7f3ed) + forma do caju (#f3eee5); moldura 608×370 Surface/default raio 40, centrada.
+   Fundo e forma são só decorativos: hex do Figma por decisão do Gustavo (02/10), sem token equivalente (C91).
+   Aqui: mesma proporção, raios escalados (extra-large / large), moldura com mínimo para caber o componente. */
 .pg-cover{
-  display:grid; place-items:center; margin:var(--common-sizes-16) var(--common-sizes-32) 0;
-  padding:var(--common-sizes-40) var(--common-sizes-24);
-  background:var(--common-colors-accent-solid-soft); border-radius:var(--common-border-radius-big);
+  --pg-cover-bg:#f7f3ed; /* decorativo (C91) */
+  display:grid; place-items:center; aspect-ratio:1632 / 668; min-height:calc(var(--common-sizes-200) + var(--common-sizes-80));
+  margin:var(--common-sizes-24) var(--common-sizes-32) 0; overflow:hidden;
+  background:var(--pg-cover-bg) url("../assets/brand/cover-cashew.svg") center / cover no-repeat;
+  border-radius:var(--common-border-radius-extra-large);
 }
 .pg-cover[hidden]{ display:none; }
 .pg-cover__frame{
-  display:grid; place-items:center; width:min(100%, calc(3 * var(--common-sizes-200))); min-height:calc(var(--common-sizes-200) + var(--common-sizes-80));
-  padding:var(--common-sizes-40); background:var(--common-colors-surface-default); border-radius:var(--common-border-radius-big);
+  display:grid; place-items:center; box-sizing:border-box;
+  width:max(37.25%, calc(var(--common-sizes-200) + var(--common-sizes-56))); height:max(55.4%, calc(var(--common-sizes-200) + var(--common-sizes-24)));
+  padding:var(--common-sizes-24); background:var(--common-colors-surface-default); border-radius:var(--common-border-radius-large);
 }
-@media (max-width:760px){
-  .pg-cover{ margin:var(--common-sizes-8) var(--common-sizes-16) 0; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-large); }
-  .pg-cover__frame{ min-height:var(--common-sizes-200); padding:var(--common-sizes-24); border-radius:var(--common-border-radius-large); }
-}
+@media (max-width:760px){ .pg-cover{ margin:var(--common-sizes-16) var(--common-sizes-16) 0; border-radius:var(--common-border-radius-large); } }
+
+/* Título com capa: Heading/Medium + Tag do zeroheight ao lado + descrição curta */
+.pg-title-row{ display:flex; align-items:center; flex-wrap:wrap; gap:var(--common-sizes-4) var(--common-sizes-12); }
+#cmp-badge:empty{ display:none; }
+.pg-canvas.has-cover .pg-toolbar h1{ font:var(--text-style-heading-medium); }
+.pg-desc{ margin:var(--common-sizes-4) 0 0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.pg-desc[hidden]{ display:none; }
 
 /* ---------- Página de doc ---------- */
 .pg-doc{

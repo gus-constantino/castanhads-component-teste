@@ -1,6 +1,7 @@
 /* Playground — Balance Card */
 CDS.register({
   id: "balance-card", name: "Balance Card", category: "Actions", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17881-1707",
+  zeroheight: "https://castanha.caju.com.br/858426090/v/latest/p/373420",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
     var p = kit.el("cds-balance-card", {}); ctx.preview.appendChild(p);

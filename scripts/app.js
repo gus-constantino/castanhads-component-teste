@@ -7,7 +7,7 @@
   var CDS = window.CDS, kit = CDS.kit;
   var JIRA = "https://caju746.atlassian.net/browse/";
   var $ = function(id){ return document.getElementById(id); };
-  var nav = $("nav"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), title = $("cmp-title"), links = $("cmp-links");
+  var nav = $("nav"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), title = $("cmp-title"), links = $("cmp-links"), desc = $("cmp-desc"), canvas = document.querySelector(".pg-canvas");
   var preview = $("preview"), panel = $("panel"), frame = $("frame");
   var rval = $("rval"), rdone = $("rdone"), vpOut = $("vp-readout");
   var tabsEl = $("tabs"), coverEl = $("cover"), docsEl = $("docs"), stage = $("stage"), shell = document.querySelector(".pg-shell");
@@ -168,6 +168,11 @@
     preview.innerHTML = ""; panel.innerHTML = "";
     kit.surface(preview, null); // cada componente começa na superfície padrão
     title.textContent = def.name;
+    // Com capa (doc.cover): título maior, Tag do zeroheight e a descrição curta abaixo, como no [Header] do Figma
+    var cdoc = CDS.docs && CDS.docs[def.id], cover = cdoc && cdoc.cover;
+    $("cmp-badge").innerHTML = ""; desc.hidden = !(cover && cover.description); desc.textContent = (cover && cover.description) || "";
+    canvas.classList.toggle("has-cover", !!cover);
+    if (cover && def.zeroheight) $("cmp-badge").appendChild(kit.el("cds-tag", { appearance: "positive", label: "Zeroheight disponível", "show-lead-item": "false" }));
     document.title = def.name + " — Castanha DS";
     links.innerHTML = "";
     // Link do DS (Neutral, ícone de link no lugar da seta: abre em outra aba)

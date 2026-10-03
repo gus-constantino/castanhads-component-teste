@@ -4179,6 +4179,7 @@ try {
 /* Playground — Balance Card */
 CDS.register({
   id: "balance-card", name: "Balance Card", category: "Actions", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17881-1707",
+  zeroheight: "https://castanha.caju.com.br/858426090/v/latest/p/373420",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
     var p = kit.el("cds-balance-card", {}); ctx.preview.appendChild(p);
@@ -4211,7 +4212,7 @@ CDS.docs["balance-card"] = {
   base: {},
   source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6695-9618",
   // Capa (frame [Header] do Figma), acima das tabs
-  cover: { attrs: { icon: "meal-line", "header-tag": "Novo", label: "Alimentação", value: "100,00", "bottom-tag": "Voucher" } },
+  cover: { description: "Exibe o saldo de uma categoria com rótulo, valor e status complementares.", attrs: { icon: "meal-line", "header-tag": "Novo", label: "Alimentação", value: "100,00", "bottom-tag": "Voucher" } },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
       { h2: "Sobre" },

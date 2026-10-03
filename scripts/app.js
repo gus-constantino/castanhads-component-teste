@@ -10,7 +10,7 @@
   var nav = $("nav"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), title = $("cmp-title"), links = $("cmp-links");
   var preview = $("preview"), panel = $("panel"), frame = $("frame");
   var rval = $("rval"), rdone = $("rdone"), vpOut = $("vp-readout");
-  var tabsEl = $("tabs"), docsEl = $("docs"), stage = $("stage"), shell = document.querySelector(".pg-shell");
+  var tabsEl = $("tabs"), coverEl = $("cover"), docsEl = $("docs"), stage = $("stage"), shell = document.querySelector(".pg-shell");
   var list = CDS.playgrounds.slice().sort(function(a, b){ return a.name.localeCompare(b.name, "pt-BR"); });
   // rota padrão = primeiro componente (não building block)
 
@@ -118,6 +118,7 @@
   // ---------- Tabs (só quando o componente tem *.docs.js) ----------
   function buildTabs(id){
     var doc = CDS.docs && CDS.docs[id];
+    if (CDS.renderCover) CDS.renderCover(doc, coverEl); // capa (frame [Header]) acima das tabs, quando a doc tem
     tabsEl.innerHTML = "";
     tabsEl.hidden = !doc || !CDS.renderDoc;
     if (tabsEl.hidden) return;

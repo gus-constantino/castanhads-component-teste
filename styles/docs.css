@@ -17,6 +17,24 @@
 @media (max-width:1100px){ .pg-shell.is-doc{ grid-template-columns:minmax(0,1fr); } }
 @media (max-width:760px){ .pg-tabs{ margin:var(--common-sizes-8) var(--common-sizes-16) 0; } }
 
+/* ---------- Capa (frame [Header] do Figma, adaptado) ----------
+   Figma: 1632×668, raio 64, Surface/03 (legado, sem token; Surface/01 some no fundo da página → Accent/Solid/soft provisório, C91) + forma decorativa do caju (sem asset, C91);
+   moldura interna 608×370, Surface/default, raio 40. Aqui: altura menor, raio big, sem a forma decorativa. */
+.pg-cover{
+  display:grid; place-items:center; margin:var(--common-sizes-16) var(--common-sizes-32) 0;
+  padding:var(--common-sizes-40) var(--common-sizes-24);
+  background:var(--common-colors-accent-solid-soft); border-radius:var(--common-border-radius-big);
+}
+.pg-cover[hidden]{ display:none; }
+.pg-cover__frame{
+  display:grid; place-items:center; width:min(100%, calc(3 * var(--common-sizes-200))); min-height:calc(var(--common-sizes-200) + var(--common-sizes-80));
+  padding:var(--common-sizes-40); background:var(--common-colors-surface-default); border-radius:var(--common-border-radius-big);
+}
+@media (max-width:760px){
+  .pg-cover{ margin:var(--common-sizes-8) var(--common-sizes-16) 0; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-large); }
+  .pg-cover__frame{ min-height:var(--common-sizes-200); padding:var(--common-sizes-24); border-radius:var(--common-border-radius-large); }
+}
+
 /* ---------- Página de doc ---------- */
 .pg-doc{
   max-width:calc(4 * var(--common-sizes-200) + var(--common-sizes-120)); margin:0 auto; /* 920 */
@@ -114,7 +132,7 @@
 .pg-doc-dd--do{ --_dd-bg:var(--common-colors-feedback-positive-soft); }
 .pg-doc-dd--dont{ --_dd-bg:var(--common-colors-accent-solid-soft); }
 .pg-doc-dd--caution{ --_dd-bg:var(--common-colors-feedback-warning-soft); }
-.pg-doc-dd__box{ display:flex; align-items:center; justify-content:center; min-height:var(--common-sizes-200); padding:var(--common-sizes-16); background:var(--common-colors-surface-default); }
+.pg-doc-dd__box{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:var(--common-sizes-16); min-height:var(--common-sizes-200); padding:var(--common-sizes-16); background:var(--common-colors-surface-default); }
 .pg-doc-dd__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
 .pg-doc-dd__text strong{ font:var(--text-style-body-bold); }
 

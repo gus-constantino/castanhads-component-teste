@@ -7,11 +7,13 @@
  *     tag: "cds-credit-card-input",       // componente usado nos exemplos
  *     base: { label: "…" },               // atributos comuns a todos os exemplos
  *     source: "https://figma…",           // frame [Documentação] no Figma
+ *     cover: { attrs },                   // opcional: capa acima das tabs (frame [Header])
  *     tabs: [{ id: "uso", title: "Uso", blocks: [ { h2: "Sobre" }, { p: "…" }, … ] }]
  *   };
  *
  * Blocos (uma chave por objeto):
  *   h2 · h3 · p · ul · ol · note           texto (`código` vira <code>)
+ *   alert: { appearance, label, text }    Alert do DS com título (ex.: especificação pendente)
  *   cards: [[título, texto], …]           grade de princípios
  *   display: { attrs, live }              caixa de exibição com um exemplo
  *   compare: [{ title, attrs | empty }]   exemplos lado a lado
@@ -25,6 +27,8 @@
  *   iconGallery: { only }              galeria do [Caju] Icons por categoria, com busca por nome e palavra-chave; only: "deprecated" mostra só os deprecated
  *   illustrationGallery: {}             galeria do [Caju] Illustrations por categoria (imagens com lazy load), busca por nome, categoria e description
  *
+ * Em display, compare, guides e dodont, `attrs` pode ser uma lista (vários exemplos na mesma caixa).
+ * Props aceitam `values` (lista sob o nome, ex.: opções da Variant ou o Padrão do texto).
  * Exemplos estáticos ficam com `inert` (sem hover, foco ou tab); `live: true` os deixa interativos.
  */
 (function(){
@@ -76,6 +80,13 @@
     });
     if (!live) c.inert = true;
     return c;
+  }
+  /** attrs pode ser uma lista: vários exemplos lado a lado na mesma caixa (ex.: dois cards de um grupo). */
+  function examples(doc, attrs, live){
+    if (!Array.isArray(attrs)) return example(doc, attrs, live);
+    var f = document.createDocumentFragment();
+    attrs.forEach(function(a){ f.appendChild(example(doc, a, live)); });
+    return f;
   }
   function display(child, cls){
     var d = el("div", "pg-doc-display" + (cls ? " " + cls : ""));
@@ -145,6 +156,7 @@
       head.appendChild(el("span", "pg-doc-prop__name", p.name));
       if (p.type) head.appendChild(tag(p.type));
       row.appendChild(head);
+      if (p.values){ var pv = el("ul", "pg-doc-prop__values"); p.values.forEach(function(v){ pv.appendChild(el("li", null, v)); }); row.appendChild(pv); }
       (p.nested || []).forEach(function(n){
         var sub = el("div", "pg-doc-prop__nested");
         var sh = el("div", "pg-doc-prop__head");
@@ -198,12 +210,20 @@
       v.forEach(function(c){ var k = el("cds-card", "pg-doc-card"); k.setAttribute("has-border", "true"); k.appendChild(el("h4", "pg-doc-h4", c[0])); k.appendChild(rich(el("p", "pg-doc-p"), c[1])); g.appendChild(k); });
       return g;
     },
-    display: function(d, v){ return display(example(d, v.attrs, v.live), v.live ? "is-live" : ""); },
+    display: function(d, v){ return display(examples(d, v.attrs, v.live), v.live ? "is-live" : ""); },
+    // Alert do DS com título (ex.: especificação pendente)
+    alert: function(d, v){
+      var a = el("cds-alert", "pg-doc-alert");
+      a.setAttribute("appearance", v.appearance || "informative"); a.setAttribute("show-close-button", "false");
+      if (v.label) a.setAttribute("label", v.label); else a.setAttribute("show-label", "false");
+      a.appendChild(rich(document.createElement("span"), v.text));
+      return a;
+    },
     compare: function(d, v){
       var g = el("div", "pg-doc-compare");
       v.forEach(function(c){
         var f = el("figure", "pg-doc-figure");
-        f.appendChild(c.empty ? display(el("span", "pg-doc-empty", c.empty), "is-empty") : display(example(d, c.attrs)));
+        f.appendChild(c.empty ? display(el("span", "pg-doc-empty", c.empty), "is-empty") : display(examples(d, c.attrs)));
         f.appendChild(el("figcaption", null, c.title));
         g.appendChild(f);
       });
@@ -229,7 +249,7 @@
       var g = el("div", "pg-doc-guides");
       v.forEach(function(it){
         var row = el("div", "pg-doc-guide");
-        row.appendChild(display(example(d, it.attrs)));
+        row.appendChild(display(examples(d, it.attrs)));
         var t = el("div", "pg-doc-guide__text");
         t.appendChild(el("h3", "pg-doc-h3", it.title));
         t.appendChild(rich(el("p", "pg-doc-p"), it.text));
@@ -242,8 +262,8 @@
       var g = el("div", "pg-doc-dodont");
       v.forEach(function(it){
         var card = el("figure", "pg-doc-dd pg-doc-dd--" + it.kind);
-        var box = el("div", "pg-doc-dd__box"), c = example(d, it.attrs);
-        if (it.style) c.setAttribute("style", it.style);
+        var box = el("div", "pg-doc-dd__box"), c = examples(d, it.attrs);
+        if (it.style && c.setAttribute) c.setAttribute("style", it.style);
         box.appendChild(c);
         card.appendChild(box);
         var cap = el("figcaption", "pg-doc-dd__text");
@@ -423,6 +443,18 @@
       t.appendChild(tb); wrap.appendChild(t);
       return wrap;
     }
+  };
+
+  /** Capa do componente (frame [Header] do Figma): o componente real (vivo) numa moldura, acima das tabs.
+   *  Sem `doc.cover`, esvazia e esconde `root`. Fundo provisório = Accent/Solid/soft (o Surface/03 do Figma é legado, sem token: C91). */
+  CDS.renderCover = function(doc, root){
+    root.innerHTML = "";
+    root.hidden = !(doc && doc.cover);
+    if (root.hidden) return;
+    // moldura interna = frame do Figma (Surface/default, raio big), não um componente: só tokens
+    var frame = el("div", "pg-cover__frame");
+    frame.appendChild(example(doc, doc.cover.attrs, true)); // exemplo vivo: hover e pressed funcionam na capa
+    root.appendChild(frame);
   };
 
   /** Renderiza uma tab da doc em `root`. */

@@ -83,3 +83,11 @@
 - **Continua em HTML com tokens (sem componente no DS):** item de menu lateral (C88), tile de galeria, tabela de conteúdo, Do/Don't, lista de definição, gráficos (C87), escolha única visível (C85).
 - **Melhorias nos componentes que saíram do uso real:** Tooltip descreve o focável dentro de gatilhos compostos; Scrollable Tab (`--cds-tab-width`), Accordion (`--cds-accordion-width`) e Progress Line (`--cds-progress-color/-track`) aceitam largura/cor por variável sem mudar o padrão do Figma.
 - **Para manter:** rodar `node scripts/dev/audit-ui.js` antes de publicar mudanças na casca.
+
+## 6. Tooltips de ajuda (02/10)
+
+Helper `kit.tip(alvo, texto, { label, text, placement, container })` e `kit.lazyTip` (cria no 1º hover/foco): Tooltip do DS; alvo sem foco ganha `tabindex=0`; texto com sublinhado pontilhado (`.pg-has-tip`).
+
+**Feito (🔴):** cabeçalho "Building blocks" do menu · rótulo "Viewport" · campo "px" · "Valor:" do frame · seções Variants, Booleans e Instance swap (ícone ⓘ, como Nested instances) · rótulos "State" (Disabled, Hovered/Pressed) · blocos das galerias de ícones e ilustrações (substituem o `title` nativo) · cards de número do relatório · legenda da rosca (Segue o Figma, Exceção, Débito).
+
+**Para depois (🟡/⚪), da lista de 02/10:** "Recursos de suporte" · código do Jira no menu · prefixo `[Beta]` · componente de branch no menu · links Jira/Figma/Zeroheight · "Viewport: fluido" · título "Texts" · seções só do código (Comportamento, Dados, Opções, Acessibilidade) · props "Is …" · Tags exposta/fixa · opções dos chips · tipos de prop na doc · números da Anatomia · nomes de Motion Style · linhas das barras do relatório · contadores (Tags).

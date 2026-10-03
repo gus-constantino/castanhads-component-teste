@@ -125,10 +125,10 @@
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource; });
     var comps = pg.filter(function(c){ return !c.block; }).length;
     return [
-      { label: "Componentes no playground", value: comps, sub: "+ " + (pg.length - comps) + " building blocks" },
-      { label: "Variantes do Figma cobertas", value: variants.toLocaleString("pt-BR"), sub: "em " + sets + " sets da lib" },
-      { label: "Débitos e melhorias mapeados", value: openC, sub: solved + " já resolvidos" },
-      { label: "Decisões registradas", value: dec, sub: qs ? qs + " dúvida(s) em aberto" : "Sem dúvidas em aberto" }
+      { label: "Componentes no playground", value: comps, sub: "+ " + (pg.length - comps) + " building blocks", tip: "Componentes do Figma implementados no playground, sem contar building blocks e recursos de apoio." },
+      { label: "Variantes do Figma cobertas", value: variants.toLocaleString("pt-BR"), sub: "em " + sets + " sets da lib", tip: "Soma das variantes dos sets do inventário da lib (Roadmap §2). Todas estão implementadas no playground." },
+      { label: "Débitos e melhorias mapeados", value: openC, sub: solved + " já resolvidos", tip: "Itens em aberto no Conferir: divergências entre Figma e código, gaps e propostas de melhoria." },
+      { label: "Decisões registradas", value: dec, sub: qs ? qs + " dúvida(s) em aberto" : "Sem dúvidas em aberto", tip: "Decisões tomadas e registradas no Roadmap (D1, D2…). Embaixo, as dúvidas que ainda aguardam resposta." }
     ];
   }
 
@@ -185,14 +185,16 @@
     var kinds = { exc: 0, deb: 0, seg: 0 };
     all.forEach(function(r){ var code = r[4] || "", act = r[5] || ""; if (/débito|erro no figma/i.test(act)) kinds.deb++; else if (/exceção/i.test(code)) kinds.exc++; else kinds.seg++; });
     var p3 = panel(grid, "Adaptações para código", "Regra D40: o código segue o Figma; o que muda é exceção aprovada ou débito registrado");
-    var parts = [["seg", "Segue o Figma", kinds.seg], ["exc", "Exceção aprovada (web, sem especificação ou decisão)", kinds.exc], ["deb", "Débito ou erro no Figma", kinds.deb]];
+    var parts = [["seg", "Segue o Figma", kinds.seg, "O código faz o que o Figma faz hoje, mesmo quando parece errado. A divergência fica registrada para corrigir no Figma."],
+      ["exc", "Exceção aprovada (web, sem especificação ou decisão)", kinds.exc, "O código difere do Figma por decisão do Gustavo, falta de especificação ou adaptação para web aprovada."],
+      ["deb", "Débito ou erro no Figma", kinds.deb, "Problema confirmado no Figma, a corrigir lá. O código acompanha quando a correção entrar."]];
     var donut = p3.appendChild(el("div", "rp-donut"));
     var acc = 0, stops = parts.map(function(pt){ var a = acc; acc += pt[2] / (all.length || 1) * 360; return "var(--rp-c-" + pt[0] + ") " + a + "deg " + acc + "deg"; });
     var ring = donut.appendChild(el("div", "rp-donut__ring", "<strong>" + all.length + "</strong><span>itens</span>"));
     ring.style.background = "conic-gradient(" + stops.join(", ") + ")";
     ring.setAttribute("role", "img"); ring.setAttribute("aria-label", parts.map(function(pt){ return pt[1] + ": " + pt[2]; }).join("; "));
     var leg = donut.appendChild(el("ul", "rp-legend"));
-    parts.forEach(function(pt){ var li = leg.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + pt[0])); li.appendChild(el("span", null, esc(pt[1]))); li.appendChild(el("strong", null, String(pt[2]))); });
+    parts.forEach(function(pt){ var li = leg.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + pt[0])); li.appendChild(el("span", null, esc(pt[1]))); li.appendChild(el("strong", null, String(pt[2]))); li._tip = pt; });
 
     // Componentes por categoria
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block; }), cats = {};
@@ -215,6 +217,8 @@
     });
     // Ordem (Gustavo, 02/10): Componentes · Adaptações para código · Débitos e melhorias · Decisões
     [p4, p3, p2, p6].forEach(function(p){ grid.appendChild(p.closest("cds-card")); });
+    // Tooltips da legenda (precisam do item já no documento)
+    if (CDS.kit) [].forEach.call(leg.children, function(li){ if (li._tip) CDS.kit.tip(li, li._tip[3], { label: li._tip[1].replace(/ \(.*$/, ""), container: leg.parentNode }); });
     p6.appendChild(dsLink("rp-more", "Ver decisões", "#/relatorio/roadmap/" + slug(sec(road, function(s){ return s.num === "4"; }).title)));
   }
   function goTo(section){
@@ -339,6 +343,7 @@
           c.appendChild(el("p", "rp-kpi__value", String(k.value)));
           c.appendChild(el("p", "rp-kpi__sub", k.sub));
           kpiEl.appendChild(c);
+          if (k.tip && CDS.kit) CDS.kit.tip(c, k.tip, { label: k.label, container: kpiEl });
         });
         current = id; renderTab(id); goTo(section);
       }).catch(function(err){ bodyEl.innerHTML = '<p class="rp-meta">Não foi possível ler os registros (' + esc(String(err.message || err)) + ").</p>"; });

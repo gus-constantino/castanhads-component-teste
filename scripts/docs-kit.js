@@ -279,7 +279,9 @@
         var grid = el("ul", "pg-doc-icons__grid"), tiles = [];
         b.icons.forEach(function(n){
           var m = meta[n] || {}, li = el("li"), btn = el("button", "pg-doc-icons__tile");
-          btn.type = "button"; btn.title = (m.keywords || []).join(", ");
+          btn.type = "button";
+          // Tooltip do DS (criado no 1º hover/foco): nome + palavras-chave; substitui o title nativo
+          if (window.CDS.kit) CDS.kit.lazyTip(btn, (m.keywords || []).length ? (m.keywords || []).join(", ") : "Sem palavras-chave no Figma.", { label: n });
           btn.setAttribute("aria-label", n + " — copiar nome");
           var ic = el("span", "cds-icon " + (b.deprecated ? "" : m.cls || "")); ic.setAttribute("aria-hidden", "true");
           // deprecated pode repetir nome de um ativo (sem classe própria): aponta direto para o arquivo
@@ -347,7 +349,8 @@
         var grid = el("ul", "pg-doc-icons__grid pg-doc-ills__grid"), tiles = [];
         b.items.forEach(function(k){
           var m = meta[k] || { label: k, src: "" }, li = el("li"), btn = el("button", "pg-doc-icons__tile pg-doc-ills__tile");
-          btn.type = "button"; btn.title = [m.figma, m.size, m.description].filter(Boolean).join(" · ");
+          btn.type = "button";
+          if (window.CDS.kit) CDS.kit.lazyTip(btn, [m.figma !== m.label ? "Figma: " + m.figma : "", m.size, m.description].filter(Boolean).join(" · ") || "Sem description no Figma.", { label: m.label });
           btn.setAttribute("aria-label", m.label + " — copiar nome");
           var img = el("img", "pg-doc-ills__img"); img.alt = ""; img.loading = "lazy"; img.decoding = "async"; img.src = m.src;
           btn.appendChild(img); btn.appendChild(el("span", "pg-doc-icons__name", m.label));

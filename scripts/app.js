@@ -78,7 +78,9 @@
     if (blocks.length){
       var bd = navGroup("Building blocks", blocks, blocksOpen || q || narrow.matches || blocks.some(function(c){ return c.id === cur; }), function(open){ blocksOpen = open; });
       bd.classList.add("pg-nav-blocks");
-      nav.appendChild(kit.el("li", null, [bd]));
+      var bli = nav.appendChild(kit.el("li", null, [bd]));
+      // Tooltip no cabeçalho do Accordion Item (o botão interno), não no item inteiro
+      if (bd.btn) kit.tip(bd.btn, "Peças internas usadas por outros componentes (.Item, .Head…). Não se usam sozinhas.", { container: bli });
     }
     if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
     markCurrent();
@@ -186,7 +188,7 @@
   (function(){
     var host = $("viewport"), cur = "fluid", lid = "vp-lbl";
     host.classList.add("pg-ctrl");
-    host.appendChild(kit.el("span", { "class": "pg-lbl", id: lid, text: "Viewport" }));
+    var vpLbl = host.appendChild(kit.el("span", { "class": "pg-lbl", id: lid, text: "Viewport" }));
     var row = host.appendChild(kit.el("div", { "class": "pg-vp", role: "group", "aria-labelledby": lid }));
     var opts = [["360","smartphone-line","360px · Mobile"],["744","placeholder-line","744px · Tablet"],["1366","fullscreen-line","1366px · Desktop"],["fluid","swap-left-right-line","Fluido (até 600px)"]], btns = {};
     function paint(){ opts.forEach(function(o){ var on = o[0] === cur, b = btns[o[0]]; b.setAttribute("kind", on ? "default" : "ghost"); b.setAttribute("appearance", on ? "accent" : "neutral"); b.setAttribute("pressed", String(on)); }); }
@@ -202,6 +204,8 @@
     var MIN = 240, MAX = 1920, timer = 0;
     var field = kit.el("cds-text-input", { label: "Largura personalizada (px)", "show-label": "false", placeholder: "px", "show-lead-icon": "false", "show-required": "false", "show-supporting-content": "false", "class": "pg-vp-field" });
     row.appendChild(field);
+    kit.tip(vpLbl, "Simula a coleção Viewport do Figma (Mobile, Tablet, Desktop). O componente muda de comportamento, não só de largura.", { text: true, container: host });
+    kit.tip(field, "Largura livre de 240 a 1920 px. Até 599 vira Mobile; até 1023, Tablet; acima, Desktop.", { container: host });
     setTimeout(function(){ if (field.control){ field.control.inputMode = "numeric"; field.control.maxLength = 4; } }, 0);
     field.addEventListener("cds-change", function(e){
       e.stopPropagation();
@@ -232,5 +236,6 @@
     paintTheme();
   });
 
+  kit.tip($("rval-lbl"), "O que o componente acabou de emitir: valor, seleção ou abertura. Atualiza a cada interação.", { text: true });
   paintTheme(); buildNav(); setViewport("fluid"); onRoute();
 })();

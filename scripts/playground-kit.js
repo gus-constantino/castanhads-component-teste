@@ -22,6 +22,7 @@
   CDS.register = function(def){ CDS.playgrounds.push(def); };
 
   var uid = 0;
+  var STATE_TIP = "Estado de interação. No uso real vem do mouse, do teclado ou do atributo disabled; aqui ele é forçado para você inspecionar.";
   function id(prefix){ return (prefix || "pg") + "-" + (++uid); }
 
   function el(tag, attrs, children){
@@ -38,8 +39,34 @@
   }
 
   /** Título de grupo (Variants · Booleans · Texts…) */
+  /**
+   * Tooltip do DS ligado a um elemento já no documento (D69). Sem foco próprio, o elemento ganha tabindex=0
+   * (teclado e leitor de tela chegam nele); o.text = true marca texto com sublinhado pontilhado.
+   * o.label (título opcional) · o.placement (top|bottom · padrão bottom) · o.container (onde o Tooltip mora)
+   */
+  var FOCUSABLE = "button, a[href], input, select, textarea, [tabindex]";
+  function tip(target, text, o){
+    o = o || {};
+    if (!target.id) target.id = id("tip");
+    if (!target.matches(FOCUSABLE) && !target.querySelector(FOCUSABLE)) target.tabIndex = 0;
+    if (o.text) target.classList.add("pg-has-tip");
+    var t = el("cds-tooltip", { id: target.id + "-tip", "for": target.id, placement: o.placement || "bottom", "show-label": o.label ? "true" : "false", label: o.label });
+    t.setAttribute("text", text); // kit.el usa "text" como conteúdo; aqui é atributo do Tooltip
+    (o.container || target.parentNode || document.body).appendChild(t);
+    return t;
+  }
+  /** Igual ao tip(), mas só cria o Tooltip no primeiro hover/foco (listas grandes, ex.: galerias). */
+  function lazyTip(target, text, o){
+    var made = null;
+    function make(){ if (made) return; made = tip(target, typeof text === "function" ? text() : text, o); made.show(); }
+    target.addEventListener("pointerenter", make); target.addEventListener("focusin", make);
+  }
+
   // Seções com explicação: Icon Button de informação (Ghost · Neutral · Small) + Tooltip do DS — funciona com mouse, foco e toque
   var SECTION_INFO = {
+    "Variants": { label: "O que são Variants?", text: "Props de variante do Figma: trocam a aparência ou o estado do componente." },
+    "Booleans": { label: "O que são Booleans?", text: "Props booleanas do Figma: mostram ou ocultam partes do componente." },
+    "Instance swap": { label: "O que é Instance swap?", text: "Troca do componente aninhado, como qual ícone aparece. As opções vêm das bibliotecas do DS." },
     "Nested instances": { label: "O que são nested instances?", text: "Componentes do DS usados dentro deste (ex.: o Icon dentro do Tag). Aqui você vê as propriedades de cada um ao vivo. \"Exposta\": no Figma, a prop aparece no componente pai. \"Fixa\": não dá para trocar por fora." }
   };
   function section(panel, title){
@@ -59,7 +86,7 @@
    *  Retorna o grupo; grupo.setValue(v) marca uma opção por fora (sem chamar onChange). */
   function seg(panel, o){
     var lid = id("l"), wrap = el("div", { "class": "pg-ctrl" });
-    wrap.appendChild(el("span", { "class": "pg-lbl", id: lid, text: o.label }));
+    var lblEl = wrap.appendChild(el("span", { "class": "pg-lbl", id: lid, text: o.label }));
     var group = el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: o.label, "class": "pg-choice" });
     function mark(v){ [].forEach.call(group.querySelectorAll("cds-filter-chip"), function(c){ CDS.attr(c, "selected", c.dataset.v === String(v)); }); }
     o.options.forEach(function(opt){
@@ -76,6 +103,7 @@
     wrap.appendChild(group);
     if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
+    if (/^State\b/.test(o.label)) tip(lblEl, STATE_TIP, { text: true });
     return group;
   }
 
@@ -87,6 +115,7 @@
     wrap.appendChild(sw);
     if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
+    if (/^State\b/.test(o.label)) tip(sw, STATE_TIP);
     return { el: sw, get checked(){ return sw.getAttribute("status") === "selected"; }, set checked(v){ CDS.attr(sw, "status", v ? "selected" : "unselected"); } };
   }
 
@@ -349,5 +378,5 @@
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, action: action, surface: surface, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
+  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, action: action, surface: surface, tip: tip, lazyTip: lazyTip, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
 })();

@@ -175,11 +175,11 @@
     // Tag = status de publicação na lib do Figma (scripts/figma-status.js, lido via MCP: a página não acessa a API). Todos os componentes.
     var FS = CDS.figmaStatus || {}, st = (FS.items || {})[def.id];
     var PUB = { current: ["positive", "Publicado no Figma", "Publicado na lib [CastanhaDS] Components, sem alterações pendentes."],
-                changed: ["warning", "Publicado com alterações pendentes", "Publicado na lib [CastanhaDS] Components, mas há alterações no arquivo que ainda não foram publicadas."],
+                changed: ["informative", "Publicado com alterações pendentes", "Publicado na lib [CastanhaDS] Components, mas há alterações no arquivo que ainda não foram publicadas."],
                 unpublished: def.block
                   ? ["neutral", "Não publicado · building block", "Building block (nome com ponto): fica fora da publicação de propósito e é usado dentro de outros componentes."]
                   : ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."],
-                branch: ["informative", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main nem publicado na lib."] };
+                branch: ["warning", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main nem publicado na lib."] };
     var pub = st && PUB[st];
     if (pub){
       var ptag = $("cmp-badge").appendChild(kit.el("cds-tag", { appearance: pub[0], label: pub[1], "show-lead-item": "false" }));

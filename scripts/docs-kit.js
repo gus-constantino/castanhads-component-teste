@@ -150,16 +150,41 @@
     return box;
   }
 
+  /** Main Button do DS (Default · Neutral · Small, sem ícones) para ações da doc. */
+  function mainButton(label){
+    var b = document.createElement("cds-main-button");
+    [["kind","default"],["appearance","neutral"],["size","small"],["label",label],["show-lead-icon","false"],["show-trailing-icon","false"]].forEach(function(a){ b.setAttribute(a[0], a[1]); });
+    return b;
+  }
+  /** Toast do DS (Positive) no rodapé da tela; some sozinho em 3s. Um por vez. */
+  var toastEl = null, toastTimer = 0;
+  function toast(text){
+    if (toastEl) toastEl.remove();
+    toastEl = document.createElement("cds-toast");
+    toastEl.setAttribute("appearance", "positive"); toastEl.setAttribute("text", text); toastEl.setAttribute("show-trailing-item", "false");
+    toastEl.className = "pg-toast";
+    document.body.appendChild(toastEl);
+    clearTimeout(toastTimer);
+    var t = toastEl; toastTimer = setTimeout(function(){ if (t.parentNode) t.remove(); if (toastEl === t) toastEl = null; }, 3000);
+  }
+
   var BLOCKS = {
     h2: function(d, v){ return el("h2", "pg-doc-h2", v); },
     h3: function(d, v){ return el("h3", "pg-doc-h3", v); },
     p: function(d, v){ return rich(el("p", "pg-doc-p"), v); },
-    note: function(d, v){ return rich(el("p", "pg-doc-note"), v); },
+    // Nota → Alert do DS (Informative, sem título e sem fechar); o texto rico vira o Text Content
+    note: function(d, v){
+      var a = el("cds-alert", "pg-doc-alert");
+      a.setAttribute("appearance", "informative"); a.setAttribute("show-label", "false"); a.setAttribute("show-close-button", "false");
+      a.appendChild(rich(document.createElement("span"), v));
+      return a;
+    },
     ul: function(d, v){ return list("ul", v); },
     ol: function(d, v){ return list("ol", v); },
     cards: function(d, v){
       var g = el("div", "pg-doc-cards");
-      v.forEach(function(c){ var k = el("div", "pg-doc-card"); k.appendChild(el("h4", "pg-doc-h4", c[0])); k.appendChild(rich(el("p", "pg-doc-p"), c[1])); g.appendChild(k); });
+      // Card do DS (Has Border) com título + texto no Slot
+      v.forEach(function(c){ var k = el("cds-card", "pg-doc-card"); k.setAttribute("has-border", "true"); k.appendChild(el("h4", "pg-doc-h4", c[0])); k.appendChild(rich(el("p", "pg-doc-p"), c[1])); g.appendChild(k); });
       return g;
     },
     display: function(d, v){ return display(example(d, v.attrs, v.live), v.live ? "is-live" : ""); },
@@ -221,7 +246,7 @@
     specs: function(d, v){
       var g = el("div", "pg-doc-specs");
       v.forEach(function(c){
-        var card = el("section", "pg-doc-spec");
+        var card = el("cds-card", "pg-doc-spec"); card.setAttribute("has-border", "true"); // Card do DS
         card.appendChild(el("h3", "pg-doc-h4", c.title));
         var dl = el("dl");
         c.rows.forEach(function(r){ dl.appendChild(el("dt", null, r[0])); dl.appendChild(rich(el("dd"), r[1])); });
@@ -241,18 +266,16 @@
       search.setAttribute("show-required", "false"); search.setAttribute("show-supporting-content", "false");
       var tools = el("div", "pg-doc-icons__tools");
       var count = el("p", "pg-doc-note"); count.setAttribute("aria-live", "polite");
-      var toggleAll = el("button", "pg-doc-link", "Abrir todas"); toggleAll.type = "button";
+      var toggleAll = mainButton("Abrir todas");
       tools.appendChild(count); tools.appendChild(toggleAll);
       wrap.appendChild(search); wrap.appendChild(tools);
       var acc = el("div", "pg-doc-acc"), sections = [];
       var fold = function(s){ return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); };
       (A.iconBuckets || []).filter(function(b){ return !b.glyphs && (v.only === "deprecated" ? b.deprecated : !b.deprecated); }).forEach(function(b, bi){
-        var det = el("details", "pg-doc-acc__item");
-        var sum = el("summary", "pg-doc-acc__head");
-        sum.appendChild(el("span", "pg-doc-acc__title", b.name));
-        var badge = el("span", "pg-doc-acc__count", String(b.icons.length)); sum.appendChild(badge);
-        var chev = el("span", "cds-icon cds-icon--dropdown-open-line pg-doc-acc__chev"); chev.setAttribute("aria-hidden", "true"); sum.appendChild(chev);
-        det.appendChild(sum);
+        // Accordion Item do DS (Fase 4): categoria no Label, contagem na Description
+        var det = el("cds-accordion-item", "pg-doc-acc__item");
+        det.setAttribute("label", b.name); det.setAttribute("show-lead-item", "false");
+        var badge = { set textContent(t){ det.setAttribute("description", t + (/de/.test(t) ? "" : " ícones")); } }; badge.textContent = String(b.icons.length);
         var grid = el("ul", "pg-doc-icons__grid"), tiles = [];
         b.icons.forEach(function(n){
           var m = meta[n] || {}, li = el("li"), btn = el("button", "pg-doc-icons__tile");
@@ -264,13 +287,13 @@
           btn.appendChild(ic); btn.appendChild(el("span", "pg-doc-icons__name", n));
           btn.addEventListener("click", function(){
             try { navigator.clipboard.writeText(n); } catch (e) {}
-            count.textContent = "Copiado: " + n;
+            toast("Copiado: " + n);
           });
           li.appendChild(btn); grid.appendChild(li);
           tiles.push({ li: li, text: fold(n + " " + (m.keywords || []).join(" ")) });
         });
         var body = el("div", "pg-doc-acc__body"); body.appendChild(grid); det.appendChild(body);
-        if (bi === 0) det.open = true;
+        if (bi !== 0) det.setAttribute("collapsed", "");
         acc.appendChild(det);
         sections.push({ det: det, badge: badge, total: b.icons.length, tiles: tiles, first: bi === 0 });
       });
@@ -281,7 +304,7 @@
           var any = 0;
           s.tiles.forEach(function(t){ var ok = !q || t.text.indexOf(q) !== -1; t.li.hidden = !ok; if (ok) any++; });
           s.det.hidden = !any; s.badge.textContent = q ? any + " de " + s.total : String(s.total);
-          if (q) s.det.open = any > 0;
+          if (q) CDS.attr(s.det, "collapsed", !(any > 0));
           shown += any;
         });
         count.textContent = shown + " ícone" + (shown === 1 ? "" : "s") + (q ? " para “" + String(search.value || "").trim() + "”" : " em " + sections.length + " categorias") + ". Clique para copiar o nome.";
@@ -290,13 +313,13 @@
       search.addEventListener("cds-change", function(e){
         e.stopPropagation();
         var has = !!String(search.value || "").trim();
-        if (wasQuery && !has) sections.forEach(function(s){ s.det.open = s.first; }); // limpou a busca: volta ao estado inicial
+        if (wasQuery && !has) sections.forEach(function(s){ CDS.attr(s.det, "collapsed", !s.first); }); // limpou a busca: volta ao estado inicial
         wasQuery = has; filter();
       });
       toggleAll.addEventListener("click", function(){
-        var open = sections.some(function(s){ return !s.det.hidden && !s.det.open; });
-        sections.forEach(function(s){ if (!s.det.hidden) s.det.open = open; });
-        toggleAll.textContent = open ? "Fechar todas" : "Abrir todas";
+        var open = sections.some(function(s){ return !s.det.hidden && s.det.collapsed; });
+        sections.forEach(function(s){ if (!s.det.hidden) CDS.attr(s.det, "collapsed", !open); });
+        toggleAll.setAttribute("label", open ? "Fechar todas" : "Abrir todas");
       });
       filter();
       return wrap;
@@ -311,18 +334,16 @@
       search.setAttribute("show-required", "false"); search.setAttribute("show-supporting-content", "false");
       var tools = el("div", "pg-doc-icons__tools");
       var count = el("p", "pg-doc-note"); count.setAttribute("aria-live", "polite");
-      var toggleAll = el("button", "pg-doc-link", "Abrir todas"); toggleAll.type = "button";
+      var toggleAll = mainButton("Abrir todas");
       tools.appendChild(count); tools.appendChild(toggleAll);
       wrap.appendChild(search); wrap.appendChild(tools);
       var acc = el("div", "pg-doc-acc"), sections = [];
       var fold = function(s){ return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); };
       (A.illustrationBuckets || []).forEach(function(b, bi){
-        var det = el("details", "pg-doc-acc__item");
-        var sum = el("summary", "pg-doc-acc__head");
-        sum.appendChild(el("span", "pg-doc-acc__title", b.name));
-        var badge = el("span", "pg-doc-acc__count", String(b.items.length)); sum.appendChild(badge);
-        var chev = el("span", "cds-icon cds-icon--dropdown-open-line pg-doc-acc__chev"); chev.setAttribute("aria-hidden", "true"); sum.appendChild(chev);
-        det.appendChild(sum);
+        // Accordion Item do DS (Fase 4): categoria no Label, contagem na Description
+        var det = el("cds-accordion-item", "pg-doc-acc__item");
+        det.setAttribute("label", b.name); det.setAttribute("show-lead-item", "false");
+        var badge = { set textContent(t){ det.setAttribute("description", t + (/de/.test(t) ? "" : " ilustrações")); } }; badge.textContent = String(b.items.length);
         var grid = el("ul", "pg-doc-icons__grid pg-doc-ills__grid"), tiles = [];
         b.items.forEach(function(k){
           var m = meta[k] || { label: k, src: "" }, li = el("li"), btn = el("button", "pg-doc-icons__tile pg-doc-ills__tile");
@@ -332,13 +353,13 @@
           btn.appendChild(img); btn.appendChild(el("span", "pg-doc-icons__name", m.label));
           btn.addEventListener("click", function(){
             try { navigator.clipboard.writeText(k); } catch (e) {}
-            count.textContent = "Copiado: " + k;
+            toast("Copiado: " + k);
           });
           li.appendChild(btn); grid.appendChild(li);
           tiles.push({ li: li, text: fold([k, m.figma, b.name, m.description].join(" ")) });
         });
         var body = el("div", "pg-doc-acc__body"); body.appendChild(grid); det.appendChild(body);
-        if (bi === 0) det.open = true;
+        if (bi !== 0) det.setAttribute("collapsed", "");
         acc.appendChild(det);
         sections.push({ det: det, badge: badge, total: b.items.length, tiles: tiles, first: bi === 0 });
       });
@@ -349,7 +370,7 @@
           var any = 0;
           s.tiles.forEach(function(t){ var ok = !q || t.text.indexOf(q) !== -1; t.li.hidden = !ok; if (ok) any++; });
           s.det.hidden = !any; s.badge.textContent = q ? any + " de " + s.total : String(s.total);
-          if (q) s.det.open = any > 0;
+          if (q) CDS.attr(s.det, "collapsed", !(any > 0));
           shown += any;
         });
         count.textContent = shown + " ilustraç" + (shown === 1 ? "ão" : "ões") + (q ? " para “" + String(search.value || "").trim() + "”" : " em " + sections.length + " categorias") + ". Clique para copiar o nome (categoria/nome).";
@@ -358,13 +379,13 @@
       search.addEventListener("cds-change", function(e){
         e.stopPropagation();
         var has = !!String(search.value || "").trim();
-        if (wasQuery && !has) sections.forEach(function(s){ s.det.open = s.first; });
+        if (wasQuery && !has) sections.forEach(function(s){ CDS.attr(s.det, "collapsed", !s.first); });
         wasQuery = has; filter();
       });
       toggleAll.addEventListener("click", function(){
-        var open = sections.some(function(s){ return !s.det.hidden && !s.det.open; });
-        sections.forEach(function(s){ if (!s.det.hidden) s.det.open = open; });
-        toggleAll.textContent = open ? "Fechar todas" : "Abrir todas";
+        var open = sections.some(function(s){ return !s.det.hidden && s.det.collapsed; });
+        sections.forEach(function(s){ if (!s.det.hidden) CDS.attr(s.det, "collapsed", !open); });
+        toggleAll.setAttribute("label", open ? "Fechar todas" : "Abrir todas");
       });
       filter();
       return wrap;
@@ -392,7 +413,9 @@
     if (doc.source){
       var src = el("p", "pg-doc-source");
       src.appendChild(document.createTextNode("Fonte: "));
-      var a = el("a", null, doc.sourceLabel || "[Documentação] no Figma"); a.href = doc.source; a.target = "_blank"; a.rel = "noopener";
+      var a = document.createElement("cds-link"); // Link do DS (abre o Figma em outra aba)
+      a.setAttribute("label", doc.sourceLabel || "[Documentação] no Figma"); a.setAttribute("href", doc.source); a.setAttribute("target", "_blank");
+      a.setAttribute("appearance", "neutral"); a.setAttribute("icon", "link-line");
       src.appendChild(a);
       page.appendChild(src);
     }

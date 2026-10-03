@@ -33,16 +33,17 @@
 .pg-doc-h4{ margin:0; font:var(--text-style-body-bold); color:var(--common-colors-text-medium); }
 .pg-doc-p, .pg-doc-list{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
 .pg-doc-list{ padding-left:var(--common-sizes-24); display:flex; flex-direction:column; gap:var(--common-sizes-4); }
-.pg-doc-note{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-soft); }
+.pg-doc-note{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-soft); } /* contagem das galerias */
+.pg-doc-alert{ width:100%; } /* nota = Alert do DS (mantém o flex do componente) */
 .pg-doc code{ padding:0 var(--common-sizes-4); border-radius:var(--common-border-radius-micro); background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); }
 .pg-doc-source{ margin:var(--common-sizes-16) 0 0; padding-top:var(--common-sizes-16);
   box-shadow:inset 0 var(--common-border-width-hairline) 0 var(--common-colors-border-semi-soft);
   font:var(--text-style-caption-regular); color:var(--common-colors-text-soft); }
-.pg-doc-source a{ color:var(--common-colors-text-medium); }
+.pg-doc-source{ display:flex; align-items:center; gap:var(--common-sizes-4); flex-wrap:wrap; } /* "Fonte:" + Link do DS */
 
 /* Princípios */
 .pg-doc-cards{ display:grid; grid-template-columns:repeat(auto-fit, minmax(calc(var(--common-sizes-200) + var(--common-sizes-20)), 1fr)); gap:var(--common-sizes-16); }
-.pg-doc-card{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding:var(--common-sizes-8) 0; }
+.pg-doc-card{ min-width:0; } /* Card do DS (Has Border): padding, raio e borda vêm do componente */
 
 /* Caixa de exibição (Component Display) */
 .pg-doc-display{
@@ -125,8 +126,7 @@
 
 /* Fichas (specs) — ex.: Motion Style por interação */
 .pg-doc-specs{ display:grid; grid-template-columns:repeat(auto-fit, minmax(min(calc(var(--common-sizes-200) + var(--common-sizes-40)), 100%), 1fr)); gap:var(--common-sizes-16); }
-.pg-doc-spec{ display:flex; flex-direction:column; gap:var(--common-sizes-12); padding:var(--common-sizes-16);
-  border-radius:var(--common-border-radius-medium); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); }
+.pg-doc-spec{ min-width:0; } /* Card do DS (Has Border) */
 .pg-doc-spec dl{ margin:0; display:flex; flex-direction:column; gap:var(--common-sizes-4); }
 .pg-doc-spec dd + dt{ margin-top:var(--common-sizes-8); }
 .pg-doc-spec dt{ font:var(--text-style-caption-medium); color:var(--common-colors-text-soft); }
@@ -151,23 +151,11 @@
 .pg-doc-ills__tile{ gap:var(--common-sizes-8); }
 .pg-doc-ills__img{ display:block; width:var(--common-sizes-92); height:var(--common-sizes-92); object-fit:contain; }
 .pg-doc-icons__tools{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-12); flex-wrap:wrap; }
-.pg-doc-link{ border:0; background:none; padding:0; cursor:pointer; font:var(--text-style-label-medium); color:var(--common-colors-text-intense); text-decoration:underline; text-underline-offset:var(--common-sizes-4); }
 
 /* Accordion (categorias) — cabeçalho 56px, divisória Border/semi-soft, chevron gira ao abrir */
-.pg-doc-acc{ display:flex; flex-direction:column; box-shadow:inset 0 var(--common-border-width-hairline) 0 var(--common-colors-border-semi-soft); }
-.pg-doc-acc__item{ box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); }
-.pg-doc-acc__head{
-  list-style:none; display:flex; align-items:center; gap:var(--common-sizes-12);
-  min-height:var(--common-sizes-56); padding:0 var(--common-sizes-8); cursor:pointer;
-  border-radius:var(--common-border-radius-extra-small);
-  transition:background-color var(--motion-hover-duration) var(--motion-hover-easing);
-}
-.pg-doc-acc__head::-webkit-details-marker{ display:none; }
-.pg-doc-acc__head:hover{ background:var(--common-colors-surface-01); }
-.pg-doc-acc__head:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-border-intense); outline-offset:calc(-1 * var(--common-border-width-thin)); }
-.pg-doc-acc__title{ flex:1 1 auto; font:var(--text-style-title-small); color:var(--common-colors-text-medium); }
-.pg-doc-acc__count{ font:var(--text-style-caption-medium); color:var(--common-colors-text-soft); }
-.pg-doc-acc__chev{ --cds-icon-color:var(--common-colors-icons-medium); width:var(--common-sizes-24); height:var(--common-sizes-24); transition:transform var(--motion-active-duration) var(--motion-active-easing); }
-.pg-doc-acc__item[open] > .pg-doc-acc__head .pg-doc-acc__chev{ transform:rotate(180deg); }
-.pg-doc-acc__body{ padding:var(--common-sizes-8) var(--common-sizes-8) var(--common-sizes-24); }
-@media (prefers-reduced-motion:reduce){ .pg-doc-acc__head, .pg-doc-acc__chev{ transition:none; } }
+.pg-doc-acc{ display:flex; flex-direction:column; }
+.pg-doc-acc__item{ --cds-accordion-width:100%; } /* Accordion Item do DS */
+.pg-doc-acc__item[hidden]{ display:none; }
+.pg-doc-acc__body{ padding:var(--common-sizes-8) 0 var(--common-sizes-16); }
+/* Toast do DS para "Copiado" — fixo no rodapé, centralizado */
+.pg-toast{ position:fixed; z-index:20; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }

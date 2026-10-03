@@ -172,14 +172,18 @@
     var cdoc = CDS.docs && CDS.docs[def.id], cover = cdoc && cdoc.cover;
     $("cmp-badge").innerHTML = ""; desc.hidden = !(cover && cover.description); desc.textContent = (cover && cover.description) || "";
     canvas.classList.toggle("has-cover", !!cover);
-    // Tag = status de publicação na lib do Figma (getPublishStatusAsync), lido via MCP e guardado no register: a página não acessa a API
+    // Tag = status de publicação na lib do Figma (scripts/figma-status.js, lido via MCP: a página não acessa a API). Todos os componentes.
+    var FS = CDS.figmaStatus || {}, st = (FS.items || {})[def.id];
     var PUB = { current: ["positive", "Publicado no Figma", "Publicado na lib [CastanhaDS] Components, sem alterações pendentes."],
                 changed: ["warning", "Publicado com alterações pendentes", "Publicado na lib [CastanhaDS] Components, mas há alterações no arquivo que ainda não foram publicadas."],
-                unpublished: ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."] };
-    var pub = cover && def.figmaStatus && PUB[def.figmaStatus.status];
+                unpublished: def.block
+                  ? ["neutral", "Não publicado · building block", "Building block (nome com ponto): fica fora da publicação de propósito e é usado dentro de outros componentes."]
+                  : ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."],
+                branch: ["informative", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main nem publicado na lib."] };
+    var pub = st && PUB[st];
     if (pub){
       var ptag = $("cmp-badge").appendChild(kit.el("cds-tag", { appearance: pub[0], label: pub[1], "show-lead-item": "false" }));
-      kit.tip(ptag, pub[2] + " Conferido em " + def.figmaStatus.checked + ".", { container: $("cmp-badge") });
+      kit.tip(ptag, pub[2] + " Conferido em " + FS.checked + ".", { container: $("cmp-badge") });
     }
     document.title = def.name + " — Castanha DS";
     links.innerHTML = "";

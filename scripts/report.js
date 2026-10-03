@@ -148,7 +148,12 @@
     return p;
   }
   // Contador = Tag do DS (Neutral, sem ícone)
-  function countTag(n){ var t = el("cds-tag", "rp-count"); t.setAttribute("label", String(n)); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false"); return t; }
+  function countTag(n){
+    var t = el("cds-tag", "rp-count"); t.setAttribute("label", String(n)); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false");
+    // só mouse: o número já está visível e a Tag fica dentro de link no índice (sem foco aninhado)
+    if (CDS.kit) CDS.kit.lazyTip(t, n + (n === 1 ? " item nesta seção." : " itens nesta seção."), { focus: false });
+    return t;
+  }
   // Link do DS
   function dsLink(cls, label, href, external){
     var l = el("cds-link", cls); l.setAttribute("label", label); l.setAttribute("href", href); l.setAttribute("appearance", "neutral");

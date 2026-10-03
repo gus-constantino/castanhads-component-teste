@@ -170,8 +170,13 @@
     document.title = def.name + " — Castanha DS";
     links.innerHTML = "";
     // Link do DS (Neutral, ícone de link no lugar da seta: abre em outra aba)
-    [[def.task && JIRA + def.task, def.task], [def.figma, "Figma"], [def.zeroheight, "Zeroheight"]].forEach(function(l){
-      if (l[0]) links.appendChild(kit.el("cds-link", { label: l[1], href: l[0], target: "_blank", appearance: "neutral", icon: "link-line" }));
+    var branch = /\/branch\//.test(def.figma || "") ? " O link abre uma branch, não a main." : "";
+    [[def.task && JIRA + def.task, def.task, "Abre a task " + def.task + " no Jira, em outra aba."],
+     [def.figma, "Figma", "Abre o componente no Figma, em outra aba." + branch],
+     [def.zeroheight, "Zeroheight", "Abre a página publicada no zeroheight, em outra aba."]].forEach(function(l){
+      if (!l[0]) return;
+      var a = links.appendChild(kit.el("cds-link", { label: l[1], href: l[0], target: "_blank", appearance: "neutral", icon: "link-line" }));
+      kit.tip(a, l[2], { container: links });
     });
     readout("", false);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });

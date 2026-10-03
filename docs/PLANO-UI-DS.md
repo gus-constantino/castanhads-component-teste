@@ -92,4 +92,6 @@ Helper `kit.tip(alvo, texto, { label, text, placement, container })` e `kit.lazy
 
 **Feito (🟡, 02/10):** "Recursos de suporte" · links do menu com task do Jira, `[Beta]` ou link de branch do Figma (um Tooltip só, com o que se aplica) · "Viewport:" do frame · seção "Texts" e seções só do código (Comportamento, Dados, Opções, Acessibilidade) · props "Is …" (Is Active, Is Collapsed, Is Selected, Is Blocked, Is Current Day) · Tags exposta/fixa do inspetor · tipos de prop na doc (Variant, Boolean, Text, Swap component) · números da Anatomia (só mouse: a legenda cobre o teclado) · linhas das barras do relatório (valor, % do total real e, nos débitos, o que entra no tipo).
 
-**Para depois (⚪):** links Jira/Figma/Zeroheight da barra · opções dos chips · nomes de Motion Style · contadores (Tags) do relatório.
+**Feito (⚪, 02/10):** links Jira/Figma/Zeroheight da barra (para onde levam; aviso de branch no Figma) · opções dos chips de escolha única ("No Figma: Kind = Ghost") · nomes de Motion Style nas fichas da doc (duração e curva lidas dos tokens em tempo real) · contadores (Tags) do relatório (só mouse).
+
+Lista de 02/10 concluída: 27 pontos de ajuda com Tooltip do DS.

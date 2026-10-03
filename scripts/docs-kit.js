@@ -260,7 +260,17 @@
         var card = el("cds-card", "pg-doc-spec"); card.setAttribute("has-border", "true"); // Card do DS
         card.appendChild(el("h3", "pg-doc-h4", c.title));
         var dl = el("dl");
-        c.rows.forEach(function(r){ dl.appendChild(el("dt", null, r[0])); dl.appendChild(rich(el("dd"), r[1])); });
+        c.rows.forEach(function(r){
+          dl.appendChild(el("dt", null, r[0]));
+          var dd = dl.appendChild(rich(el("dd"), r[1]));
+          // Nome de Motion Style (ex.: `Hover In/01`) → Tooltip com duração e curva lidas dos tokens em tempo real
+          [].forEach.call(dd.querySelectorAll("code"), function(code){
+            var m = code.textContent.match(/^([A-Za-z ]+)\/(\d+)$/); if (!m || !window.CDS.kit) return;
+            var key = "--motion-" + m[1].trim().toLowerCase().replace(/\s+/g, "-") + "-" + m[2], cs = getComputedStyle(document.documentElement);
+            var dur = cs.getPropertyValue(key + "-timing").trim(), ease = cs.getPropertyValue(key + "-easing").trim();
+            if (dur) CDS.kit.lazyTip(code, dur + " · " + ease, { label: "Motion Style/" + code.textContent });
+          });
+        });
         card.appendChild(dl);
         g.appendChild(card);
       });

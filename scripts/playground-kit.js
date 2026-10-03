@@ -114,6 +114,8 @@
         o.onChange(opt[0]);
       });
       group.appendChild(c);
+      // Tooltip da opção: a prop e o valor como no Figma (Kind = Ghost)
+      lazyTip(c, "No Figma: " + String(o.label).replace(/\s*\(.*\)$/, "") + " = " + opt[1] + ".");
     });
     group.setValue = mark;
     wrap.appendChild(group);

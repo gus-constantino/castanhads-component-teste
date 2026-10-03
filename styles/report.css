@@ -7,7 +7,8 @@
 .rp-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:var(--common-sizes-16); flex-wrap:wrap; }
 .rp-title{ margin:0; font:var(--text-style-title-medium); color:var(--common-colors-text-intense); }
 .rp-meta{ margin:var(--common-sizes-4) 0 0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
-.rp-search{ width:calc(var(--common-sizes-200) + var(--common-sizes-80)); max-width:100%; margin:0; }
+.rp-search{ display:block; width:calc(var(--common-sizes-200) + var(--common-sizes-80)); max-width:100%; margin:0; } /* Search Input do DS */
+.rp-search[hidden]{ display:none; }
 
 /* Números */
 .rp-kpis{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:var(--common-sizes-12); margin-top:var(--common-sizes-24); }

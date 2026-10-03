@@ -223,9 +223,12 @@
     var t = head.appendChild(el("div"));
     t.appendChild(el("h1", "rp-title", "Saúde da stack Figma"));
     t.appendChild(el("p", "rp-meta", "Castanha DS · implementação da lib <em>[CastanhaDS] Components</em> no playground. Atualizado direto dos registros do repositório."));
-    searchEl = head.appendChild(el("input", "pg-search rp-search"));
-    searchEl.type = "search"; searchEl.placeholder = "Buscar no relatório"; searchEl.setAttribute("aria-label", "Buscar no relatório");
-    searchEl.addEventListener("input", filter);
+    // Search Input do DS (lupa fixa e botão de limpar); rótulo oculto, o nome acessível continua
+    searchEl = document.createElement("cds-search-input"); searchEl.className = "rp-search";
+    ["label", "placeholder"].forEach(function(k){ searchEl.setAttribute(k, "Buscar no relatório"); });
+    searchEl.setAttribute("show-label", "false"); searchEl.setAttribute("show-required", "false"); searchEl.setAttribute("show-supporting-content", "false");
+    head.appendChild(searchEl);
+    searchEl.addEventListener("cds-change", function(e){ e.stopPropagation(); filter(); });
     kpiEl = root.appendChild(el("div", "rp-kpis"));
     // Scrollable Tab do DS (teclado e foco itinerante vêm do componente)
     var wrap = root.appendChild(el("div", "pg-tabs rp-tabs"));
@@ -292,7 +295,7 @@
   // Busca: esconde linhas de tabela, itens de lista e seções sem o termo
   function filter(){
     if (!bodyEl) return;
-    var q = (searchEl.value || "").trim().toLowerCase();
+    var q = String(searchEl.value || "").trim().toLowerCase();
     [].forEach.call(bodyEl.querySelectorAll(".rp-section"), function(sec){
       var hit = !q || sec.querySelector(".rp-section__title") && sec.querySelector(".rp-section__title").textContent.toLowerCase().indexOf(q) !== -1;
       var any = false;

@@ -123,10 +123,12 @@ CDS.docs["credit-card-input"] = {
     { id: "motion", title: "Motion", blocks: [
       { h2: "Motion" },
       { p: "As transições de estado do campo usam os Motion Styles do Castanha (modo Normal)." },
+      { display: { attrs: { label: "Número do cartão", "show-required": false, value: "" }, live: true } },
+      { note: "Exemplo interativo: passe o mouse, pressione e foque o campo para ver cada transição." },
       { specs: [
-        { title: "Hover In", rows: [["Easing", "`0.7, 0, 0.5, 1`"], ["Duration", "150ms"]] },
-        { title: "Pressed", rows: [["Easing", "`0.7, 0, 0.8, 1`"], ["Duration", "200ms"]] },
-        { title: "Selected In", rows: [["Easing", "`0.4, 0, 0.1, 1`"], ["Duration", "350ms"]] }
+        { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+        { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
+        { title: "Pressed → Is Active", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"]] }
       ] }
     ] }
   ]

@@ -105,11 +105,13 @@ CDS.docs = CDS.docs || {};
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
         { p: "As transições de cada seção do Accordion seguem os Motion Styles do Castanha (modo Normal)." },
+        { display: { attrs: { _children: [{ _tag: "cds-accordion-item", label: "Como funciona o reembolso?", "show-lead-item": false, "show-description": false, collapsed: true }, { _tag: "cds-accordion-item", label: "Quando recebo o benefício?", "show-lead-item": false, "show-description": false, collapsed: true }] }, live: true } },
+        { note: "Exemplo interativo: passe o mouse, pressione e abra ou recolha uma seção para ver cada transição." },
         { specs: [
-          { title: "Hover In/01", rows: [["Motion Style", "`Motion Style/Hover In/01`"], ["Easing", "0.7, 0, 0.5, 1"], ["Duration", "150ms"]] },
-          { title: "Pressed/01", rows: [["Motion Style", "`Motion Style/Pressed/01`"], ["Easing", "0.7, 0, 0.8, 1"], ["Duration", "200ms"]] },
-          { title: "Selected In/01", rows: [["Motion Style", "`Motion Style/Selected In/01`"], ["Easing", "0.4, 0, 0.1, 1"], ["Duration", "350ms"]] },
-          { title: "Selected Out/01", rows: [["Motion Style", "`Motion Style/Selected Out/01`"], ["Easing", "0.4, 0, 0.1, 1"], ["Duration", "200ms"]] }
+          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
+          { title: "Recolhido → Aberto", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"]] },
+          { title: "Aberto → Recolhido", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected Out/01`"]] }
         ] }
       ] }
     ]

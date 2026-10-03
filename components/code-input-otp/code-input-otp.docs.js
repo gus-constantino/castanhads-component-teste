@@ -110,9 +110,9 @@ CDS.docs["code-input-otp"] = {
       { display: { attrs: { label: "Código", "show-required": false }, live: true } },
       { note: "Exemplo interativo: passe o mouse, pressione e foque uma célula para ver cada transição." },
       { specs: [
-        { title: "Hover In", rows: [["Easing", "`0.7, 0, 0.5, 1`"], ["Duration", "150ms"]] },
-        { title: "Pressed", rows: [["Easing", "`0.7, 0, 0.8, 1`"], ["Duration", "200ms"]] },
-        { title: "Selected In", rows: [["Easing", "`0.4, 0, 0.1, 1`"], ["Duration", "350ms"]] }
+        { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+        { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
+        { title: "Pressed → Is Active", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"]] }
       ] },
       { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (a `.Motion Styles` não tem modo Reduced tokenizado — tratamento no código)." }
     ] }

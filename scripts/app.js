@@ -172,7 +172,15 @@
     var cdoc = CDS.docs && CDS.docs[def.id], cover = cdoc && cdoc.cover;
     $("cmp-badge").innerHTML = ""; desc.hidden = !(cover && cover.description); desc.textContent = (cover && cover.description) || "";
     canvas.classList.toggle("has-cover", !!cover);
-    if (cover && def.zeroheight) $("cmp-badge").appendChild(kit.el("cds-tag", { appearance: "positive", label: "Zeroheight disponível", "show-lead-item": "false" }));
+    // Tag = status de publicação na lib do Figma (getPublishStatusAsync), lido via MCP e guardado no register: a página não acessa a API
+    var PUB = { current: ["positive", "Publicado no Figma", "Publicado na lib [CastanhaDS] Components, sem alterações pendentes."],
+                changed: ["warning", "Publicado com alterações pendentes", "Publicado na lib [CastanhaDS] Components, mas há alterações no arquivo que ainda não foram publicadas."],
+                unpublished: ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."] };
+    var pub = cover && def.figmaStatus && PUB[def.figmaStatus.status];
+    if (pub){
+      var ptag = $("cmp-badge").appendChild(kit.el("cds-tag", { appearance: pub[0], label: pub[1], "show-lead-item": "false" }));
+      kit.tip(ptag, pub[2] + " Conferido em " + def.figmaStatus.checked + ".", { container: $("cmp-badge") });
+    }
     document.title = def.name + " — Castanha DS";
     links.innerHTML = "";
     // Link do DS (Neutral, ícone de link no lugar da seta: abre em outra aba)

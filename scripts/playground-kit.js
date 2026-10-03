@@ -22,6 +22,13 @@
   CDS.register = function(def){ CDS.playgrounds.push(def); };
 
   var uid = 0;
+  var IS_TIPS = {
+    "Is Active": "No Figma, o estado ativo: campo focado, lista aberta ou filtro aplicado.",
+    "Is Collapsed": "No Figma, se o conteúdo do item está recolhido.",
+    "Is Selected": "No Figma, se o item está selecionado.",
+    "Is Blocked": "No Figma, se o cartão está bloqueado: aparece o Backdrop com o cadeado.",
+    "Is Current Day": "No Figma, se o dia é o dia de hoje no calendário."
+  };
   var STATE_TIP = "Estado de interação. No uso real vem do mouse, do teclado ou do atributo disabled; aqui ele é forçado para você inspecionar.";
   function id(prefix){ return (prefix || "pg") + "-" + (++uid); }
 
@@ -48,7 +55,7 @@
   function tip(target, text, o){
     o = o || {};
     if (!target.id) target.id = id("tip");
-    if (!target.matches(FOCUSABLE) && !target.querySelector(FOCUSABLE)) target.tabIndex = 0;
+    if (o.focus !== false && !target.matches(FOCUSABLE) && !target.querySelector(FOCUSABLE)) target.tabIndex = 0;
     if (o.text) target.classList.add("pg-has-tip");
     var t = el("cds-tooltip", { id: target.id + "-tip", "for": target.id, placement: o.placement || "bottom", "show-label": o.label ? "true" : "false", label: o.label });
     t.setAttribute("text", text); // kit.el usa "text" como conteúdo; aqui é atributo do Tooltip
@@ -57,7 +64,11 @@
   }
   /** Igual ao tip(), mas só cria o Tooltip no primeiro hover/foco (listas grandes, ex.: galerias). */
   function lazyTip(target, text, o){
+    o = o || {};
     var made = null;
+    // foco desde já (senão o teclado só chegaria depois do 1º hover); focus:false = decorativo, só mouse
+    if (o.focus !== false && !target.matches(FOCUSABLE) && !target.querySelector(FOCUSABLE)) target.tabIndex = 0;
+    if (o.text) target.classList.add("pg-has-tip");
     function make(){ if (made) return; made = tip(target, typeof text === "function" ? text() : text, o); made.show(); }
     target.addEventListener("pointerenter", make); target.addEventListener("focusin", make);
   }
@@ -67,6 +78,11 @@
     "Variants": { label: "O que são Variants?", text: "Props de variante do Figma: trocam a aparência ou o estado do componente." },
     "Booleans": { label: "O que são Booleans?", text: "Props booleanas do Figma: mostram ou ocultam partes do componente." },
     "Instance swap": { label: "O que é Instance swap?", text: "Troca do componente aninhado, como qual ícone aparece. As opções vêm das bibliotecas do DS." },
+    "Texts": { label: "O que são Texts?", text: "Props de texto do Figma: o conteúdo editável do componente." },
+    "Comportamento": { label: "O que é esta seção?", text: "Controle só do código: comportamento web, não é prop do Figma." },
+    "Dados": { label: "O que é esta seção?", text: "Controle só do código: dados de exemplo para testar, não é prop do Figma." },
+    "Opções": { label: "O que é esta seção?", text: "Controle só do código: as opções da lista, não é prop do Figma." },
+    "Acessibilidade": { label: "O que é esta seção?", text: "Controle só do código: nomes e atributos para leitor de tela, não é prop do Figma." },
     "Nested instances": { label: "O que são nested instances?", text: "Componentes do DS usados dentro deste (ex.: o Icon dentro do Tag). Aqui você vê as propriedades de cada um ao vivo. \"Exposta\": no Figma, a prop aparece no componente pai. \"Fixa\": não dá para trocar por fora." }
   };
   function section(panel, title){
@@ -116,6 +132,8 @@
     if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
     if (/^State\b/.test(o.label)) tip(sw, STATE_TIP);
+    var isKey = (String(o.label).match(/^Is [A-Z][a-z]+(?: [A-Z][a-z]+)?/) || [])[0];
+    if (isKey) tip(sw, IS_TIPS[isKey] || "Prop booleana do Figma que descreve um estado do componente.");
     return { el: sw, get checked(){ return sw.getAttribute("status") === "selected"; }, set checked(v){ CDS.attr(sw, "status", v ? "selected" : "unselected"); } };
   }
 
@@ -170,6 +188,7 @@
       el("span", { "class": "pg-nested__title", text: o.title }),
       el("cds-tag", { label: o.exposed ? "exposta" : "fixa", appearance: o.exposed ? "accent" : "neutral", "show-lead-item": "false" })
     ]);
+    lazyTip(head.lastChild, o.exposed ? "Exposta: no Figma, as props desta instância aparecem no componente pai." : "Fixa: no Figma, esta instância não pode ser trocada nem configurada por fora.");
     box.appendChild(head);
     if (o.note) box.appendChild(el("div", { "class": "pg-hint", html: o.note }));
     var picker = null, sel = 0;

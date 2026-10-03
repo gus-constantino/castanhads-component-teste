@@ -33,6 +33,13 @@
   CDS.docs = CDS.docs || {};
 
   // Tipo de propriedade do Figma → Appearance do Tag (como no .Prop-type da doc)
+  // Tooltip das etiquetas de tipo de prop (Variant, Boolean, Text, Swap component)
+  var PROP_TIP = {
+    "Variant": "Variante do Figma: troca a aparência ou o estado entre opções fixas.",
+    "Boolean": "Liga ou desliga uma parte do componente.",
+    "Text": "Texto editável do componente.",
+    "Swap component": "Troca o componente aninhado, como o ícone, por outro do DS."
+  };
   var PROP_TYPE = { "Swap component": "warning", "Variant": "informative", "Boolean": "positive", "Text": "accent" };
 
   function el(tag, cls, text){
@@ -86,7 +93,10 @@
     var marks = b.markers.map(function(m){
       var mk = el("span", "pg-doc-mark pg-doc-mark--" + m.side);
       mk.setAttribute("aria-hidden", "true");
-      mk.appendChild(el("span", "pg-doc-mark__n", String(m.n)));
+      var num = mk.appendChild(el("span", "pg-doc-mark__n", String(m.n)));
+      // Tooltip com o nome da parte (só mouse: o marcador é decorativo e a legenda abaixo já lista as partes)
+      var part = (b.legend || [])[m.n - 1];
+      if (part && window.CDS.kit) CDS.kit.lazyTip(num, String(part).replace(/`/g, ""), { focus: false, container: wrap }); // fora do marcador: o transform dele quebraria o position:fixed do Tooltip
       mk.appendChild(el("span", "pg-doc-mark__line"));
       stage.appendChild(mk);
       return { m: m, el: mk };
@@ -125,6 +135,7 @@
     function tag(type){
       var t = document.createElement("cds-tag");
       t.setAttribute("label", type); t.setAttribute("appearance", PROP_TYPE[type] || "neutral"); t.setAttribute("show-lead-item", "false");
+      if (window.CDS.kit && PROP_TIP[type]) CDS.kit.lazyTip(t, PROP_TIP[type], { label: type });
       return t;
     }
     items.forEach(function(p){

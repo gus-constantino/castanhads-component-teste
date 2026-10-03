@@ -73,6 +73,7 @@
   box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-accent-solid-medium);
   font:var(--text-style-caption-medium); color:var(--common-colors-text-accent);
 }
+.pg-doc-mark__n{ pointer-events:auto; cursor:help; } /* número recebe hover: Tooltip com o nome da parte */
 .pg-doc-mark__line{ display:block; width:var(--common-sizes-40); height:var(--common-border-width-hairline); background:var(--common-colors-accent-solid-medium); }
 .pg-doc-mark--right{ flex-direction:row-reverse; }
 .pg-doc-mark--bottom{ flex-direction:column-reverse; transform:translateX(-50%); }

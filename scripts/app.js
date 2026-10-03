@@ -19,7 +19,14 @@
   var PAGES = ["Actions","Banner","Breadcrumbs","Buttons","Caju Card","Containers","Content","Datepicker","Dividers","Feedback","File Upload","Fixed Bar","Flags","Images","Lists","Loaders","Navigation","Pagination","Popovers","Progress Indicators","Rating Score","Selection Controls","Slider","Status","Tabs","Tab View","Tables","Text Fields","Tooltips","Utilities"];
   var blocksOpen = false;
   function link(c){
-    return kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.task || "" })])]);
+    var a = kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.task || "" })]);
+    // Tooltip só quando há algo a explicar: task do Jira, [Beta], componente em branch do Figma
+    var notes = [];
+    if (c.task) notes.push("Task no Jira: " + c.task + ".");
+    if (/\[Beta\]/.test(c.name)) notes.push("Em beta no Figma: props e visual ainda podem mudar.");
+    if (/\/branch\//.test(c.figma || "")) notes.push("O link do Figma abre uma branch, não a main.");
+    if (notes.length) kit.lazyTip(a, notes.join(" "), { label: c.name.replace(/^\[Beta\] /, "") });
+    return kit.el("li", null, [a]);
   }
   // Categoria = Accordion Item do DS (Label = categoria, Description = quantidade, sem Lead Item) — Fase 3 do plano UI no DS
   var narrow = window.matchMedia("(max-width:1100px)"); // menu vira faixa horizontal: tudo aberto, sem cabeçalho
@@ -236,6 +243,8 @@
     paintTheme();
   });
 
+  kit.tip(navResTitle, "Bibliotecas de apoio do DS: ícones, ilustrações e tema. Não são componentes.", { text: true });
+  kit.tip($("vp-frame-lbl"), "Largura atual do frame. \"Fluido\" acompanha o espaço disponível, até 600 px.", { text: true });
   kit.tip($("rval-lbl"), "O que o componente acabou de emitir: valor, seleção ou abertura. Atualiza a cada interação.", { text: true });
   paintTheme(); buildNav(); setViewport("fluid"); onRoute();
 })();

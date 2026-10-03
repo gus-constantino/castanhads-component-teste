@@ -167,6 +167,9 @@
       var pl = row.appendChild(el("cds-progress-line", "rp-bar__line" + (opts && opts.tone ? " is-" + opts.tone : "")));
       pl.setAttribute("percent", String(Math.round(d.value / max * 1000) / 10)); pl.setAttribute("aria-hidden", "true");
       row.appendChild(el("span", "rp-bar__value", String(d.value)));
+      // Tooltip da linha: valor e % do total; nos débitos, o que entra naquele tipo (1ª frase da seção no Conferir)
+      var total = (opts && opts.total) || data.reduce(function(a, x){ return a + x.value; }, 0); // total real (o painel pode mostrar só as maiores)
+      if (CDS.kit) CDS.kit.lazyTip(row, d.value + " de " + total + " (" + Math.round(d.value / (total || 1) * 100) + "%)" + (d.desc ? ". " + d.desc : "") + (d.href ? " Clique para ver os itens." : ""), { label: d.label });
     });
   }
   function overview(){
@@ -177,7 +180,10 @@
     var open = conf.sections.filter(function(s){ return TYPES.indexOf(s.title) !== -1; });
     var total = open.reduce(function(a, s){ return a + items(s.lines).length; }, 0);
     var p2 = panel(grid, "Débitos e melhorias mapeados", total + " em aberto, por tipo de ajuste", "rp-panel--wide");
-    bars(p2, open.map(function(s){ return { label: s.title, value: items(s.lines).length, href: "#/relatorio/conferir/" + slug(s.title) }; })
+    bars(p2, open.map(function(s){
+      var desc = (s.lines.filter(function(l){ return l.trim() && !/^\|/.test(l); })[0] || "").replace(/\*\*|`/g, "").trim();
+      return { label: s.title, value: items(s.lines).length, href: "#/relatorio/conferir/" + slug(s.title), desc: desc };
+    })
       .sort(function(a, b){ return b.value - a.value; }));
 
     // Como o código tratou
@@ -202,7 +208,7 @@
     var p4 = panel(grid, "Componentes por página do Figma", pg.length + " componentes em " + Object.keys(cats).length + " páginas");
     var cl = Object.keys(cats).map(function(k){ return { label: k, value: cats[k] }; }).sort(function(a, b){ return b.value - a.value || a.label.localeCompare(b.label, "pt-BR"); });
     var rest = cl.length > 8 ? cl.splice(8) : []; // painel curto: as 8 maiores; o resto vira uma linha de texto
-    bars(p4, cl, { tone: "components" });
+    bars(p4, cl, { tone: "components", total: pg.length });
     if (rest.length) p4.appendChild(el("p", "rp-panel__foot", "+ " + rest.length + " páginas com até " + rest[0].value + " componente(s): " + esc(rest.map(function(d){ return d.label; }).join(", "))));
 
     // Últimas decisões

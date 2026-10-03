@@ -4,7 +4,7 @@
  * 48×48 · raio medium. Appearance=Image: miniatura (Image 1:1) · File: Shaped Icon Neutral Medium (attachment).
  * Kind=View file: botão; Hovered/Pressed põem um overlay Surface/inversed (Opacity/intense · semi-opaque) com o ícone
  * hide-line (Inversed, Large), como no Figma (C63). Kind=Static: só a miniatura.
- * Atributos: kind (static|view-file · padrão view-file) · appearance (image|file · padrão image) · src · alt · label ("Ver arquivo")
+ * Atributos: kind (static|view-file · padrão view-file) · appearance (image|file · padrão file, como no Figma — check de props 03/10) · src · alt · label ("Ver arquivo")
  * Evento: cds-view (clique no View file)
  */
 (function(){
@@ -12,7 +12,7 @@
   class CdsFileLeadItem extends CDS.Element {
     static get observedAttributes(){ return ["kind","appearance","src","alt","label"]; }
     render(){
-      var self = this, view = this.getAttribute("kind") !== "static", img = this.getAttribute("appearance") !== "file";
+      var self = this, view = this.getAttribute("kind") !== "static", img = this.getAttribute("appearance") === "image";
       var key = (view ? "v" : "s") + (img ? "i" : "f");
       if (this._key !== key){
         this._key = key; this.innerHTML = "";

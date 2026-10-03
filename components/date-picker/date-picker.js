@@ -12,6 +12,7 @@
  *   value (single: AAAA-MM-DD) · start / end (range: AAAA-MM-DD) · month (AAAA-MM do 1º mês exibido; sem ele, o da seleção ou o atual)
  *   min / max (AAAA-MM-DD) · today (AAAA-MM-DD, para testes; padrão: hoje)
  *   selected-date-label ("Data Selecionada") · show-selected-dates (padrão ligado; só aparece com seleção)
+ *   show-first-day-selected · show-last-day-selected (padrão ligados — Show First/Last Day Selected do Figma)
  *   label (nome da grade · "Calendário")
  * Teclado (grade do WAI-ARIA): setas ±1 dia / ±1 semana · Home/End início/fim da semana · PageUp/PageDown ±1 mês
  *   (Shift: ±1 ano) · Enter/Espaço seleciona.
@@ -34,7 +35,7 @@
 
   var uid = 0;
   class CdsDatePicker extends CDS.Element {
-    static get observedAttributes(){ return ["kind","view","mode","value","start","end","month","min","max","today","selected-date-label","show-selected-dates","label"]; }
+    static get observedAttributes(){ return ["kind","view","mode","value","start","end","month","min","max","today","selected-date-label","show-selected-dates","show-first-day-selected","show-last-day-selected","label"]; }
     constructor(){ super(); this._id = "cds-dp-" + (++uid); }
     get kind(){ return this.getAttribute("kind") === "double" ? "double" : "single"; }
     get view(){ var v = this.getAttribute("view"); return v === "month" || v === "year" ? v : "days"; }
@@ -146,7 +147,8 @@
       this.selEl.hidden = !show;
       this.selLabel.textContent = this.text("selected-date-label", "Data Selecionada");
       this.selFirst.textContent = s ? br(s) : "";
-      this.selLast.hidden = !(e && !same(e, s));
+      this.selFirst.hidden = !this.flag("show-first-day-selected");
+      this.selLast.hidden = !(e && !same(e, s)) || !this.flag("show-last-day-selected");
       this.selLast.innerHTML = ""; if (e){ this.selLast.appendChild(CDS.create("span")).textContent = "até"; this.selLast.appendChild(CDS.create("span", null, "cds-dp__sel-date")).textContent = br(e); }
     }
 

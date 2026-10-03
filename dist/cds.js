@@ -1867,6 +1867,7 @@ try {
  *   value (single: AAAA-MM-DD) · start / end (range: AAAA-MM-DD) · month (AAAA-MM do 1º mês exibido; sem ele, o da seleção ou o atual)
  *   min / max (AAAA-MM-DD) · today (AAAA-MM-DD, para testes; padrão: hoje)
  *   selected-date-label ("Data Selecionada") · show-selected-dates (padrão ligado; só aparece com seleção)
+ *   show-first-day-selected · show-last-day-selected (padrão ligados — Show First/Last Day Selected do Figma)
  *   label (nome da grade · "Calendário")
  * Teclado (grade do WAI-ARIA): setas ±1 dia / ±1 semana · Home/End início/fim da semana · PageUp/PageDown ±1 mês
  *   (Shift: ±1 ano) · Enter/Espaço seleciona.
@@ -1889,7 +1890,7 @@ try {
 
   var uid = 0;
   class CdsDatePicker extends CDS.Element {
-    static get observedAttributes(){ return ["kind","view","mode","value","start","end","month","min","max","today","selected-date-label","show-selected-dates","label"]; }
+    static get observedAttributes(){ return ["kind","view","mode","value","start","end","month","min","max","today","selected-date-label","show-selected-dates","show-first-day-selected","show-last-day-selected","label"]; }
     constructor(){ super(); this._id = "cds-dp-" + (++uid); }
     get kind(){ return this.getAttribute("kind") === "double" ? "double" : "single"; }
     get view(){ var v = this.getAttribute("view"); return v === "month" || v === "year" ? v : "days"; }
@@ -2001,7 +2002,8 @@ try {
       this.selEl.hidden = !show;
       this.selLabel.textContent = this.text("selected-date-label", "Data Selecionada");
       this.selFirst.textContent = s ? br(s) : "";
-      this.selLast.hidden = !(e && !same(e, s));
+      this.selFirst.hidden = !this.flag("show-first-day-selected");
+      this.selLast.hidden = !(e && !same(e, s)) || !this.flag("show-last-day-selected");
       this.selLast.innerHTML = ""; if (e){ this.selLast.appendChild(CDS.create("span")).textContent = "até"; this.selLast.appendChild(CDS.create("span", null, "cds-dp__sel-date")).textContent = br(e); }
     }
 
@@ -2057,6 +2059,7 @@ CDS.register({
     kit.seg(panel, { label: "Seleção", value: "range", options: [["range","Intervalo"],["single","Data única"]], hint: "No Figma a seleção é texto (First/Last Day Selected); aqui vem do clique.", onChange: function(v){ kit.attr(p, "mode", v === "range" ? null : v); if (v === "single"){ p.setAttribute("value", "2026-01-13"); } } });
     kit.section(panel, "Booleans");
     kit.toggle(panel, { label: "Show Selected Dates", checked: true, onChange: function(on){ kit.attr(p, "show-selected-dates", on ? null : "false"); } });
+    [["show-first-day-selected","Show First Day Selected"],["show-last-day-selected","Show Last Day Selected"]].forEach(function(b){ kit.toggle(panel, { label: b[1], checked: true, onChange: function(on){ kit.attr(p, b[0], on ? null : "false"); } }); });
     kit.section(panel, "Texts");
     kit.text(panel, { label: "Selected Date Label", value: "Data Selecionada", onInput: function(v){ p.setAttribute("selected-date-label", v); } });
     kit.text(panel, { label: "Mínimo (AAAA-MM-DD)", value: "", placeholder: "2026-01-05", onInput: function(v){ kit.attr(p, "min", v || null); } });
@@ -3260,7 +3263,7 @@ try {
  * 48×48 · raio medium. Appearance=Image: miniatura (Image 1:1) · File: Shaped Icon Neutral Medium (attachment).
  * Kind=View file: botão; Hovered/Pressed põem um overlay Surface/inversed (Opacity/intense · semi-opaque) com o ícone
  * hide-line (Inversed, Large), como no Figma (C63). Kind=Static: só a miniatura.
- * Atributos: kind (static|view-file · padrão view-file) · appearance (image|file · padrão image) · src · alt · label ("Ver arquivo")
+ * Atributos: kind (static|view-file · padrão view-file) · appearance (image|file · padrão file, como no Figma — check de props 03/10) · src · alt · label ("Ver arquivo")
  * Evento: cds-view (clique no View file)
  */
 (function(){
@@ -3268,7 +3271,7 @@ try {
   class CdsFileLeadItem extends CDS.Element {
     static get observedAttributes(){ return ["kind","appearance","src","alt","label"]; }
     render(){
-      var self = this, view = this.getAttribute("kind") !== "static", img = this.getAttribute("appearance") !== "file";
+      var self = this, view = this.getAttribute("kind") !== "static", img = this.getAttribute("appearance") === "image";
       var key = (view ? "v" : "s") + (img ? "i" : "f");
       if (this._key !== key){
         this._key = key; this.innerHTML = "";
@@ -3298,7 +3301,7 @@ CDS.register({
     kit.hint(panel, "Terceiro “.Lead item” da lib (C25). O ícone do hover é hide-line, como no Figma (C63).");
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Kind", value: "view-file", options: [["view-file","View file"],["static","Static"]], onChange: function(v){ kit.attr(p, "kind", v === "view-file" ? null : v); } });
-    kit.seg(panel, { label: "Appearance", value: "image", options: [["image","Image"],["file","File"]], onChange: function(v){ kit.attr(p, "appearance", v === "image" ? null : v); } });
+    kit.seg(panel, { label: "Appearance", value: "file", options: [["image","Image"],["file","File"]], onChange: function(v){ kit.attr(p, "appearance", v === "file" ? null : v); } });
     kit.seg(panel, { label: "State", value: "enabled", options: [["enabled","Enabled"],["hovered","Hovered"],["pressed","Pressed"]], onChange: function(v){ kit.attr(p, "state", v === "enabled" ? null : v); } });
   }
 });

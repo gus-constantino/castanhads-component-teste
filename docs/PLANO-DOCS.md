@@ -43,7 +43,7 @@ Referência do template original (3 tabs do zeroheight):
 
 | Fase | Escopo | Saída |
 |---|---|---|
-| D0 · Base | Novo formato no `docs-kit` (3 tabs + Playground), bloco de propriedades com Padrão, Acessibilidade e Motion; migrar Code Input OTP e Credit Card Input | 2 docs no formato novo |
+| D0 · Base | `docs-kit` nas 6 tabs com o conteúdo do template Juntos: bloco de propriedades com Padrão, Acessibilidade e Motion completos; atualizar Code Input OTP e Credit Card Input | 2 docs atualizadas |
 | D1 · Com página no zeroheight (47) | Importar o texto do zeroheight, validar props/defaults no Figma, completar o que falta (Acessibilidade, Padrão, Motion), registrar divergências | 47 docs + `diff zeroheight` no CONFERIR |
 | D2 · Sem página (29) | Escrever a partir do Figma (description, annotations, props) e do comportamento do playground, no template Juntos | 29 docs (rascunho para o zeroheight) |
 | D3 · Building blocks (26) | Doc curta: o que é, onde é usado, propriedades, acessibilidade | 26 docs |

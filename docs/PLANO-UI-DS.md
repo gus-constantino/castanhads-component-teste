@@ -74,4 +74,12 @@
 | 3c · Largura livre | ✅ 02/10 — seletor de viewport ganhou um Text Input (só números, 240–1920 px); a categoria Mobile/Tablet/Desktop segue as faixas da coleção Viewport (≤599 · ≤1023) |
 | 4 · Doc e recursos | ✅ 02/10 — galerias de ícones e ilustrações: categorias com Accordion Item (contagem na Description), "Abrir/Fechar todas" com Main Button, "Copiado" com Toast (rodapé, 3s); notas da doc com Alert Informative; `cards` e `specs` com Card (Has Border); "Fonte" com Link. Gap: C87 (tabela de conteúdo, Do/Don't, tile de galeria, lista de definição) |
 | 5 · Relatório | ✅ 02/10 — cards de número, painéis da Visão geral e seções das tabs com Card (Has Border; conteúdo montado antes de conectar); barras com Progress Line (ganhou `--cds-progress-color`/`--cds-progress-track`, padrão inalterado; decorativa, `aria-hidden`); contadores com Tag Neutral; "Ver no GitHub" e "Ver decisões" com Link; busca com Search Input. Rosca continua em CSS (sem componente de gráfico, C87) |
-| 6 · Fechamento | ⏳ |
+| 6 · Fechamento | ✅ 02/10 — `scripts/dev/audit-ui.js` (valores crus no CSS da casca, controles HTML à mão no JS, espaço/raio cru inline; testado plantando violações) sai limpo com 4 exceções explicadas; CSS morto removido (`pg-row`, `pg-text`, `rp-tag`); 9 telas conferidas sem custom element indefinido nem erro; gaps consolidados no CONFERIR (C83, C84, C85, C86, C87, C88) |
+
+## 5. Resultado
+
+- **Componentes do DS na casca:** Icon Button, Tooltip, Link, Switch, Text Input, Search Input, Filter Chips + Chips Group, Slider, Radio Select Input, Async Select Input, Main Button, Tag, Accordion Item, Scrollable Tab + Tab Item, Toast, Alert, Card, Progress Line.
+- **Tokens:** cor, tamanho, raio, borda, opacidade, text style, motion, elevation e grid (`Common/Grids/*`, novo) em todo o CSS da casca.
+- **Continua em HTML com tokens (sem componente no DS):** item de menu lateral (C88), tile de galeria, tabela de conteúdo, Do/Don't, lista de definição, gráficos (C87), escolha única visível (C85).
+- **Melhorias nos componentes que saíram do uso real:** Tooltip descreve o focável dentro de gatilhos compostos; Scrollable Tab (`--cds-tab-width`), Accordion (`--cds-accordion-width`) e Progress Line (`--cds-progress-color/-track`) aceitam largura/cor por variável sem mudar o padrão do Figma.
+- **Para manter:** rodar `node scripts/dev/audit-ui.js` antes de publicar mudanças na casca.

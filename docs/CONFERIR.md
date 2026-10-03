@@ -11,7 +11,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Ajuste de texto](#ajuste-de-texto) | 6 |
 | [Ajuste de UI](#ajuste-de-ui) | 24 |
 | [Motion](#motion) | 7 |
-| [Refactor](#refactor) | 18 |
+| [Refactor](#refactor) | 19 |
 | [Naming](#naming) | 10 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 3 |
@@ -98,6 +98,7 @@ Props, estrutura ou comportamento do componente (camada sem uso, prop sem efeito
 | C85 | Gaps de componente achados no painel do playground (Fase 2, `docs/PLANO-UI-DS.md`) | (1) Não há **segmented control** (escolha única com as opções visíveis). (2) Os **Select Inputs não têm grupos de opções** (seções na lista). (3) Filter Chips são toggles independentes: não há modo "escolha única" com semântica de rádio | Avaliar um Segmented Control e seções no Selection List / Select | Escolha única = Chips Group + Filter Chips, com o kit garantindo um selecionado (clicar no selecionado não desmarca); ícones e ilustrações no Async Select Input com a categoria no rótulo ("pix-line · Brands") e busca | Registrado; trocar quando o DS ganhar os componentes |
 | C86 | [Caju] Icons · dispositivos | Só existem `smartphone-line` e `fullscreen-line`; não há ícone de **tablet** nem de **desktop** | Ícones de tablet e desktop | Seletor de viewport do playground com Icon Button: 360 `smartphone-line` · 744 `placeholder-line` · 1366 `fullscreen-line` · Fluido `swap-left-right-line`, cada um com Tooltip da largura | **Chamado** que o Gustavo vai abrir (02/10); trocar os ícones em `scripts/app.js` quando chegarem |
 | C87 | Gaps de componente na documentação e no relatório (Fase 4, `docs/PLANO-UI-DS.md`) | Sem componente no DS para: **tabela de conteúdo** (texto, sem ordenação/seleção: a Table é de dados), **Do/Don't** (exemplo + legenda certo/errado), **tile de galeria** (ícone/ilustração clicável com nome) e **lista de definição** (rótulo/valor das fichas) e **gráficos** (rosca e barras de dados; as barras usam Progress Line, que é de progresso) | Avaliar Table em modo leitura e um bloco Do/Don't na lib de documentação | Continuam em HTML com tokens; o resto da doc já usa Accordion Item, Main Button, Toast, Alert, Card, Link e Search Input | Registrado; trocar quando existirem |
+| C88 | Gap de componente: **item de navegação lateral** (Fase 3 e 6, `docs/PLANO-UI-DS.md`) | O DS não tem item de menu lateral compacto (link com estado atual, contador opcional); Content List Item tem 44px+ e é de conteúdo, não de navegação | Item de navegação (Nav Item) com estados Enabled/Hovered/Current e `aria-current` | Categorias do menu em Accordion Item; os links dentro continuam `<a>` com tokens (Caption/Regular, raio extra-small, Surface/01 no hover e no atual) | Registrado (decisão 2 do plano); trocar quando existir |
 
 ## Naming
 

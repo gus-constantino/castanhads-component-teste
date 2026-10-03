@@ -113,14 +113,10 @@ a.rp-bar:focus-visible{ outline:var(--common-border-width-thin) solid var(--comm
 .rp-list__text{ font:var(--text-style-caption-regular); color:var(--common-colors-text-intense); }
 .rp-list__text strong{ font-weight:500; }
 .rp-list__note{ margin-top:var(--common-sizes-2) !important; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
-.rp-tag{ display:inline-block; margin-bottom:var(--common-sizes-4); padding:0 var(--common-sizes-8); border-radius:var(--common-border-radius-pill); font:var(--text-style-disclaimer-regular);
-  background:var(--common-colors-feedback-warning-soft); color:var(--common-colors-feedback-warning-intense); }
 .rp-list--cols{ columns:2; column-gap:var(--common-sizes-32); }
 .rp-list--cols li{ break-inside:avoid; }
 .rp-list--cols li:first-child{ padding-top:var(--common-sizes-12); }
 .rp-panel__foot{ margin:var(--common-sizes-12) 0 0; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
-.rp-list li.is-done .rp-list__text{ color:var(--common-colors-text-soft); }
-.rp-list li.is-done .rp-tag{ background:var(--common-colors-feedback-positive-soft); color:var(--common-colors-feedback-positive-intense); }
 .rp-more{ display:inline-block; margin-top:var(--common-sizes-12); } /* Link do DS */
 
 @media (max-width:1100px){

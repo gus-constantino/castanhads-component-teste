@@ -319,6 +319,7 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 02/10 | Primeira escrita no Figma (C79), com aprovação explícita e só na branch: trocar um trecho exato da description e conferir que o resto ficou igual. Regra continua: sem aprovação, Figma é só leitura |
 | 02/10 | Lentidão era o **primeiro carregamento**: ~250 arquivos separados e o navegador falando HTTP/1.1 com o Pages (6 conexões por vez). Trocar de componente já era instantâneo (3–21 ms). Concatenar resolveu sem precisar de build no navegador |
 | 02/10 | A armadilha "filho depois de conectar" vale para listas com amostra (Scrollable Tab, Accordion): se o container conecta vazio, desenha a amostra do Figma. Montar os filhos antes de `appendChild` no documento |
+| 02/10 | Usar o próprio DS na casca revelou três contratos implícitos: (1) classe de layout de quem usa não pode trocar o `display` do componente (Chips Group e Alert quebraram); (2) componente com Slot/amostra precisa receber os filhos antes de conectar; (3) componente com largura/cor de specimen precisa aceitar variável para uso real |
 
 ## 8. Status
 
@@ -343,4 +344,5 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 9c | ✅ 02/10 — Slider (Single/Range) · NPS Score (+ .Value Item) · CSAT Score (+ .CSAT Item) · Progress Tracker (+ Item) |
 | 9d | ✅ 02/10 — Caju Card (5 Kinds × Vertical/Horizontal × Frente/Verso × Is Blocked; 12 artes do Figma, dados como texto) |
 | — | ✅ 02/10 — Accordion + Accordion Item (página Lists, **branch** do Figma, D68): botão com `aria-expanded` + região, altura animada, Kind Default/Card, `exclusive` opcional |
+| — | ✅ 02/10 — **UI do playground no DS** (D69, 7 fases + ajustes): casca só com componentes do DS e tokens; auditoria `scripts/dev/audit-ui.js`; gaps C83–C88 |
 | — | ⏳ Recurso Animações (Q31) — no final |
